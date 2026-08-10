@@ -103,9 +103,9 @@ pub fn Cset::compare(t1 : Cset, t2 : Cset) -> Int {
 
 ///|
 pub fn Cset::union(l : Cset, r : Cset) -> Cset {
-  let result : Array[(Int, Int)] = []
   let li = l.intervals
   let ri = r.intervals
+  let result = Array::new(capacity=li.length() + ri.length())
   let mut i = 0
   let mut j = 0
   let mut li_over : (Int, Int)? = None
@@ -164,12 +164,18 @@ pub fn Cset::union(l : Cset, r : Cset) -> Cset {
 
 ///|
 pub fn Cset::inter(l : Cset, r : Cset) -> Cset {
-  let result : Array[(Int, Int)] = []
+  let li = l.intervals
+  let ri = r.intervals
+  let result = Array::new(capacity=if li.length() < ri.length() {
+    li.length()
+  } else {
+    ri.length()
+  })
   let mut i = 0
   let mut j = 0
-  while i < l.intervals.length() && j < r.intervals.length() {
-    let (c1, c2) = l.intervals[i]
-    let (c1p, c2p) = r.intervals[j]
+  while i < li.length() && j < ri.length() {
+    let (c1, c2) = li[i]
+    let (c1p, c2p) = ri[j]
     if c2 < c1p {
       i += 1
     } else if c2p < c1 {
@@ -187,9 +193,9 @@ pub fn Cset::inter(l : Cset, r : Cset) -> Cset {
 
 ///|
 pub fn Cset::diff(l : Cset, r : Cset) -> Cset {
-  let result : Array[(Int, Int)] = []
   let li = l.intervals
   let ri = r.intervals
+  let result = Array::new(capacity=li.length() + ri.length())
   let mut i = 0
   let mut j = 0
   let mut li_over : (Int, Int)? = None
@@ -295,21 +301,37 @@ pub fn Cset::offset(o : Int, l : Cset) -> Cset {
 }
 
 ///|
-pub fn Cset::union_all(ts : Array[Cset]) -> Cset {
-  let mut acc = Cset::empty()
-  for t in ts {
-    acc = Cset::union(acc, t)
+fn union_all_rec(ts : Array[Cset], lo : Int, hi : Int) -> Cset {
+  if lo >= hi {
+    return Cset::empty()
   }
-  acc
+  if lo + 1 == hi {
+    return ts[lo]
+  }
+  let mid = (lo + hi) / 2
+  Cset::union(union_all_rec(ts, lo, mid), union_all_rec(ts, mid, hi))
+}
+
+///|
+pub fn Cset::union_all(ts : Array[Cset]) -> Cset {
+  union_all_rec(ts, 0, ts.length())
+}
+
+///|
+fn intersect_all_rec(ts : Array[Cset], lo : Int, hi : Int) -> Cset {
+  if lo >= hi {
+    return Cset::cany()
+  }
+  if lo + 1 == hi {
+    return ts[lo]
+  }
+  let mid = (lo + hi) / 2
+  Cset::inter(intersect_all_rec(ts, lo, mid), intersect_all_rec(ts, mid, hi))
 }
 
 ///|
 pub fn Cset::intersect_all(ts : Array[Cset]) -> Cset {
-  let mut acc = Cset::cany()
-  for t in ts {
-    acc = Cset::inter(acc, t)
-  }
-  acc
+  intersect_all_rec(ts, 0, ts.length())
 }
 
 ///|
