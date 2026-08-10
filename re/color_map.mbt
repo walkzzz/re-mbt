@@ -133,19 +133,6 @@ pub fn ColorRepr::length(t : ColorRepr) -> Int {
 // --- flatten ---
 
 ///|
-fn array_int_eq(a : Array[Int], b : Array[Int]) -> Bool {
-  if a.length() != b.length() {
-    return false
-  }
-  for i in 0..<a.length() {
-    if a[i] != b[i] {
-      return false
-    }
-  }
-  true
-}
-
-///|
 pub fn ColorMap::flatten(
   self : ColorMap,
 ) -> (ColorTable, BoundaryTable, ColorRepr) {
@@ -154,38 +141,39 @@ pub fn ColorMap::flatten(
   let table_arr = Array::make(256, (0).to_byte())
   let repr_arr = Array::make(256, (0).to_byte())
   let mut num_colors = 0
-  let unique_lists : Array[Array[Int]] = []
+  // M1: 预分配 ids 缓冲，循环内 clear 后复用，消除 256 次 Array 分配
+  let ids_buf : Array[Int] = []
+  // A1 + D3: HashMap 按 ids 内容去重，key = ids 副本，value = color_id
+  // 消除 O(256 × |unique| × |ids|) 线性查找 → O(256 × |ids|)
+  let color_map : @hashmap.HashMap[Array[Int], Int] = @hashmap.HashMap::HashMap([])
   let mut last_version = 0
-  let mut prev_ids : Array[Int] = []
   for i in 0..<256 {
-    let ids : Array[Int] = []
     if bt.data[i] == (0).to_byte() {
+      ids_buf.clear()
       for csetid in 0..<csets.length() {
         if Cset::mem(i, csets[csetid]) {
-          ids.push(csetid + 1)
+          ids_buf.push(csetid + 1)
         }
       }
-      prev_ids = ids
-      let mut found = -1
-      for j in 0..<unique_lists.length() {
-        if found < 0 && array_int_eq(ids, unique_lists[j]) {
-          found = j
+      // A1: 哈希查找 color_id
+      let v = match color_map.get(ids_buf) {
+        Some(id) => id
+        None => {
+          // 未命中：深拷贝 ids_buf 作为 key 存入 map（仅命中新 color 时分配一次）
+          let key = Array::make(ids_buf.length(), 0)
+          for k in 0..<ids_buf.length() {
+            key[k] = ids_buf[k]
+          }
+          let id = num_colors
+          color_map[key] = id
+          num_colors += 1
+          id
         }
-      }
-      let v = if found >= 0 {
-        found
-      } else {
-        unique_lists.push(ids)
-        num_colors += 1
-        num_colors - 1
       }
       table_arr[i] = v.to_byte()
       repr_arr[v] = i.to_byte()
       last_version = v
     } else {
-      for x in prev_ids {
-        ids.push(x)
-      }
       table_arr[i] = last_version.to_byte()
       repr_arr[last_version] = i.to_byte()
     }

@@ -3293,6 +3293,11 @@
       "mbt-md-files": {},
       "deps": [
         {
+          "path": "moonbitlang/core/hashmap",
+          "alias": "hashmap",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\hashmap"
+        },
+        {
           "path": "moonbitlang/core/prelude",
           "alias": "prelude",
           "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
@@ -3357,6 +3362,8 @@
         "library",
         "-std-path",
         "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle",
+        "-i",
+        "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle\\hashmap\\hashmap.mi:hashmap",
         "-i",
         "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle\\prelude\\prelude.mi:prelude",
         "-pkg-sources",
@@ -3455,6 +3462,8 @@
         "library",
         "-std-path",
         "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle",
+        "-i",
+        "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle\\hashmap\\hashmap.mi:hashmap",
         "-i",
         "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle\\prelude\\prelude.mi:prelude",
         "-i",
