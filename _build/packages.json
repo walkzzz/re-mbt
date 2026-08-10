@@ -1,0 +1,3487 @@
+{
+  "source_dir": "D:\\CodeWorkspace\\forMoonbit\\re-mbt",
+  "name": "re-mbt",
+  "packages": [
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\codec\\base64",
+      "root": "moonbitlang/x",
+      "rel": "codec/base64",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\codec\\base64\\base64.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\codec\\base64\\base64_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\codec\\base64\\base64.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto",
+      "root": "moonbitlang/x",
+      "rel": "crypto",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\byte_source.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\chacha.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\chacha_simd.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\hmac.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\md5.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sha1.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sha224.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sha256.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\simd.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sm3.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\traits.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\utils.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\chacha_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\crypto_bench_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\hmac_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\md5_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sha1_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sha224_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sha256_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\sm3_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\crypto\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/bench",
+          "alias": "bench",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\bench"
+        },
+        {
+          "path": "moonbitlang/core/cmp",
+          "alias": "cmp",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\cmp"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/v128",
+          "alias": "v128",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\v128"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        },
+        {
+          "path": "moonbitlang/x/encoding",
+          "alias": "encoding",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\crypto\\crypto.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\decimal",
+      "root": "moonbitlang/x",
+      "rel": "decimal",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\decimal\\decimal.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\decimal\\decimal_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/bigint",
+          "alias": "bigint",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\bigint"
+        },
+        {
+          "path": "moonbitlang/core/json",
+          "alias": "json",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\json"
+        },
+        {
+          "path": "moonbitlang/core/math",
+          "alias": "math",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\math"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/quickcheck",
+          "alias": "quickcheck",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\quickcheck"
+        },
+        {
+          "path": "moonbitlang/core/string",
+          "alias": "string",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\string"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\decimal\\decimal.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding",
+      "root": "moonbitlang/x",
+      "rel": "encoding",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\decoding.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\encoding.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\decoding_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\encoding_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/buffer",
+          "alias": "buffer",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\buffer"
+        },
+        {
+          "path": "moonbitlang/core/cmp",
+          "alias": "cmp",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\cmp"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\encoding\\encoding.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark",
+      "root": "moonbitlang/x",
+      "rel": "encoding/internal/benchmark",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\lib.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/buffer",
+          "alias": "buffer",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\buffer"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/random",
+          "alias": "random",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\random"
+        },
+        {
+          "path": "moonbitlang/x/encoding",
+          "alias": "encoding",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\benchmark.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": true,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\decoding_batch",
+      "root": "moonbitlang/x",
+      "rel": "encoding/internal/benchmark/decoding_batch",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\decoding_batch\\main.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/env",
+          "alias": "env",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\env"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/x/encoding",
+          "alias": "encoding",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding"
+        },
+        {
+          "path": "moonbitlang/x/encoding/internal/benchmark",
+          "alias": "bench",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\decoding_batch\\decoding_batch.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": true,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\decoding_streaming",
+      "root": "moonbitlang/x",
+      "rel": "encoding/internal/benchmark/decoding_streaming",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\decoding_streaming\\main.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/env",
+          "alias": "env",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\env"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/x/encoding",
+          "alias": "encoding",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding"
+        },
+        {
+          "path": "moonbitlang/x/encoding/internal/benchmark",
+          "alias": "bench",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\encoding\\internal\\benchmark\\decoding_streaming\\decoding_streaming.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\fs",
+      "root": "moonbitlang/x",
+      "rel": "fs",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\fs\\fs.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\fs\\fs_js.mbt": {
+          "backend": [
+            "Js"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\fs\\fs_native.mbt": {
+          "backend": [
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\fs\\fs_wasm.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\fs\\blackbox_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/x/internal/ffi",
+          "alias": "ffi",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\internal\\ffi"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/x/encoding",
+          "alias": "encoding",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\encoding"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\fs\\fs.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\internal\\ffi",
+      "root": "moonbitlang/x",
+      "rel": "internal/ffi",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\internal\\ffi\\byte_array_wasm.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\internal\\ffi\\dir_wasm.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\internal\\ffi\\string_convert.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\internal\\ffi\\string_wasm.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\internal\\ffi\\ffi.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5",
+      "root": "moonbitlang/x",
+      "rel": "json5",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\internal_types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\lex_main.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\lex_misc.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\lex_number.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\lex_prop.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\lex_string.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\parse.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\unicode_gen.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\util.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\parse_error_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\parse_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\json5\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/debug",
+          "alias": "debug",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\debug"
+        },
+        {
+          "path": "moonbitlang/core/double",
+          "alias": "double",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\double"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/string",
+          "alias": "string",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\string"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\json5\\json5.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\num",
+      "root": "moonbitlang/x",
+      "rel": "num",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\num\\num.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\num\\num.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path",
+      "root": "moonbitlang/x",
+      "rel": "path",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\path.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\path_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/x/path/internal/ffi",
+          "alias": "ffi",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\internal\\ffi"
+        },
+        {
+          "path": "moonbitlang/x/path/posix",
+          "alias": "posix",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix"
+        },
+        {
+          "path": "moonbitlang/x/path/win32",
+          "alias": "win32",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\path\\path.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\internal\\ffi",
+      "root": "moonbitlang/x",
+      "rel": "path/internal/ffi",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\internal\\ffi\\is_windows.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\internal\\ffi\\is_windows_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/env",
+          "alias": "env",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\env"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\path\\internal\\ffi\\ffi.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix",
+      "root": "moonbitlang/x",
+      "rel": "path/posix",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix\\path.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix\\unix_path.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix\\unix_path_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix\\path_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\posix\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/env",
+          "alias": "env",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\env"
+        },
+        {
+          "path": "moonbitlang/core/json",
+          "alias": "json",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\json"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\path\\posix\\posix.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32",
+      "root": "moonbitlang/x",
+      "rel": "path/win32",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32\\path.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32\\win_path.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32\\win_path_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32\\path_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\path\\win32\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/cmp",
+          "alias": "cmp",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\cmp"
+        },
+        {
+          "path": "moonbitlang/core/env",
+          "alias": "env",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\env"
+        },
+        {
+          "path": "moonbitlang/core/json",
+          "alias": "json",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\json"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\path\\win32\\win32.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\rational",
+      "root": "moonbitlang/x",
+      "rel": "rational",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\rational\\rational.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\rational\\types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\rational\\rational_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\rational\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/debug",
+          "alias": "debug",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\debug"
+        },
+        {
+          "path": "moonbitlang/core/int64",
+          "alias": "int64",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\int64"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/quickcheck",
+          "alias": "quickcheck",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\quickcheck"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/debug",
+          "alias": "debug",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\debug"
+        },
+        {
+          "path": "moonbitlang/core/double",
+          "alias": "double",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\double"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/quickcheck",
+          "alias": "quickcheck",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\quickcheck"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\rational\\rational.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\stack",
+      "root": "moonbitlang/x",
+      "rel": "stack",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\stack\\deprecated.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\stack\\stack.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\stack\\types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\stack\\stack_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\stack\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/list",
+          "alias": "list",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\list"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\stack\\stack.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys",
+      "root": "moonbitlang/x",
+      "rel": "sys",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys\\sys.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/env",
+          "alias": "env",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\env"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/x/sys/internal/ffi",
+          "alias": "ffi",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys\\internal\\ffi"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\sys\\sys.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys\\internal\\ffi",
+      "root": "moonbitlang/x",
+      "rel": "sys/internal/ffi",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys\\internal\\ffi\\sys_js.mbt": {
+          "backend": [
+            "Js"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys\\internal\\ffi\\sys_native.mbt": {
+          "backend": [
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\sys\\internal\\ffi\\sys_wasm.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\sys\\internal\\ffi\\ffi.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time",
+      "root": "moonbitlang/x",
+      "rel": "time",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\duration.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\errors.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\period.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_date.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_date_time.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_time.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\util.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\weekday.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zone.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zone_offset.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zoned_date_time.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\duration_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_date_time_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_date_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_time_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zone_wbtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\debug_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\duration_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\period_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_date_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_date_time_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\plain_time_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zone_offset_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zone_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\zoned_date_time_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\time\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/int",
+          "alias": "int",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\int"
+        },
+        {
+          "path": "moonbitlang/core/int64",
+          "alias": "int64",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\int64"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/string",
+          "alias": "string",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\string"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/debug",
+          "alias": "debug",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\debug"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\time\\time.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\uuid",
+      "root": "moonbitlang/x",
+      "rel": "uuid",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\uuid\\ops.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\uuid\\uuid.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\uuid\\variant.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\uuid\\uuid_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\.mooncakes\\moonbitlang\\x\\uuid\\README.mbt.md": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "moonbitlang/core/test",
+          "alias": "test",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\test"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\.mooncakes\\moonbitlang\\x\\uuid\\uuid.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    },
+    {
+      "is-main": true,
+      "is-third-party": false,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\bench\\main",
+      "root": "re-mbt",
+      "rel": "bench/main",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\bench\\main\\main.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        },
+        {
+          "path": "re-mbt/re",
+          "alias": "re",
+          "fspath": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\bench\\main\\main.mi",
+      "check-command": null,
+      "wbtest-check-command": null,
+      "test-check-command": null,
+      "supported-targets": [
+        "Native"
+      ]
+    },
+    {
+      "is-main": false,
+      "is-third-party": false,
+      "root-path": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re",
+      "root": "re-mbt",
+      "rel": "re",
+      "files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\ast.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_desc.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_expr.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_state.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\bit_vector.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\category.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\color_map.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile_translate.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\core.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\cset.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\dense_map.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\dyn.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\emacs.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\fmt.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\glob.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\group.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\hash_set.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\mark_infos.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\parse_buffer.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\pcre.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\perl.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\pmark.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\posix.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\posix_class.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\replace.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\search.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\slice.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\str.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\util.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\view.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\ast_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\basics_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\color_map_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\core_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\coverage_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\frontend_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\view_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "C:\\Users\\Administrator\\.moon\\lib\\core\\prelude"
+        }
+      ],
+      "artifact": "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\re\\re.mi",
+      "check-command": [
+        "check",
+        "-error-format",
+        "json",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\ast.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_desc.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_expr.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_state.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\bit_vector.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\category.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\color_map.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile_translate.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\core.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\cset.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\dense_map.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\dyn.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\emacs.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\fmt.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\glob.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\group.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\hash_set.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\mark_infos.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\parse_buffer.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\pcre.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\perl.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\pmark.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\posix.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\posix_class.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\replace.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\search.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\slice.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\str.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\util.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\view.mbt",
+        "-o",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\re\\re.mi",
+        "-pkg",
+        "re-mbt/re",
+        "-pkg-type",
+        "library",
+        "-std-path",
+        "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle",
+        "-i",
+        "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle\\prelude\\prelude.mi:prelude",
+        "-pkg-sources",
+        "re-mbt/re:D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re",
+        "-target",
+        "wasm-gc",
+        "-workspace-path",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt",
+        "-all-pkgs",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\all_pkgs.json"
+      ],
+      "wbtest-check-command": null,
+      "test-check-command": [
+        "check",
+        "-error-format",
+        "json",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\ast_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\basics_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\color_map_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\core_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\coverage_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\frontend_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\view_test.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\ast.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_desc.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_expr.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\automata_state.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\bit_vector.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\category.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\color_map.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile_translate.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\core.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\cset.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\dense_map.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\dyn.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\emacs.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\fmt.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\glob.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\group.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\hash_set.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\mark_infos.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\parse_buffer.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\pcre.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\perl.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\pmark.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\posix.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\posix_class.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\replace.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\search.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\slice.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\str.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\util.mbt",
+        "-doctest-only",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\view.mbt",
+        "-include-doctests",
+        "-o",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\re\\re.blackbox_test.mi",
+        "-pkg",
+        "re-mbt/re_blackbox_test",
+        "-pkg-type",
+        "library",
+        "-std-path",
+        "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle",
+        "-i",
+        "C:\\Users\\Administrator\\.moon\\lib\\core\\_build\\wasm-gc\\release\\bundle\\prelude\\prelude.mi:prelude",
+        "-i",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\re\\re.mi:re",
+        "-pkg-sources",
+        "re-mbt/re_blackbox_test:D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re",
+        "-target",
+        "wasm-gc",
+        "-blackbox-test",
+        "-workspace-path",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt",
+        "-all-pkgs",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\_build\\wasm-gc\\debug\\check\\all_pkgs.json"
+      ],
+      "supported-targets": [
+        "Wasm",
+        "WasmGC",
+        "Js",
+        "Native",
+        "LLVM"
+      ]
+    }
+  ],
+  "deps": [
+    "moonbitlang/x"
+  ],
+  "backend": "wasm-gc",
+  "opt_level": "debug",
+  "source": null
+}

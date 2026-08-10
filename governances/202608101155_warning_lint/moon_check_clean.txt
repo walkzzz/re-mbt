@@ -1,0 +1,1252 @@
+Warning: [0071]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:5:23 ]
+    ? 5  ?    Set(CsetOf(c)) => @test.assert_eq(c.intervals, [(97, 97)])
+    ?                       € € € € € € € 攢 € € € € € €  
+    ?                               € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € Warning: [0071]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:6:10 ]
+    ? 6  ?    _ => @test.assert_eq(true, false)
+    ?          € € € € € € € 攢 € € € € € €  
+    ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:14:21 ]
+     ? 14  ?    Sequence(xs) => @test.assert_eq(xs.length(), 2)
+     ?                     € € € € € € € 攢 € € € € € €  
+     ?                             € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:15:10 ]
+     ? 15  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:23:23 ]
+     ? 23  ?    Set(CsetOf(c)) => @test.assert_eq(c.intervals, [(0, 255)])
+     ?                       € € € € € € € 攢 € € € € € €  
+     ?                               € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:24:10 ]
+     ? 24  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:32:33 ]
+     ? 32  ?    AstNode(Alternative(xs)) => @test.assert_eq(xs.length(), 0)
+     ?                                 € € € € € € € 攢 € € € € € €  
+     ?                                         € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:33:10 ]
+     ? 33  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:41:3 ]
+     ? 41  ?  @test.assert_eq(a == r, true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:48:33 ]
+     ? 48  ?    AstNode(Alternative(xs)) => @test.assert_eq(xs.length(), 0)
+     ?                                 € € € € € € € 攢 € € € € € €  
+     ?                                         € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:49:10 ]
+     ? 49  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:57:33 ]
+     ? 57  ?    AstNode(Alternative(xs)) => @test.assert_eq(xs.length(), 2)
+     ?                                 € € € € € € € 攢 € € € € € €  
+     ?                                         € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:58:10 ]
+     ? 58  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:66:21 ]
+     ? 66  ?    Sequence(xs) => @test.assert_eq(xs.length(), 0)
+     ?                     € € € € € € € 攢 € € € € € €  
+     ?                             € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:67:10 ]
+     ? 67  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:75:27 ]
+     ? 75  ?    Repeat(_, 0, None) => @test.assert_eq(true, true)
+     ?                           € € € € € € € 攢 € € € € € €  
+     ?                                   € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:76:10 ]
+     ? 76  ?    _ => @test.assert_eq(true, false)
+     ?          € € € € € € € 攢 € € € € € €  
+     ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:84:3 ]
+     ? 84  ?  @test.assert_eq(a == r, true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:89:3 ]
+     ? 89  ?  @test.assert_eq(Ast::anchored(Ast::bos()), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:94:3 ]
+     ? 94  ?  @test.assert_eq(Ast::anchored(Ast::start()), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:99:3 ]
+     ? 99  ?  @test.assert_eq(Ast::anchored(Ast::char('a')), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:105:3 ]
+      ? 105  ?  @test.assert_eq(Ast::anchored(r), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:111:3 ]
+      ? 111  ?  @test.assert_eq(Ast::anchored(r), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:117:3 ]
+      ? 117  ?  @test.assert_eq(Ast::anchored(r), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:123:3 ]
+      ? 123  ?  @test.assert_eq(Ast::anchored(r), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:131:15 ]
+      ? 131  ?    Set(c) => @test.assert_eq(c.intervals, [(97, 97)])
+      ?               € € € € € € € 攢 € € € € € €  
+      ?                       € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:132:10 ]
+      ? 132  ?    _ => @test.assert_eq(true, false)
+      ?          € € € € € € € 攢 € € € € € €  
+      ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:141:27 ]
+      ? 141  ?    Set(Cast(Case(_))) => @test.assert_eq(true, true)
+      ?                           € € € € € € € 攢 € € € € € €  
+      ?                                   € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:142:10 ]
+      ? 142  ?    _ => @test.assert_eq(true, false)
+      ?          € € € € € € € 攢 € € € € € €  
+      ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:151:29 ]
+      ? 151  ?    Set(Cast(NoCase(_))) => @test.assert_eq(true, true)
+      ?                             € € € € € € € 攢 € € € € € €  
+      ?                                     € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:152:10 ]
+      ? 152  ?    _ => @test.assert_eq(true, false)
+      ?          € € € € € € € 攢 € € € € € €  
+      ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:160:20 ]
+      ? 160  ?    Pmark(p, _) => @test.assert_eq(Pmark::equal(pm, p), true)
+      ?                    € € € € € € € 攢 € € € € € €  
+      ?                            € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:161:10 ]
+      ? 161  ?    _ => @test.assert_eq(true, false)
+      ?          € € € € € € € 攢 € € € € € €  
+      ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:169:3 ]
+      ? 169  ?  @test.assert_eq(a == r, true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:176:21 ]
+      ? 176  ?    Sequence(xs) => @test.assert_eq(xs.length(), 2)
+      ?                     € € € € € € € 攢 € € € € € €  
+      ?                             € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\ast_test.mbt:177:10 ]
+      ? 177  ?    _ => @test.assert_eq(true, false)
+      ?          € € € € € € € 攢 € € € € € €  
+      ?                  € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0009]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata.mbt:96:12 ]
+     ? 96  ?pub struct Mark {}
+     ?            € € 攢  
+     ?               € € Warning (struct_never_constructed): The struct Mark is never constructed
+ € € € € Warning: [0009]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata.mbt:145:12 ]
+      ? 145  ?pub struct Idx {}
+      ?            € 攢  
+      ?              € € Warning (struct_never_constructed): The struct Idx is never constructed
+ € € € € € Warning: [0009]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_desc.mbt:125:12 ]
+      ? 125  ?pub struct Desc {}
+      ?            € € 攢  
+      ?               € € Warning (struct_never_constructed): The struct Desc is never constructed
+ € € € € € Warning: [0004]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:7:6 ]
+    ? 7  ?enum Ctx {
+    ?      € 攢  
+    ?        € € Warning (missing_priv): The type 'Ctx' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:16:3 ]
+     ? 16  ?  pub idx : Int // Idx.t
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field idx is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:17:3 ]
+     ? 17  ?  pub category : Category
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field category is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:18:3 ]
+     ? 18  ?  pub desc : Array[ET] // Desc.t
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field desc is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:19:3 ]
+     ? 19  ?  pub mut status : Status?
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field status is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:20:3 ]
+     ? 20  ?  pub hash : Int
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field hash is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:95:3 ]
+     ? 95  ?  pub mut ids : BitVector
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field ids is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:96:3 ]
+     ? 96  ?  pub seen : HashSet
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field seen is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_state.mbt:97:3 ]
+     ? 97  ?  pub mut index_count : Int
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field index_count is public by default
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:33:3 ]
+     ? 33  ?  @test.assert_eq(s.idx, Idx::initial())
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:36:3 ]
+     ? 36  ?  @test.assert_eq(d.idx, Idx::unknown())
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:37:3 ]
+     ? 37  ?  @test.assert_eq(d.hash, -1)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:46:3 ]
+     ? 46  ?  @test.assert_eq(State::equal(s1, s1), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:58:3 ]
+     ? 58  ?  @test.assert_eq(status_is_running(st), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:70:3 ]
+     ? 70  ?  @test.assert_eq(status_is_failed(st), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:83:3 ]
+     ? 83  ?  @test.assert_eq(status_is_match(st), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:97:3 ]
+     ? 97  ?  @test.assert_eq(status_is_running(st), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:112:3 ]
+      ? 112  ?  @test.assert_eq(status_is_match(st), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:119:3 ]
+      ? 119  ?  @test.assert_eq(idx, 0)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:133:3 ]
+      ? 133  ?  @test.assert_eq(status_is_running(st1), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:136:3 ]
+      ? 136  ?  @test.assert_eq(status_is_running(st2), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:139:3 ]
+      ? 139  ?  @test.assert_eq(status_is_match(st3), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:154:3 ]
+      ? 154  ?  @test.assert_eq(status_is_match(st), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:183:3 ]
+      ? 183  ?  @test.assert_eq(status_is_failed(st), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\automata_test.mbt:195:3 ]
+      ? 195  ?  @test.assert_eq(status_is_match(st), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:3:3 ]
+    ? 3  ?  @test.assert_eq(Cset::empty().intervals.length(), 0)
+    ?   € € € € € € € 攢 € € € € € €  
+    ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € Warning: [0071]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:4:3 ]
+    ? 4  ?  @test.assert_eq(Cset::is_empty(Cset::empty()), true)
+    ?   € € € € € € € 攢 € € € € € €  
+    ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:10:3 ]
+     ? 10  ?  @test.assert_eq(s.intervals, [(65, 65)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:11:3 ]
+     ? 11  ?  @test.assert_eq(Cset::mem(65, s), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:12:3 ]
+     ? 12  ?  @test.assert_eq(Cset::mem(66, s), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:18:3 ]
+     ? 18  ?  @test.assert_eq(any.intervals, [(0, 255)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:19:3 ]
+     ? 19  ?  @test.assert_eq(Cset::mem(0, any), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:20:3 ]
+     ? 20  ?  @test.assert_eq(Cset::mem(255, any), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:21:3 ]
+     ? 21  ?  @test.assert_eq(Cset::mem(-1, any), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:29:3 ]
+     ? 29  ?  @test.assert_eq(u.intervals, [(0, 10), (20, 30)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:45:3 ]
+     ? 45  ?  @test.assert_eq(u.intervals, [(0, 10)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:53:3 ]
+     ? 53  ?  @test.assert_eq(i.intervals, [(5, 10)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:61:3 ]
+     ? 61  ?  @test.assert_eq(d.intervals, [(0, 2), (6, 10)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:67:3 ]
+     ? 67  ?  @test.assert_eq(d.intervals, [(48, 57)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:68:3 ]
+     ? 68  ?  @test.assert_eq(Cset::mem(48, d), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:69:3 ]
+     ? 69  ?  @test.assert_eq(Cset::mem(57, d), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:76:3 ]
+     ? 76  ?  @test.assert_eq(s.intervals, [(97, 99)])
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:81:3 ]
+     ? 81  ?  @test.assert_eq(Cset::one_char(Cset::single(65)), Some(65))
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:82:3 ]
+     ? 82  ?  @test.assert_eq(Cset::one_char(Cset::seq(65, 66)), None)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:90:3 ]
+     ? 90  ?  @test.assert_eq(a.id < b.id, true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:91:3 ]
+     ? 91  ?  @test.assert_eq(Pmark::equal(a, a), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:92:3 ]
+     ? 92  ?  @test.assert_eq(Pmark::equal(a, b), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:100:3 ]
+      ? 100  ?  @test.assert_eq(s.mem(a), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:101:3 ]
+      ? 101  ?  @test.assert_eq(s.mem(b), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:102:3 ]
+      ? 102  ?  @test.assert_eq(s.mem(Pmark::gen()), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:103:3 ]
+      ? 103  ?  @test.assert_eq(s.length(), 2)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:110:3 ]
+      ? 110  ?  @test.assert_eq(s.length(), 1)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:115:3 ]
+      ? 115  ?  @test.assert_eq(Category::from_char('a').to_int(), 2)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:116:3 ]
+      ? 116  ?  @test.assert_eq(Category::from_char('Z').to_int(), 2)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:118:3 ]
+      ? 118  ?  @test.assert_eq(Category::from_char('_').to_int(), 2)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:120:3 ]
+      ? 120  ?  @test.assert_eq(Category::from_char('\n').to_int(), 12)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:127:3 ]
+      ? 127  ?  @test.assert_eq(Category::intersect(l, nl), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:128:3 ]
+      ? 128  ?  @test.assert_eq(Category::intersect(Category::from_char('\n'), nl), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:134:3 ]
+      ? 134  ?  @test.assert_eq(bv.length(), 16)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:135:3 ]
+      ? 135  ?  @test.assert_eq(bv.unsafe_get(5), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:137:3 ]
+      ? 137  ?  @test.assert_eq(bv.unsafe_get(5), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:138:3 ]
+      ? 138  ?  @test.assert_eq(bv.unsafe_get(4), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:141:3 ]
+      ? 141  ?  @test.assert_eq(bv.unsafe_get(0), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:142:3 ]
+      ? 142  ?  @test.assert_eq(bv.unsafe_get(15), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:144:3 ]
+      ? 144  ?  @test.assert_eq(bv.unsafe_get(5), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:150:3 ]
+      ? 150  ?  @test.assert_eq(s.is_empty(), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:155:3 ]
+      ? 155  ?  @test.assert_eq(s.mem(2), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:156:3 ]
+      ? 156  ?  @test.assert_eq(s.mem(100), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:157:3 ]
+      ? 157  ?  @test.assert_eq(s.mem(3), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:158:3 ]
+      ? 158  ?  @test.assert_eq(s.is_empty(), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\basics_test.mbt:166:3 ]
+      ? 166  ?  @test.assert_eq(s.mem(42), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0008]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\bit_vector.mbt:6:3 ]
+    ? 6  ?  pub len : Int
+    ?   € 攢  
+    ?     € € Warning (redundant_modifier): The public modifier is redundant here since field len is public by default
+ € € € Warning: [0008]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\bit_vector.mbt:7:3 ]
+    ? 7  ?  pub bits : FixedArray[Byte] // mutable
+    ?   € 攢  
+    ?     € € Warning (redundant_modifier): The public modifier is redundant here since field bits is public by default
+ € € € Warning: [0008]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\category.mbt:6:3 ]
+    ? 6  ?  pub bits : Int
+    ?   € 攢  
+    ?     € € Warning (redundant_modifier): The public modifier is redundant here since field bits is public by default
+ € € € Warning: [0071]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:5:3 ]
+    ? 5  ?  @test.assert_eq(ColorRepr::length(repr), 1)
+    ?   € € € € € € € 攢 € € € € € €  
+    ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € Warning: [0071]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:6:3 ]
+    ? 6  ?  @test.assert_eq(ColorTable::get(table, 0), ColorTable::get(table, 255))
+    ?   € € € € € € € 攢 € € € € € €  
+    ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:14:3 ]
+     ? 14  ?  @test.assert_eq(ColorRepr::length(repr), 2)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:15:3 ]
+     ? 15  ?  @test.assert_eq(ColorTable::get(table, 65), 1)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:16:3 ]
+     ? 16  ?  @test.assert_eq(ColorTable::get(table, 66), 0)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:25:3 ]
+     ? 25  ?  @test.assert_eq(ColorRepr::length(repr), 3)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:26:3 ]
+     ? 26  ?  @test.assert_eq(ColorTable::get(table, 65), 1)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:27:3 ]
+     ? 27  ?  @test.assert_eq(ColorTable::get(table, 66), 2)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:28:3 ]
+     ? 28  ?  @test.assert_eq(ColorTable::get(table, 67), 0)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\color_map_test.mbt:38:3 ]
+     ? 38  ?  @test.assert_eq(Cset::mem(0, translated), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:8:12 ]
+    ? 8  ?pub struct CompileIdx {}
+    ?            € € € € € 攢 € € €  
+    ?                  € € € € € Warning (struct_never_constructed): The struct CompileIdx is never constructed
+ € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:59:3 ]
+     ? 59  ?  pub idx : Int // CompileIdx.t
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field idx is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:60:3 ]
+     ? 60  ?  pub final_ : Array[(Category, (Int, Status))] // (cat, (idx, status))
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field final_ is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:61:3 ]
+     ? 61  ?  pub desc : State // Automata.State.t
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field desc is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:68:3 ]
+     ? 68  ?  pub info : StateInfo
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field info is public by default
+ € € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:69:3 ]
+     ? 69  ?  pub transitions : Array[CompileState] // size ncolor, initially unknown_state
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field transitions is public by default
+ € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:107:3 ]
+      ? 107  ?  pub buckets : Array[Array[(State, CompileState)]]
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field buckets is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:108:3 ]
+      ? 108  ?  pub mut size : Int
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field size is public by default
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:123:42 ]
+      ? 123  ?  let h = key.hash.reinterpret_as_uint().to_int() & (tbl.buckets.length() - 1)
+      ?                                          € € € 攢 €  
+      ?                                              € € € Warning (deprecated): Use `reinterpret_as_int` instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:139:42 ]
+      ? 139  ?  let h = key.hash.reinterpret_as_uint().to_int() & (tbl.buckets.length() - 1)
+      ?                                          € € € 攢 €  
+      ?                                              € € € Warning (deprecated): Use `reinterpret_as_int` instead
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:148:3 ]
+      ? 148  ?  pub initial : Expr
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field initial is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:149:3 ]
+      ? 149  ?  pub initial_states : Array[(Category, CompileState)]
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field initial_states is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:150:3 ]
+      ? 150  ?  pub colors : ColorTable
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field colors is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:151:3 ]
+      ? 151  ?  pub color_repr : ColorRepr
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field color_repr is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:152:3 ]
+      ? 152  ?  pub ncolor : Int
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field ncolor is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:153:3 ]
+      ? 153  ?  pub lnl : Int // Cset.c (color index)
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field lnl is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:154:3 ]
+      ? 154  ?  pub tbl : WorkingArea
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field tbl is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:155:3 ]
+      ? 155  ?  pub states : StateHashTable
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field states is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:156:3 ]
+      ? 156  ?  pub group_names : Array[(String, Int)]
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field group_names is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:157:3 ]
+      ? 157  ?  pub group_count : Int
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field group_count is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:174:3 ]
+      ? 174  ?  pub mut positions : Array[Int]
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field positions is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:175:3 ]
+      ? 175  ?  pub mut length : Int
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field length is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:605:3 ]
+      ? 605  ?  pub s : Bytes
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field s is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:606:3 ]
+      ? 606  ?  pub marks : MarkInfos
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field marks is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:607:3 ]
+      ? 607  ?  pub pmarks : PmarkSet
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field pmarks is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:608:3 ]
+      ? 608  ?  pub gpos : Array[Int]
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field gpos is public by default
+ € € € € € Warning: [0008]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile.mbt:609:3 ]
+      ? 609  ?  pub gcount : Int
+      ?   € 攢  
+      ?     € € Warning (redundant_modifier): The public modifier is redundant here since field gcount is public by default
+ € € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:13:4 ]
+     ? 13  ?fn match_info_is_match(mi : MatchInfo) -> Bool {
+     ?    € € € € € € € € € 攢 € € € € € € € €  
+     ?              € € € € € € € € € € Warning (unused_value): Unused function 'match_info_is_match'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:21:4 ]
+     ? 21  ?fn match_info_is_failed(mi : MatchInfo) -> Bool {
+     ?    € € € € € € € € € € 攢 € € € € € € € €  
+     ?               € € € € € € € € € € Warning (unused_value): Unused function 'match_info_is_failed'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:29:4 ]
+     ? 29  ?fn match_info_is_running(mi : MatchInfo) -> Bool {
+     ?    € € € € € € € € € € 攢 € € € € € € € € €  
+     ?               € € € € € € € € € € € Warning (unused_value): Unused function 'match_info_is_running'
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:40:3 ]
+     ? 40  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=1), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:47:3 ]
+     ? 47  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=1), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:54:3 ]
+     ? 54  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=3), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:75:3 ]
+     ? 75  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=3), false)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:96:3 ]
+     ? 96  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=1), true)
+     ?   € € € € € € € 攢 € € € € € €  
+     ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:124:3 ]
+      ? 124  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=0), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:131:3 ]
+      ? 131  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=1), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:145:3 ]
+      ? 145  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=1), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:152:3 ]
+      ? 152  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=4), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:159:3 ]
+      ? 159  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=1), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:173:3 ]
+      ? 173  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=3), true)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0071]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_test.mbt:180:3 ]
+      ? 180  ?  @test.assert_eq(match_str_p(re, s, pos=0, len=4), false)
+      ?   € € € € € € € 攢 € € € € € €  
+      ?           € € € € € € € € Warning (core_package_not_imported): Package `test` from `moonbitlang/core/` is used without import. This is deprecated. Please add it to the imports in the moon.pkg file.
+ € € € € € Warning: [0004]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\compile_translate.mbt:6:8 ]
+    ? 6  ?struct CompileContext {
+    ?        € € € € € € € 攢 € € € € €  
+    ?                € € € € € € € Warning (missing_priv): The type 'CompileContext' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\core_test.mbt:13:4 ]
+     ? 13  ?fn bytes_eq(a : Bytes, b : Bytes) -> Bool {
+     ?    € € € € 攢 € €  
+     ?         € € € € Warning (unused_value): Unused function 'bytes_eq'
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\cset.mbt:9:12 ]
+    ? 9  ?pub struct CsetC {}
+    ?            € € 攢 €  
+    ?               € € € Warning (struct_never_constructed): The struct CsetC is never constructed
+ € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\cset.mbt:45:3 ]
+     ? 45  ?  pub intervals : Array[(Int, Int)]
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field intervals is public by default
+ € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\cset.mbt:185:10 ]
+      ? 185  ?      if not(leftover) {
+      ?          € 攢  
+      ?            € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0001]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\cset.mbt:306:13 ]
+      ? 306  ?fn[T] Cset::fold_right(t : Cset, init~ : T, f~ : (Int, Int, T) -> T) -> T {
+      ?             € € € € € 攢 € € €  
+      ?                   € € € € € Warning (unused_value): Unused function 'fold_right'
+ € € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\dense_map.mbt:6:12 ]
+    ? 6  ?pub struct DenseMap {}
+    ?            € € € € 攢 € €  
+    ?                 € € € € Warning (struct_never_constructed): The struct DenseMap is never constructed
+ € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\dyn.mbt:37:9 ]
+     ? 37  ?fn Dyn::record(fields : Array[(String, Dyn)]) -> Dyn {
+     ?         € € € 攢 €  
+     ?             € € € Warning (unused_value): Unused function 'record'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\dyn.mbt:52:9 ]
+     ? 52  ?fn Dyn::option(f : (Dyn) -> Dyn, x : Dyn?) -> Dyn {
+     ?         € € € 攢 €  
+     ?             € € € Warning (unused_value): Unused function 'option'
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\emacs.mbt:4:12 ]
+    ? 4  ?pub struct Emacs {}
+    ?            € € 攢 €  
+    ?               € € € Warning (struct_never_constructed): The struct Emacs is never constructed
+ € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\emacs.mbt:90:10 ]
+     ? 90  ?      if not(ParseBuffer::accept_s(buf, sb("\\)"))) {
+     ?          € 攢  
+     ?            € € Warning (deprecated): Use !expr instead
+ € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\emacs.mbt:192:6 ]
+      ? 192  ?  if not(ParseBuffer::eos(buf)) {
+      ?      € 攢  
+      ?        € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\emacs.mbt:206:6 ]
+      ? 206  ?  if not(ParseBuffer::eos(buf)) {
+      ?      € 攢  
+      ?        € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:7:12 ]
+    ? 7  ?pub struct Fmt {}
+    ?            € 攢  
+    ?              € € Warning (struct_never_constructed): The struct Fmt is never constructed
+ € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:10:9 ]
+     ? 10  ?fn Fmt::str(s : String) -> String {
+     ?         € 攢  
+     ?           € € Warning (unused_value): Unused function 'str'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:15:9 ]
+     ? 15  ?fn Fmt::int(i : Int) -> String {
+     ?         € 攢  
+     ?           € € Warning (unused_value): Unused function 'int'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:20:9 ]
+     ? 20  ?fn Fmt::bool(b : Bool) -> String {
+     ?         € € 攢  
+     ?            € € Warning (unused_value): Unused function 'bool'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:25:9 ]
+     ? 25  ?fn Fmt::char(c : Char) -> String {
+     ?         € € 攢  
+     ?            € € Warning (unused_value): Unused function 'char'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:30:9 ]
+     ? 30  ?fn Fmt::lit(s : String) -> String {
+     ?         € 攢  
+     ?           € € Warning (unused_value): Unused function 'lit'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:35:9 ]
+     ? 35  ?fn Fmt::opt(f : (String) -> String, x : String?) -> String {
+     ?         € 攢  
+     ?           € € Warning (unused_value): Unused function 'opt'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:43:9 ]
+     ? 43  ?fn Fmt::optint(x : Int?) -> String {
+     ?         € € € 攢 €  
+     ?             € € € Warning (unused_value): Unused function 'optint'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:51:9 ]
+     ? 51  ?fn Fmt::pair(
+     ?         € € 攢  
+     ?            € € Warning (unused_value): Unused function 'pair'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:61:9 ]
+     ? 61  ?fn Fmt::list(pp_sep : String, f : (Int) -> String, xs : Array[Int]) -> String {
+     ?         € € 攢  
+     ?            € € Warning (unused_value): Unused function 'list'
+ € € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:65:8 ]
+     ? 65  ?    if not(first) {
+     ?        € 攢  
+     ?          € € Warning (deprecated): Use !expr instead
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:75:9 ]
+     ? 75  ?fn Fmt::quoted_string(s : String) -> String {
+     ?         € € € € € € 攢 € € € € €  
+     ?                € € € € € € € Warning (unused_value): Unused function 'quoted_string'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\fmt.mbt:80:9 ]
+     ? 80  ?fn Fmt::bytes(b : Bytes) -> String {
+     ?         € € 攢 €  
+     ?            € € € Warning (unused_value): Unused function 'bytes'
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\glob.mbt:4:12 ]
+    ? 4  ?pub struct Glob {}
+    ?            € € 攢  
+    ?               € € Warning (struct_never_constructed): The struct Glob is never constructed
+ € € € Warning: [0004]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\glob.mbt:7:6 ]
+    ? 7  ?enum GlobEnclosed {
+    ?      € € € € € € 攢 € € € €  
+    ?             € € € € € € Warning (missing_priv): The type 'GlobEnclosed' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € Warning: [0004]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\glob.mbt:13:6 ]
+     ? 13  ?enum GlobPiece {
+     ?      € € € € 攢 € € €  
+     ?           € € € € € Warning (missing_priv): The type 'GlobPiece' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € € Warning: [0004]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\glob.mbt:142:8 ]
+      ? 142  ?struct GlobState {
+      ?        € € € € 攢 € € €  
+      ?             € € € € € Warning (missing_priv): The type 'GlobState' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € € € Warning: [0002]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\glob.mbt:300:3 ]
+      ? 300  ?  first_ep : Bool,
+      ?   € € € € 攢 € €  
+      ?        € € € € Warning (unused_value): Unused variable 'first_ep'
+ € € € € € Warning: [0008]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\hash_set.mbt:8:3 ]
+    ? 8  ?  pub mut size : Int
+    ?   € 攢  
+    ?     € € Warning (redundant_modifier): The public modifier is redundant here since field size is public by default
+ € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\hash_set.mbt:49:39 ]
+     ? 49  ?  let index = x.reinterpret_as_uint().to_int() & (slots - 1)
+     ?                                       € € € 攢 €  
+     ?                                           € € € Warning (deprecated): Use `reinterpret_as_int` instead
+ € € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\hash_set.mbt:93:39 ]
+     ? 93  ?  let index = x.reinterpret_as_uint().to_int() & (slots - 1)
+     ?                                       € € € 攢 €  
+     ?                                           € € € Warning (deprecated): Use `reinterpret_as_int` instead
+ € € € € Warning: [0008]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\mark_infos.mbt:7:3 ]
+    ? 7  ?  pub table : Array[Int]
+    ?   € 攢  
+    ?     € € Warning (redundant_modifier): The public modifier is redundant here since field table is public by default
+ € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\mark_infos.mbt:37:3 ]
+     ? 37  ?  pub val : Int
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field val is public by default
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:4:12 ]
+    ? 4  ?pub struct Pcre {}
+    ?            € € 攢  
+    ?               € € Warning (struct_never_constructed): The struct Pcre is never constructed
+ € € € Warning: [0006]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:8:3 ]
+    ? 8  ?  Caseless
+    ?   € € € € 攢 € €  
+    ?        € € € € Warning (unused_constructor): Variant 'Caseless' is never constructed
+ € € € Warning: [0006]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:9:3 ]
+    ? 9  ?  MultilineP
+    ?   € € € € € 攢 € € €  
+    ?         € € € € € Warning (unused_constructor): Variant 'MultilineP' is never constructed
+ € € € Warning: [0006]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:10:3 ]
+     ? 10  ?  AnchoredP
+     ?   € € € € 攢 € € €  
+     ?        € € € € € Warning (unused_constructor): Variant 'AnchoredP' is never constructed
+ € € € € Warning: [0006]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:11:3 ]
+     ? 11  ?  DotallP
+     ?   € € € 攢 € €  
+     ?       € € € € Warning (unused_constructor): Variant 'DotallP' is never constructed
+ € € € € Warning: [0024]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:71:13 ]
+     ? 71  ?) -> Bytes? raise {
+     ?             € € 攢 €  
+     ?                € € € Warning (unused_error_type): The error type of this function is never used.
+ € € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:74:15 ]
+     ? 74  ?    if result.is_empty() {
+     ?               € € € € 攢 € €  
+     ?                    € € € € Warning (deprecated): use `x is None` instead
+ € € € € Warning: [0024]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pcre.mbt:167:58 ]
+      ? 167  ?pub fn Pcre::get_substring(s : GroupT, i : Int) -> Bytes raise {
+      ?                                                          € € 攢 €  
+      ?                                                             € € € Warning (unused_error_type): The error type of this function is never used.
+ € € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:4:12 ]
+    ? 4  ?pub struct Perl {}
+    ?            € € 攢  
+    ?               € € Warning (struct_never_constructed): The struct Perl is never constructed
+ € € € Warning: [0004]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:47:6 ]
+     ? 47  ?enum PerlElem {
+     ?      € € € € 攢 € €  
+     ?           € € € € Warning (missing_priv): The type 'PerlElem' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € € Warning: [0004]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:106:8 ]
+      ? 106  ?struct PerlOpts {
+      ?        € € € € 攢 € €  
+      ?             € € € € Warning (missing_priv): The type 'PerlOpts' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:154:12 ]
+      ? 154  ?        if not(ParseBuffer::accept(buf, '}')) {
+      ?            € 攢  
+      ?              € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:185:12 ]
+      ? 185  ?        if not(ParseBuffer::accept(buf, ')')) {
+      ?            € 攢  
+      ?              € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:194:12 ]
+      ? 194  ?        if not(ParseBuffer::accept(buf, ')')) {
+      ?            € 攢  
+      ?              € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:203:10 ]
+      ? 203  ?      if not(ParseBuffer::accept(buf, ')')) {
+      ?          € 攢  
+      ?            € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:301:11 ]
+      ? 301  ?    while not(ParseBuffer::accept(buf, '}')) {
+      ?           € 攢  
+      ?             € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:323:6 ]
+      ? 323  ?  if not(ParseBuffer::accept(buf, '{')) {
+      ?      € 攢  
+      ?        € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:327:9 ]
+      ? 327  ?  while not(ParseBuffer::accept(buf, '}')) {
+      ?         € 攢  
+      ?           € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0024]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:394:53 ]
+      ? 394  ?fn perl_maybe_octaldigit(buf : ParseBuffer) -> Int? raise {
+      ?                                                     € € 攢 €  
+      ?                                                        € € € Warning (unused_error_type): The error type of this function is never used.
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:512:14 ]
+      ? 512  ?          if not(ParseBuffer::accept(buf, '.')) {
+      ?              € 攢  
+      ?                € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:515:14 ]
+      ? 515  ?          if not(ParseBuffer::accept(buf, ']')) {
+      ?              € 攢  
+      ?                € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\perl.mbt:602:6 ]
+      ? 602  ?  if not(ParseBuffer::eos(buf)) {
+      ?      € 攢  
+      ?        € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0008]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pmark.mbt:8:3 ]
+    ? 8  ?  pub id : Int
+    ?   € 攢  
+    ?     € € Warning (redundant_modifier): The public modifier is redundant here since field id is public by default
+ € € € Warning: [0008]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pmark.mbt:48:3 ]
+     ? 48  ?  pub elems : Array[Pmark] // sorted ascending by id, no duplicates
+     ?   € 攢  
+     ?     € € Warning (redundant_modifier): The public modifier is redundant here since field elems is public by default
+ € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\pmark.mbt:131:8 ]
+      ? 131  ?    if not(Pmark::equal(self.elems[i], other.elems[i])) {
+      ?        € 攢  
+      ?          € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:4:12 ]
+    ? 4  ?pub struct Posix {}
+    ?            € € 攢 €  
+    ?               € € € Warning (struct_never_constructed): The struct Posix is never constructed
+ € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:76:12 ]
+     ? 76  ?        if not(ParseBuffer::accept(buf, '}')) {
+     ?            € 攢  
+     ?              € € Warning (deprecated): Use !expr instead
+ € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:105:8 ]
+      ? 105  ?    if not(ParseBuffer::accept(buf, ')')) {
+      ?        € 攢  
+      ?          € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0004]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:162:6 ]
+      ? 162  ?enum PosixElem {
+      ?      € € € € 攢 € € €  
+      ?           € € € € € Warning (missing_priv): The type 'PosixElem' does not occur in public signature of current package, consider marking it as `priv`.
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:232:14 ]
+      ? 232  ?          if not(ParseBuffer::accept(buf, '.')) {
+      ?              € 攢  
+      ?                € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:235:14 ]
+      ? 235  ?          if not(ParseBuffer::accept(buf, ']')) {
+      ?              € 攢  
+      ?                € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0020]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix.mbt:269:6 ]
+      ? 269  ?  if not(ParseBuffer::eos(buf)) {
+      ?      € 攢  
+      ?        € € Warning (deprecated): Use !expr instead
+ € € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix_class.mbt:4:12 ]
+    ? 4  ?pub struct PosixClass {}
+    ?            € € € € € 攢 € € €  
+    ?                  € € € € € Warning (struct_never_constructed): The struct PosixClass is never constructed
+ € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix_class.mbt:37:6 ]
+     ? 37  ?  if not(ParseBuffer::accept(buf, ':')) {
+     ?      € 攢  
+     ?        € € Warning (deprecated): Use !expr instead
+ € € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix_class.mbt:43:14 ]
+     ? 43  ?      if cls.is_empty() {
+     ?              € € € € 攢 € €  
+     ?                   € € € € Warning (deprecated): use `x is None` instead
+ € € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\posix_class.mbt:52:12 ]
+     ? 52  ?        if not(ParseBuffer::accept_s(buf, sb(":]"))) {
+     ?            € 攢  
+     ?              € € Warning (deprecated): Use !expr instead
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\replace.mbt:4:12 ]
+    ? 4  ?pub struct Replace {}
+    ?            € € € 攢 € €  
+    ?                € € € € Warning (struct_never_constructed): The struct Replace is never constructed
+ € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\search.mbt:5:12 ]
+    ? 5  ?pub struct Search {}
+    ?            € € € 攢 €  
+    ?                € € € Warning (struct_never_constructed): The struct Search is never constructed
+ € € € Warning: [0009]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\slice.mbt:19:12 ]
+     ? 19  ?pub struct SliceL {}
+     ?            € € € 攢 €  
+     ?                € € € Warning (struct_never_constructed): The struct SliceL is never constructed
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\slice.mbt:22:12 ]
+     ? 22  ?fn SliceL::get_substring(
+     ?            € € € € € € 攢 € € € € €  
+     ?                   € € € € € € € Warning (unused_value): Unused function 'get_substring'
+ € € € € Warning: [0001]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\slice.mbt:96:12 ]
+     ? 96  ?fn SliceL::drop_rev(slices : Array[Slice], remains : Int) -> Array[Slice] {
+     ?            € € € € 攢 € €  
+     ?                 € € € € Warning (unused_value): Unused function 'drop_rev'
+ € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\str.mbt:4:12 ]
+    ? 4  ?pub struct Str {}
+    ?            € 攢  
+    ?              € € Warning (struct_never_constructed): The struct Str is never constructed
+ € € € Warning: [0020]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\str.mbt:13:32 ]
+     ? 13  ?let str_state : Ref[GroupT?] = Ref::new(None)
+     ?                                € € € € 攢 € €  
+     ?                                     € € € € Warning (deprecated): `new` is deprecated, use `Ref` instead
+ € € € € Warning: [0002]
+     [ D:\CodeWorkspace\forMoonbit\re-mbt\re\str.mbt:99:28 ]
+     ? 99  ?pub fn Str::matched_string(txt : Bytes) -> Bytes raise {
+     ?                            € 攢  
+     ?                              € € Warning (unused_value): Unused variable 'txt'
+ € € € € Warning: [0002]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\str.mbt:123:36 ]
+      ? 123  ?pub fn Str::matched_group(n : Int, txt : Bytes) -> Bytes raise {
+      ?                                    € 攢  
+      ?                                      € € Warning (unused_value): Unused variable 'txt'
+ € € € € € Warning: [0002]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\str.mbt:151:3 ]
+      ? 151  ?  repl : Bytes,
+      ?   € € 攢  
+      ?      € € Warning (unused_value): Unused variable 'repl'
+ € € € € € Warning: [0002]
+      [ D:\CodeWorkspace\forMoonbit\re-mbt\re\str.mbt:194:3 ]
+      ? 194  ?  repl : Bytes,
+      ?   € € 攢  
+      ?      € € Warning (unused_value): Unused variable 'repl'
+ € € € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\view.mbt:5:12 ]
+    ? 5  ?pub struct CsetView {}
+    ?            € € € € 攢 € €  
+    ?                 € € € € Warning (struct_never_constructed): The struct CsetView is never constructed
+ € € € Warning: [0009]
+    [ D:\CodeWorkspace\forMoonbit\re-mbt\re\view.mbt:8:12 ]
+    ? 8  ?pub struct View {}
+    ?            € € 攢  
+    ?               € € Warning (struct_never_constructed): The struct View is never constructed
+ € € € Finished. moon: ran 2 tasks, now up to date (250 warnings, 0 errors)
+

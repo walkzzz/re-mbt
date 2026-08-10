@@ -1,0 +1,1 @@
+Error: `moon run --profile` currently supports macOS and Linux only
