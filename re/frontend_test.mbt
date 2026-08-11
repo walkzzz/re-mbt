@@ -474,3 +474,98 @@ test "str regexp_case_fold case insensitive" {
   let re2 = Str::regexp(sb("hello"))
   assert_eq(Str::string_match(re2, sb("HELLO world"), 0), false)
 }
+
+///|
+test "str regexp_string_case_fold" {
+  let re = Str::regexp_string_case_fold(sb("a.b"))
+  assert_eq(Str::string_match(re, sb("A.B"), 0), true)
+  assert_eq(Str::string_match(re, sb("axb"), 0), false)
+}
+
+///|
+test "str search_backward" {
+  let re = Str::regexp(sb("ab"))
+  assert_eq(Str::search_backward(re, sb("xabxab"), 5), 4)
+  assert_eq(Str::search_backward(re, sb("xabxab"), 3), 1)
+  assert_eq(Str::search_backward(re, sb("xabxab"), 2), 1)
+}
+
+///|
+test "str string_partial_match" {
+  let re = Str::regexp(sb("abc"))
+  assert_eq(Str::string_partial_match(re, sb("ab"), 0), true)
+  assert_eq(Str::string_partial_match(re, sb("xyz"), 0), false)
+  assert_eq(Str::string_partial_match(re, sb("abc"), 0), true)
+}
+
+///|
+test "str replace_matched" {
+  let re = Str::regexp(sb("\\(a\\)\\(b\\)"))
+  ignore(Str::search_forward(re, sb("ab"), 0))
+  assert_eq(bs(Str::replace_matched(sb("\\0\\1\\2"), sb("ab"))), "abab")
+}
+
+///|
+test "str global_substitute" {
+  let re = Str::regexp(sb("o"))
+  let result = Str::global_substitute(re, fn(_s) { sb("X") }, sb("foo"))
+  assert_eq(bs(result), "fXX")
+}
+
+///|
+test "str substitute_first" {
+  let re = Str::regexp(sb("o"))
+  let result = Str::substitute_first(re, fn(_s) { sb("X") }, sb("foo"))
+  assert_eq(bs(result), "fXo")
+}
+
+///|
+test "str split_delim" {
+  let re = Str::regexp(sb(","))
+  let parts = Str::split_delim(re, sb(",a,b,"))
+  assert_eq(parts.length(), 4)
+  assert_eq(bs(parts[0]), "")
+  assert_eq(bs(parts[1]), "a")
+  assert_eq(bs(parts[2]), "b")
+  assert_eq(bs(parts[3]), "")
+}
+
+///|
+test "str bounded_split_delim" {
+  let re = Str::regexp(sb(","))
+  let parts = Str::bounded_split_delim(re, sb("a,b,c,d"), 2)
+  assert_eq(parts.length(), 2)
+  assert_eq(bs(parts[0]), "a")
+  assert_eq(bs(parts[1]), "b,c,d")
+}
+
+///|
+test "str bounded_full_split" {
+  let re = Str::regexp(sb(","))
+  let parts = Str::bounded_full_split(re, sb("a,b,c"), 2)
+  assert_eq(parts.length(), 3)
+  match parts[0] {
+    StrText(t) => assert_eq(bs(t), "a")
+    StrDelim(_) => assert_eq(true, false)
+  }
+  match parts[1] {
+    StrDelim(d) => assert_eq(bs(d), ",")
+    StrText(_) => assert_eq(true, false)
+  }
+  match parts[2] {
+    StrText(t) => assert_eq(bs(t), "b,c")
+    StrDelim(_) => assert_eq(true, false)
+  }
+}
+
+///|
+test "str first_chars" {
+  assert_eq(bs(Str::first_chars(sb("hello"), 2)), "he")
+  assert_eq(bs(Str::first_chars(sb("hello"), 0)), "")
+}
+
+///|
+test "str last_chars" {
+  assert_eq(bs(Str::last_chars(sb("hello"), 2)), "lo")
+  assert_eq(bs(Str::last_chars(sb("hello"), 0)), "")
+}

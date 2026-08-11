@@ -509,6 +509,10 @@ pub enum PcreFlag {
   AnchoredP
   DotallP
 }
+pub fn PcreFlag::anchored_p() -> Self
+pub fn PcreFlag::caseless() -> Self
+pub fn PcreFlag::dotall_p() -> Self
+pub fn PcreFlag::multiline_p() -> Self
 
 pub enum PcreSplitResult {
   PcreText(Bytes)
@@ -710,12 +714,17 @@ pub enum Status {
 
 pub struct Str {
 }
+pub fn Str::bounded_full_split(StrRegexp, Bytes, Int) -> Array[StrSplitResult] raise
 pub fn Str::bounded_split(StrRegexp, Bytes, Int) -> Array[Bytes] raise
+pub fn Str::bounded_split_delim(StrRegexp, Bytes, Int) -> Array[Bytes] raise
 pub fn Str::compile_regexp(Bytes, Bool) -> StrRegexp raise
+pub fn Str::first_chars(Bytes, Int) -> Bytes
 pub fn Str::full_split(StrRegexp, Bytes) -> Array[StrSplitResult] raise
 pub fn Str::global_replace(StrRegexp, Bytes, Bytes) -> Bytes raise
+pub fn Str::global_substitute(StrRegexp, (Bytes) -> Bytes, Bytes) -> Bytes raise
 pub fn Str::group_beginning(Int) -> Int raise
 pub fn Str::group_end(Int) -> Int raise
+pub fn Str::last_chars(Bytes, Int) -> Bytes
 pub fn Str::match_beginning() -> Int raise
 pub fn Str::match_end() -> Int raise
 pub fn Str::matched_group(Int, Bytes) -> Bytes raise
@@ -724,12 +733,18 @@ pub fn Str::quote(Bytes) -> Bytes
 pub fn Str::regexp(Bytes) -> StrRegexp raise
 pub fn Str::regexp_case_fold(Bytes) -> StrRegexp raise
 pub fn Str::regexp_string(Bytes) -> StrRegexp raise
+pub fn Str::regexp_string_case_fold(Bytes) -> StrRegexp raise
 pub fn Str::replace_first(StrRegexp, Bytes, Bytes) -> Bytes raise
+pub fn Str::replace_matched(Bytes, Bytes) -> Bytes raise
+pub fn Str::search_backward(StrRegexp, Bytes, Int) -> Int raise
 pub fn Str::search_forward(StrRegexp, Bytes, Int) -> Int raise
 pub fn Str::split(StrRegexp, Bytes) -> Array[Bytes] raise
+pub fn Str::split_delim(StrRegexp, Bytes) -> Array[Bytes] raise
 pub fn Str::string_after(Bytes, Int) -> Bytes
 pub fn Str::string_before(Bytes, Int) -> Bytes
 pub fn Str::string_match(StrRegexp, Bytes, Int) -> Bool raise
+pub fn Str::string_partial_match(StrRegexp, Bytes, Int) -> Bool raise
+pub fn Str::substitute_first(StrRegexp, (Bytes) -> Bytes, Bytes) -> Bytes raise
 
 type StrRegexp
 
