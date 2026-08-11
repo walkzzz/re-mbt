@@ -1117,3 +1117,62 @@ test "pcre get_named_substring opt boundary" {
   // 边界：get_named_substring_opt 未命中返回 None（pcre.mbt:67-84 无名分支）
   assert_eq(Pcre::get_named_substring_opt(re, "num", g), None)
 }
+
+// === Str OCaml 风格 API 错误路径 (P5) ===
+
+///|
+test "str match_beginning no match raise" {
+  let re = Str::regexp(sb_cov("abc"))
+  // 不匹配 → str_state.val = None，触发 str.mbt:83-88 fail("Str: no match")
+  let _ = Str::string_match(re, sb_cov("xyz"), 0)
+  let result = try {
+    let _ = Str::match_beginning()
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(result, true)
+}
+
+///|
+test "str match_end no match raise" {
+  let re = Str::regexp(sb_cov("abc"))
+  // 先清空 str_state（不匹配 → None），触发 str.mbt:91-96 fail("Str: no match")
+  let _ = Str::string_match(re, sb_cov("xyz"), 0)
+  let result = try {
+    let _ = Str::match_end()
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(result, true)
+}
+
+///|
+test "str matched_string no match raise" {
+  let re = Str::regexp(sb_cov("abc"))
+  // 先清空 str_state（不匹配 → None），触发 str.mbt:99-104 fail("Str: no match")
+  let _ = Str::string_match(re, sb_cov("xyz"), 0)
+  let result = try {
+    let _ = Str::matched_string(sb_cov("xyz"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(result, true)
+}
+
+///|
+test "str group_beginning out of bounds raise" {
+  let re = Str::regexp(sb_cov("abc"))
+  // 匹配成功 → str_state = Some(GroupT)，正则 abc 无捕获组，仅 group 0
+  let _ = Str::string_match(re, sb_cov("abc"), 0)
+  // 越界 group idx 5 → GroupT::start → group.mbt:38-43 fail("Group.start: not found")
+  let result = try {
+    let _ = Str::group_beginning(5)
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(result, true)
+}
