@@ -493,6 +493,14 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     30: (__test_66726f6e74656e645f746573742e6d6274_30, ["pcre unclosed paren raise"]),
     31: (__test_66726f6e74656e645f746573742e6d6274_31, ["pcre invalid escape raise"]),
   },
+  "desc_test.mbt": {
+    0: (__test_646573635f746573742e6d6274_0, ["desc initial returns single TExp with empty marks"]),
+    1: (__test_646573635f746573742e6d6274_1, ["desc status empty array returns Failed"]),
+    2: (__test_646573635f746573742e6d6274_2, ["desc status TMatch head returns Match"]),
+    3: (__test_646573635f746573742e6d6274_3, ["desc status TExp head returns Running"]),
+    4: (__test_646573635f746573742e6d6274_4, ["desc remove_duplicates dedup same expr TExp"]),
+    5: (__test_646573635f746573742e6d6274_5, ["desc remove_duplicates keeps distinct expr TExp"]),
+  },
   "coverage_test.mbt": {
     0: (__test_636f7665726167655f746573742e6d6274_0, ["CsetC::null_char is -1"]),
     1: (__test_636f7665726167655f746573742e6d6274_1, ["CsetC::equal_c"]),

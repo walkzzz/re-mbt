@@ -3263,6 +3263,19 @@
             "Debug"
           ]
         },
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\desc_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\frontend_test.mbt": {
           "backend": [
             "Wasm",
@@ -3400,6 +3413,7 @@
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\compile_test.mbt",
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\core_test.mbt",
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\coverage_test.mbt",
+        "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\desc_test.mbt",
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\frontend_test.mbt",
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\parse_buffer_test.mbt",
         "D:\\CodeWorkspace\\forMoonbit\\re-mbt\\re\\view_test.mbt",
