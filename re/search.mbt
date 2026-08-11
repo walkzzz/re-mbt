@@ -2,6 +2,7 @@
 // Eager evaluation: returns Array[T]
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Search {}
 
 ///|

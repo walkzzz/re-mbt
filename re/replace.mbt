@@ -1,6 +1,7 @@
 // Replace — replace matched substrings (port of lib/replace.ml)
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Replace {}
 
 ///|

@@ -1,6 +1,7 @@
 // Pcre — PCRE-compatible API (port of lib/pcre.ml)
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Pcre {}
 
 ///|

@@ -2,9 +2,11 @@
 // This type is unstable and may change.
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct CsetView {}
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct View {}
 
 ///|

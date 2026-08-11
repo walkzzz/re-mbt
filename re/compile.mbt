@@ -5,6 +5,7 @@
 // Different from Automata.Idx: uses negative values for break states.
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct CompileIdx {}
 
 ///|

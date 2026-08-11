@@ -1,6 +1,7 @@
 // Posix — POSIX regex parser (port of lib/posix.ml)
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Posix {}
 
 ///|

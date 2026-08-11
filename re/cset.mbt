@@ -6,6 +6,7 @@
 // --- c (character code, with null_char sentinel) ---
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct CsetC {}
 
 ///|
@@ -166,11 +167,9 @@ pub fn Cset::union(l : Cset, r : Cset) -> Cset {
 pub fn Cset::inter(l : Cset, r : Cset) -> Cset {
   let li = l.intervals
   let ri = r.intervals
-  let result = Array::new(capacity=if li.length() < ri.length() {
-    li.length()
-  } else {
-    ri.length()
-  })
+  let result = Array::new(
+    capacity=if li.length() < ri.length() { li.length() } else { ri.length() },
+  )
   let mut i = 0
   let mut j = 0
   while i < li.length() && j < ri.length() {

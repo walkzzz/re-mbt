@@ -7,6 +7,7 @@ let emacs_pipe : Bytes = sb("|")
 let emacs_close_group : Bytes = sb("\\)")
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Emacs {}
 
 ///|

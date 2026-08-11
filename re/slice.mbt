@@ -4,6 +4,7 @@
 // slices carry matched input bytes (binary payload semantics).
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Slice {
   s : Bytes
   pos : Int
@@ -16,4 +17,5 @@ pub struct Slice {
 // single slice suffices.
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct SliceL {}

@@ -1,6 +1,7 @@
 // Perl — Perl-style regex parser (port of lib/perl.ml)
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Perl {}
 
 ///|

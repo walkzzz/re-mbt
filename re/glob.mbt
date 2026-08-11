@@ -4,6 +4,7 @@
 let glob_double_star_slash : Bytes = sb("**/")
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Glob {}
 
 ///|

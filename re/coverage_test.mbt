@@ -960,13 +960,22 @@ test "Re::mark_test and mark_all" {
 test "match_str groups=true partial=false" {
   let re = compile(Ast::str(sb_cov("hello")))
   // 命中返回 MatchInfo
-  match match_str(groups=true, partial=false, re, sb_cov("hello world"), pos=0, len=11) {
+  match
+    match_str(
+      groups=true,
+      partial=false,
+      re,
+      sb_cov("hello world"),
+      pos=0,
+      len=11,
+    ) {
     MatchInfo(_) => assert_eq(true, true)
     FailedInfo => assert_eq(true, false)
     RunningInfo(_) => assert_eq(true, false)
   }
   // 不命中返回 FailedInfo
-  match match_str(groups=true, partial=false, re, sb_cov("world"), pos=0, len=5) {
+  match
+    match_str(groups=true, partial=false, re, sb_cov("world"), pos=0, len=5) {
     MatchInfo(_) => assert_eq(true, false)
     FailedInfo => assert_eq(true, true)
     RunningInfo(_) => assert_eq(true, false)
@@ -977,13 +986,22 @@ test "match_str groups=true partial=false" {
 test "match_str groups=false partial=false" {
   let re = compile(Ast::str(sb_cov("hello")))
   // 命中返回 MatchInfo
-  match match_str(groups=false, partial=false, re, sb_cov("hello world"), pos=0, len=11) {
+  match
+    match_str(
+      groups=false,
+      partial=false,
+      re,
+      sb_cov("hello world"),
+      pos=0,
+      len=11,
+    ) {
     MatchInfo(_) => assert_eq(true, true)
     FailedInfo => assert_eq(true, false)
     RunningInfo(_) => assert_eq(true, false)
   }
   // 不命中返回 FailedInfo
-  match match_str(groups=false, partial=false, re, sb_cov("world"), pos=0, len=5) {
+  match
+    match_str(groups=false, partial=false, re, sb_cov("world"), pos=0, len=5) {
     MatchInfo(_) => assert_eq(true, false)
     FailedInfo => assert_eq(true, true)
     RunningInfo(_) => assert_eq(true, false)
@@ -1000,7 +1018,8 @@ test "match_str groups=true partial=true" {
     RunningInfo(_) => assert_eq(true, true)
   }
   // 完整命中返回 MatchInfo
-  match match_str(groups=true, partial=true, re, sb_cov("hello"), pos=0, len=5) {
+  match
+    match_str(groups=true, partial=true, re, sb_cov("hello"), pos=0, len=5) {
     MatchInfo(_) => assert_eq(true, true)
     FailedInfo => assert_eq(true, false)
     RunningInfo(_) => assert_eq(true, false)
@@ -1017,7 +1036,8 @@ test "match_str groups=false partial=true" {
     RunningInfo(_) => assert_eq(true, true)
   }
   // 完整命中返回 MatchInfo
-  match match_str(groups=false, partial=true, re, sb_cov("hello"), pos=0, len=5) {
+  match
+    match_str(groups=false, partial=true, re, sb_cov("hello"), pos=0, len=5) {
     MatchInfo(_) => assert_eq(true, true)
     FailedInfo => assert_eq(true, false)
     RunningInfo(_) => assert_eq(true, false)

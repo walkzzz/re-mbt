@@ -57,7 +57,11 @@ test "desc status TExp head returns Running" {
 test "desc remove_duplicates dedup same expr TExp" {
   let ids = Ids::create()
   let e = Expr::cst(ids, Cset::single(97))
-  let t = Desc::texp(Marks::empty(), e, Desc::texp(Marks::empty(), e, Desc::empty()))
+  let t = Desc::texp(
+    Marks::empty(),
+    e,
+    Desc::texp(Marks::empty(), e, Desc::empty()),
+  )
   let result = Desc::remove_duplicates(HashSet::create(), t, e)
   assert_eq(result.length(), 1)
 }
@@ -67,7 +71,11 @@ test "desc remove_duplicates keeps distinct expr TExp" {
   let ids = Ids::create()
   let e1 = Expr::cst(ids, Cset::single(97))
   let e2 = Expr::cst(ids, Cset::single(98))
-  let t = Desc::texp(Marks::empty(), e1, Desc::texp(Marks::empty(), e2, Desc::empty()))
+  let t = Desc::texp(
+    Marks::empty(),
+    e1,
+    Desc::texp(Marks::empty(), e2, Desc::empty()),
+  )
   let result = Desc::remove_duplicates(HashSet::create(), t, e1)
   assert_eq(result.length(), 2)
 }

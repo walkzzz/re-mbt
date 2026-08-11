@@ -3,6 +3,7 @@
 // type so that downstream modules can satisfy their .mli contracts.
 
 ///|
+#warnings("-unused_constructor")
 pub enum Dyn {
   Int(Int)
   Tuple(Array[Dyn])

@@ -145,7 +145,8 @@ pub fn ColorMap::flatten(
   let ids_buf : Array[Int] = []
   // A1 + D3: HashMap 按 ids 内容去重，key = ids 副本，value = color_id
   // 消除 O(256 × |unique| × |ids|) 线性查找 → O(256 × |ids|)
-  let color_map : @hashmap.HashMap[Array[Int], Int] = @hashmap.HashMap::HashMap([])
+  let color_map : @hashmap.HashMap[Array[Int], Int] = @hashmap.HashMap::HashMap([],
+  )
   let mut last_version = 0
   for i in 0..<256 {
     if bt.data[i] == (0).to_byte() {

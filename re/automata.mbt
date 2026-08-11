@@ -93,6 +93,7 @@ pub fn RepKind::to_string_short(r : RepKind) -> String {
 // --- Mark: int-based position marks for groups ---
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Mark {}
 
 ///|
@@ -142,6 +143,7 @@ pub fn Mark::compare(x : Int, y : Int) -> Int {
 // --- Idx: state index ---
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Idx {}
 
 ///|

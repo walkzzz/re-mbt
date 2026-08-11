@@ -1,6 +1,7 @@
 // Posix_class — POSIX character classes (port of lib/posix_class.ml)
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct PosixClass {}
 
 ///|

@@ -4,4 +4,5 @@
 // modules use for debugging output.
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Fmt {}

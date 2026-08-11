@@ -3,6 +3,7 @@
 // MoonBit: we return a closure over an Array.
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct DenseMap {}
 
 ///|

@@ -118,21 +118,13 @@ pub enum ET {
 // --- Desc operations (Desc.t = Array[ET]) ---
 
 ///|
+#warnings("-struct_never_constructed")
 pub struct Desc {}
 
 ///|
 fn desc_cons(e : ET, rem : Array[ET]) -> Array[ET] {
   rem.insert(0, e)
   rem
-}
-
-///|
-fn[T] array_tail(arr : Array[T]) -> Array[T] {
-  let result : Array[T] = []
-  for i in 1..<arr.length() {
-    result.push(arr[i])
-  }
-  result
 }
 
 ///|
