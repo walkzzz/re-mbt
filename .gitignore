@@ -1,6 +1,17 @@
 # Build artifacts
 _build/
 
+# MoonBit dependencies cache
+.mooncakes/
+
+# IDE info
+ide_info.txt
+
+# Workflow artifacts
+pdc/
+governances/
+instructions/
+
 # Temporary files
 moon_check_output.txt
 warnings_raw.jsonl
