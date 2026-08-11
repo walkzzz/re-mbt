@@ -194,3 +194,94 @@ test "delta: regex eps matches immediately" {
   let st = State::status(s1)
   assert_eq(status_is_match(st), true)
 }
+
+///|
+test "expr rename Cst preserves cset with new id" {
+  let ids1 = Ids::create()
+  let e = Expr::cst(ids1, Cset::single(97))
+  let ids2 = Ids::create()
+  let e2 = Expr::rename(ids2, e)
+  match e2 {
+    Cst(_, s) => {
+      assert_eq(s, Cset::single(97))
+      assert_eq(Expr::id(e2), 1)
+    }
+    _ => assert_true(false)
+  }
+}
+
+///|
+test "expr rename Seq recursively renames children" {
+  let ids1 = Ids::create()
+  let a = Expr::cst(ids1, Cset::single(97))
+  let b = Expr::cst(ids1, Cset::single(98))
+  let seq = Expr::seq(ids1, Sem::longest(), a, b)
+  let ids2 = Ids::create()
+  let seq2 = Expr::rename(ids2, seq)
+  match seq2 {
+    Seq(_, k, y, z) => {
+      assert_eq(k, Sem::longest())
+      assert_eq(Expr::id(seq2), 1)
+      match y {
+        Cst(_, s1) => assert_eq(s1, Cset::single(97))
+        _ => assert_true(false)
+      }
+      match z {
+        Cst(_, s2) => assert_eq(s2, Cset::single(98))
+        _ => assert_true(false)
+      }
+    }
+    _ => assert_true(false)
+  }
+}
+
+///|
+test "expr rename Alt recursively renames all children" {
+  let ids1 = Ids::create()
+  let a = Expr::cst(ids1, Cset::single(97))
+  let b = Expr::cst(ids1, Cset::single(98))
+  let c = Expr::cst(ids1, Cset::single(99))
+  let alt = Expr::alt(ids1, [a, b, c])
+  let ids2 = Ids::create()
+  let alt2 = Expr::rename(ids2, alt)
+  match alt2 {
+    Alt(_, l) => {
+      assert_eq(l.length(), 3)
+      match l[0] {
+        Cst(_, s) => assert_eq(s, Cset::single(97))
+        _ => assert_true(false)
+      }
+      match l[1] {
+        Cst(_, s) => assert_eq(s, Cset::single(98))
+        _ => assert_true(false)
+      }
+      match l[2] {
+        Cst(_, s) => assert_eq(s, Cset::single(99))
+        _ => assert_true(false)
+      }
+      assert_eq(Expr::id(alt2), 4)
+    }
+    _ => assert_true(false)
+  }
+}
+
+///|
+test "expr rename Rep recursively renames child" {
+  let ids1 = Ids::create()
+  let a = Expr::cst(ids1, Cset::single(97))
+  let rep = Expr::rep(ids1, RepKind::greedy(), Sem::longest(), a)
+  let ids2 = Ids::create()
+  let rep2 = Expr::rename(ids2, rep)
+  match rep2 {
+    Rep(_, g, k, y) => {
+      assert_eq(g, RepKind::greedy())
+      assert_eq(k, Sem::longest())
+      match y {
+        Cst(_, s) => assert_eq(s, Cset::single(97))
+        _ => assert_true(false)
+      }
+      assert_eq(Expr::id(rep2), 1)
+    }
+    _ => assert_true(false)
+  }
+}

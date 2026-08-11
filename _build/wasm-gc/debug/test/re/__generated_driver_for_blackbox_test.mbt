@@ -715,6 +715,10 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     10: (__test_6175746f6d6174615f746573742e6d6274_10, ["delta: regex 'a|b' (alternative) with 'b'"]),
     11: (__test_6175746f6d6174615f746573742e6d6274_11, ["delta: regex 'a|b' (alternative) with 'c' fails"]),
     12: (__test_6175746f6d6174615f746573742e6d6274_12, ["delta: regex eps matches immediately"]),
+    13: (__test_6175746f6d6174615f746573742e6d6274_13, ["expr rename Cst preserves cset with new id"]),
+    14: (__test_6175746f6d6174615f746573742e6d6274_14, ["expr rename Seq recursively renames children"]),
+    15: (__test_6175746f6d6174615f746573742e6d6274_15, ["expr rename Alt recursively renames all children"]),
+    16: (__test_6175746f6d6174615f746573742e6d6274_16, ["expr rename Rep recursively renames child"]),
   },
   "ast_test.mbt": {
     0: (__test_6173745f746573742e6d6274_0, ["Ast::char constructs single char"]),
