@@ -1,7 +1,0 @@
-import {
-  "re-mbt/re",
-}
-
-supported_targets = "native"
-
-pkgtype(kind: "executable")

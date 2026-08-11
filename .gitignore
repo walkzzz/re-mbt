@@ -1,0 +1,6 @@
+# Build artifacts
+_build/
+
+# Temporary files
+moon_check_output.txt
+warnings_raw.jsonl
