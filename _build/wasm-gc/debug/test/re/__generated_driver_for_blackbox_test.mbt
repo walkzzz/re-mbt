@@ -582,6 +582,13 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     100: (__test_636f7665726167655f746573742e6d6274_100, ["exec_partial_detailed partial"]),
     101: (__test_636f7665726167655f746573742e6d6274_101, ["exec_partial_detailed mismatch"]),
     102: (__test_636f7665726167655f746573742e6d6274_102, ["Re::mark_test and mark_all"]),
+    103: (__test_636f7665726167655f746573742e6d6274_103, ["match_str groups=true partial=false"]),
+    104: (__test_636f7665726167655f746573742e6d6274_104, ["match_str groups=false partial=false"]),
+    105: (__test_636f7665726167655f746573742e6d6274_105, ["match_str groups=true partial=true"]),
+    106: (__test_636f7665726167655f746573742e6d6274_106, ["match_str groups=false partial=true"]),
+    107: (__test_636f7665726167655f746573742e6d6274_107, ["match_str pos negative bounds raise"]),
+    108: (__test_636f7665726167655f746573742e6d6274_108, ["match_str_no_bounds len below -1 no raise"]),
+    109: (__test_636f7665726167655f746573742e6d6274_109, ["match_str pos+len overflow bounds raise"]),
   },
   "core_test.mbt": {
     0: (__test_636f72655f746573742e6d6274_0, ["exec_opt basic match"]),

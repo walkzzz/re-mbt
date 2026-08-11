@@ -953,3 +953,126 @@ test "Re::mark_test and mark_all" {
     None => assert_eq(true, false)
   }
 }
+
+// === match_str 四象限 (P1: groups × partial) ===
+
+///|
+test "match_str groups=true partial=false" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  // 命中返回 MatchInfo
+  match match_str(groups=true, partial=false, re, sb_cov("hello world"), pos=0, len=11) {
+    MatchInfo(_) => assert_eq(true, true)
+    FailedInfo => assert_eq(true, false)
+    RunningInfo(_) => assert_eq(true, false)
+  }
+  // 不命中返回 FailedInfo
+  match match_str(groups=true, partial=false, re, sb_cov("world"), pos=0, len=5) {
+    MatchInfo(_) => assert_eq(true, false)
+    FailedInfo => assert_eq(true, true)
+    RunningInfo(_) => assert_eq(true, false)
+  }
+}
+
+///|
+test "match_str groups=false partial=false" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  // 命中返回 MatchInfo
+  match match_str(groups=false, partial=false, re, sb_cov("hello world"), pos=0, len=11) {
+    MatchInfo(_) => assert_eq(true, true)
+    FailedInfo => assert_eq(true, false)
+    RunningInfo(_) => assert_eq(true, false)
+  }
+  // 不命中返回 FailedInfo
+  match match_str(groups=false, partial=false, re, sb_cov("world"), pos=0, len=5) {
+    MatchInfo(_) => assert_eq(true, false)
+    FailedInfo => assert_eq(true, true)
+    RunningInfo(_) => assert_eq(true, false)
+  }
+}
+
+///|
+test "match_str groups=true partial=true" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  // 部分匹配（输入是模式真前缀）返回 RunningInfo
+  match match_str(groups=true, partial=true, re, sb_cov("hel"), pos=0, len=3) {
+    MatchInfo(_) => assert_eq(true, false)
+    FailedInfo => assert_eq(true, false)
+    RunningInfo(_) => assert_eq(true, true)
+  }
+  // 完整命中返回 MatchInfo
+  match match_str(groups=true, partial=true, re, sb_cov("hello"), pos=0, len=5) {
+    MatchInfo(_) => assert_eq(true, true)
+    FailedInfo => assert_eq(true, false)
+    RunningInfo(_) => assert_eq(true, false)
+  }
+}
+
+///|
+test "match_str groups=false partial=true" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  // 部分匹配（输入是模式真前缀）返回 RunningInfo
+  match match_str(groups=false, partial=true, re, sb_cov("hel"), pos=0, len=3) {
+    MatchInfo(_) => assert_eq(true, false)
+    FailedInfo => assert_eq(true, false)
+    RunningInfo(_) => assert_eq(true, true)
+  }
+  // 完整命中返回 MatchInfo
+  match match_str(groups=false, partial=true, re, sb_cov("hello"), pos=0, len=5) {
+    MatchInfo(_) => assert_eq(true, true)
+    FailedInfo => assert_eq(true, false)
+    RunningInfo(_) => assert_eq(true, false)
+  }
+}
+
+// === match_str_no_bounds 越界 (P2: 对照断言合并入块内) ===
+
+///|
+test "match_str pos negative bounds raise" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  let s = sb_cov("hello")
+  // 注：pos < 0 时 match_str_no_bounds 内部 next_state 访问 s[pos] 产生不可捕获的
+  // RuntimeError（非 fail 异常），故此处仅对照验证 match_str raise "Re.exec: out of bounds"
+  let bounds_raise = try {
+    let _ = match_str(groups=true, partial=false, re, s, pos=-1, len=5)
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(bounds_raise, true)
+}
+
+///|
+test "match_str_no_bounds len below -1 no raise" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  let s = sb_cov("hello")
+  // match_str_no_bounds 不 raise：直接调用验证不产生错误（len < -1 时 last < pos，
+  // 循环不执行，返回 FailedInfo）
+  match match_str_no_bounds(groups=true, partial=false, re, s, pos=0, len=-2) {
+    MatchInfo(_) => assert_eq(true, true)
+    FailedInfo => assert_eq(true, true)
+    RunningInfo(_) => assert_eq(true, true)
+  }
+  // 对照：match_str 对相同越界参数应 raise "Re.exec: out of bounds"
+  let bounds_raise = try {
+    let _ = match_str(groups=true, partial=false, re, s, pos=0, len=-2)
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(bounds_raise, true)
+}
+
+///|
+test "match_str pos+len overflow bounds raise" {
+  let re = compile(Ast::str(sb_cov("hello")))
+  let s = sb_cov("hello")
+  // 注：pos+len > s.length() 时 match_str_no_bounds 内部循环访问 s[pos] 产生不可捕获的
+  // RuntimeError（非 fail 异常），故此处仅对照验证 match_str raise "Re.exec: out of bounds"
+  let bounds_raise = try {
+    let _ = match_str(groups=true, partial=false, re, s, pos=0, len=100)
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(bounds_raise, true)
+}
