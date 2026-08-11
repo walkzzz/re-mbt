@@ -1176,3 +1176,78 @@ test "str group_beginning out of bounds raise" {
   }
   assert_eq(result, true)
 }
+
+// === GroupT raise paths (P13) ===
+
+///|
+test "GroupT::offset out of bounds raise" {
+  let re = compile(
+    Ast::seq([Ast::str(sb_cov("a")), Ast::group(Ast::str(sb_cov("b")))]),
+  )
+  match exec_opt(re, sb_cov("ab")) {
+    Some(g) => {
+      let result = try {
+        let _ = GroupT::offset(g, 99)
+        false
+      } catch {
+        _ => true
+      }
+      assert_eq(result, true)
+    }
+    None => assert_eq(true, false)
+  }
+}
+
+///|
+test "GroupT::start out of bounds raise" {
+  let re = compile(
+    Ast::seq([Ast::str(sb_cov("a")), Ast::group(Ast::str(sb_cov("b")))]),
+  )
+  match exec_opt(re, sb_cov("ab")) {
+    Some(g) => {
+      let result = try {
+        let _ = GroupT::start(g, 99)
+        false
+      } catch {
+        _ => true
+      }
+      assert_eq(result, true)
+    }
+    None => assert_eq(true, false)
+  }
+}
+
+///|
+test "GroupT::stop out of bounds raise" {
+  let re = compile(
+    Ast::seq([Ast::str(sb_cov("a")), Ast::group(Ast::str(sb_cov("b")))]),
+  )
+  match exec_opt(re, sb_cov("ab")) {
+    Some(g) => {
+      let result = try {
+        let _ = GroupT::stop(g, 99)
+        false
+      } catch {
+        _ => true
+      }
+      assert_eq(result, true)
+    }
+    None => assert_eq(true, false)
+  }
+}
+
+///|
+test "GroupT::create direct construction" {
+  let s = sb_cov("hello")
+  let marks = MarkInfos::make([(0, 0), (1, 1)])
+  let pmarks = PmarkSet::empty()
+  let gpos = [0, 5]
+  let g = GroupT::create(s, marks, pmarks, gpos, 1)
+  assert_eq(GroupT::nb_groups(g), 1)
+  assert_eq(GroupT::matched(g, 0), true)
+  assert_eq(GroupT::matched(g, 1), false)
+  assert_eq(GroupT::offset(g, 0), (0, 5))
+  assert_eq(GroupT::start(g, 0), 0)
+  assert_eq(GroupT::stop(g, 0), 5)
+  assert_eq(bs_cov(GroupT::get(g, 0).unwrap()), "hello")
+}

@@ -628,6 +628,10 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     114: (__test_636f7665726167655f746573742e6d6274_114, ["str match_end no match raise"]),
     115: (__test_636f7665726167655f746573742e6d6274_115, ["str matched_string no match raise"]),
     116: (__test_636f7665726167655f746573742e6d6274_116, ["str group_beginning out of bounds raise"]),
+    117: (__test_636f7665726167655f746573742e6d6274_117, ["GroupT::offset out of bounds raise"]),
+    118: (__test_636f7665726167655f746573742e6d6274_118, ["GroupT::start out of bounds raise"]),
+    119: (__test_636f7665726167655f746573742e6d6274_119, ["GroupT::stop out of bounds raise"]),
+    120: (__test_636f7665726167655f746573742e6d6274_120, ["GroupT::create direct construction"]),
   },
   "core_test.mbt": {
     0: (__test_636f72655f746573742e6d6274_0, ["exec_opt basic match"]),
