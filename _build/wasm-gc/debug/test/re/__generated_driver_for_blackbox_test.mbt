@@ -703,6 +703,13 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     16: (__test_6261736963735f746573742e6d6274_16, ["bitvector basic"]),
     17: (__test_6261736963735f746573742e6d6274_17, ["hashset basic"]),
     18: (__test_6261736963735f746573742e6d6274_18, ["hashset dedup"]),
+    19: (__test_6261736963735f746573742e6d6274_19, ["cset empty operations boundary"]),
+    20: (__test_6261736963735f746573742e6d6274_20, ["cset cany combinations"]),
+    21: (__test_6261736963735f746573742e6d6274_21, ["cset single boundary 0 and 255"]),
+    22: (__test_6261736963735f746573742e6d6274_22, ["cset complement via diff cany"]),
+    23: (__test_6261736963735f746573742e6d6274_23, ["cset full 256 traversal mem"]),
+    24: (__test_6261736963735f746573742e6d6274_24, ["cset union_singles non-decreasing input"]),
+    25: (__test_6261736963735f746573742e6d6274_25, ["cset case_insens latin1 and predefined"]),
   },
   "automata_test.mbt": {
     0: (__test_6175746f6d6174615f746573742e6d6274_0, ["State::create and dummy"]),

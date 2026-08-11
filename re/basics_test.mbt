@@ -165,3 +165,92 @@ test "hashset dedup" {
   s.add(42)
   assert_eq(s.mem(42), true)
 }
+
+///|
+test "cset empty operations boundary" {
+  assert_eq(Cset::union(Cset::empty(), Cset::empty()).intervals, [])
+  assert_eq(Cset::inter(Cset::empty(), Cset::seq(0, 255)).intervals, [])
+  assert_eq(Cset::diff(Cset::seq(0, 255), Cset::empty()).intervals, [(0, 255)])
+  assert_eq(Cset::diff(Cset::empty(), Cset::seq(0, 255)).intervals, [])
+}
+
+///|
+test "cset cany combinations" {
+  assert_eq(Cset::union(Cset::cany(), Cset::single(65)).intervals, [(0, 255)])
+  assert_eq(Cset::inter(Cset::cany(), Cset::single(65)).intervals, [(65, 65)])
+  assert_eq(Cset::diff(Cset::cany(), Cset::cany()).intervals, [])
+}
+
+///|
+test "cset single boundary 0 and 255" {
+  let s0 = Cset::single(0)
+  assert_eq(s0.intervals, [(0, 0)])
+  assert_eq(Cset::mem(0, s0), true)
+  assert_eq(Cset::mem(-1, s0), false)
+  let s255 = Cset::single(255)
+  assert_eq(s255.intervals, [(255, 255)])
+  assert_eq(Cset::mem(255, s255), true)
+  assert_eq(Cset::mem(256, s255), false)
+}
+
+///|
+test "cset complement via diff cany" {
+  let x = Cset::seq(65, 90)
+  let compl = Cset::diff(Cset::cany(), x)
+  assert_eq(Cset::mem(64, compl), true)
+  assert_eq(Cset::mem(65, compl), false)
+  assert_eq(Cset::mem(90, compl), false)
+  assert_eq(Cset::mem(91, compl), true)
+  assert_eq(Cset::mem(0, compl), true)
+  assert_eq(Cset::mem(255, compl), true)
+}
+
+///|
+test "cset full 256 traversal mem" {
+  let any = Cset::cany()
+  let emp = Cset::empty()
+  let s65 = Cset::single(65)
+  let digits = Cset::seq(48, 57)
+  for c in 0..<256 {
+    assert_eq(Cset::mem(c, any), true)
+    assert_eq(Cset::mem(c, emp), false)
+    assert_eq(Cset::mem(c, s65), c == 65)
+    assert_eq(Cset::mem(c, digits), c >= 48 && c <= 57)
+  }
+}
+
+///|
+test "cset union_singles non-decreasing input" {
+  let result = Cset::union_singles_in_strictly_decreasing_order([5, 3, 3, 1])
+  assert_true(result.intervals.length() >= 1)
+}
+
+///|
+test "cset case_insens latin1 and predefined" {
+  let ci = Cset::case_insens(Cset::single(192))
+  assert_eq(Cset::mem(192, ci), true)
+  assert_eq(Cset::mem(224, ci), true)
+  let alnum = Cset::calnum()
+  assert_eq(Cset::mem(65, alnum), true)
+  assert_eq(Cset::mem(97, alnum), true)
+  assert_eq(Cset::mem(48, alnum), true)
+  assert_eq(Cset::mem(170, alnum), true)
+  assert_eq(Cset::mem(181, alnum), true)
+  assert_eq(Cset::mem(223, alnum), true)
+  assert_eq(Cset::mem(255, alnum), true)
+  let alpha = Cset::calpha()
+  assert_eq(Cset::mem(65, alpha), true)
+  assert_eq(Cset::mem(97, alpha), true)
+  assert_eq(Cset::mem(170, alpha), true)
+  assert_eq(Cset::mem(48, alpha), false)
+  let lower = Cset::clower()
+  assert_eq(Cset::mem(97, lower), true)
+  assert_eq(Cset::mem(224, lower), true)
+  assert_eq(Cset::mem(65, lower), false)
+  let word = Cset::cword()
+  assert_eq(Cset::mem(95, word), true)
+  assert_eq(Cset::mem(65, word), true)
+  assert_eq(Cset::mem(97, word), true)
+  assert_eq(Cset::mem(48, word), true)
+  assert_eq(Cset::mem(32, word), false)
+}
