@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.mbt text eol=lf
+*.mbti text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.mod text eol=lf
+*.pkg text eol=lf
+*.ps1 text eol=crlf

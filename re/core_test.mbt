@@ -338,3 +338,49 @@ test "replace no match" {
   let result = Replace::replace_string(re, s, by=sb("REPLACED"))
   assert_eq(bs(result), "hello world")
 }
+
+// === Re::pp / Re::pp_re ===
+
+///|
+test "Re::pp basic" {
+  let ast = Ast::str(sb("hello"))
+  let s = Re::pp(ast)
+  assert_eq(s.length() > 0, true)
+}
+
+///|
+test "Re::pp complex ast" {
+  let ast = Ast::seq([
+    Ast::group(Ast::rep1(Re::digit())),
+    Ast::str(sb("-")),
+    Ast::group(Ast::rep1(Re::digit())),
+  ])
+  let s = Re::pp(ast)
+  assert_eq(s.length() > 0, true)
+}
+
+///|
+test "Re::pp_re basic" {
+  let re = compile(Ast::str(sb("hello")))
+  let s = Re::pp_re(re)
+  assert_eq(s.length() > 0, true)
+}
+
+///|
+test "Re::pp_re with groups" {
+  let re = compile(Ast::group(name=Some("first"), Ast::str(sb("a"))))
+  let s = Re::pp_re(re)
+  assert_eq(s.length() > 0, true)
+}
+
+///|
+test "Re::pp_re multiple named groups" {
+  let re = compile(
+    Ast::seq([
+      Ast::group(name=Some("x"), Ast::str(sb("a"))),
+      Ast::group(name=Some("y"), Ast::str(sb("b"))),
+    ]),
+  )
+  let s = Re::pp_re(re)
+  assert_eq(s.length() > 0, true)
+}

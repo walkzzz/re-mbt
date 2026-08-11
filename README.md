@@ -22,14 +22,14 @@
 - **面向字节** —— 输入文本、模式、捕获子串均使用 MoonBit `Bytes`
 - **纯 MoonBit** —— 无 C FFI，目标：native、wasm、js
 - **latin1 大小写处理** —— 与上游 ocaml-re 行为一致
-- **323 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
+- **423 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
 - **零警告** —— `moon check` 干净通过
 
 ## 构建与测试
 
 ```bash
 moon check           # 类型检查（0 警告，0 错误）
-moon test            # 运行全部 323 个测试
+moon test            # 运行全部 423 个测试
 moon build           # 构建
 moon fmt             # 格式化代码
 moon info            # 重新生成 pkg.generated.mbti
@@ -112,6 +112,18 @@ assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
 | `execp(re, s, pos?, len?) -> Bool raise` | 谓词：是否匹配 |
 | `exec_partial(re, s, ...) -> ExecPartialResult raise` | 部分匹配（流式） |
 | `exec_partial_detailed(re, s, ...) -> ExecPartialDetailedResult raise` | 部分匹配（含捕获组信息） |
+| `Re::pp(ast) -> String` | 格式化 AST 为字符串 |
+| `Re::pp_re(re) -> String` | 格式化已编译正则为字符串 |
+
+### 高层搜索与分割
+
+| 函数 | 说明 |
+|------|------|
+| `Search::all(re, s, pos?, len?) -> Array[GroupT]` | 查找全部匹配 |
+| `Search::matches(re, s, ...) -> Array[Bytes]` | 提取全部匹配子串 |
+| `Search::split(re, s, ...) -> Array[Bytes]` | 按模式分割（丢弃分隔符） |
+| `Search::split_delim(re, s, ...) -> Array[Bytes]` | 按模式分割（保留空段） |
+| `Search::split_full(re, s, ...) -> Array[SplitToken]` | 分割并返回 `SplitText`/`SplitDelim` 标记 |
 
 ### 前端编译器
 
@@ -165,7 +177,7 @@ assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
 ## 测试
 
 ```
-moon test    # 323 个测试，全部通过
+moon test    # 423 个测试，全部通过
 moon check   # 0 警告，0 错误
 ```
 
@@ -217,8 +229,8 @@ re-mbt/
 │   ├── dyn.mbt           # Dyn
 │   ├── fmt.mbt           # Fmt
 │   ├── util.mbt          # 工具函数
-│   ├── *_test.mbt        # 测试文件（323 个测试）
-│   └── pkg.generated.mbti # 公开 API 接口（795 行）
+│   ├── *_test.mbt        # 测试文件（423 个测试）
+│   └── pkg.generated.mbti # 公开 API 接口（812 行）
 ├── bench/                # 基准测试套件（10 个 section）
 │   ├── main.mbt          # 基准测试主程序
 │   └── run_bench.ps1     # 基准测试运行器

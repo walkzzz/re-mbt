@@ -619,6 +619,8 @@ pub fn Re::lower() -> AstGen[AstCset]
 pub fn Re::mark_all(GroupT) -> PmarkSet
 pub fn Re::mark_test(GroupT, Pmark) -> Bool
 pub fn Re::notnl() -> AstGen[AstCset]
+pub fn Re::pp(AstGen[AstCset]) -> String
+pub fn Re::pp_re(Self) -> String
 pub fn Re::print() -> AstGen[AstCset]
 pub fn Re::punct() -> AstGen[AstCset]
 pub fn Re::rg(Char, Char) -> AstGen[AstCset]

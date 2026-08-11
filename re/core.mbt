@@ -86,6 +86,8 @@ pub fn Re::xdigit() -> Ast {
 // --- exec_opt ---
 
 ///|
+/// Search for a match of `re` in `s` starting at `pos`.
+/// Returns `Some(GroupT)` if found, `None` otherwise.
 pub fn exec_opt(
   re : Re,
   s : Bytes,
@@ -101,6 +103,7 @@ pub fn exec_opt(
 // --- exec ---
 
 ///|
+/// Search for a match of `re` in `s`. Raises if no match found.
 pub fn exec(
   re : Re,
   s : Bytes,
@@ -116,6 +119,7 @@ pub fn exec(
 // --- execp ---
 
 ///|
+/// Test whether `re` matches anywhere in `s`. More efficient than `exec_opt`.
 pub fn execp(re : Re, s : Bytes, pos? : Int = 0, len? : Int = -1) -> Bool raise {
   match_str_p(re, s, pos~, len~)
 }
@@ -191,4 +195,31 @@ pub fn Re::mark_test(g : GroupT, p : Pmark) -> Bool {
 ///|
 pub fn Re::mark_all(g : GroupT) -> PmarkSet {
   GroupT::pmarks(g)
+}
+
+// --- Pretty printing ---
+
+///|
+/// Pretty-print an AST (uncompiled regexp) to a string.
+/// Corresponds to OCaml `Re.pp`.
+pub fn Re::pp(ast : Ast) -> String {
+  "\{to_repr(Ast::to_dyn(ast))}"
+}
+
+///|
+/// Pretty-print a compiled regexp to a string.
+/// Corresponds to OCaml `Re.pp_re`.
+pub fn Re::pp_re(re : Re) -> String {
+  let names = Re::group_names(re)
+  let name_str = if names.length() == 0 {
+    ""
+  } else {
+    let mut s = " groups:"
+    for entry in names {
+      let (name, idx) = entry
+      s = s + " " + name + "=" + idx.to_string()
+    }
+    s
+  }
+  "Re(group_count=" + Re::group_count(re).to_string() + name_str + ")"
 }
