@@ -364,3 +364,38 @@ test "perl ungreedy opt" {
     None => assert_eq(true, false)
   }
 }
+
+///|
+test "pcre caseless flag" {
+  let re_ci = Pcre::regexp(sb("hello"), flags=[PcreFlag::caseless()])
+  assert_eq(Pcre::pmatch(re_ci, sb("HELLO")), true)
+  let re_no = Pcre::regexp(sb("hello"))
+  assert_eq(Pcre::pmatch(re_no, sb("HELLO")), false)
+}
+
+///|
+test "pcre multiline flag" {
+  let re_ml = Pcre::regexp(sb("^abc$"), flags=[PcreFlag::multiline_p()])
+  assert_eq(Pcre::pmatch(re_ml, sb("x\nabc\ny")), true)
+  let re_no = Pcre::regexp(sb("^abc$"))
+  assert_eq(Pcre::pmatch(re_no, sb("x\nabc\ny")), false)
+  assert_eq(Pcre::pmatch(re_no, sb("abc")), true)
+}
+
+///|
+test "pcre anchored flag" {
+  let re_a = Pcre::regexp(sb("hello"), flags=[PcreFlag::anchored_p()])
+  assert_eq(Pcre::pmatch(re_a, sb("hello world")), true)
+  assert_eq(Pcre::pmatch(re_a, sb("say hello")), false)
+  let re_no = Pcre::regexp(sb("hello"))
+  assert_eq(Pcre::pmatch(re_no, sb("say hello")), true)
+}
+
+///|
+test "pcre dotall flag" {
+  let re_d = Pcre::regexp(sb("a.b"), flags=[PcreFlag::dotall_p()])
+  assert_eq(Pcre::pmatch(re_d, sb("a\nb")), true)
+  let re_no = Pcre::regexp(sb("a.b"))
+  assert_eq(Pcre::pmatch(re_no, sb("a\nb")), false)
+  assert_eq(Pcre::pmatch(re_no, sb("axb")), true)
+}

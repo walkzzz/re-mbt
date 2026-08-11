@@ -12,6 +12,26 @@ pub enum PcreFlag {
 }
 
 ///|
+pub fn PcreFlag::caseless() -> PcreFlag {
+  Caseless
+}
+
+///|
+pub fn PcreFlag::multiline_p() -> PcreFlag {
+  MultilineP
+}
+
+///|
+pub fn PcreFlag::anchored_p() -> PcreFlag {
+  AnchoredP
+}
+
+///|
+pub fn PcreFlag::dotall_p() -> PcreFlag {
+  DotallP
+}
+
+///|
 pub enum PcreSplitResult {
   PcreText(Bytes)
   PcreDelim(Bytes)

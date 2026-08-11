@@ -497,6 +497,10 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     34: (__test_66726f6e74656e645f746573742e6d6274_34, ["perl multiline opt"]),
     35: (__test_66726f6e74656e645f746573742e6d6274_35, ["perl dollar_endonly opt"]),
     36: (__test_66726f6e74656e645f746573742e6d6274_36, ["perl ungreedy opt"]),
+    37: (__test_66726f6e74656e645f746573742e6d6274_37, ["pcre caseless flag"]),
+    38: (__test_66726f6e74656e645f746573742e6d6274_38, ["pcre multiline flag"]),
+    39: (__test_66726f6e74656e645f746573742e6d6274_39, ["pcre anchored flag"]),
+    40: (__test_66726f6e74656e645f746573742e6d6274_40, ["pcre dotall flag"]),
   },
   "desc_test.mbt": {
     0: (__test_646573635f746573742e6d6274_0, ["desc initial returns single TExp with empty marks"]),
