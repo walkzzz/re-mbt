@@ -679,6 +679,9 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     1: (__test_636f6c6f725f6d61705f746573742e6d6274_1, ["ColorMap single char split"]),
     2: (__test_636f6c6f725f6d61705f746573742e6d6274_2, ["ColorMap two chars split"]),
     3: (__test_636f6c6f725f6d61705f746573742e6d6274_3, ["ColorMap translate_colors"]),
+    4: (__test_636f6c6f725f6d61705f746573742e6d6274_4, ["colorize single char matches manual split"]),
+    5: (__test_636f6c6f725f6d61705f746573742e6d6274_5, ["colorize str matches manual split"]),
+    6: (__test_636f6c6f725f6d61705f746573742e6d6274_6, ["colorize alternative matches manual split"]),
   },
   "basics_test.mbt": {
     0: (__test_6261736963735f746573742e6d6274_0, ["cset empty"]),
