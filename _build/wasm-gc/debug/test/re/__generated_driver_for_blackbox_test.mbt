@@ -451,6 +451,14 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     12: (__test_766965775f746573742e6d6274_12, ["cset view empty"]),
     13: (__test_766965775f746573742e6d6274_13, ["cset view union"]),
   },
+  "parse_buffer_test.mbt": {
+    0: (__test_70617273655f6275666665725f746573742e6d6274_0, ["parse_buffer create and eos boundary"]),
+    1: (__test_70617273655f6275666665725f746573742e6d6274_1, ["parse_buffer integer normal digits"]),
+    2: (__test_70617273655f6275666665725f746573742e6d6274_2, ["parse_buffer integer empty returns None"]),
+    3: (__test_70617273655f6275666665725f746573742e6d6274_3, ["parse_buffer integer non-digit first returns None"]),
+    4: (__test_70617273655f6275666665725f746573742e6d6274_4, ["parse_buffer integer digits then non-digit stops"]),
+    5: (__test_70617273655f6275666665725f746573742e6d6274_5, ["parse_buffer integer overflow raise"]),
+  },
   "frontend_test.mbt": {
     0: (__test_66726f6e74656e645f746573742e6d6274_0, ["perl basic match"]),
     1: (__test_66726f6e74656e645f746573742e6d6274_1, ["perl alternation"]),
