@@ -399,3 +399,78 @@ test "pcre dotall flag" {
   assert_eq(Pcre::pmatch(re_no, sb("a\nb")), false)
   assert_eq(Pcre::pmatch(re_no, sb("axb")), true)
 }
+
+///|
+test "str global_replace returns original" {
+  let re = Str::regexp(sb("o"))
+  let repl = sb("X")
+  assert_eq(bs(Str::global_replace(re, repl, sb("foo bar boo"))), "foo bar boo")
+  assert_eq(bs(Str::global_replace(re, repl, sb("xyz"))), "xyz")
+}
+
+///|
+test "str replace_first returns original" {
+  let re = Str::regexp(sb("o"))
+  let repl = sb("X")
+  assert_eq(bs(Str::replace_first(re, repl, sb("foo"))), "foo")
+  assert_eq(bs(Str::replace_first(re, repl, sb("xyz"))), "xyz")
+}
+
+///|
+test "str full_split text and delim" {
+  let re = Str::regexp(sb(","))
+  let result = Str::full_split(re, sb("a,b,c"))
+  assert_eq(result.length(), 5)
+  match result[0] {
+    StrText(t) => assert_eq(bs(t), "a")
+    StrDelim(_) => assert_eq(true, false)
+  }
+  match result[1] {
+    StrText(_) => assert_eq(true, false)
+    StrDelim(d) => assert_eq(bs(d), ",")
+  }
+  match result[2] {
+    StrText(t) => assert_eq(bs(t), "b")
+    StrDelim(_) => assert_eq(true, false)
+  }
+  match result[3] {
+    StrText(_) => assert_eq(true, false)
+    StrDelim(d) => assert_eq(bs(d), ",")
+  }
+  match result[4] {
+    StrText(t) => assert_eq(bs(t), "c")
+    StrDelim(_) => assert_eq(true, false)
+  }
+}
+
+///|
+test "str bounded_split limit" {
+  let re = Str::regexp(sb(","))
+  let text = sb("a,b,c,d")
+  let r0 = Str::bounded_split(re, text, 0)
+  assert_eq(r0.length(), 4)
+  assert_eq(bs(r0[0]), "a")
+  assert_eq(bs(r0[1]), "b")
+  assert_eq(bs(r0[2]), "c")
+  assert_eq(bs(r0[3]), "d")
+  let r2 = Str::bounded_split(re, text, 2)
+  assert_eq(r2.length(), 2)
+  assert_eq(bs(r2[0]), "a")
+  assert_eq(bs(r2[1]), "b,c,d")
+}
+
+///|
+test "str quote special chars" {
+  assert_eq(bs(Str::quote(sb("a.b"))), "a\\.b")
+  assert_eq(bs(Str::quote(sb("[*]"))), "\\[\\*\\]")
+  assert_eq(bs(Str::quote(sb("normal"))), "normal")
+  assert_eq(bs(Str::quote(sb("?+$^"))), "\\?\\+\\$\\^")
+}
+
+///|
+test "str regexp_case_fold case insensitive" {
+  let re = Str::regexp_case_fold(sb("hello"))
+  assert_eq(Str::string_match(re, sb("HELLO world"), 0), true)
+  let re2 = Str::regexp(sb("hello"))
+  assert_eq(Str::string_match(re2, sb("HELLO world"), 0), false)
+}

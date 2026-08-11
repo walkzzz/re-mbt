@@ -501,6 +501,12 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     38: (__test_66726f6e74656e645f746573742e6d6274_38, ["pcre multiline flag"]),
     39: (__test_66726f6e74656e645f746573742e6d6274_39, ["pcre anchored flag"]),
     40: (__test_66726f6e74656e645f746573742e6d6274_40, ["pcre dotall flag"]),
+    41: (__test_66726f6e74656e645f746573742e6d6274_41, ["str global_replace returns original"]),
+    42: (__test_66726f6e74656e645f746573742e6d6274_42, ["str replace_first returns original"]),
+    43: (__test_66726f6e74656e645f746573742e6d6274_43, ["str full_split text and delim"]),
+    44: (__test_66726f6e74656e645f746573742e6d6274_44, ["str bounded_split limit"]),
+    45: (__test_66726f6e74656e645f746573742e6d6274_45, ["str quote special chars"]),
+    46: (__test_66726f6e74656e645f746573742e6d6274_46, ["str regexp_case_fold case insensitive"]),
   },
   "desc_test.mbt": {
     0: (__test_646573635f746573742e6d6274_0, ["desc initial returns single TExp with empty marks"]),
