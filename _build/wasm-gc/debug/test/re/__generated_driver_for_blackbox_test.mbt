@@ -477,6 +477,13 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     22: (__test_66726f6e74656e645f746573742e6d6274_22, ["perl non-greedy"]),
     23: (__test_66726f6e74656e645f746573742e6d6274_23, ["perl {n,m}"]),
     24: (__test_66726f6e74656e645f746573742e6d6274_24, ["perl caseless"]),
+    25: (__test_66726f6e74656e645f746573742e6d6274_25, ["perl unclosed paren raise"]),
+    26: (__test_66726f6e74656e645f746573742e6d6274_26, ["perl invalid escape raise"]),
+    27: (__test_66726f6e74656e645f746573742e6d6274_27, ["perl unclosed bracket raise"]),
+    28: (__test_66726f6e74656e645f746573742e6d6274_28, ["emacs unclosed paren raise"]),
+    29: (__test_66726f6e74656e645f746573742e6d6274_29, ["emacs invalid escape raise"]),
+    30: (__test_66726f6e74656e645f746573742e6d6274_30, ["pcre unclosed paren raise"]),
+    31: (__test_66726f6e74656e645f746573742e6d6274_31, ["pcre invalid escape raise"]),
   },
   "coverage_test.mbt": {
     0: (__test_636f7665726167655f746573742e6d6274_0, ["CsetC::null_char is -1"]),

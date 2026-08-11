@@ -202,3 +202,115 @@ test "perl caseless" {
   assert_eq(execp(re, sb("HELLO")), true)
   assert_eq(execp(re, sb("Hello")), true)
 }
+
+///|
+test "perl unclosed paren raise" {
+  let r1 = try {
+    let _ = Perl::compile_pat(sb("("))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+  let r2 = try {
+    let _ = Perl::compile_pat(sb("(abc"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r2, true)
+}
+
+///|
+test "perl invalid escape raise" {
+  let r1 = try {
+    let _ = Perl::compile_pat(sb("\\"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+  let r2 = try {
+    let _ = Perl::compile_pat(sb("\\8"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r2, true)
+}
+
+///|
+test "perl unclosed bracket raise" {
+  let r1 = try {
+    let _ = Perl::compile_pat(sb("["))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+  let r2 = try {
+    let _ = Perl::compile_pat(sb("[abc"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r2, true)
+}
+
+///|
+test "emacs unclosed paren raise" {
+  let r1 = try {
+    let _ = Emacs::compile_pat(sb("\\("))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+  let r2 = try {
+    let _ = Emacs::compile_pat(sb("\\(abc"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r2, true)
+}
+
+///|
+test "emacs invalid escape raise" {
+  let r1 = try {
+    let _ = Emacs::compile_pat(sb("\\"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+}
+
+///|
+test "pcre unclosed paren raise" {
+  let r1 = try {
+    let _ = Pcre::regexp(sb("("))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+  let r2 = try {
+    let _ = Pcre::regexp(sb("(abc"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r2, true)
+}
+
+///|
+test "pcre invalid escape raise" {
+  let r1 = try {
+    let _ = Pcre::regexp(sb("\\8"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(r1, true)
+}
