@@ -596,6 +596,9 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     107: (__test_636f7665726167655f746573742e6d6274_107, ["match_str pos negative bounds raise"]),
     108: (__test_636f7665726167655f746573742e6d6274_108, ["match_str_no_bounds len below -1 no raise"]),
     109: (__test_636f7665726167655f746573742e6d6274_109, ["match_str pos+len overflow bounds raise"]),
+    110: (__test_636f7665726167655f746573742e6d6274_110, ["pcre exec no match raise"]),
+    111: (__test_636f7665726167655f746573742e6d6274_111, ["pcre get_named_substring not found raise"]),
+    112: (__test_636f7665726167655f746573742e6d6274_112, ["pcre get_named_substring opt boundary"]),
   },
   "core_test.mbt": {
     0: (__test_636f72655f746573742e6d6274_0, ["exec_opt basic match"]),

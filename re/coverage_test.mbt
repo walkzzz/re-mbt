@@ -1076,3 +1076,44 @@ test "match_str pos+len overflow bounds raise" {
   }
   assert_eq(bounds_raise, true)
 }
+
+// === Pcre 高级 API 异常路径 + 命名 group 边界 (P4) ===
+
+///|
+test "pcre exec no match raise" {
+  let re = Pcre::regexp(sb_cov("abc"))
+  // 不匹配输入触发 core.mbt:112 fail("Re.exec: not found")
+  let result = try {
+    let _ = Pcre::exec(re, sb_cov("xyz"))
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(result, true)
+}
+
+///|
+test "pcre get_named_substring not found raise" {
+  let re = Pcre::regexp(sb_cov("(?<word>[a-z]+)"))
+  let g = Pcre::exec(re, sb_cov("hello"))
+  // 错误 name 触发 pcre.mbt:179 fail("Pcre: named group not found")
+  let result = try {
+    let _ = Pcre::get_named_substring(re, "num", g)
+    false
+  } catch {
+    _ => true
+  }
+  assert_eq(result, true)
+}
+
+///|
+test "pcre get_named_substring opt boundary" {
+  let re = Pcre::regexp(sb_cov("(?<word>[a-z]+)"))
+  let g = Pcre::exec(re, sb_cov("hello"))
+  // 正向：get_named_substring 命中（pcre.mbt:172-180 Some 分支）
+  assert_eq(Pcre::get_named_substring(re, "word", g), sb_cov("hello"))
+  // 正向：get_named_substring_opt 命中（pcre.mbt:67-84 有名分支）
+  assert_eq(Pcre::get_named_substring_opt(re, "word", g), Some(sb_cov("hello")))
+  // 边界：get_named_substring_opt 未命中返回 None（pcre.mbt:67-84 无名分支）
+  assert_eq(Pcre::get_named_substring_opt(re, "num", g), None)
+}
