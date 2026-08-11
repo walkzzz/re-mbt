@@ -693,6 +693,14 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     19: (__test_636f6d70696c655f746573742e6d6274_19, ["compile and match: whole_string 'abc' matches 'abc'"]),
     20: (__test_636f6d70696c655f746573742e6d6274_20, ["compile and match: whole_string 'abc' no match 'abcd'"]),
   },
+  "compile_internal_test.mbt": {
+    0: (__test_636f6d70696c655f696e7465726e616c5f746573742e6d6274_0, ["compile_idx constants"]),
+    1: (__test_636f6d70696c655f696e7465726e616c5f746573742e6d6274_1, ["compile_idx three state predicates"]),
+    2: (__test_636f6d70696c655f696e7465726e616c5f746573742e6d6274_2, ["compile idx conversion functions"]),
+    3: (__test_636f6d70696c655f696e7465726e616c5f746573742e6d6274_3, ["state hash table create and find empty"]),
+    4: (__test_636f6d70696c655f696e7465726e616c5f746573742e6d6274_4, ["state hash table add and find hit"]),
+    5: (__test_636f6d70696c655f696e7465726e616c5f746573742e6d6274_5, ["state hash table find miss different state"]),
+  },
   "color_map_test.mbt": {
     0: (__test_636f6c6f725f6d61705f746573742e6d6274_0, ["ColorMap empty flatten"]),
     1: (__test_636f6c6f725f6d61705f746573742e6d6274_1, ["ColorMap single char split"]),
