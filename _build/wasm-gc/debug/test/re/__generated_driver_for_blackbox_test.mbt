@@ -492,6 +492,11 @@ let moonbit_test_driver_internal_no_args_tests : MoonBitTestDriverInternalTestMa
     29: (__test_66726f6e74656e645f746573742e6d6274_29, ["emacs invalid escape raise"]),
     30: (__test_66726f6e74656e645f746573742e6d6274_30, ["pcre unclosed paren raise"]),
     31: (__test_66726f6e74656e645f746573742e6d6274_31, ["pcre invalid escape raise"]),
+    32: (__test_66726f6e74656e645f746573742e6d6274_32, ["perl anchored opt"]),
+    33: (__test_66726f6e74656e645f746573742e6d6274_33, ["perl dotall opt"]),
+    34: (__test_66726f6e74656e645f746573742e6d6274_34, ["perl multiline opt"]),
+    35: (__test_66726f6e74656e645f746573742e6d6274_35, ["perl dollar_endonly opt"]),
+    36: (__test_66726f6e74656e645f746573742e6d6274_36, ["perl ungreedy opt"]),
   },
   "desc_test.mbt": {
     0: (__test_646573635f746573742e6d6274_0, ["desc initial returns single TExp with empty marks"]),

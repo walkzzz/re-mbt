@@ -314,3 +314,53 @@ test "pcre invalid escape raise" {
   }
   assert_eq(r1, true)
 }
+
+///|
+test "perl anchored opt" {
+  let re_a = Perl::compile_pat(sb("hello"), opts=[PerlOpt::anchored()])
+  assert_eq(execp(re_a, sb("hello world")), true)
+  assert_eq(execp(re_a, sb("say hello")), false)
+  let re_no = Perl::compile_pat(sb("hello"))
+  assert_eq(execp(re_no, sb("say hello")), true)
+}
+
+///|
+test "perl dotall opt" {
+  let re_d = Perl::compile_pat(sb("a.b"), opts=[PerlOpt::dotall()])
+  assert_eq(execp(re_d, sb("a\nb")), true)
+  let re_no = Perl::compile_pat(sb("a.b"))
+  assert_eq(execp(re_no, sb("a\nb")), false)
+  assert_eq(execp(re_no, sb("axb")), true)
+}
+
+///|
+test "perl multiline opt" {
+  let re_m = Perl::compile_pat(sb("^abc$"), opts=[PerlOpt::multiline()])
+  assert_eq(execp(re_m, sb("x\nabc\ny")), true)
+  let re_no = Perl::compile_pat(sb("^abc$"))
+  assert_eq(execp(re_no, sb("x\nabc\ny")), false)
+  assert_eq(execp(re_no, sb("abc")), true)
+}
+
+///|
+test "perl dollar_endonly opt" {
+  let re_de = Perl::compile_pat(sb("abc$"), opts=[PerlOpt::dollar_endonly()])
+  assert_eq(execp(re_de, sb("abc\n")), true)
+  assert_eq(execp(re_de, sb("abc")), true)
+  let re_no = Perl::compile_pat(sb("abc$"))
+  assert_eq(execp(re_no, sb("abc\n")), false)
+}
+
+///|
+test "perl ungreedy opt" {
+  let re_u = Perl::compile_pat(sb("(a+)"), opts=[PerlOpt::ungreedy()])
+  match exec_opt(re_u, sb("aaa")) {
+    Some(g) => assert_eq(bs(GroupT::get(g, 1).unwrap()), "a")
+    None => assert_eq(true, false)
+  }
+  let re_no = Perl::compile_pat(sb("(a+)"))
+  match exec_opt(re_no, sb("aaa")) {
+    Some(g) => assert_eq(bs(GroupT::get(g, 1).unwrap()), "aaa")
+    None => assert_eq(true, false)
+  }
+}
