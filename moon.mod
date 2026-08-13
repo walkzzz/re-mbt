@@ -1,4 +1,4 @@
-name = "re-mbt"
+name = "walkzzz/re-mbt"
 
 version = "0.1.0"
 

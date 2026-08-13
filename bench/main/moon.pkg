@@ -1,5 +1,5 @@
 import {
-  "re-mbt/re",
+  "walkzzz/re-mbt/re",
 }
 
 supported_targets = "native"
