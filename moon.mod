@@ -6,6 +6,12 @@ description = "A port of ocaml-re — the pure OCaml regular expression library 
 
 readme = "README.md"
 
+license = "LGPL-2.1-or-later"
+
+repository = "https://github.com/walkzzz/re-mbt"
+
+keywords = ["regex", "regexp", "regular-expression", "ocaml-re", "port"]
+
 import {
   "moonbitlang/x@0.4.48",
 }

@@ -723,7 +723,7 @@ pub fn Str::compile_regexp(Bytes, Bool) -> StrRegexp raise
 pub fn Str::first_chars(Bytes, Int) -> Bytes
 pub fn Str::full_split(StrRegexp, Bytes) -> Array[StrSplitResult] raise
 pub fn Str::global_replace(StrRegexp, Bytes, Bytes) -> Bytes raise
-pub fn Str::global_substitute(StrRegexp, (Bytes) -> Bytes, Bytes) -> Bytes raise
+pub fn Str::global_substitute(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
 pub fn Str::group_beginning(Int) -> Int raise
 pub fn Str::group_end(Int) -> Int raise
 pub fn Str::last_chars(Bytes, Int) -> Bytes
@@ -746,7 +746,7 @@ pub fn Str::string_after(Bytes, Int) -> Bytes
 pub fn Str::string_before(Bytes, Int) -> Bytes
 pub fn Str::string_match(StrRegexp, Bytes, Int) -> Bool raise
 pub fn Str::string_partial_match(StrRegexp, Bytes, Int) -> Bool raise
-pub fn Str::substitute_first(StrRegexp, (Bytes) -> Bytes, Bytes) -> Bytes raise
+pub fn Str::substitute_first(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
 
 type StrRegexp
 

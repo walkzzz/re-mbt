@@ -240,3 +240,52 @@ re-mbt/
 ## 许可证
 
 上游为 LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception；本移植保持相同许可证。
+
+## 移植说明
+
+### 原项目信息
+
+| 项 | 说明 |
+|----|------|
+| 原项目名称 | ocaml-re |
+| 原项目链接 | https://github.com/ocaml/ocaml-re |
+| 原项目许可证 | LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception |
+| 原作者 | Xavier Leroy (INRIA Rocquencourt), Jerome Vouillon |
+
+### 移植范围
+
+全部核心模块已移植，内部模块与 OCaml 1:1 对应：
+
+- 字符集操作（`cset`）、AST 构造与着色（`ast`、`color_map`）
+- 自动机核心（`automata`、`automata_desc`、`automata_expr`、`automata_state`）
+- 惰性 DFA 驱动器（`compile`、`compile_translate`）
+- 高层 API（`core`、`group`、`search`、`replace`、`view`）
+- 6 个前端（`perl`、`pcre`、`posix`、`emacs`、`glob`、`str`）
+- 辅助模块（`bit_vector`、`dense_map`、`hash_set`、`pmark`、`category`、`mark_infos`、`parse_buffer`、`slice`、`dyn`、`fmt`）
+
+### 修改与适配
+
+| OCaml | MoonBit | 说明 |
+|-------|---------|------|
+| `string` | `Bytes` | 面向字节，latin1 兼容 |
+| `ref` | `Ref[T]` | 可变引用 |
+| `module` | 空结构体命名空间 | 如 `struct Perl {}` + `Perl::compile_pat` |
+| `Format.formatter` | `String` | `Re::pp`/`pp_re` 返回字符串 |
+| `Domain.DLS` | 全局 `Ref` | 单线程，无 domain 隔离 |
+| `lazy` | 直接求值 | MoonBit 无惰性求值 |
+| `Not_found` 异常 | `raise` + `fail` | MoonBit checked error |
+
+### 尚未移植
+
+| 功能 | 原因 |
+|------|------|
+| `Re.Seq.*`（迭代器版本） | MoonBit 无原生 `Seq.t`，已有 `Search::all` 等返回 `Array` 的版本 |
+| `Re.Stream`（流式匹配） | 需重构匹配引擎，实验性 API |
+| `Re.witness`（生成匹配字符串） | 实验性 API，需反向遍历自动机 |
+| `import.ml` | OCaml 特有模块导入 |
+
+### 与上游 API 覆盖率
+
+- Re 核心 API：~95%（缺 `Seq.*`/`Stream`/`witness` 实验性 API）
+- Str 前端 API：100%（全部 30+ 个函数已实现）
+- 6 个前端语法：100%（Perl/PCRE/POSIX/Emacs/Glob/Str 全部实现）

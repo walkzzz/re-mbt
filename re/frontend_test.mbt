@@ -401,18 +401,18 @@ test "pcre dotall flag" {
 }
 
 ///|
-test "str global_replace returns original" {
+test "str global_replace replaces all matches" {
   let re = Str::regexp(sb("o"))
   let repl = sb("X")
-  assert_eq(bs(Str::global_replace(re, repl, sb("foo bar boo"))), "foo bar boo")
+  assert_eq(bs(Str::global_replace(re, repl, sb("foo bar boo"))), "fXX bar bXX")
   assert_eq(bs(Str::global_replace(re, repl, sb("xyz"))), "xyz")
 }
 
 ///|
-test "str replace_first returns original" {
+test "str replace_first replaces first match" {
   let re = Str::regexp(sb("o"))
   let repl = sb("X")
-  assert_eq(bs(Str::replace_first(re, repl, sb("foo"))), "foo")
+  assert_eq(bs(Str::replace_first(re, repl, sb("foo"))), "fXo")
   assert_eq(bs(Str::replace_first(re, repl, sb("xyz"))), "xyz")
 }
 

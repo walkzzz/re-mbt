@@ -149,72 +149,19 @@ pub fn Str::string_after(s : Bytes, n : Int) -> Bytes {
 ///|
 pub fn Str::global_replace(
   re : StrRegexp,
-  _repl : Bytes,
+  repl : Bytes,
   text : Bytes,
 ) -> Bytes raise {
-  let result : Array[Byte] = []
-  let mut start = 0
-  let mut last_was_empty = false
-  while true {
-    let startpos = if last_was_empty { start + 1 } else { start }
-    if startpos > text.length() {
-      for i in start..<text.length() {
-        result.push(text[i])
-      }
-      break
-    }
-    match exec_opt(re.srch, text, pos=startpos) {
-      Some(m) => {
-        let pos = GroupT::start(m, 0)
-        let end_pos = GroupT::stop(m, 0)
-        str_state.val = Some(m)
-        for i in start..<pos {
-          result.push(text[i])
-        }
-        let matched = GroupT::get(m, 0).unwrap()
-        for i in 0..<matched.length() {
-          result.push(matched[i])
-        }
-        start = end_pos
-        last_was_empty = end_pos == pos
-      }
-      None => {
-        for i in start..<text.length() {
-          result.push(text[i])
-        }
-        break
-      }
-    }
-  }
-  Bytes::from_array(result)
+  Str::global_substitute(re, fn(_s) raise { str_replacement_text(repl, _s) }, text)
 }
 
 ///|
 pub fn Str::replace_first(
   re : StrRegexp,
-  _repl : Bytes,
+  repl : Bytes,
   text : Bytes,
 ) -> Bytes raise {
-  match exec_opt(re.srch, text) {
-    Some(m) => {
-      let pos = GroupT::start(m, 0)
-      let end_pos = GroupT::stop(m, 0)
-      str_state.val = Some(m)
-      let result : Array[Byte] = []
-      for i in 0..<pos {
-        result.push(text[i])
-      }
-      let matched = GroupT::get(m, 0).unwrap()
-      for i in 0..<matched.length() {
-        result.push(matched[i])
-      }
-      for i in end_pos..<text.length() {
-        result.push(text[i])
-      }
-      Bytes::from_array(result)
-    }
-    None => text
-  }
+  Str::substitute_first(re, fn(_s) raise { str_replacement_text(repl, _s) }, text)
 }
 
 ///|
@@ -395,7 +342,7 @@ pub fn Str::replace_matched(repl : Bytes, matched : Bytes) -> Bytes raise {
 ///|
 pub fn Str::global_substitute(
   re : StrRegexp,
-  repl_fun : (Bytes) -> Bytes,
+  repl_fun : (Bytes) -> Bytes raise,
   text : Bytes,
 ) -> Bytes raise {
   let result : Array[Byte] = []
@@ -438,7 +385,7 @@ pub fn Str::global_substitute(
 ///|
 pub fn Str::substitute_first(
   re : StrRegexp,
-  repl_fun : (Bytes) -> Bytes,
+  repl_fun : (Bytes) -> Bytes raise,
   text : Bytes,
 ) -> Bytes raise {
   match exec_opt(re.srch, text) {
