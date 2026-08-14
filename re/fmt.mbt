@@ -4,5 +4,5 @@
 // modules use for debugging output.
 
 ///|
-#warnings("-struct_never_constructed")
-pub struct Fmt {}
+#warnings("-unused_type_declaration")
+priv struct Fmt {}

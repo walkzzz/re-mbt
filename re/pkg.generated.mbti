@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "re-mbt/re"
+package "walkzzz/re-mbt/re"
 
 import {
   "moonbitlang/core/debug",
@@ -272,9 +272,6 @@ pub struct CsetView {
 }
 pub fn CsetView::view(Cset) -> Array[ViewRange]
 
-pub struct DenseMap {
-}
-
 pub struct Desc {
 }
 pub fn Desc::add_eps(Array[ET], Marks) -> Array[ET]
@@ -365,9 +362,6 @@ pub fn Expr::rename(Ids, Self) -> Self
 pub fn Expr::rep(Ids, RepKind, Sem, Self) -> Self
 pub fn Expr::seq(Ids, Sem, Self, Self) -> Self
 pub fn Expr::to_dyn(Self) -> Dyn
-
-pub struct Fmt {
-}
 
 pub struct Glob {
 }
@@ -582,12 +576,6 @@ pub fn Posix::compile(Bytes, opts? : Array[PosixOpt]) -> Re raise
 pub fn Posix::compile_pat(Bytes, opts? : Array[PosixOpt]) -> Re raise
 pub fn Posix::re(Bytes, opts? : Array[PosixOpt]) -> AstGen[AstCset] raise
 
-pub struct PosixClass {
-}
-pub fn PosixClass::names() -> Array[String]
-pub fn PosixClass::of_name(String) -> AstGen[AstCset] raise
-pub fn PosixClass::parse(ParseBuffer) -> AstGen[AstCset]? raise
-
 pub enum PosixOpt {
   ICase
   NoSub
@@ -663,15 +651,6 @@ pub fn Sem::shortest() -> Self
 pub fn Sem::to_dyn(Self) -> Dyn
 pub fn Sem::to_string(Self) -> String
 pub fn Sem::to_string_short(Self) -> String
-
-pub struct Slice {
-  s : Bytes
-  pos : Int
-  len : Int
-}
-
-pub struct SliceL {
-}
 
 pub enum SplitToken {
   SplitText(Bytes)

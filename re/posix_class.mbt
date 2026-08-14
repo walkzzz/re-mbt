@@ -2,10 +2,10 @@
 
 ///|
 #warnings("-struct_never_constructed")
-pub struct PosixClass {}
+priv struct PosixClass {}
 
 ///|
-pub fn PosixClass::of_name(name : String) -> Ast raise {
+fn PosixClass::of_name(name : String) -> Ast raise {
   match name {
     "alpha" => Re::alpha()
     "alnum" => Re::alnum()
@@ -26,7 +26,8 @@ pub fn PosixClass::of_name(name : String) -> Ast raise {
 }
 
 ///|
-pub fn PosixClass::names() -> Array[String] {
+#warnings("-unused_value")
+fn PosixClass::names() -> Array[String] {
   [
     "alpha", "alnum", "ascii", "blank", "cntrl", "digit", "lower", "print", "space",
     "upper", "word", "punct", "graph", "xdigit",
@@ -57,7 +58,7 @@ let posix_class_names_bytes : Array[(String, Bytes)] = [
 let posix_class_close : Bytes = sb(":]")
 
 ///|
-pub fn PosixClass::parse(buf : ParseBuffer) -> Ast? raise {
+fn PosixClass::parse(buf : ParseBuffer) -> Ast? raise {
   if !ParseBuffer::accept(buf, ':') {
     None
   } else {

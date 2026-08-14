@@ -4,7 +4,7 @@
 
 ///|
 #warnings("-struct_never_constructed")
-pub struct DenseMap {}
+priv struct DenseMap {}
 
 ///|
 fn[T] DenseMap::make(size~ : Int, f~ : (Int) -> T) -> (Int) -> T {
