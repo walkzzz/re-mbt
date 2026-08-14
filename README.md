@@ -22,14 +22,15 @@
 - **面向字节** —— 输入文本、模式、捕获子串均使用 MoonBit `Bytes`
 - **纯 MoonBit** —— 无 C FFI，目标：native、wasm、js
 - **latin1 大小写处理** —— 与上游 ocaml-re 行为一致
-- **423 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
+- **437 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
 - **零警告** —— `moon check` 干净通过
+- **已发布至 [mooncakes](https://mooncakes.io/docs/#/walkzzz/re-mbt/)** —— `walkzzz/re-mbt@0.1.0`
 
 ## 构建与测试
 
 ```bash
 moon check           # 类型检查（0 警告，0 错误）
-moon test            # 运行全部 423 个测试
+moon test            # 运行全部 437 个测试
 moon build           # 构建
 moon fmt             # 格式化代码
 moon info            # 重新生成 pkg.generated.mbti
@@ -73,10 +74,10 @@ match exec_opt(re4, sb("axxbxxb")) {
 
 ```moonbit
 // 带标志的 PCRE
-let re = Pcre::regexp(sb("hello"), flags=[PcreFlag::Caseless()])
+let re = Pcre::regexp(sb("hello"), flags=[PcreFlag::caseless()])
 assert_eq(Pcre::pmatch(re, sb("HELLO")), true)
 
-let re2 = Pcre::regexp(sb("^abc$"), flags=[PcreFlag::MultilineP()])
+let re2 = Pcre::regexp(sb("^abc$"), flags=[PcreFlag::multiline_p()])
 assert_eq(Pcre::pmatch(re2, sb("x\nabc\ny")), true)
 ```
 
@@ -96,9 +97,14 @@ let re3 = Str::regexp(sb(","))
 let parts = Str::split(re3, sb("a,b,c"))
 // parts = ["a", "b", "c"]
 
+// 全局替换（使用替换模板）
+let re4 = Str::regexp(sb("o"))
+let result = Str::global_replace(re4, sb("0"), sb("foo"))
+// result = "f00"（每个 "o" 替换为 "0"）
+
 // 大小写折叠
-let re4 = Str::regexp_case_fold(sb("hello"))
-assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
+let re5 = Str::regexp_case_fold(sb("hello"))
+assert_eq(Str::string_match(re5, sb("HELLO"), 0), true)
 ```
 
 ## API 概览
@@ -129,8 +135,8 @@ assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
 
 | 前端 | 编译函数 | 选项 |
 |------|---------|------|
-| Perl | `Perl::compile_pat(pat, opts?)` | `Anchored`、`Dotall`、`Multiline`、`DollarEndonly`、`Ungreedy`、`Caseless` |
-| PCRE | `Pcre::regexp(pat, flags?)` | `Caseless`、`MultilineP`、`AnchoredP`、`DotallP` |
+| Perl | `Perl::compile_pat(pat, opts?)` | `caseless`、`dotall`、`multiline`、`dollar_endonly`、`ungreedy`、`anchored` |
+| PCRE | `Pcre::regexp(pat, flags?)` | `caseless`、`multiline_p`、`anchored_p`、`dotall_p` |
 | Emacs | `Emacs::compile_pat(pat, case?)` | 大小写敏感开关 |
 | POSIX | `Posix::compile_pat(pat)` | — |
 | Glob | `Glob::compile_pat(pat)` | — |
@@ -154,8 +160,10 @@ assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
 | `Str::split(re, text) -> Array[Bytes]` | 按模式分割 |
 | `Str::bounded_split(re, text, n) -> Array[Bytes]` | 限制段数的分割 |
 | `Str::full_split(re, text) -> Array[StrSplitResult]` | 含分隔符的分割 |
-| `Str::global_replace(re, repl, text) -> Bytes` | 全局替换 |
-| `Str::replace_first(re, repl, text) -> Bytes` | 替换首个 |
+| `Str::global_replace(re, repl, text) -> Bytes` | 全局替换（应用替换模板） |
+| `Str::replace_first(re, repl, text) -> Bytes` | 替换首个（应用替换模板） |
+| `Str::global_substitute(re, f, text) -> Bytes` | 全局替换（函数回调） |
+| `Str::substitute_first(re, f, text) -> Bytes` | 替换首个（函数回调） |
 | `Str::quote(s) -> Bytes` | 转义特殊字符 |
 
 ## 设计
@@ -165,6 +173,7 @@ assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
 - **面向字节**：OCaml `string` 为字节序列；移植使用 MoonBit `Bytes` 表示输入文本、模式和捕获子串。
 - **纯 MoonBit**，无 C FFI。目标：native、wasm、js。
 - **latin1** 大小写处理，与上游一致。
+- **API 最小化**：内部类型（`Fmt`、`Slice`、`SliceL`、`DenseMap`、`PosixClass`）标记为 `priv`，公开接口仅暴露用户所需 API。
 
 ## 性能
 
@@ -177,7 +186,7 @@ assert_eq(Str::string_match(re4, sb("HELLO"), 0), true)
 ## 测试
 
 ```
-moon test    # 423 个测试，全部通过
+moon test    # 437 个测试，全部通过
 moon check   # 0 警告，0 错误
 ```
 
@@ -190,12 +199,24 @@ moon check   # 0 警告，0 错误
 - GroupT 构造与越界 raise 路径
 - ParseBuffer 整数解析与溢出
 - PerlOpt / PcreFlag 行为验证
+- Str 替换 API（`global_replace`/`replace_first` 正确应用替换模板）
+
+## 持续集成
+
+项目配置了 GitHub Actions CI（`.github/workflows/ci.yml`），在每次 push 和 pull request 时自动运行：
+
+- `moon check`（类型检查 + 警告检查）
+- `moon test`（全测试运行）
 
 ## 项目结构
 
 ```
 re-mbt/
-├── moon.mod              # 模块元数据
+├── moon.mod              # 模块元数据（walkzzz/re-mbt@0.1.0）
+├── moon.pkg              # 根包配置
+├── LICENSE               # LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
+├── .github/workflows/
+│   └── ci.yml            # GitHub Actions CI 配置
 ├── re/                   # 单包 —— 全部源文件
 │   ├── cset.mbt          # 字符集操作
 │   ├── ast.mbt           # AST 构造与着色
@@ -220,17 +241,18 @@ re-mbt/
 │   ├── str.mbt           # Str（OCaml 兼容）前端
 │   ├── parse_buffer.mbt  # 解析缓冲区
 │   ├── bit_vector.mbt    # 位向量
-│   ├── dense_map.mbt     # 稠密映射
+│   ├── dense_map.mbt     # 稠密映射（priv）
 │   ├── hash_set.mbt      # Int 哈希集
 │   ├── mark_infos.mbt    # 标记信息
 │   ├── pmark.mbt         # 位置标记
 │   ├── category.mbt      # Category
-│   ├── slice.mbt         # Slice
+│   ├── slice.mbt         # Slice（priv）
 │   ├── dyn.mbt           # Dyn
-│   ├── fmt.mbt           # Fmt
-│   ├── util.mbt          # 工具函数
-│   ├── *_test.mbt        # 测试文件（423 个测试）
-│   └── pkg.generated.mbti # 公开 API 接口（812 行）
+│   ├── fmt.mbt           # Fmt（priv）
+│   ├── util.mbt          # 工具函数（sb/bs）
+│   ├── *_test.mbt        # 测试文件（20 个，437 个测试）
+│   ├── README.mbt.md     # 可执行文档示例
+│   └── pkg.generated.mbti # 公开 API 接口（710 行）
 ├── bench/                # 基准测试套件（10 个 section）
 │   ├── main.mbt          # 基准测试主程序
 │   └── run_bench.ps1     # 基准测试运行器
@@ -239,7 +261,7 @@ re-mbt/
 
 ## 许可证
 
-上游为 LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception；本移植保持相同许可证。
+LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception（与上游 ocaml-re 一致）。
 
 ## 移植说明
 

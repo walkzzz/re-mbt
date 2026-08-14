@@ -203,7 +203,8 @@ pub fn Re::mark_all(g : GroupT) -> PmarkSet {
 /// Pretty-print an AST (uncompiled regexp) to a string.
 /// Corresponds to OCaml `Re.pp`.
 pub fn Re::pp(ast : Ast) -> String {
-  "\{to_repr(Ast::to_dyn(ast))}"
+  let repr : @debug.Repr = Ast::to_dyn(ast).to_repr()
+  "\{repr}"
 }
 
 ///|

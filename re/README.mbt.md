@@ -48,6 +48,13 @@ test "pcre caseless" {
 }
 ```
 
+```mbt check
+test "pcre multiline" {
+  let re = Pcre::regexp(sb("^abc$"), flags=[PcreFlag::multiline_p()])
+  assert_eq(Pcre::pmatch(re, sb("x\nabc\ny")), true)
+}
+```
+
 ### Str 前端（OCaml 兼容）
 
 ```mbt check
@@ -80,6 +87,14 @@ test "str global_replace" {
   let re = Str::regexp(sb("o"))
   let result = Str::global_replace(re, sb("0"), sb("foo"))
   assert_eq(bs(result), "f00")
+}
+```
+
+```mbt check
+test "str replace_first" {
+  let re = Str::regexp(sb("o"))
+  let result = Str::replace_first(re, sb("0"), sb("foo"))
+  assert_eq(bs(result), "f0o")
 }
 ```
 
@@ -122,7 +137,7 @@ test "core Re::pp" {
 
 ```bash
 moon check           # 类型检查（0 警告，0 错误）
-moon test            # 运行全部 435 个测试
+moon test            # 运行全部 437 个测试
 moon build           # 构建
 moon fmt             # 格式化代码
 moon info            # 重新生成 pkg.generated.mbti
