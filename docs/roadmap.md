@@ -59,8 +59,8 @@
 
 | Sprint | 内容 | 状态 | commit |
 |--------|------|------|--------|
-| S0 | 文档基础设施 | ✅ 已完成 | — |
-| S1 | deprecated 治理 | ✅ 已完成 | 见下方 commit |
-| S2 | implicit_impl 治理 | ✅ 已完成 | 见下方 commit |
-| S3 | test_unqualified 治理 | ✅ 已完成 | 见下方 commit |
-| S4 | 文档治理 + 提交 | ✅ 已完成 | 见下方 commit |
+| S0 | 文档基础设施 | ✅ 已完成 | 3c8119f |
+| S1 | deprecated 治理 | ✅ 已完成 | 3c8119f |
+| S2 | implicit_impl 治理 | ✅ 已完成 | 3c8119f |
+| S3 | test_unqualified 治理 | ✅ 已完成 | 3c8119f |
+| S4 | 文档治理 + 提交 | ✅ 已完成 | 3c8119f |
