@@ -47,6 +47,16 @@ pub struct Cset {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend Cset with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend Cset with Eq::{not_equal}
+
+///|
+pub extend Cset with Compare::{op_lt, op_le, op_ge, op_gt}
+
+///|
+
 pub fn Cset::empty() -> Cset {
   { intervals: [] }
 }
@@ -106,7 +116,7 @@ pub fn Cset::compare(t1 : Cset, t2 : Cset) -> Int {
 pub fn Cset::union(l : Cset, r : Cset) -> Cset {
   let li = l.intervals
   let ri = r.intervals
-  let result = Array::new(capacity=li.length() + ri.length())
+  let result = Array(capacity=li.length() + ri.length())
   let mut i = 0
   let mut j = 0
   let mut li_over : (Int, Int)? = None
@@ -167,7 +177,7 @@ pub fn Cset::union(l : Cset, r : Cset) -> Cset {
 pub fn Cset::inter(l : Cset, r : Cset) -> Cset {
   let li = l.intervals
   let ri = r.intervals
-  let result = Array::new(
+  let result = Array(
     capacity=if li.length() < ri.length() { li.length() } else { ri.length() },
   )
   let mut i = 0
@@ -194,7 +204,7 @@ pub fn Cset::inter(l : Cset, r : Cset) -> Cset {
 pub fn Cset::diff(l : Cset, r : Cset) -> Cset {
   let li = l.intervals
   let ri = r.intervals
-  let result = Array::new(capacity=li.length() + ri.length())
+  let result = Array(capacity=li.length() + ri.length())
   let mut i = 0
   let mut j = 0
   let mut li_over : (Int, Int)? = None

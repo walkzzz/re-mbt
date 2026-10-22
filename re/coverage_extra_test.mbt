@@ -4,69 +4,69 @@
 
 ///|
 test "ast to_dyn basic nodes" {
-  let asts : Array[Ast] = [
-    Ast::str(sb("hello")),
-    Ast::seq([Ast::str(sb("a")), Ast::str(sb("b"))]),
-    Ast::alt([Ast::str(sb("a")), Ast::str(sb("b"))]),
-    Ast::rep(Ast::str(sb("a"))),
-    Ast::rep1(Ast::str(sb("a"))),
-    Ast::opt(Ast::str(sb("a"))),
-    Ast::epsilon(),
-    Ast::empty(),
-    Ast::bol(),
-    Ast::eol(),
-    Ast::bow(),
-    Ast::eow(),
-    Ast::not_boundary(),
-    Ast::bos(),
-    Ast::eos(),
-    Ast::leol(),
-    Ast::start(),
-    Ast::stop(),
+  let asts : Array[@re.Ast] = [
+    @re.Ast::str(sb("hello")),
+    @re.Ast::seq([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))]),
+    @re.Ast::alt([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))]),
+    @re.Ast::rep(@re.Ast::str(sb("a"))),
+    @re.Ast::rep1(@re.Ast::str(sb("a"))),
+    @re.Ast::opt(@re.Ast::str(sb("a"))),
+    @re.Ast::epsilon(),
+    @re.Ast::empty(),
+    @re.Ast::bol(),
+    @re.Ast::eol(),
+    @re.Ast::bow(),
+    @re.Ast::eow(),
+    @re.Ast::not_boundary(),
+    @re.Ast::bos(),
+    @re.Ast::eos(),
+    @re.Ast::leol(),
+    @re.Ast::start(),
+    @re.Ast::stop(),
   ]
   for ast in asts {
-    let d = Ast::to_dyn(ast)
+    let d = @re.Ast::to_dyn(ast)
     ignore(d)
   }
 }
 
 ///|
 test "ast to_dyn group and nested" {
-  let asts : Array[Ast] = [
-    Ast::group(Ast::str(sb("a"))),
-    Ast::group(name=Some("name"), Ast::str(sb("a"))),
-    Ast::no_group(Ast::str(sb("a"))),
-    Ast::nest(Ast::str(sb("a"))),
-    Ast::longest(Ast::str(sb("a"))),
-    Ast::shortest(Ast::str(sb("a"))),
-    Ast::first(Ast::str(sb("a"))),
-    Ast::greedy(Ast::str(sb("a"))),
-    Ast::non_greedy(Ast::str(sb("a"))),
-    Ast::no_case(Ast::str(sb("a"))),
-    Ast::case(Ast::str(sb("a"))),
-    Ast::inter([Ast::str(sb("a")), Ast::str(sb("b"))]),
-    Ast::diff(Ast::str(sb("a")), Ast::str(sb("b"))),
-    Ast::compl([Ast::str(sb("a"))]),
-    Ast::set(sb("abc")),
-    Re::rg('a', 'z'),
-    Ast::any(),
-    Re::notnl(),
+  let asts : Array[@re.Ast] = [
+    @re.Ast::group(@re.Ast::str(sb("a"))),
+    @re.Ast::group(name=Some("name"), @re.Ast::str(sb("a"))),
+    @re.Ast::no_group(@re.Ast::str(sb("a"))),
+    @re.Ast::nest(@re.Ast::str(sb("a"))),
+    @re.Ast::longest(@re.Ast::str(sb("a"))),
+    @re.Ast::shortest(@re.Ast::str(sb("a"))),
+    @re.Ast::first(@re.Ast::str(sb("a"))),
+    @re.Ast::greedy(@re.Ast::str(sb("a"))),
+    @re.Ast::non_greedy(@re.Ast::str(sb("a"))),
+    @re.Ast::no_case(@re.Ast::str(sb("a"))),
+    @re.Ast::case(@re.Ast::str(sb("a"))),
+    @re.Ast::inter([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))]),
+    @re.Ast::diff(@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))),
+    @re.Ast::compl([@re.Ast::str(sb("a"))]),
+    @re.Ast::set(sb("abc")),
+    @re.Re::rg('a', 'z'),
+    @re.Ast::any(),
+    @re.Re::notnl(),
   ]
   for ast in asts {
-    let d = Ast::to_dyn(ast)
+    let d = @re.Ast::to_dyn(ast)
     ignore(d)
   }
 }
 
 ///|
 test "ast to_dyn repn" {
-  let asts : Array[Ast] = [
-    Ast::repn(Ast::str(sb("a")), 0, None),
-    Ast::repn(Ast::str(sb("a")), 2, Some(5)),
-    Ast::repn(Ast::str(sb("a")), 1, Some(1)),
+  let asts : Array[@re.Ast] = [
+    @re.Ast::repn(@re.Ast::str(sb("a")), 0, None),
+    @re.Ast::repn(@re.Ast::str(sb("a")), 2, Some(5)),
+    @re.Ast::repn(@re.Ast::str(sb("a")), 1, Some(1)),
   ]
   for ast in asts {
-    let d = Ast::to_dyn(ast)
+    let d = @re.Ast::to_dyn(ast)
     ignore(d)
   }
 }
@@ -75,40 +75,40 @@ test "ast to_dyn repn" {
 
 ///|
 test "ast merge_sequences basic" {
-  let input : Array[Ast] = [Ast::str(sb("a")), Ast::str(sb("b"))]
-  let result = Ast::merge_sequences(input)
+  let input : Array[@re.Ast] = [@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))]
+  let result = @re.Ast::merge_sequences(input)
   assert_eq(result.length(), 2)
 }
 
 ///|
 test "ast merge_sequences empty" {
-  let input : Array[Ast] = []
-  let result = Ast::merge_sequences(input)
+  let input : Array[@re.Ast] = []
+  let result = @re.Ast::merge_sequences(input)
   assert_eq(result.length(), 0)
 }
 
 ///|
 test "ast merge_sequences with alt" {
-  let alt_ast = Ast::alt([Ast::str(sb("a")), Ast::str(sb("b"))])
-  let input : Array[Ast] = [alt_ast, Ast::str(sb("c"))]
-  let result = Ast::merge_sequences(input)
+  let alt_ast = @re.Ast::alt([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))])
+  let input : Array[@re.Ast] = [alt_ast, @re.Ast::str(sb("c"))]
+  let result = @re.Ast::merge_sequences(input)
   ignore(result)
 }
 
 ///|
 test "ast merge_sequences with seq" {
-  let seq_ast = Ast::seq([Ast::str(sb("a")), Ast::str(sb("b"))])
-  let input : Array[Ast] = [seq_ast, seq_ast]
-  let result = Ast::merge_sequences(input)
+  let seq_ast = @re.Ast::seq([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))])
+  let input : Array[@re.Ast] = [seq_ast, seq_ast]
+  let result = @re.Ast::merge_sequences(input)
   ignore(result)
 }
 
 ///|
 test "ast merge_sequences_no_case basic" {
-  let ast = Ast::str(sb("a"))
-  let no_case_ast = Ast::handle_case(ast, false)
-  let input : Array[AstNoCase] = [no_case_ast]
-  let result = Ast::merge_sequences_no_case(input)
+  let ast = @re.Ast::str(sb("a"))
+  let no_case_ast = @re.Ast::handle_case(ast, false)
+  let input : Array[@re.AstNoCase] = [no_case_ast]
+  let result = @re.Ast::merge_sequences_no_case(input)
   ignore(result)
 }
 
@@ -116,42 +116,42 @@ test "ast merge_sequences_no_case basic" {
 
 ///|
 test "ast anchored" {
-  assert_eq(Ast::anchored(Ast::bos()), true)
-  assert_eq(Ast::anchored(Ast::start()), true)
-  assert_eq(Ast::anchored(Ast::str(sb("a"))), false)
-  assert_eq(Ast::anchored(Ast::eol()), false)
-  assert_eq(Ast::anchored(Ast::seq([Ast::bos(), Ast::str(sb("a"))])), true)
-  assert_eq(Ast::anchored(Ast::alt([Ast::bos(), Ast::bos()])), true)
-  assert_eq(Ast::anchored(Ast::alt([Ast::bos(), Ast::str(sb("a"))])), false)
-  assert_eq(Ast::anchored(Ast::rep(Ast::bos())), false)
-  assert_eq(Ast::anchored(Ast::rep1(Ast::bos())), true)
-  assert_eq(Ast::anchored(Ast::group(Ast::bos())), true)
-  assert_eq(Ast::anchored(Ast::no_group(Ast::bos())), true)
-  assert_eq(Ast::anchored(Ast::nest(Ast::bos())), true)
-  assert_eq(Ast::anchored(Ast::opt(Ast::bos())), false)
+  assert_eq(@re.Ast::anchored(@re.Ast::bos()), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::start()), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::str(sb("a"))), false)
+  assert_eq(@re.Ast::anchored(@re.Ast::eol()), false)
+  assert_eq(@re.Ast::anchored(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("a"))])), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::alt([@re.Ast::bos(), @re.Ast::bos()])), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::alt([@re.Ast::bos(), @re.Ast::str(sb("a"))])), false)
+  assert_eq(@re.Ast::anchored(@re.Ast::rep(@re.Ast::bos())), false)
+  assert_eq(@re.Ast::anchored(@re.Ast::rep1(@re.Ast::bos())), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::group(@re.Ast::bos())), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::no_group(@re.Ast::bos())), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::nest(@re.Ast::bos())), true)
+  assert_eq(@re.Ast::anchored(@re.Ast::opt(@re.Ast::bos())), false)
 }
 
 // === Ast::handle_case coverage ===
 
 ///|
 test "ast handle_case" {
-  let ast = Ast::str(sb("abc"))
-  let _ = Ast::handle_case(ast, true)
-  let _ = Ast::handle_case(ast, false)
-  let ast2 = Ast::seq([Ast::str(sb("a")), Ast::str(sb("b"))])
-  let _ = Ast::handle_case(ast2, true)
-  let ast3 = Ast::alt([Ast::str(sb("a")), Ast::str(sb("b"))])
-  let _ = Ast::handle_case(ast3, true)
-  let ast4 = Ast::no_case(Ast::str(sb("a")))
-  let _ = Ast::handle_case(ast4, true)
-  let ast5 = Ast::case(Ast::str(sb("a")))
-  let _ = Ast::handle_case(ast5, true)
-  let ast6 = Ast::not_boundary()
-  let _ = Ast::handle_case(ast6, true)
-  let ast7 = Ast::stop()
-  let _ = Ast::handle_case(ast7, true)
-  let ast8 = Ast::no_group(Ast::str(sb("a")))
-  let _ = Ast::handle_case(ast8, true)
+  let ast = @re.Ast::str(sb("abc"))
+  let _ = @re.Ast::handle_case(ast, true)
+  let _ = @re.Ast::handle_case(ast, false)
+  let ast2 = @re.Ast::seq([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))])
+  let _ = @re.Ast::handle_case(ast2, true)
+  let ast3 = @re.Ast::alt([@re.Ast::str(sb("a")), @re.Ast::str(sb("b"))])
+  let _ = @re.Ast::handle_case(ast3, true)
+  let ast4 = @re.Ast::no_case(@re.Ast::str(sb("a")))
+  let _ = @re.Ast::handle_case(ast4, true)
+  let ast5 = @re.Ast::case(@re.Ast::str(sb("a")))
+  let _ = @re.Ast::handle_case(ast5, true)
+  let ast6 = @re.Ast::not_boundary()
+  let _ = @re.Ast::handle_case(ast6, true)
+  let ast7 = @re.Ast::stop()
+  let _ = @re.Ast::handle_case(ast7, true)
+  let ast8 = @re.Ast::no_group(@re.Ast::str(sb("a")))
+  let _ = @re.Ast::handle_case(ast8, true)
   assert_eq(true, true)
 }
 
@@ -159,51 +159,51 @@ test "ast handle_case" {
 
 ///|
 test "expr to_dyn and rename" {
-  let ids = Ids::create()
-  let e1 = Expr::cst(ids, Cset::set(sb("a")))
-  let _ = Expr::to_dyn(e1)
-  let _ = Expr::rename(ids, e1)
-  let e2 = Expr::eps(ids)
-  let _ = Expr::to_dyn(e2)
-  let _ = Expr::rename(ids, e2)
-  let e3 = Expr::empty(ids)
-  let _ = Expr::to_dyn(e3)
-  let e4 = Expr::alt(ids, [e1, e2])
-  let _ = Expr::to_dyn(e4)
-  let _ = Expr::rename(ids, e4)
-  let e5 = Expr::seq(ids, Sem::first(), e1, e2)
-  let _ = Expr::to_dyn(e5)
-  let _ = Expr::rename(ids, e5)
-  let e6 = Expr::rep(ids, RepKind::greedy(), Sem::first(), e1)
-  let _ = Expr::to_dyn(e6)
-  let _ = Expr::rename(ids, e6)
-  let e7 = Expr::mark(ids, 0)
-  let _ = Expr::to_dyn(e7)
-  let _ = Expr::rename(ids, e7)
-  let e8 = Expr::pmark(ids, Pmark::gen())
-  let _ = Expr::to_dyn(e8)
-  let _ = Expr::rename(ids, e8)
-  let e9 = Expr::erase(ids, 0, 1)
-  let _ = Expr::to_dyn(e9)
-  let _ = Expr::rename(ids, e9)
-  let e10 = Expr::before(ids, Category::letter())
-  let _ = Expr::to_dyn(e10)
-  let _ = Expr::rename(ids, e10)
-  let e11 = Expr::after(ids, Category::letter())
-  let _ = Expr::to_dyn(e11)
-  let _ = Expr::rename(ids, e11)
+  let ids = @re.Ids::create()
+  let e1 = @re.Expr::cst(ids, @re.Cset::set(sb("a")))
+  let _ = @re.Expr::to_dyn(e1)
+  let _ = @re.Expr::rename(ids, e1)
+  let e2 = @re.Expr::eps(ids)
+  let _ = @re.Expr::to_dyn(e2)
+  let _ = @re.Expr::rename(ids, e2)
+  let e3 = @re.Expr::empty(ids)
+  let _ = @re.Expr::to_dyn(e3)
+  let e4 = @re.Expr::alt(ids, [e1, e2])
+  let _ = @re.Expr::to_dyn(e4)
+  let _ = @re.Expr::rename(ids, e4)
+  let e5 = @re.Expr::seq(ids, @re.Sem::first(), e1, e2)
+  let _ = @re.Expr::to_dyn(e5)
+  let _ = @re.Expr::rename(ids, e5)
+  let e6 = @re.Expr::rep(ids, @re.RepKind::greedy(), @re.Sem::first(), e1)
+  let _ = @re.Expr::to_dyn(e6)
+  let _ = @re.Expr::rename(ids, e6)
+  let e7 = @re.Expr::mark(ids, 0)
+  let _ = @re.Expr::to_dyn(e7)
+  let _ = @re.Expr::rename(ids, e7)
+  let e8 = @re.Expr::pmark(ids, @re.Pmark::gen())
+  let _ = @re.Expr::to_dyn(e8)
+  let _ = @re.Expr::rename(ids, e8)
+  let e9 = @re.Expr::erase(ids, 0, 1)
+  let _ = @re.Expr::to_dyn(e9)
+  let _ = @re.Expr::rename(ids, e9)
+  let e10 = @re.Expr::before(ids, @re.Category::letter())
+  let _ = @re.Expr::to_dyn(e10)
+  let _ = @re.Expr::rename(ids, e10)
+  let e11 = @re.Expr::after(ids, @re.Category::letter())
+  let _ = @re.Expr::to_dyn(e11)
+  let _ = @re.Expr::rename(ids, e11)
   assert_eq(true, true)
 }
 
 ///|
 test "expr id and is_eps" {
-  let ids = Ids::create()
-  let e = Expr::eps(ids)
-  assert_eq(Expr::is_eps(e), true)
-  let e2 = Expr::cst(ids, Cset::set(sb("a")))
-  assert_eq(Expr::is_eps(e2), false)
-  let _ = Expr::id(e)
-  let _ = Expr::id(e2)
+  let ids = @re.Ids::create()
+  let e = @re.Expr::eps(ids)
+  assert_eq(@re.Expr::is_eps(e), true)
+  let e2 = @re.Expr::cst(ids, @re.Cset::set(sb("a")))
+  assert_eq(@re.Expr::is_eps(e2), false)
+  let _ = @re.Expr::id(e)
+  let _ = @re.Expr::id(e2)
   assert_eq(true, true)
 }
 
@@ -211,50 +211,50 @@ test "expr id and is_eps" {
 
 ///|
 test "sem and repkind to_dyn" {
-  let _ = Sem::to_dyn(Sem::longest())
-  let _ = Sem::to_dyn(Sem::shortest())
-  let _ = Sem::to_dyn(Sem::first())
-  let _ = RepKind::to_dyn(RepKind::greedy())
-  let _ = RepKind::to_dyn(RepKind::non_greedy())
+  let _ = @re.Sem::to_dyn(@re.Sem::longest())
+  let _ = @re.Sem::to_dyn(@re.Sem::shortest())
+  let _ = @re.Sem::to_dyn(@re.Sem::first())
+  let _ = @re.RepKind::to_dyn(@re.RepKind::greedy())
+  let _ = @re.RepKind::to_dyn(@re.RepKind::non_greedy())
   assert_eq(true, true)
 }
 
 ///|
 test "sem and repkind to_string" {
-  assert_eq(Sem::to_string(Sem::longest()), "Longest")
-  assert_eq(Sem::to_string(Sem::shortest()), "Shortest")
-  assert_eq(Sem::to_string(Sem::first()), "First")
-  assert_eq(RepKind::to_string(RepKind::greedy()), "Greedy")
-  assert_eq(RepKind::to_string(RepKind::non_greedy()), "NonGreedy")
-  assert_eq(Sem::to_string_short(Sem::longest()), "L")
-  assert_eq(Sem::to_string_short(Sem::shortest()), "S")
-  assert_eq(Sem::to_string_short(Sem::first()), "F")
-  assert_eq(RepKind::to_string_short(RepKind::greedy()), "G")
-  assert_eq(RepKind::to_string_short(RepKind::non_greedy()), "N")
+  assert_eq(@re.Sem::to_string(@re.Sem::longest()), "Longest")
+  assert_eq(@re.Sem::to_string(@re.Sem::shortest()), "Shortest")
+  assert_eq(@re.Sem::to_string(@re.Sem::first()), "First")
+  assert_eq(@re.RepKind::to_string(@re.RepKind::greedy()), "Greedy")
+  assert_eq(@re.RepKind::to_string(@re.RepKind::non_greedy()), "NonGreedy")
+  assert_eq(@re.Sem::to_string_short(@re.Sem::longest()), "L")
+  assert_eq(@re.Sem::to_string_short(@re.Sem::shortest()), "S")
+  assert_eq(@re.Sem::to_string_short(@re.Sem::first()), "F")
+  assert_eq(@re.RepKind::to_string_short(@re.RepKind::greedy()), "G")
+  assert_eq(@re.RepKind::to_string_short(@re.RepKind::non_greedy()), "N")
 }
 
 ///|
 test "sem constructors" {
-  assert_eq(Sem::to_string(Sem::longest()), "Longest")
-  assert_eq(Sem::to_string(Sem::shortest()), "Shortest")
-  assert_eq(Sem::to_string(Sem::first()), "First")
-  assert_eq(RepKind::to_string(RepKind::greedy()), "Greedy")
-  assert_eq(RepKind::to_string(RepKind::non_greedy()), "NonGreedy")
+  assert_eq(@re.Sem::to_string(@re.Sem::longest()), "Longest")
+  assert_eq(@re.Sem::to_string(@re.Sem::shortest()), "Shortest")
+  assert_eq(@re.Sem::to_string(@re.Sem::first()), "First")
+  assert_eq(@re.RepKind::to_string(@re.RepKind::greedy()), "Greedy")
+  assert_eq(@re.RepKind::to_string(@re.RepKind::non_greedy()), "NonGreedy")
 }
 
 // === Category::to_dyn ===
 
 ///|
 test "category to_dyn" {
-  let _ = Category::to_dyn(Category::letter())
-  let _ = Category::to_dyn(Category::newline())
-  let _ = Category::to_dyn(Category::dummy())
-  let _ = Category::to_dyn(Category::inexistant())
-  let _ = Category::to_dyn(Category::lastnewline())
-  let _ = Category::to_dyn(Category::not_letter())
-  let _ = Category::to_dyn(Category::search_boundary())
-  let _ = Category::to_dyn(Category::from_char('a'))
-  let _ = Category::to_dyn(Category::from_int(0))
+  let _ = @re.Category::to_dyn(@re.Category::letter())
+  let _ = @re.Category::to_dyn(@re.Category::newline())
+  let _ = @re.Category::to_dyn(@re.Category::dummy())
+  let _ = @re.Category::to_dyn(@re.Category::inexistant())
+  let _ = @re.Category::to_dyn(@re.Category::lastnewline())
+  let _ = @re.Category::to_dyn(@re.Category::not_letter())
+  let _ = @re.Category::to_dyn(@re.Category::search_boundary())
+  let _ = @re.Category::to_dyn(@re.Category::from_char('a'))
+  let _ = @re.Category::to_dyn(@re.Category::from_int(0))
   assert_eq(true, true)
 }
 
@@ -262,10 +262,10 @@ test "category to_dyn" {
 
 ///|
 test "pmark to_dyn" {
-  let p = Pmark::gen()
-  let _ = Pmark::to_dyn(p)
-  assert_eq(Pmark::equal(p, p), true)
-  assert_eq(Pmark::compare(p, p), 0)
+  let p = @re.Pmark::gen()
+  let _ = @re.Pmark::to_dyn(p)
+  assert_eq(@re.Pmark::equal(p, p), true)
+  assert_eq(@re.Pmark::compare(p, p), 0)
   assert_eq(true, true)
 }
 
@@ -273,25 +273,25 @@ test "pmark to_dyn" {
 
 ///|
 test "re group_count and group_names" {
-  let re1 = compile(Ast::str(sb("abc")))
-  assert_eq(Re::group_count(re1), 1)
-  assert_eq(Re::group_names(re1).length(), 0)
+  let re1 = @re.compile(@re.Ast::str(sb("abc")))
+  assert_eq(@re.Re::group_count(re1), 1)
+  assert_eq(@re.Re::group_names(re1).length(), 0)
 
-  let re2 = compile(Ast::group(name=Some("first"), Ast::str(sb("a"))))
-  assert_eq(Re::group_count(re2), 2)
-  let names2 = Re::group_names(re2)
+  let re2 = @re.compile(@re.Ast::group(name=Some("first"), @re.Ast::str(sb("a"))))
+  assert_eq(@re.Re::group_count(re2), 2)
+  let names2 = @re.Re::group_names(re2)
   assert_eq(names2.length(), 1)
   let (n2, _) = names2[0]
   assert_eq(n2, "first")
 
-  let re3 = compile(
-    Ast::seq([
-      Ast::group(name=Some("x"), Ast::str(sb("a"))),
-      Ast::group(name=Some("y"), Ast::str(sb("b"))),
+  let re3 = @re.compile(
+    @re.Ast::seq([
+      @re.Ast::group(name=Some("x"), @re.Ast::str(sb("a"))),
+      @re.Ast::group(name=Some("y"), @re.Ast::str(sb("b"))),
     ]),
   )
-  assert_eq(Re::group_count(re3), 3)
-  let names3 = Re::group_names(re3)
+  assert_eq(@re.Re::group_count(re3), 3)
+  let names3 = @re.Re::group_names(re3)
   assert_eq(names3.length(), 2)
 }
 
@@ -299,8 +299,8 @@ test "re group_count and group_names" {
 
 ///|
 test "idx to_dyn and to_int" {
-  let _ = Idx::to_dyn(42)
-  assert_eq(Idx::to_int(42), 42)
+  let _ = @re.Idx::to_dyn(42)
+  assert_eq(@re.Idx::to_int(42), 42)
   assert_eq(true, true)
 }
 
@@ -308,7 +308,7 @@ test "idx to_dyn and to_int" {
 
 ///|
 test "mark to_dyn" {
-  let _ = Mark::to_dyn(5)
+  let _ = @re.Mark::to_dyn(5)
   assert_eq(true, true)
 }
 
@@ -316,6 +316,6 @@ test "mark to_dyn" {
 
 ///|
 test "state to_dyn indirect" {
-  let re = compile(Ast::str(sb("test")))
-  assert_eq(execp(re, sb("test")), true)
+  let re = @re.compile(@re.Ast::str(sb("test")))
+  assert_eq(@re.execp(re, sb("test")), true)
 }

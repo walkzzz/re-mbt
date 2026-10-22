@@ -134,6 +134,12 @@ pub enum ExecPartialResult {
 } derive(Eq, Debug)
 
 ///|
+pub extend ExecPartialResult with Eq::{equal, not_equal}
+
+///|
+pub extend ExecPartialResult with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 pub fn ExecPartialResult::full() -> ExecPartialResult {
   Full
 }

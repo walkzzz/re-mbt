@@ -14,25 +14,25 @@ pub fn compile(AstGen[AstCset]) -> Re
 
 pub fn copy_re(Re) -> Re
 
-pub fn delta(WorkingArea, Category, Int, State) -> State
+pub fn delta(WorkingArea, Category, Int32, State) -> State
 
-pub fn exec(Re, Bytes, pos? : Int, len? : Int) -> GroupT raise
+pub fn exec(Re, Bytes, pos? : Int32, len? : Int32) -> GroupT raise
 
-pub fn exec_opt(Re, Bytes, pos? : Int, len? : Int) -> GroupT? raise
+pub fn exec_opt(Re, Bytes, pos? : Int32, len? : Int32) -> GroupT? raise
 
-pub fn exec_partial(Re, Bytes, pos? : Int, len? : Int) -> ExecPartialResult raise
+pub fn exec_partial(Re, Bytes, pos? : Int32, len? : Int32) -> ExecPartialResult raise
 
-pub fn exec_partial_detailed(Re, Bytes, pos? : Int, len? : Int) -> ExecPartialDetailedResult raise
+pub fn exec_partial_detailed(Re, Bytes, pos? : Int32, len? : Int32) -> ExecPartialDetailedResult raise
 
-pub fn execp(Re, Bytes, pos? : Int, len? : Int) -> Bool raise
+pub fn execp(Re, Bytes, pos? : Int32, len? : Int32) -> Bool raise
 
-pub fn match_str(groups~ : Bool, partial~ : Bool, Re, Bytes, pos~ : Int, len~ : Int) -> MatchInfo raise
+pub fn match_str(groups~ : Bool, partial~ : Bool, Re, Bytes, pos~ : Int32, len~ : Int32) -> MatchInfo raise
 
-pub fn match_str_no_bounds(groups~ : Bool, partial~ : Bool, Re, Bytes, pos~ : Int, len~ : Int) -> MatchInfo
+pub fn match_str_no_bounds(groups~ : Bool, partial~ : Bool, Re, Bytes, pos~ : Int32, len~ : Int32) -> MatchInfo
 
-pub fn match_str_p(Re, Bytes, pos~ : Int, len~ : Int) -> Bool raise
+pub fn match_str_p(Re, Bytes, pos~ : Int32, len~ : Int32) -> Bool raise
 
-pub fn mk_re(initial~ : Expr, colors~ : ColorTable, color_repr~ : ColorRepr, ncolor~ : Int, lnl~ : Int, group_names~ : Array[(String, Int)], group_count~ : Int) -> Re
+pub fn mk_re(initial~ : Expr, colors~ : ColorTable, color_repr~ : ColorRepr, ncolor~ : Int32, lnl~ : Int32, group_names~ : Array[(String, Int32)], group_count~ : Int32) -> Re
 
 pub fn sb(String) -> Bytes
 
@@ -44,6 +44,9 @@ pub enum AstAlt[T] {
   NoCase(T)
   Case(T)
 } derive(Eq, @debug.Debug)
+pub fn[T : Eq] AstAlt::equal(Self[T], Self[T]) -> Bool
+pub fn[T : Eq] AstAlt::not_equal(Self[T], Self[T]) -> Bool
+pub fn[T : @debug.Debug] AstAlt::to_repr(Self[T]) -> @debug.Repr
 
 pub enum AstCset {
   CsetOf(Cset)
@@ -52,12 +55,15 @@ pub enum AstCset {
   Difference(AstCset, AstCset)
   Cast(AstAlt[AstCset])
 } derive(Eq, @debug.Debug)
+pub fn AstCset::equal(Self, Self) -> Bool
+pub fn AstCset::not_equal(Self, Self) -> Bool
+pub fn AstCset::to_repr(Self) -> @debug.Repr
 
 pub enum AstGen[T] {
   Set(T)
   AstNode(AstAlt[AstGen[T]])
   Sequence(Array[AstGen[T]])
-  Repeat(AstGen[T], Int, Int?)
+  Repeat(AstGen[T], Int32, Int32?)
   BegOfLine
   EndOfLine
   BegOfWord
@@ -93,6 +99,7 @@ pub fn AstGen::eol() -> Self[AstCset]
 pub fn AstGen::eos() -> Self[AstCset]
 pub fn AstGen::eow() -> Self[AstCset]
 pub fn AstGen::epsilon() -> Self[AstCset]
+pub fn[T : Eq] AstGen::equal(Self[T], Self[T]) -> Bool
 pub fn AstGen::first(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::greedy(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::group(name? : String?, Self[AstCset]) -> Self[AstCset]
@@ -108,10 +115,11 @@ pub fn AstGen::no_case(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::no_group(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::non_greedy(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::not_boundary() -> Self[AstCset]
+pub fn[T : Eq] AstGen::not_equal(Self[T], Self[T]) -> Bool
 pub fn AstGen::opt(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::rep(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::rep1(Self[AstCset]) -> Self[AstCset]
-pub fn AstGen::repn(Self[AstCset], Int, Int?) -> Self[AstCset]
+pub fn AstGen::repn(Self[AstCset], Int32, Int32?) -> Self[AstCset]
 pub fn AstGen::seq(Array[Self[AstCset]]) -> Self[AstCset]
 pub fn AstGen::set(Bytes) -> Self[AstCset]
 pub fn AstGen::shortest(Self[AstCset]) -> Self[AstCset]
@@ -120,51 +128,58 @@ pub fn AstGen::stop() -> Self[AstCset]
 pub fn AstGen::str(Bytes) -> Self[AstCset]
 pub fn AstGen::t_of_cset(AstCset) -> Self[AstCset]
 pub fn AstGen::to_dyn(Self[AstCset]) -> Dyn
+pub fn[T : @debug.Debug] AstGen::to_repr(Self[T]) -> @debug.Repr
 pub fn AstGen::whole_string(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::word(Self[AstCset]) -> Self[AstCset]
 
 pub struct BitVector {
-  len : Int
+  len : Int32
   bits : FixedArray[Byte]
 }
-pub fn BitVector::create_zero(Int) -> Self
-pub fn BitVector::get(Self, Int) -> Bool raise
-pub fn BitVector::length(Self) -> Int
+pub fn BitVector::create_zero(Int32) -> Self
+pub fn BitVector::get(Self, Int32) -> Bool raise
+pub fn BitVector::length(Self) -> Int32
 pub fn BitVector::reset_zero(Self) -> Unit
-pub fn BitVector::set(Self, Int, Bool) -> Unit raise
-pub fn BitVector::unsafe_get(Self, Int) -> Bool
-pub fn BitVector::unsafe_set(Self, Int, Bool) -> Unit
+pub fn BitVector::set(Self, Int32, Bool) -> Unit raise
+pub fn BitVector::unsafe_get(Self, Int32) -> Bool
+pub fn BitVector::unsafe_set(Self, Int32, Bool) -> Unit
 
 pub struct BoundaryTable {
   data : FixedArray[Byte]
 }
-pub fn BoundaryTable::unsafe_next_boundary(Self, Int) -> Int
+pub fn BoundaryTable::unsafe_next_boundary(Self, Int32) -> Int32
 
 pub struct CSetMap {
-  entries : Array[(Int, Cset, Cset)]
+  entries : Array[(Int32, Cset, Cset)]
 }
-pub fn CSetMap::add(Self, (Int, Cset), Cset) -> Self
+pub fn CSetMap::add(Self, (Int32, Cset), Cset) -> Self
 pub fn CSetMap::empty() -> Self
-pub fn CSetMap::find(Self, (Int, Cset)) -> Cset?
+pub fn CSetMap::find(Self, (Int32, Cset)) -> Cset?
 
 pub struct Category {
-  bits : Int
+  bits : Int32
 } derive(Compare, Eq, @debug.Debug)
 pub fn Category::add(Self, Self) -> Self
-pub fn Category::compare(Self, Self) -> Int
+pub fn Category::compare(Self, Self) -> Int32
 pub fn Category::dummy() -> Self
 pub fn Category::equal(Self, Self) -> Bool
 pub fn Category::from_char(Char) -> Self
-pub fn Category::from_int(Int) -> Self
+pub fn Category::from_int(Int32) -> Self
 pub fn Category::inexistant() -> Self
 pub fn Category::intersect(Self, Self) -> Bool
 pub fn Category::lastnewline() -> Self
 pub fn Category::letter() -> Self
 pub fn Category::newline() -> Self
+pub fn Category::not_equal(Self, Self) -> Bool
 pub fn Category::not_letter() -> Self
+pub fn Category::op_ge(Self, Self) -> Bool
+pub fn Category::op_gt(Self, Self) -> Bool
+pub fn Category::op_le(Self, Self) -> Bool
+pub fn Category::op_lt(Self, Self) -> Bool
 pub fn Category::search_boundary() -> Self
 pub fn Category::to_dyn(Self) -> Dyn
-pub fn Category::to_int(Self) -> Int
+pub fn Category::to_int(Self) -> Int32
+pub fn Category::to_repr(Self) -> @debug.Repr
 
 pub struct ColorMap {
   csets : Array[Cset]
@@ -176,41 +191,41 @@ pub fn ColorMap::split(Self, Cset) -> Unit
 pub struct ColorRepr {
   data : Bytes
 }
-pub fn ColorRepr::length(Self) -> Int
-pub fn ColorRepr::repr(Self, Int) -> Byte
+pub fn ColorRepr::length(Self) -> Int32
+pub fn ColorRepr::repr(Self, Int32) -> Byte
 
 pub struct ColorTable {
   data : Bytes
 }
-pub fn ColorTable::get(Self, Int) -> Int
-pub fn ColorTable::get_char(Self, Int) -> Byte
+pub fn ColorTable::get(Self, Int32) -> Int32
+pub fn ColorTable::get_char(Self, Int32) -> Byte
 pub fn ColorTable::translate_colors(Self, BoundaryTable, Cset) -> Cset
 
 pub struct CompileIdx {
 }
-pub fn CompileIdx::break_idx(Int) -> Int
-pub fn CompileIdx::break_value() -> Int
-pub fn CompileIdx::idx(Int) -> Int
-pub fn CompileIdx::is_break(Int) -> Bool
-pub fn CompileIdx::is_idx(Int) -> Bool
-pub fn CompileIdx::is_unknown(Int) -> Bool
-pub fn CompileIdx::make_break(Int) -> Int
-pub fn CompileIdx::of_idx(Int) -> Int
-pub fn CompileIdx::unknown() -> Int
+pub fn CompileIdx::break_idx(Int32) -> Int32
+pub fn CompileIdx::break_value() -> Int32
+pub fn CompileIdx::idx(Int32) -> Int32
+pub fn CompileIdx::is_break(Int32) -> Bool
+pub fn CompileIdx::is_idx(Int32) -> Bool
+pub fn CompileIdx::is_unknown(Int32) -> Bool
+pub fn CompileIdx::make_break(Int32) -> Int32
+pub fn CompileIdx::of_idx(Int32) -> Int32
+pub fn CompileIdx::unknown() -> Int32
 
 pub struct CompileState {
   info : StateInfo
   transitions : Array[CompileState]
 }
-pub fn CompileState::follow_transition(Self, Int) -> Self
+pub fn CompileState::follow_transition(Self, Int32) -> Self
 pub fn CompileState::get_info(Self) -> StateInfo
-pub fn CompileState::is_unknown_transition(Self, Int) -> Bool
-pub fn CompileState::set_transition(Self, Int, Self) -> Unit
+pub fn CompileState::is_unknown_transition(Self, Int32) -> Bool
+pub fn CompileState::set_transition(Self, Int32, Self) -> Unit
 
 pub struct Cset {
-  intervals : Array[(Int, Int)]
+  intervals : Array[(Int32, Int32)]
 } derive(Compare, Eq, @debug.Debug)
-pub fn Cset::add(Int, Self) -> Self
+pub fn Cset::add(Int32, Self) -> Self
 pub fn Cset::alnum() -> Self
 pub fn Cset::alpha() -> Self
 pub fn Cset::ascii() -> Self
@@ -224,7 +239,7 @@ pub fn Cset::cdigit() -> Self
 pub fn Cset::char(Char) -> Self
 pub fn Cset::clower() -> Self
 pub fn Cset::cntrl() -> Self
-pub fn Cset::compare(Self, Self) -> Int
+pub fn Cset::compare(Self, Self) -> Int32
 pub fn Cset::cseq(Char, Char) -> Self
 pub fn Cset::csingle(Char) -> Self
 pub fn Cset::cword() -> Self
@@ -232,41 +247,47 @@ pub fn Cset::diff(Self, Self) -> Self
 pub fn Cset::empty() -> Self
 pub fn Cset::equal(Self, Self) -> Bool
 pub fn Cset::graph() -> Self
-pub fn Cset::hash(Self) -> Int
+pub fn Cset::hash(Self) -> Int32
 pub fn Cset::inter(Self, Self) -> Self
 pub fn Cset::intersect_all(Array[Self]) -> Self
 pub fn Cset::is_empty(Self) -> Bool
-pub fn Cset::iter(Self, f~ : (Int, Int) -> Unit) -> Unit
+pub fn Cset::iter(Self, f~ : (Int32, Int32) -> Unit) -> Unit
 pub fn Cset::lower() -> Self
-pub fn Cset::mem(Int, Self) -> Bool
+pub fn Cset::mem(Int32, Self) -> Bool
 pub fn Cset::nl() -> Self
+pub fn Cset::not_equal(Self, Self) -> Bool
 pub fn Cset::notnl() -> Self
-pub fn Cset::offset(Int, Self) -> Self
-pub fn Cset::one_char(Self) -> Int?
-pub fn Cset::pick(Self) -> Int raise
+pub fn Cset::offset(Int32, Self) -> Self
+pub fn Cset::one_char(Self) -> Int32?
+pub fn Cset::op_ge(Self, Self) -> Bool
+pub fn Cset::op_gt(Self, Self) -> Bool
+pub fn Cset::op_le(Self, Self) -> Bool
+pub fn Cset::op_lt(Self, Self) -> Bool
+pub fn Cset::pick(Self) -> Int32 raise
 pub fn Cset::print() -> Self
 pub fn Cset::punct() -> Self
 pub fn Cset::rg(Char, Char) -> Self
-pub fn Cset::seq(Int, Int) -> Self
+pub fn Cset::seq(Int32, Int32) -> Self
 pub fn Cset::set(Bytes) -> Self
-pub fn Cset::single(Int) -> Self
+pub fn Cset::single(Int32) -> Self
 pub fn Cset::space() -> Self
 pub fn Cset::to_dyn(Self) -> Dyn
+pub fn Cset::to_repr(Self) -> @debug.Repr
 pub fn Cset::union(Self, Self) -> Self
 pub fn Cset::union_all(Array[Self]) -> Self
-pub fn Cset::union_singles_in_strictly_decreasing_order(Array[Int]) -> Self
+pub fn Cset::union_singles_in_strictly_decreasing_order(Array[Int32]) -> Self
 pub fn Cset::upper() -> Self
 pub fn Cset::wordc() -> Self
 pub fn Cset::xdigit() -> Self
 
 pub struct CsetC {
 }
-pub fn CsetC::equal_c(Int, Int) -> Bool
-pub fn CsetC::null_char() -> Int
-pub fn CsetC::of_char(Char) -> Int
-pub fn CsetC::of_int(Int) -> Int
-pub fn CsetC::to_char(Int) -> Char
-pub fn CsetC::to_int(Int) -> Int
+pub fn CsetC::equal_c(Int32, Int32) -> Bool
+pub fn CsetC::null_char() -> Int32
+pub fn CsetC::of_char(Char) -> Int32
+pub fn CsetC::of_int(Int32) -> Int32
+pub fn CsetC::to_char(Int32) -> Char
+pub fn CsetC::to_int(Int32) -> Int32
 
 pub struct CsetView {
 }
@@ -281,12 +302,12 @@ pub fn Desc::empty() -> Array[ET]
 pub fn Desc::equal(Array[ET], Array[ET]) -> Bool
 pub fn Desc::first_match(Array[ET]) -> Marks?
 pub fn[T] Desc::fold_right(Array[ET], init~ : T, f~ : (ET, T) -> T) -> T
-pub fn Desc::hash(Array[ET], Int) -> Int
+pub fn Desc::hash(Array[ET], Int32) -> Int32
 pub fn Desc::initial(Expr) -> Array[ET]
 pub fn Desc::iter_marks(Array[ET], (Marks) -> Unit) -> Unit
 pub fn Desc::remove_duplicates(HashSet, Array[ET], Expr) -> Array[ET]
 pub fn Desc::remove_matches(Array[ET]) -> Array[ET]
-pub fn Desc::set_idx(Int, Array[ET]) -> Array[ET]
+pub fn Desc::set_idx(Int32, Array[ET]) -> Array[ET]
 pub fn Desc::split_at_match(Array[ET]) -> (Array[ET], Array[ET])
 pub fn Desc::status(Array[ET]) -> Status
 pub fn Desc::status_is_ambiguous(Array[ET], Pmark) -> Bool
@@ -294,7 +315,7 @@ pub fn Desc::texp(Marks, Expr, Array[ET]) -> Array[ET]
 pub fn Desc::tseq(Sem, Array[ET], Expr, Array[ET]) -> Array[ET]
 
 pub enum Dyn {
-  Int(Int)
+  Int(Int32)
   Tuple(Array[Dyn])
   Enum(String)
   String(String)
@@ -302,6 +323,9 @@ pub enum Dyn {
   Variant(String, Array[Dyn])
   Record(Array[(String, Dyn)])
 } derive(Eq, @debug.Debug)
+pub fn Dyn::equal(Self, Self) -> Bool
+pub fn Dyn::not_equal(Self, Self) -> Bool
+pub fn Dyn::to_repr(Self) -> @debug.Repr
 
 pub enum ET {
   TSeq(Sem, Array[ET], Expr)
@@ -310,8 +334,8 @@ pub enum ET {
 }
 pub fn ET::equal(Self, Self) -> Bool
 pub fn ET::equal_list(Array[Self], Array[Self]) -> Bool
-pub fn ET::hash(Self, Int) -> Int
-pub fn ET::hash_list(Array[Self], Int) -> Int
+pub fn ET::hash(Self, Int32) -> Int32
+pub fn ET::hash_list(Array[Self], Int32) -> Int32
 
 pub struct Emacs {
 }
@@ -321,7 +345,7 @@ pub fn Emacs::re_no_emacs(Bytes, case~ : Bool) -> AstGen[AstCset] raise
 
 pub enum ExecPartialDetailedResult {
   FullD(GroupT)
-  PartialD(Int)
+  PartialD(Int32)
   MismatchD
 }
 
@@ -330,21 +354,24 @@ pub enum ExecPartialResult {
   Partial
   Mismatch
 } derive(Eq, @debug.Debug)
+pub fn ExecPartialResult::equal(Self, Self) -> Bool
 pub fn ExecPartialResult::full() -> Self
 pub fn ExecPartialResult::mismatch() -> Self
+pub fn ExecPartialResult::not_equal(Self, Self) -> Bool
 pub fn ExecPartialResult::partial() -> Self
+pub fn ExecPartialResult::to_repr(Self) -> @debug.Repr
 
 pub enum Expr {
-  Cst(Int, Cset)
-  Alt(Int, Array[Expr])
-  Seq(Int, Sem, Expr, Expr)
-  Eps(Int)
-  Rep(Int, RepKind, Sem, Expr)
-  MarkOf(Int, Int)
-  Erase(Int, Int, Int)
-  Before(Int, Category)
-  After(Int, Category)
-  PmarkOf(Int, Pmark)
+  Cst(Int32, Cset)
+  Alt(Int32, Array[Expr])
+  Seq(Int32, Sem, Expr, Expr)
+  Eps(Int32)
+  Rep(Int32, RepKind, Sem, Expr)
+  MarkOf(Int32, Int32)
+  Erase(Int32, Int32, Int32)
+  Before(Int32, Category)
+  After(Int32, Category)
+  PmarkOf(Int32, Pmark)
 } derive(@debug.Debug)
 pub fn Expr::after(Ids, Category) -> Self
 pub fn Expr::alt(Ids, Array[Self]) -> Self
@@ -353,15 +380,16 @@ pub fn Expr::cst(Ids, Cset) -> Self
 pub fn Expr::empty(Ids) -> Self
 pub fn Expr::eps(Ids) -> Self
 pub fn Expr::eps_expr() -> Self
-pub fn Expr::erase(Ids, Int, Int) -> Self
-pub fn Expr::id(Self) -> Int
+pub fn Expr::erase(Ids, Int32, Int32) -> Self
+pub fn Expr::id(Self) -> Int32
 pub fn Expr::is_eps(Self) -> Bool
-pub fn Expr::mark(Ids, Int) -> Self
+pub fn Expr::mark(Ids, Int32) -> Self
 pub fn Expr::pmark(Ids, Pmark) -> Self
 pub fn Expr::rename(Ids, Self) -> Self
 pub fn Expr::rep(Ids, RepKind, Sem, Self) -> Self
 pub fn Expr::seq(Ids, Sem, Self, Self) -> Self
 pub fn Expr::to_dyn(Self) -> Dyn
+pub fn Expr::to_repr(Self) -> @debug.Repr
 
 pub struct Glob {
 }
@@ -372,110 +400,110 @@ pub struct GroupT {
   s : Bytes
   marks : MarkInfos
   pmarks : PmarkSet
-  gpos : Array[Int]
-  gcount : Int
+  gpos : Array[Int32]
+  gcount : Int32
 }
 pub fn GroupT::all(Self) -> Array[Bytes]
-pub fn GroupT::all_offset(Self) -> Array[(Int, Int)]
-pub fn GroupT::create(Bytes, MarkInfos, PmarkSet, Array[Int], Int) -> Self
-pub fn GroupT::get(Self, Int) -> Bytes?
-pub fn GroupT::get_opt(Self, Int) -> Bytes?
-pub fn GroupT::matched(Self, Int) -> Bool
-pub fn GroupT::nb_groups(Self) -> Int
-pub fn GroupT::offset(Self, Int) -> (Int, Int) raise
-pub fn GroupT::offset_opt(Self, Int) -> (Int, Int)?
+pub fn GroupT::all_offset(Self) -> Array[(Int32, Int32)]
+pub fn GroupT::create(Bytes, MarkInfos, PmarkSet, Array[Int32], Int32) -> Self
+pub fn GroupT::get(Self, Int32) -> Bytes?
+pub fn GroupT::get_opt(Self, Int32) -> Bytes?
+pub fn GroupT::matched(Self, Int32) -> Bool
+pub fn GroupT::nb_groups(Self) -> Int32
+pub fn GroupT::offset(Self, Int32) -> (Int32, Int32) raise
+pub fn GroupT::offset_opt(Self, Int32) -> (Int32, Int32)?
 pub fn GroupT::pmarks(Self) -> PmarkSet
-pub fn GroupT::start(Self, Int) -> Int raise
-pub fn GroupT::start_offset(Self, Int) -> Int
-pub fn GroupT::start_opt(Self, Int) -> Int?
-pub fn GroupT::stop(Self, Int) -> Int raise
-pub fn GroupT::stop_offset(Self, Int) -> Int
-pub fn GroupT::stop_opt(Self, Int) -> Int?
+pub fn GroupT::start(Self, Int32) -> Int32 raise
+pub fn GroupT::start_offset(Self, Int32) -> Int32
+pub fn GroupT::start_opt(Self, Int32) -> Int32?
+pub fn GroupT::stop(Self, Int32) -> Int32 raise
+pub fn GroupT::stop_offset(Self, Int32) -> Int32
+pub fn GroupT::stop_opt(Self, Int32) -> Int32?
 
 pub struct HashSet {
-  mut table : FixedArray[Int]
-  mut size : Int
+  mut table : FixedArray[Int32]
+  mut size : Int32
 }
-pub fn HashSet::absent() -> Int
-pub fn HashSet::add(Self, Int) -> Unit
-pub fn HashSet::add_no_resize(Self, Int) -> Unit
+pub fn HashSet::absent() -> Int32
+pub fn HashSet::add(Self, Int32) -> Unit
+pub fn HashSet::add_no_resize(Self, Int32) -> Unit
 pub fn HashSet::clear(Self) -> Unit
 pub fn HashSet::create() -> Self
-pub fn HashSet::index_of_offset(Int, Int, Int) -> Int
+pub fn HashSet::index_of_offset(Int32, Int32, Int32) -> Int32
 pub fn HashSet::is_empty(Self) -> Bool
-pub fn HashSet::mem(Self, Int) -> Bool
+pub fn HashSet::mem(Self, Int32) -> Bool
 pub fn HashSet::resize(Self) -> Unit
 pub fn HashSet::should_grow(Self) -> Bool
 
 pub struct Ids {
-  mut counter : Int
+  mut counter : Int32
 }
 pub fn Ids::create() -> Self
-pub fn Ids::next(Self) -> Int
+pub fn Ids::next(Self) -> Int32
 
 pub struct Idx {
 }
-pub fn Idx::initial() -> Int
-pub fn Idx::to_dyn(Int) -> Dyn
-pub fn Idx::to_int(Int) -> Int
-pub fn Idx::unknown() -> Int
-pub fn Idx::used(Int) -> Bool
+pub fn Idx::initial() -> Int32
+pub fn Idx::to_dyn(Int32) -> Dyn
+pub fn Idx::to_int(Int32) -> Int32
+pub fn Idx::unknown() -> Int32
+pub fn Idx::used(Int32) -> Bool
 
 pub struct Mark {
 }
-pub fn Mark::compare(Int, Int) -> Int
-pub fn Mark::group_count(Int) -> Int
-pub fn Mark::next(Int) -> Int
-pub fn Mark::next2(Int) -> Int
-pub fn Mark::outside_range(Int, start_inclusive~ : Int, stop_inclusive~ : Int) -> Bool
-pub fn Mark::prev(Int) -> Int
-pub fn Mark::start() -> Int
-pub fn Mark::to_dyn(Int) -> Dyn
+pub fn Mark::compare(Int32, Int32) -> Int32
+pub fn Mark::group_count(Int32) -> Int32
+pub fn Mark::next(Int32) -> Int32
+pub fn Mark::next2(Int32) -> Int32
+pub fn Mark::outside_range(Int32, start_inclusive~ : Int32, stop_inclusive~ : Int32) -> Bool
+pub fn Mark::prev(Int32) -> Int32
+pub fn Mark::start() -> Int32
+pub fn Mark::to_dyn(Int32) -> Dyn
 
 pub struct MarkInfos {
-  table : Array[Int]
+  table : Array[Int32]
 }
-pub fn MarkInfos::has(Self, Int) -> Bool
-pub fn MarkInfos::iteri(Self, (Int, Int, Int) -> Unit) -> Unit
-pub fn MarkInfos::make(Array[(Int, Int)]) -> Self
-pub fn MarkInfos::offset(Self, Int) -> (Int, Int)?
-pub fn MarkInfos::start_offset(Self, Int) -> MarkOffset
-pub fn MarkInfos::stop_offset(Self, Int) -> MarkOffset
+pub fn MarkInfos::has(Self, Int32) -> Bool
+pub fn MarkInfos::iteri(Self, (Int32, Int32, Int32) -> Unit) -> Unit
+pub fn MarkInfos::make(Array[(Int32, Int32)]) -> Self
+pub fn MarkInfos::offset(Self, Int32) -> (Int32, Int32)?
+pub fn MarkInfos::start_offset(Self, Int32) -> MarkOffset
+pub fn MarkInfos::stop_offset(Self, Int32) -> MarkOffset
 
 pub struct MarkOffset {
-  val : Int
+  val : Int32
 }
-pub fn MarkOffset::get_no_check(Self) -> Int
+pub fn MarkOffset::get_no_check(Self) -> Int32
 pub fn MarkOffset::is_present(Self) -> Bool
 
 pub struct Marks {
-  marks : Array[(Int, Int)]
+  marks : Array[(Int32, Int32)]
   pmarks : PmarkSet
 }
 pub fn Marks::empty() -> Self
 pub fn Marks::equal(Self, Self) -> Bool
-pub fn Marks::filter(Self, Int, Int) -> Self
-pub fn Marks::hash(Self, Int) -> Int
-pub fn Marks::marks_set_idx(Self, Int) -> Self
-pub fn Marks::set_mark(Self, Int) -> Self
+pub fn Marks::filter(Self, Int32, Int32) -> Self
+pub fn Marks::hash(Self, Int32) -> Int32
+pub fn Marks::marks_set_idx(Self, Int32) -> Self
+pub fn Marks::set_mark(Self, Int32) -> Self
 pub fn Marks::set_pmark(Self, Pmark) -> Self
 
 pub enum MatchInfo {
   MatchInfo(GroupT)
   FailedInfo
-  RunningInfo(Int)
+  RunningInfo(Int32)
 }
 
 pub struct ParseBuffer {
   str : Bytes
-  mut pos : Int
+  mut pos : Int32
 }
 pub fn ParseBuffer::accept(Self, Char) -> Bool
 pub fn ParseBuffer::accept_s(Self, Bytes) -> Bool
 pub fn ParseBuffer::create(Bytes) -> Self
 pub fn ParseBuffer::eos(Self) -> Bool
 pub fn ParseBuffer::get(Self) -> Char
-pub fn ParseBuffer::integer(Self) -> Int? raise
+pub fn ParseBuffer::integer(Self) -> Int32? raise
 pub fn ParseBuffer::junk(Self) -> Unit
 pub fn ParseBuffer::peek(Self, Char) -> Bool
 pub fn ParseBuffer::peek2(Self, Char, Char) -> Bool
@@ -483,13 +511,13 @@ pub fn ParseBuffer::unget(Self) -> Unit
 
 pub struct Pcre {
 }
-pub fn Pcre::exec(Re, Bytes, pos? : Int) -> GroupT raise
+pub fn Pcre::exec(Re, Bytes, pos? : Int32) -> GroupT raise
 pub fn Pcre::extract(Re, Bytes) -> Array[Bytes] raise
-pub fn Pcre::full_split(Re, Bytes, max? : Int) -> Array[PcreSplitResult] raise
+pub fn Pcre::full_split(Re, Bytes, max? : Int32) -> Array[PcreSplitResult] raise
 pub fn Pcre::get_named_substring(Re, String, GroupT) -> Bytes raise
 pub fn Pcre::get_named_substring_opt(Re, String, GroupT) -> Bytes?
-pub fn Pcre::get_substring(GroupT, Int) -> Bytes
-pub fn Pcre::get_substring_ofs(GroupT, Int) -> (Int, Int) raise
+pub fn Pcre::get_substring(GroupT, Int32) -> Bytes
+pub fn Pcre::get_substring_ofs(GroupT, Int32) -> (Int32, Int32) raise
 pub fn Pcre::names(Re) -> Array[String]
 pub fn Pcre::pmatch(Re, Bytes) -> Bool raise
 pub fn Pcre::quote(Bytes) -> Bytes
@@ -511,7 +539,7 @@ pub fn PcreFlag::multiline_p() -> Self
 pub enum PcreSplitResult {
   PcreText(Bytes)
   PcreDelim(Bytes)
-  PcreGroup(Int, Bytes)
+  PcreGroup(Int32, Bytes)
   PcreNoGroup
 }
 
@@ -536,13 +564,19 @@ pub fn PerlOpt::multiline() -> Self
 pub fn PerlOpt::ungreedy() -> Self
 
 pub struct Pmark {
-  id : Int
+  id : Int32
 } derive(Compare, Eq, @debug.Debug)
-pub fn Pmark::compare(Self, Self) -> Int
+pub fn Pmark::compare(Self, Self) -> Int32
 pub fn Pmark::equal(Self, Self) -> Bool
 pub fn Pmark::gen() -> Self
+pub fn Pmark::not_equal(Self, Self) -> Bool
+pub fn Pmark::op_ge(Self, Self) -> Bool
+pub fn Pmark::op_gt(Self, Self) -> Bool
+pub fn Pmark::op_le(Self, Self) -> Bool
+pub fn Pmark::op_lt(Self, Self) -> Bool
 pub fn Pmark::to_dyn(Self) -> Dyn
-pub fn Pmark::to_int(Self) -> Int
+pub fn Pmark::to_int(Self) -> Int32
+pub fn Pmark::to_repr(Self) -> @debug.Repr
 
 pub struct PmarkSet {
   elems : Array[Pmark]
@@ -552,23 +586,23 @@ pub fn PmarkSet::empty() -> Self
 pub fn PmarkSet::equal(Self, Self) -> Bool
 pub fn PmarkSet::is_empty(Self) -> Bool
 pub fn PmarkSet::iter(Self, (Pmark) -> Unit) -> Unit
-pub fn PmarkSet::length(Self) -> Int
+pub fn PmarkSet::length(Self) -> Int32
 pub fn PmarkSet::mem(Self, Pmark) -> Bool
 pub fn PmarkSet::single(Pmark) -> Self
 pub fn PmarkSet::to_list(Self) -> Array[Pmark]
 pub fn PmarkSet::union(Self, Self) -> Self
 
 pub struct Positions {
-  mut positions : Array[Int]
-  mut length : Int
+  mut positions : Array[Int32]
+  mut length : Int32
 }
-pub fn Positions::all(Self) -> Array[Int]
+pub fn Positions::all(Self) -> Array[Int32]
 pub fn Positions::empty() -> Self
-pub fn Positions::first(Self) -> Int
-pub fn Positions::length(Self) -> Int
+pub fn Positions::first(Self) -> Int32
+pub fn Positions::length(Self) -> Int32
 pub fn Positions::make(groups~ : Bool, Re) -> Self
-pub fn Positions::set(Self, Int, Int) -> Unit
-pub fn Positions::unsafe_set(Self, Int, Int) -> Unit
+pub fn Positions::set(Self, Int32, Int32) -> Unit
+pub fn Positions::unsafe_set(Self, Int32, Int32) -> Unit
 
 pub struct Posix {
 }
@@ -587,12 +621,12 @@ pub struct Re {
   initial_states : Array[(Category, CompileState)]
   colors : ColorTable
   color_repr : ColorRepr
-  ncolor : Int
-  lnl : Int
+  ncolor : Int32
+  lnl : Int32
   tbl : WorkingArea
   states : StateHashTable
-  group_names : Array[(String, Int)]
-  group_count : Int
+  group_names : Array[(String, Int32)]
+  group_count : Int32
 }
 pub fn Re::alnum() -> AstGen[AstCset]
 pub fn Re::alpha() -> AstGen[AstCset]
@@ -601,8 +635,8 @@ pub fn Re::blank() -> AstGen[AstCset]
 pub fn Re::cntrl() -> AstGen[AstCset]
 pub fn Re::digit() -> AstGen[AstCset]
 pub fn Re::graph() -> AstGen[AstCset]
-pub fn Re::group_count(Self) -> Int
-pub fn Re::group_names(Self) -> Array[(String, Int)]
+pub fn Re::group_count(Self) -> Int32
+pub fn Re::group_names(Self) -> Array[(String, Int32)]
 pub fn Re::lower() -> AstGen[AstCset]
 pub fn Re::mark_all(GroupT) -> PmarkSet
 pub fn Re::mark_test(GroupT, Pmark) -> Bool
@@ -621,34 +655,50 @@ pub enum RepKind {
   Greedy
   NonGreedy
 } derive(Compare, Eq, @debug.Debug)
+pub fn RepKind::compare(Self, Self) -> Int32
+pub fn RepKind::equal(Self, Self) -> Bool
 pub fn RepKind::greedy() -> Self
 pub fn RepKind::non_greedy() -> Self
+pub fn RepKind::not_equal(Self, Self) -> Bool
+pub fn RepKind::op_ge(Self, Self) -> Bool
+pub fn RepKind::op_gt(Self, Self) -> Bool
+pub fn RepKind::op_le(Self, Self) -> Bool
+pub fn RepKind::op_lt(Self, Self) -> Bool
 pub fn RepKind::to_dyn(Self) -> Dyn
+pub fn RepKind::to_repr(Self) -> @debug.Repr
 pub fn RepKind::to_string(Self) -> String
 pub fn RepKind::to_string_short(Self) -> String
 
 pub struct Replace {
 }
-pub fn Replace::replace(Re, Bytes, f~ : (GroupT) -> Bytes, pos? : Int, len? : Int, all? : Bool) -> Bytes raise
-pub fn Replace::replace_string(Re, Bytes, by~ : Bytes, pos? : Int, len? : Int, all? : Bool) -> Bytes raise
+pub fn Replace::replace(Re, Bytes, f~ : (GroupT) -> Bytes, pos? : Int32, len? : Int32, all? : Bool) -> Bytes raise
+pub fn Replace::replace_string(Re, Bytes, by~ : Bytes, pos? : Int32, len? : Int32, all? : Bool) -> Bytes raise
 
 pub struct Search {
 }
-pub fn Search::all(Re, Bytes, pos? : Int, len? : Int) -> Array[GroupT] raise
-pub fn Search::matches(Re, Bytes, pos? : Int, len? : Int) -> Array[Bytes] raise
-pub fn Search::split(Re, Bytes, pos? : Int, len? : Int) -> Array[Bytes] raise
-pub fn Search::split_delim(Re, Bytes, pos? : Int, len? : Int) -> Array[Bytes] raise
-pub fn Search::split_full(Re, Bytes, pos? : Int, len? : Int) -> Array[SplitToken] raise
+pub fn Search::all(Re, Bytes, pos? : Int32, len? : Int32) -> Array[GroupT] raise
+pub fn Search::matches(Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
+pub fn Search::split(Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
+pub fn Search::split_delim(Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
+pub fn Search::split_full(Re, Bytes, pos? : Int32, len? : Int32) -> Array[SplitToken] raise
 
 pub enum Sem {
   Longest
   Shortest
   First
 } derive(Compare, Eq, @debug.Debug)
+pub fn Sem::compare(Self, Self) -> Int32
+pub fn Sem::equal(Self, Self) -> Bool
 pub fn Sem::first() -> Self
 pub fn Sem::longest() -> Self
+pub fn Sem::not_equal(Self, Self) -> Bool
+pub fn Sem::op_ge(Self, Self) -> Bool
+pub fn Sem::op_gt(Self, Self) -> Bool
+pub fn Sem::op_le(Self, Self) -> Bool
+pub fn Sem::op_lt(Self, Self) -> Bool
 pub fn Sem::shortest() -> Self
 pub fn Sem::to_dyn(Self) -> Dyn
+pub fn Sem::to_repr(Self) -> @debug.Repr
 pub fn Sem::to_string(Self) -> String
 pub fn Sem::to_string_short(Self) -> String
 
@@ -658,32 +708,32 @@ pub enum SplitToken {
 }
 
 pub struct State {
-  idx : Int
+  idx : Int32
   category : Category
   desc : Array[ET]
   mut status : Status?
-  hash : Int
+  hash : Int32
 }
 pub fn State::create(Category, Expr) -> Self
 pub fn State::dummy() -> Self
 pub fn State::equal(Self, Self) -> Bool
-pub fn State::idx(Self) -> Int
-pub fn State::mk(Int, Category, Array[ET]) -> Self
+pub fn State::idx(Self) -> Int32
+pub fn State::mk(Int32, Category, Array[ET]) -> Self
 pub fn State::status(Self) -> Status
 pub fn State::status_no_mutex(Self) -> Status
 pub fn State::to_dyn(Self) -> Dyn
 
 pub struct StateHashTable {
   buckets : Array[Array[(State, CompileState)]]
-  mut size : Int
+  mut size : Int32
 }
 pub fn StateHashTable::add(Self, State, CompileState) -> Unit
-pub fn StateHashTable::create(Int) -> Self
+pub fn StateHashTable::create(Int32) -> Self
 pub fn StateHashTable::find(Self, State) -> CompileState?
 
 pub struct StateInfo {
-  idx : Int
-  final_ : Array[(Category, (Int, Status))]
+  idx : Int32
+  final_ : Array[(Category, (Int32, Status))]
   desc : State
 }
 
@@ -695,20 +745,20 @@ pub enum Status {
 
 pub struct Str {
 }
-pub fn Str::bounded_full_split(StrRegexp, Bytes, Int) -> Array[StrSplitResult] raise
-pub fn Str::bounded_split(StrRegexp, Bytes, Int) -> Array[Bytes] raise
-pub fn Str::bounded_split_delim(StrRegexp, Bytes, Int) -> Array[Bytes] raise
+pub fn Str::bounded_full_split(StrRegexp, Bytes, Int32) -> Array[StrSplitResult] raise
+pub fn Str::bounded_split(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
+pub fn Str::bounded_split_delim(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
 pub fn Str::compile_regexp(Bytes, Bool) -> StrRegexp raise
-pub fn Str::first_chars(Bytes, Int) -> Bytes
+pub fn Str::first_chars(Bytes, Int32) -> Bytes
 pub fn Str::full_split(StrRegexp, Bytes) -> Array[StrSplitResult] raise
 pub fn Str::global_replace(StrRegexp, Bytes, Bytes) -> Bytes raise
 pub fn Str::global_substitute(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
-pub fn Str::group_beginning(Int) -> Int raise
-pub fn Str::group_end(Int) -> Int raise
-pub fn Str::last_chars(Bytes, Int) -> Bytes
-pub fn Str::match_beginning() -> Int raise
-pub fn Str::match_end() -> Int raise
-pub fn Str::matched_group(Int, Bytes) -> Bytes raise
+pub fn Str::group_beginning(Int32) -> Int32 raise
+pub fn Str::group_end(Int32) -> Int32 raise
+pub fn Str::last_chars(Bytes, Int32) -> Bytes
+pub fn Str::match_beginning() -> Int32 raise
+pub fn Str::match_end() -> Int32 raise
+pub fn Str::matched_group(Int32, Bytes) -> Bytes raise
 pub fn Str::matched_string(Bytes) -> Bytes raise
 pub fn Str::quote(Bytes) -> Bytes
 pub fn Str::regexp(Bytes) -> StrRegexp raise
@@ -717,14 +767,14 @@ pub fn Str::regexp_string(Bytes) -> StrRegexp raise
 pub fn Str::regexp_string_case_fold(Bytes) -> StrRegexp raise
 pub fn Str::replace_first(StrRegexp, Bytes, Bytes) -> Bytes raise
 pub fn Str::replace_matched(Bytes, Bytes) -> Bytes raise
-pub fn Str::search_backward(StrRegexp, Bytes, Int) -> Int raise
-pub fn Str::search_forward(StrRegexp, Bytes, Int) -> Int raise
+pub fn Str::search_backward(StrRegexp, Bytes, Int32) -> Int32 raise
+pub fn Str::search_forward(StrRegexp, Bytes, Int32) -> Int32 raise
 pub fn Str::split(StrRegexp, Bytes) -> Array[Bytes] raise
 pub fn Str::split_delim(StrRegexp, Bytes) -> Array[Bytes] raise
-pub fn Str::string_after(Bytes, Int) -> Bytes
-pub fn Str::string_before(Bytes, Int) -> Bytes
-pub fn Str::string_match(StrRegexp, Bytes, Int) -> Bool raise
-pub fn Str::string_partial_match(StrRegexp, Bytes, Int) -> Bool raise
+pub fn Str::string_after(Bytes, Int32) -> Bytes
+pub fn Str::string_before(Bytes, Int32) -> Bytes
+pub fn Str::string_match(StrRegexp, Bytes, Int32) -> Bool raise
+pub fn Str::string_partial_match(StrRegexp, Bytes, Int32) -> Bool raise
 pub fn Str::substitute_first(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
 
 type StrRegexp
@@ -749,7 +799,7 @@ pub enum ViewT {
   SetT(Cset)
   SequenceT(Array[AstGen[AstCset]])
   AlternativeT(Array[AstGen[AstCset]])
-  RepeatT(AstGen[AstCset], Int, Int?)
+  RepeatT(AstGen[AstCset], Int32, Int32?)
   BegOfLineT
   EndOfLineT
   BegOfWordT
@@ -776,11 +826,11 @@ pub enum ViewT {
 pub struct WorkingArea {
   mut ids : BitVector
   seen : HashSet
-  mut index_count : Int
+  mut index_count : Int32
 }
 pub fn WorkingArea::create() -> Self
-pub fn WorkingArea::free_index(Self, Array[ET]) -> Int
-pub fn WorkingArea::index_count(Self) -> Int
+pub fn WorkingArea::free_index(Self, Array[ET]) -> Int32
+pub fn WorkingArea::index_count(Self) -> Int32
 
 // Type aliases
 pub type Ast = AstGen[AstCset]
@@ -788,4 +838,3 @@ pub type Ast = AstGen[AstCset]
 pub type AstNoCase = AstGen[Cset]
 
 // Traits
-

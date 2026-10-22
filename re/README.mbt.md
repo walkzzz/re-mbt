@@ -10,12 +10,12 @@
 
 ```mbt check
 test "perl basic match" {
-  let re = Perl::compile_pat(sb("(\\d+)-(\\d+)"))
-  match exec_opt(re, sb("2024-12-25")) {
+  let re = @re.Perl::compile_pat(sb("(\\d+)-(\\d+)"))
+  match @re.exec_opt(re, sb("2024-12-25")) {
     Some(g) => {
-      assert_eq(bs(GroupT::get(g, 0).unwrap()), "2024-12")
-      assert_eq(bs(GroupT::get(g, 1).unwrap()), "2024")
-      assert_eq(bs(GroupT::get(g, 2).unwrap()), "12")
+      assert_eq(bs(@re.GroupT::get(g, 0).unwrap()), "2024-12")
+      assert_eq(bs(@re.GroupT::get(g, 1).unwrap()), "2024")
+      assert_eq(bs(@re.GroupT::get(g, 2).unwrap()), "12")
     }
     None => fail("should match")
   }
@@ -24,16 +24,16 @@ test "perl basic match" {
 
 ```mbt check
 test "perl caseless" {
-  let re = Perl::compile_pat(sb("hello"), opts=[PerlOpt::caseless()])
-  assert_eq(execp(re, sb("HELLO")), true)
+  let re = @re.Perl::compile_pat(sb("hello"), opts=[@re.PerlOpt::caseless()])
+  assert_eq(@re.execp(re, sb("HELLO")), true)
 }
 ```
 
 ```mbt check
 test "perl non-greedy" {
-  let re = Perl::compile_pat(sb("a.*?b"))
-  match exec_opt(re, sb("axxbxxb")) {
-    Some(g) => assert_eq(bs(GroupT::get(g, 0).unwrap()), "axxb")
+  let re = @re.Perl::compile_pat(sb("a.*?b"))
+  match @re.exec_opt(re, sb("axxbxxb")) {
+    Some(g) => assert_eq(bs(@re.GroupT::get(g, 0).unwrap()), "axxb")
     None => fail("should match")
   }
 }
@@ -43,15 +43,15 @@ test "perl non-greedy" {
 
 ```mbt check
 test "pcre caseless" {
-  let re = Pcre::regexp(sb("hello"), flags=[PcreFlag::caseless()])
-  assert_eq(Pcre::pmatch(re, sb("HELLO")), true)
+  let re = @re.Pcre::regexp(sb("hello"), flags=[@re.PcreFlag::caseless()])
+  assert_eq(@re.Pcre::pmatch(re, sb("HELLO")), true)
 }
 ```
 
 ```mbt check
 test "pcre multiline" {
-  let re = Pcre::regexp(sb("^abc$"), flags=[PcreFlag::multiline_p()])
-  assert_eq(Pcre::pmatch(re, sb("x\nabc\ny")), true)
+  let re = @re.Pcre::regexp(sb("^abc$"), flags=[@re.PcreFlag::multiline_p()])
+  assert_eq(@re.Pcre::pmatch(re, sb("x\nabc\ny")), true)
 }
 ```
 
@@ -59,22 +59,22 @@ test "pcre multiline" {
 
 ```mbt check
 test "str match" {
-  let re = Str::regexp(sb("[a-z]+"))
-  assert_eq(Str::string_match(re, sb("abc"), 0), true)
+  let re = @re.Str::regexp(sb("[a-z]+"))
+  assert_eq(@re.Str::string_match(re, sb("abc"), 0), true)
 }
 ```
 
 ```mbt check
 test "str search" {
-  let re = Str::regexp(sb("world"))
-  assert_eq(Str::search_forward(re, sb("hello world"), 0), 6)
+  let re = @re.Str::regexp(sb("world"))
+  assert_eq(@re.Str::search_forward(re, sb("hello world"), 0), 6)
 }
 ```
 
 ```mbt check
 test "str split" {
-  let re = Str::regexp(sb(","))
-  let parts = Str::split(re, sb("a,b,c"))
+  let re = @re.Str::regexp(sb(","))
+  let parts = @re.Str::split(re, sb("a,b,c"))
   assert_eq(parts.length(), 3)
   assert_eq(bs(parts[0]), "a")
   assert_eq(bs(parts[1]), "b")
@@ -84,24 +84,24 @@ test "str split" {
 
 ```mbt check
 test "str global_replace" {
-  let re = Str::regexp(sb("o"))
-  let result = Str::global_replace(re, sb("0"), sb("foo"))
+  let re = @re.Str::regexp(sb("o"))
+  let result = @re.Str::global_replace(re, sb("0"), sb("foo"))
   assert_eq(bs(result), "f00")
 }
 ```
 
 ```mbt check
 test "str replace_first" {
-  let re = Str::regexp(sb("o"))
-  let result = Str::replace_first(re, sb("0"), sb("foo"))
+  let re = @re.Str::regexp(sb("o"))
+  let result = @re.Str::replace_first(re, sb("0"), sb("foo"))
   assert_eq(bs(result), "f0o")
 }
 ```
 
 ```mbt check
 test "str case_fold" {
-  let re = Str::regexp_case_fold(sb("hello"))
-  assert_eq(Str::string_match(re, sb("HELLO"), 0), true)
+  let re = @re.Str::regexp_case_fold(sb("hello"))
+  assert_eq(@re.Str::string_match(re, sb("HELLO"), 0), true)
 }
 ```
 
@@ -109,16 +109,16 @@ test "str case_fold" {
 
 ```mbt check
 test "core Search::all" {
-  let re = compile(Ast::str(sb("ab")))
-  let results = Search::all(re, sb("ab_ab_ab"))
+  let re = @re.compile(@re.Ast::str(sb("ab")))
+  let results = @re.Search::all(re, sb("ab_ab_ab"))
   assert_eq(results.length(), 3)
 }
 ```
 
 ```mbt check
 test "core Search::matches" {
-  let re = compile(Ast::rep1(Re::digit()))
-  let results = Search::matches(re, sb("a12b34c"))
+  let re = @re.compile(@re.Ast::rep1(@re.Re::digit()))
+  let results = @re.Search::matches(re, sb("a12b34c"))
   assert_eq(results.length(), 2)
   assert_eq(bs(results[0]), "12")
   assert_eq(bs(results[1]), "34")
@@ -127,8 +127,8 @@ test "core Search::matches" {
 
 ```mbt check
 test "core Re::pp" {
-  let ast = Ast::str(sb("hello"))
-  let s = Re::pp(ast)
+  let ast = @re.Ast::str(sb("hello"))
+  let s = @re.Re::pp(ast)
   assert_eq(s.length() > 0, true)
 }
 ```

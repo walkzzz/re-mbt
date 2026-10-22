@@ -7,6 +7,16 @@ pub struct Category {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend Category with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend Category with Eq::{not_equal}
+
+///|
+pub extend Category with Compare::{op_lt, op_le, op_ge, op_gt}
+
+///|
+
 pub fn Category::from_int(i : Int) -> Category {
   { bits: i }
 }

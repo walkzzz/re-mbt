@@ -9,6 +9,16 @@ pub struct Pmark {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend Pmark with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend Pmark with Eq::{not_equal}
+
+///|
+pub extend Pmark with Compare::{op_lt, op_le, op_ge, op_gt}
+
+///|
+
 pub fn Pmark::equal(x : Pmark, y : Pmark) -> Bool {
   x.id == y.id
 }

@@ -13,36 +13,36 @@ fn bs_s(b : Bytes) -> String {
 
 ///|
 test "search all basic" {
-  let re = compile(Ast::str(sb("ab")))
-  let results = Search::all(re, sb("ab_ab_ab"))
+  let re = @re.compile(@re.Ast::str(sb("ab")))
+  let results = @re.Search::all(re, sb("ab_ab_ab"))
   assert_eq(results.length(), 3)
 }
 
 ///|
 test "search all no match" {
-  let re = compile(Ast::str(sb("xyz")))
-  let results = Search::all(re, sb("abcdef"))
+  let re = @re.compile(@re.Ast::str(sb("xyz")))
+  let results = @re.Search::all(re, sb("abcdef"))
   assert_eq(results.length(), 0)
 }
 
 ///|
 test "search all empty string" {
-  let re = compile(Ast::str(sb("a")))
-  let results = Search::all(re, sb(""))
+  let re = @re.compile(@re.Ast::str(sb("a")))
+  let results = @re.Search::all(re, sb(""))
   assert_eq(results.length(), 0)
 }
 
 ///|
 test "search all with pos" {
-  let re = compile(Ast::str(sb("a")))
-  let results = Search::all(re, sb("aaa"), pos=1)
+  let re = @re.compile(@re.Ast::str(sb("a")))
+  let results = @re.Search::all(re, sb("aaa"), pos=1)
   assert_eq(results.length(), 2)
 }
 
 ///|
 test "search all overlapping pattern" {
-  let re = compile(Ast::seq([Ast::str(sb("a")), Ast::str(sb("a"))]))
-  let results = Search::all(re, sb("aaaa"))
+  let re = @re.compile(@re.Ast::seq([@re.Ast::str(sb("a")), @re.Ast::str(sb("a"))]))
+  let results = @re.Search::all(re, sb("aaaa"))
   assert_eq(results.length(), 2)
 }
 
@@ -50,8 +50,8 @@ test "search all overlapping pattern" {
 
 ///|
 test "search matches basic" {
-  let re = compile(Ast::str(sb("ab")))
-  let results = Search::matches(re, sb("ab_ab_ab"))
+  let re = @re.compile(@re.Ast::str(sb("ab")))
+  let results = @re.Search::matches(re, sb("ab_ab_ab"))
   assert_eq(results.length(), 3)
   for r in results {
     assert_eq(bs_s(r), "ab")
@@ -60,15 +60,15 @@ test "search matches basic" {
 
 ///|
 test "search matches no match" {
-  let re = compile(Ast::str(sb("xyz")))
-  let results = Search::matches(re, sb("abc"))
+  let re = @re.compile(@re.Ast::str(sb("xyz")))
+  let results = @re.Search::matches(re, sb("abc"))
   assert_eq(results.length(), 0)
 }
 
 ///|
 test "search matches with groups" {
-  let re = compile(Ast::rep1(Re::digit()))
-  let results = Search::matches(re, sb("a12b34c"))
+  let re = @re.compile(@re.Ast::rep1(@re.Re::digit()))
+  let results = @re.Search::matches(re, sb("a12b34c"))
   assert_eq(results.length(), 2)
   assert_eq(bs_s(results[0]), "12")
   assert_eq(bs_s(results[1]), "34")
@@ -78,8 +78,8 @@ test "search matches with groups" {
 
 ///|
 test "search split basic" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split(re, sb("a,b,c"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split(re, sb("a,b,c"))
   assert_eq(parts.length(), 3)
   assert_eq(bs_s(parts[0]), "a")
   assert_eq(bs_s(parts[1]), "b")
@@ -88,16 +88,16 @@ test "search split basic" {
 
 ///|
 test "search split no delimiter" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split(re, sb("abc"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split(re, sb("abc"))
   assert_eq(parts.length(), 1)
   assert_eq(bs_s(parts[0]), "abc")
 }
 
 ///|
 test "search split leading trailing delim" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split(re, sb(",a,b,"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split(re, sb(",a,b,"))
   assert_eq(parts.length(), 2)
   assert_eq(bs_s(parts[0]), "a")
   assert_eq(bs_s(parts[1]), "b")
@@ -105,8 +105,8 @@ test "search split leading trailing delim" {
 
 ///|
 test "search split with pos" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split(re, sb("a,b,c"), pos=2)
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split(re, sb("a,b,c"), pos=2)
   assert_eq(parts.length(), 2)
   assert_eq(bs_s(parts[0]), "b")
   assert_eq(bs_s(parts[1]), "c")
@@ -116,8 +116,8 @@ test "search split with pos" {
 
 ///|
 test "search split_delim basic" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split_delim(re, sb("a,b,c"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split_delim(re, sb("a,b,c"))
   assert_eq(parts.length(), 3)
   assert_eq(bs_s(parts[0]), "a")
   assert_eq(bs_s(parts[1]), "b")
@@ -126,8 +126,8 @@ test "search split_delim basic" {
 
 ///|
 test "search split_delim leading trailing" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split_delim(re, sb(",a,b,"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split_delim(re, sb(",a,b,"))
   assert_eq(parts.length(), 4)
   assert_eq(bs_s(parts[0]), "")
   assert_eq(bs_s(parts[1]), "a")
@@ -137,8 +137,8 @@ test "search split_delim leading trailing" {
 
 ///|
 test "search split_delim no delimiter" {
-  let re = compile(Ast::str(sb(",")))
-  let parts = Search::split_delim(re, sb("abc"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let parts = @re.Search::split_delim(re, sb("abc"))
   assert_eq(parts.length(), 1)
   assert_eq(bs_s(parts[0]), "abc")
 }
@@ -147,8 +147,8 @@ test "search split_delim no delimiter" {
 
 ///|
 test "search split_full basic" {
-  let re = compile(Ast::str(sb(",")))
-  let tokens = Search::split_full(re, sb("a,b"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let tokens = @re.Search::split_full(re, sb("a,b"))
   assert_eq(tokens.length(), 3)
   match tokens[0] {
     SplitText(t) => assert_eq(bs_s(t), "a")
@@ -166,8 +166,8 @@ test "search split_full basic" {
 
 ///|
 test "search split_full no delimiter" {
-  let re = compile(Ast::str(sb(",")))
-  let tokens = Search::split_full(re, sb("abc"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let tokens = @re.Search::split_full(re, sb("abc"))
   assert_eq(tokens.length(), 1)
   match tokens[0] {
     SplitText(t) => assert_eq(bs_s(t), "abc")
@@ -177,8 +177,8 @@ test "search split_full no delimiter" {
 
 ///|
 test "search split_full multiple" {
-  let re = compile(Ast::str(sb(",")))
-  let tokens = Search::split_full(re, sb("a,b,c"))
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  let tokens = @re.Search::split_full(re, sb("a,b,c"))
   assert_eq(tokens.length(), 5)
 }
 
@@ -186,8 +186,8 @@ test "search split_full multiple" {
 
 ///|
 test "search all invalid pos raises" {
-  let re = compile(Ast::str(sb("a")))
-  try Search::all(re, sb("aaa"), pos=-1) catch {
+  let re = @re.compile(@re.Ast::str(sb("a")))
+  try @re.Search::all(re, sb("aaa"), pos=-1) catch {
     _ => assert_eq(true, true)
   } noraise {
     _ => fail("should raise")
@@ -196,8 +196,8 @@ test "search all invalid pos raises" {
 
 ///|
 test "search split invalid pos raises" {
-  let re = compile(Ast::str(sb(",")))
-  try Search::split(re, sb("a,b"), pos=-1) catch {
+  let re = @re.compile(@re.Ast::str(sb(",")))
+  try @re.Search::split(re, sb("a,b"), pos=-1) catch {
     _ => assert_eq(true, true)
   } noraise {
     _ => fail("should raise")

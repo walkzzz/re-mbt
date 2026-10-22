@@ -10,6 +10,12 @@ pub enum AstAlt[T] {
 } derive(Debug, Eq)
 
 ///|
+pub extend AstAlt with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AstAlt with Eq::{equal, not_equal}
+
+///|
 pub enum AstCset {
   CsetOf(Cset)
   Intersection(Array[AstCset])
@@ -17,6 +23,12 @@ pub enum AstCset {
   Difference(AstCset, AstCset)
   Cast(AstAlt[AstCset])
 } derive(Debug, Eq)
+
+///|
+pub extend AstCset with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AstCset with Eq::{equal, not_equal}
 
 ///|
 pub enum AstGen[T] {
@@ -41,6 +53,12 @@ pub enum AstGen[T] {
   Sem(Sem, AstGen[T])
   SemGreedy(RepKind, AstGen[T])
 } derive(Debug, Eq)
+
+///|
+pub extend AstGen with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AstGen with Eq::{equal, not_equal}
 
 ///|
 pub type Ast = AstGen[AstCset]

@@ -16,6 +16,9 @@ pub enum Expr {
 } derive(Debug)
 
 ///|
+pub extend Expr with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 pub fn Expr::id(e : Expr) -> Int {
   match e {
     Cst(i, _) => i

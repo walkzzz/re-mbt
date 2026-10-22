@@ -9,10 +9,28 @@ pub enum Sem {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend Sem with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend Sem with Eq::{equal, not_equal}
+
+///|
+pub extend Sem with Compare::{compare, op_lt, op_le, op_gt, op_ge}
+
+///|
 pub enum RepKind {
   Greedy
   NonGreedy
 } derive(Debug, Eq, Compare)
+
+///|
+pub extend RepKind with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend RepKind with Eq::{equal, not_equal}
+
+///|
+pub extend RepKind with Compare::{compare, op_lt, op_le, op_gt, op_ge}
 
 ///|
 pub fn Sem::to_dyn(s : Sem) -> Dyn {

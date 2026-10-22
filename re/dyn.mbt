@@ -15,6 +15,12 @@ pub enum Dyn {
 } derive(Debug, Eq)
 
 ///|
+pub extend Dyn with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend Dyn with Eq::{equal, not_equal}
+
+///|
 fn Dyn::variant(name : String, args : Array[Dyn]) -> Dyn {
   Variant(name, args)
 }
