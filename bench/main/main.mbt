@@ -3,10 +3,10 @@
 // Timing via C clock() FFI (native backend). CLOCKS_PER_SEC = 1000 on Windows.
 
 ///|
-extern "c" fn clock() -> Int = "clock"
+extern "c" fn clock() -> Int32 = "clock"
 
 ///|
-let clocks_per_sec : Int = 1000
+let clocks_per_sec : Int32 = 1000
 
 ///|
 let bench_section : Int32 = 0
@@ -58,7 +58,7 @@ fn[T] ignore(_ : T) -> Unit {
 }
 
 ///|
-fn fmt_ms(elapsed_ticks : Int) -> String {
+fn fmt_ms(elapsed_ticks : Int32) -> String {
   let ms = elapsed_ticks * 1000 / clocks_per_sec
   ms.to_string() + " ms"
 }
@@ -70,12 +70,7 @@ fn run_section(sec : Int32, name : String, f : () -> Unit) -> Unit {
     f()
     let elapsed = clock() - start
     println(
-      "Section " +
-      sec.to_string() +
-      " [" +
-      name +
-      "]: " +
-      fmt_ms(elapsed),
+      "Section " + sec.to_string() + " [" + name + "]: " + fmt_ms(elapsed),
     )
   }
 }

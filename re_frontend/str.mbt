@@ -6,8 +6,9 @@ pub struct Str {}
 
 ///|
 struct StrRegexp {
-  mtch : @compile.Re
   srch : @compile.Re
+  mtch_ast : @ast.Ast
+  mtch : Ref[@compile.Re?]
 }
 
 ///|
@@ -17,8 +18,21 @@ let str_state : Ref[@compile.GroupT?] = Ref::{ val: None, }
 pub fn Str::compile_regexp(s : Bytes, case_fold : Bool) -> StrRegexp raise {
   let re = Emacs::re_no_emacs(s, case=!case_fold)
   {
-    mtch: @compile.compile(@ast.Ast::seq([@ast.Ast::start(), re])),
     srch: @compile.compile(re),
+    mtch_ast: @ast.Ast::seq([@ast.Ast::start(), re]),
+    mtch: Ref::{ val: None, },
+  }
+}
+
+///|
+fn str_get_mtch(r : StrRegexp) -> @compile.Re {
+  match r.mtch.val {
+    Some(m) => m
+    None => {
+      let m = @compile.compile(r.mtch_ast)
+      r.mtch.val = Some(m)
+      m
+    }
   }
 }
 
@@ -60,11 +74,15 @@ pub fn Str::regexp_string(s : Bytes) -> StrRegexp raise {
 
 ///|
 pub fn Str::string_match(re : StrRegexp, s : Bytes, p : Int32) -> Bool raise {
-  match @compile.exec_opt(re.mtch, s, pos=p) {
-    Some(res) => {
-      str_state.val = Some(res)
-      true
-    }
+  match @compile.exec_opt(re.srch, s, pos=p) {
+    Some(res) =>
+      if @compile.GroupT::start(res, 0) == p {
+        str_state.val = Some(res)
+        true
+      } else {
+        str_state.val = None
+        false
+      }
     None => {
       str_state.val = None
       false
@@ -276,9 +294,10 @@ pub fn Str::search_backward(
   s : Bytes,
   p : Int32,
 ) -> Int32 raise {
+  let mtch = str_get_mtch(re)
   let mut pos = p
   while pos >= 0 {
-    match @compile.exec_opt(re.mtch, s, pos~) {
+    match @compile.exec_opt(mtch, s, pos~) {
       Some(res) => {
         str_state.val = Some(res)
         return pos
@@ -299,7 +318,8 @@ pub fn Str::string_partial_match(
   s : Bytes,
   p : Int32,
 ) -> Bool raise {
-  match @compile.exec_partial(re.mtch, s, pos=p) {
+  let mtch = str_get_mtch(re)
+  match @compile.exec_partial(mtch, s, pos=p) {
     Full => Str::string_match(re, s, p)
     Partial => true
     Mismatch => false
