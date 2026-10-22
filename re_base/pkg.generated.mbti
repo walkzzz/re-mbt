@@ -60,6 +60,7 @@ pub fn Category::search_boundary() -> Self
 pub fn Category::to_dyn(Self) -> Dyn
 pub fn Category::to_int(Self) -> Int32
 pub fn Category::to_repr(Self) -> @debug.Repr
+pub impl Dynable for Category
 
 pub struct Cset {
   intervals : Array[(Int32, Int32)]
@@ -86,7 +87,7 @@ pub fn Cset::diff(Self, Self) -> Self
 pub fn Cset::empty() -> Self
 pub fn Cset::equal(Self, Self) -> Bool
 pub fn Cset::graph() -> Self
-pub fn Cset::hash(Self) -> Int32
+pub fn Cset::hash(Self, Int32) -> Int32
 pub fn Cset::inter(Self, Self) -> Self
 pub fn Cset::intersect_all(Array[Self]) -> Self
 pub fn Cset::is_empty(Self) -> Bool
@@ -118,6 +119,8 @@ pub fn Cset::union_singles_in_strictly_decreasing_order(Array[Int32]) -> Self
 pub fn Cset::upper() -> Self
 pub fn Cset::wordc() -> Self
 pub fn Cset::xdigit() -> Self
+pub impl Dynable for Cset
+pub impl Hashable for Cset
 
 pub struct CsetC {
 }
@@ -236,6 +239,7 @@ pub fn Pmark::op_lt(Self, Self) -> Bool
 pub fn Pmark::to_dyn(Self) -> Dyn
 pub fn Pmark::to_int(Self) -> Int32
 pub fn Pmark::to_repr(Self) -> @debug.Repr
+pub impl Dynable for Pmark
 
 pub struct PmarkSet {
   elems : Array[Pmark]
@@ -268,6 +272,7 @@ pub fn RepKind::to_dyn(Self) -> Dyn
 pub fn RepKind::to_repr(Self) -> @debug.Repr
 pub fn RepKind::to_string(Self) -> String
 pub fn RepKind::to_string_short(Self) -> String
+pub impl Dynable for RepKind
 
 pub(all) enum Sem {
   Longest
@@ -288,7 +293,19 @@ pub fn Sem::to_dyn(Self) -> Dyn
 pub fn Sem::to_repr(Self) -> @debug.Repr
 pub fn Sem::to_string(Self) -> String
 pub fn Sem::to_string_short(Self) -> String
+pub impl Dynable for Sem
 
 // Type aliases
 
 // Traits
+pub(open) trait Dynable {
+  fn to_dyn(Self) -> Dyn
+}
+
+pub(open) trait Equatable {
+  fn equal(Self, Self) -> Bool
+}
+
+pub(open) trait Hashable {
+  fn hash(Self, Int32) -> Int32
+}

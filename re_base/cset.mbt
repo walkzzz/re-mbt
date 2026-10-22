@@ -356,8 +356,8 @@ pub fn Cset::mem(c : Int32, s : Cset) -> Bool {
 }
 
 ///|
-pub fn Cset::hash(l : Cset) -> Int32 {
-  let mut h = 0
+pub fn Cset::hash(l : Cset, accu : Int32) -> Int32 {
+  let mut h = accu
   let n = l.intervals.length()
   for k in 0..<n {
     let p = l.intervals[n - 1 - k]

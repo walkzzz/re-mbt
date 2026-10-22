@@ -43,7 +43,7 @@ fn trans_set(
   match @base.Cset::one_char(s) {
     Some(i) => @base.Cset::csingle(cm.get_char(i).to_int().unsafe_to_char())
     None => {
-      let v = (@base.Cset::hash(s), s)
+      let v = (@base.Cset::hash(s, 0), s)
       match @base.CSetMap::find(cache.val, v) {
         Some(l) => l
         None => {

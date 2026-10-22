@@ -106,6 +106,7 @@ pub fn AstGen::to_dyn(Self[AstCset]) -> @re_base.Dyn
 pub fn[T : @debug.Debug] AstGen::to_repr(Self[T]) -> @debug.Repr
 pub fn AstGen::whole_string(Self[AstCset]) -> Self[AstCset]
 pub fn AstGen::word(Self[AstCset]) -> Self[AstCset]
+pub impl @re_base.Dynable for AstGen[AstCset]
 
 pub struct BoundaryTable {
   data : FixedArray[Byte]
@@ -162,6 +163,8 @@ pub fn ET::equal(Self, Self) -> Bool
 pub fn ET::equal_list(Array[Self], Array[Self]) -> Bool
 pub fn ET::hash(Self, Int32) -> Int32
 pub fn ET::hash_list(Array[Self], Int32) -> Int32
+pub impl @re_base.Equatable for ET
+pub impl @re_base.Hashable for ET
 
 pub(all) enum Expr {
   Cst(Int32, @re_base.Cset)
@@ -192,6 +195,7 @@ pub fn Expr::rep(@re_base.Ids, @re_base.RepKind, @re_base.Sem, Self) -> Self
 pub fn Expr::seq(@re_base.Ids, @re_base.Sem, Self, Self) -> Self
 pub fn Expr::to_dyn(Self) -> @re_base.Dyn
 pub fn Expr::to_repr(Self) -> @debug.Repr
+pub impl @re_base.Dynable for Expr
 
 pub struct Marks {
   marks : Array[(Int32, Int32)]
@@ -204,6 +208,8 @@ pub fn Marks::hash(Self, Int32) -> Int32
 pub fn Marks::marks_set_idx(Self, Int32) -> Self
 pub fn Marks::set_mark(Self, Int32) -> Self
 pub fn Marks::set_pmark(Self, @re_base.Pmark) -> Self
+pub impl @re_base.Equatable for Marks
+pub impl @re_base.Hashable for Marks
 
 pub struct State {
   idx : Int32
@@ -220,6 +226,8 @@ pub fn State::mk(Int32, @re_base.Category, Array[ET]) -> Self
 pub fn State::status(Self) -> Status
 pub fn State::status_no_mutex(Self) -> Status
 pub fn State::to_dyn(Self) -> @re_base.Dyn
+pub impl @re_base.Dynable for State
+pub impl @re_base.Equatable for State
 
 pub enum Status {
   Failed

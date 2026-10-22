@@ -103,14 +103,14 @@ test "Cset::intersect_all" {
 test "Cset::hash consistency" {
   let a = @base.Cset::seq(0, 10)
   let b = @base.Cset::seq(0, 10)
-  assert_eq(@base.Cset::hash(a), @base.Cset::hash(b))
+  assert_eq(@base.Cset::hash(a, 0), @base.Cset::hash(b, 0))
 }
 
 ///|
 test "Cset::hash differs for different sets" {
   let a = @base.Cset::seq(0, 10)
   let b = @base.Cset::seq(0, 11)
-  assert_eq(@base.Cset::hash(a) == @base.Cset::hash(b), false)
+  assert_eq(@base.Cset::hash(a, 0) == @base.Cset::hash(b, 0), false)
 }
 
 ///|
@@ -301,7 +301,7 @@ test "Cset::case_insens" {
 test "CSetMap::empty / find / add" {
   let m = @base.CSetMap::empty()
   let key = @base.Cset::single(65)
-  let h = @base.Cset::hash(key)
+  let h = @base.Cset::hash(key, 0)
   assert_eq(@base.CSetMap::find(m, (h, key)), None)
   let m2 = @base.CSetMap::add(m, (h, key), @base.Cset::single(97))
   let found = @base.CSetMap::find(m2, (h, key))
