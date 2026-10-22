@@ -87,4 +87,10 @@
 | S5 | moon.mod 配置 + pub fn 注释 | ✅ 已完成 | f49fbc1 |
 | S6 | 根包重导出 + re/README | ✅ 已完成 | f49fbc1 |
 | S7 | 文档治理 (api/arch/design/examples) | ✅ 已完成 | f49fbc1 |
-| S8 | 验证 + 提交 | ✅ 已完成 | f49fbc1 |
+| S8 | 验证 + 提交 | ✅ 已完成 | f49fbc1 || S9 | 创建 5 子包目录 + moon.pkg + 移动源文件 | ✅ 已完成 | af49f55 |
+| S10 | 源文件跨包引用 + warning 治理 | ✅ 已完成 | af49f55 |
+| S11 | 测试文件迁移 + 跨包引用 | ✅ 已完成 | bf182e8 |
+| S12 | warning 治理 13→0 | ✅ 已完成 | bf182e8 |
+| S13 | 根包 reexport.mbt 重导出 5 子包 API | ✅ 已完成 | b137343 |
+| S14 | 5 子包 README.md | ✅ 已完成 | b137343 |
+| S15 | 提交 | ✅ 已完成 | b137343 |

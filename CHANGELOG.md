@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- 根包重导出：`moon.pkg` + `reexport.mbt`，统一入口（R10/R12）
+- 多根包拆分：将原单包 `re` 拆分为 5 个根包 `re_base`/`re_ast`/`re_compile`/`re_exec`/`re_frontend`（ADR-006）
+- 5 子包 `README.md`（re_base、re_ast、re_compile、re_exec、re_frontend）
+- 根包重导出：`moon.pkg` + `reexport.mbt`，统一重导出 5 子包公共 API（R10/R12）
 - `re/README.md` 子包 API 说明（R10）
 - `docs/api.md` 公共 API 参考文档（R8）
 - `docs/architecture.md` 架构决策记录（5 条 ADR）（R8）
@@ -18,7 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CHANGELOG.md` 变更记录
 
 ### Changed
-- Warning 治理完成：2214 → 0 warning（R13 目标达成）
+- 架构决策更新：ADR-001 由"单包结构"改为"多根包结构"
+- 源文件跨包引用：全部改为 `@pkg.X` 全限定名
+- 测试文件迁移至对应子包，跨包测试改用黑盒 `_test.mbt`
+- Warning 治理完成：2214 → 0 warning（R13 目标达成）；拆包阶段 13 → 0
 - moon.mod 添加 `preferred_target` + `supported_targets`（R33）
 - 为 3 个 `pub fn` 添加 `///` 文档注释（R3）
 

@@ -2,18 +2,20 @@
 
 > 记录 re-mbt 项目的关键架构决策。
 
-## ADR-001: 单包结构
+## ADR-001: 多根包结构
 
-**决策**：项目采用单包 `re` 结构，而非多包拆分。
+**决策**：项目采用多根包结构，将原单包 `re` 拆分为 5 个按职责分层的根包：`re_base`、`re_ast`、`re_compile`、`re_exec`、`re_frontend`。
 
 **原因**：
-- OCaml-re 上游是单库，移植保持结构一致
-- 正则表达式各模块（AST、Cset、Compile、Exec）高度耦合，拆包增加导入开销
-- 单包内白盒测试可直接访问私有成员，便于验证内部不变量
+- 按职责分层，降低耦合，提高可维护性
+- 各层可独立编译与测试，加速迭代反馈
+- 明确依赖方向，防止跨层循环引用
 
 **后果**：
-- 根包 `reexport.mbt` 统一重导出 `re` 包公共 API
-- 外部用户通过 `@re` 或根包 `@re_mbt` 访问
+- 依赖链：`re_base` ← `re_ast` ← `re_compile` ← `re_exec` ← `re_frontend`
+- 根包 `reexport.mbt` 统一重导出 5 子包公共 API
+- 外部用户通过根包 `@re_mbt` 或各子包 `@re_base`/`@re_ast`/... 访问
+- 跨包引用需使用 `@pkg.X` 全限定名
 
 ## ADR-002: Brzozowski 导数 + 惰性 DFA
 
@@ -66,3 +68,32 @@
 **后果**：
 - `Fmt`、`Slice`、`SliceL`、`DenseMap`、`PosixClass` 标记为 `priv`
 - 根包 `reexport.mbt` 显式列出所有公共 API
+## ADR-006: 单包拆分为多根包
+
+**决策**：将原单包 `re` 拆分为 5 个根包：`re_base`、`re_ast`、`re_compile`、`re_exec`、`re_frontend`。
+
+**原因**：
+- 按职责分层，降低耦合，提高可维护性
+- 各层可独立编译与测试，加速迭代反馈
+- 明确依赖方向，防止跨层循环引用
+- 单包规模增长后编译时间与心智负担上升，拆分缓解
+
+**依赖链**：
+
+```
+re_base      ← 字符集、位向量、工具函数等基础数据结构
+  ↑
+re_ast       ← AST 构造、着色、解析缓冲区
+  ↑
+re_compile   ← 自动机核心、惰性 DFA 驱动器、AST → 自动机翻译
+  ↑
+re_exec      ← 高层 Re API、Group、Search、Replace、View
+  ↑
+re_frontend  ← 6 个前端：Perl、PCRE、POSIX、Emacs、Glob、Str
+```
+
+**后果**：
+- 跨包引用需使用 `@pkg.X` 全限定名
+- 白盒测试（`_wbtest.mbt`）仅限包内作用域，跨包测试改用黑盒（`_test.mbt`）
+- 根包 `reexport.mbt` 重导出 5 子包公共 API，对外提供统一入口
+- 替代 ADR-001 原单包决策（Sprint 9-15 完成，commit af49f55 → b137343）

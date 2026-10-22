@@ -168,7 +168,7 @@ assert_eq(Str::string_match(re5, sb("HELLO"), 0), true)
 
 ## 设计
 
-- **单一 `re` 包**，内部模块与 OCaml 1:1 对应（`cset.mbt`、`ast.mbt`、`automata.mbt`、...）。
+- **多根包结构**：按职责分层拆分为 5 个根包，依赖链 `re_base` ← `re_ast` ← `re_compile` ← `re_exec` ← `re_frontend`（见 ADR-001/ADR-006）。
 - **匹配引擎**：忠实移植惰性 DFA + Brzozowski/Antimirov 导数（线性时间匹配，无灾难性回溯）。
 - **面向字节**：OCaml `string` 为字节序列；移植使用 MoonBit `Bytes` 表示输入文本、模式和捕获子串。
 - **纯 MoonBit**，无 C FFI。目标：native、wasm、js。
@@ -213,51 +213,66 @@ moon check   # 0 警告，0 错误
 ```
 re-mbt/
 ├── moon.mod              # 模块元数据（walkzzz/re-mbt@0.1.0）
-├── moon.pkg              # 根包配置
+├── moon.pkg              # 根包配置（导入 5 子包）
+├── reexport.mbt          # 根包重导出 5 子包公共 API
 ├── LICENSE               # LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 ├── .github/workflows/
 │   └── ci.yml            # GitHub Actions CI 配置
-├── re/                   # 单包 —— 全部源文件
+├── re_base/              # 基础层 —— 字符集、位向量、工具函数等
+│   ├── moon.pkg
 │   ├── cset.mbt          # 字符集操作
-│   ├── ast.mbt           # AST 构造与着色
-│   ├── automata.mbt      # 自动机核心
-│   ├── automata_desc.mbt # Desc（导数表达式）
-│   ├── automata_expr.mbt # Expr 树与重命名
-│   ├── automata_state.mbt# 状态管理
-│   ├── compile.mbt       # 惰性 DFA 驱动器
-│   ├── compile_translate.mbt # AST → 自动机翻译
-│   ├── color_map.mbt     # 颜色划分
-│   ├── core.mbt          # 高层 Re API
-│   ├── group.mbt         # Group（捕获）操作
-│   ├── search.mbt        # 搜索
-│   ├── replace.mbt       # 替换
-│   ├── view.mbt          # View
-│   ├── perl.mbt          # Perl 前端
-│   ├── pcre.mbt          # PCRE 前端
-│   ├── emacs.mbt         # Emacs 前端
-│   ├── posix.mbt         # POSIX 前端
-│   ├── posix_class.mbt   # POSIX 字符类
-│   ├── glob.mbt          # Glob 前端
-│   ├── str.mbt           # Str（OCaml 兼容）前端
-│   ├── parse_buffer.mbt  # 解析缓冲区
 │   ├── bit_vector.mbt    # 位向量
 │   ├── dense_map.mbt     # 稠密映射（priv）
 │   ├── hash_set.mbt      # Int 哈希集
-│   ├── mark_infos.mbt    # 标记信息
 │   ├── pmark.mbt         # 位置标记
 │   ├── category.mbt      # Category
 │   ├── slice.mbt         # Slice（priv）
 │   ├── dyn.mbt           # Dyn
 │   ├── fmt.mbt           # Fmt（priv）
 │   ├── util.mbt          # 工具函数（sb/bs）
-│   ├── *_test.mbt        # 测试文件（20 个，437 个测试）
+│   └── *_test.mbt        # 测试文件
+├── re_ast/               # AST 层 —— AST 构造、着色、解析缓冲区
+│   ├── moon.pkg          # 依赖 re_base
+│   ├── ast.mbt           # AST 构造与着色
+│   ├── color_map.mbt     # 颜色划分
+│   ├── mark_infos.mbt    # 标记信息
+│   ├── parse_buffer.mbt  # 解析缓冲区
+│   ├── posix_class.mbt   # POSIX 字符类
+│   └── *_test.mbt
+├── re_compile/           # 编译层 —— 自动机核心、惰性 DFA 驱动器
+│   ├── moon.pkg          # 依赖 re_base, re_ast
+│   ├── automata.mbt      # 自动机核心
+│   ├── automata_desc.mbt # Desc（导数表达式）
+│   ├── automata_expr.mbt # Expr 树与重命名
+│   ├── automata_state.mbt# 状态管理
+│   ├── compile.mbt       # 惰性 DFA 驱动器
+│   ├── compile_translate.mbt # AST → 自动机翻译
+│   └── *_test.mbt
+├── re_exec/              # 执行层 —— 高层 Re API、Group、Search、Replace、View
+│   ├── moon.pkg          # 依赖 re_base, re_ast, re_compile
+│   ├── core.mbt          # 高层 Re API
+│   ├── group.mbt         # Group（捕获）操作
+│   ├── search.mbt        # 搜索
+│   ├── replace.mbt       # 替换
+│   ├── view.mbt          # View
+│   └── *_test.mbt
+├── re_frontend/          # 前端层 —— 6 个前端
+│   ├── moon.pkg          # 依赖 re_base, re_ast, re_compile, re_exec
+│   ├── perl.mbt          # Perl 前端
+│   ├── pcre.mbt          # PCRE 前端
+│   ├── emacs.mbt         # Emacs 前端
+│   ├── posix.mbt         # POSIX 前端
+│   ├── glob.mbt          # Glob 前端
+│   ├── str.mbt           # Str（OCaml 兼容）前端
 │   ├── README.mbt.md     # 可执行文档示例
-│   └── pkg.generated.mbti # 公开 API 接口（710 行）
+│   └── *_test.mbt
 ├── bench/                # 基准测试套件（10 个 section）
 │   ├── main.mbt          # 基准测试主程序
 │   └── run_bench.ps1     # 基准测试运行器
 └── README.md
 ```
+
+**依赖链**：`re_base` ← `re_ast` ← `re_compile` ← `re_exec` ← `re_frontend`
 
 ## 许可证
 
