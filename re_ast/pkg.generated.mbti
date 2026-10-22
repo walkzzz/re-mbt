@@ -1,0 +1,244 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt/re_ast"
+
+import {
+  "moonbitlang/core/debug",
+  "walkzzz/re-mbt/re_base",
+}
+
+// Values
+pub fn advance(WorkingArea, State) -> State
+
+pub fn delta(WorkingArea, @re_base.Category, Int32, State) -> State
+
+// Errors
+
+// Types and methods
+pub(all) enum AstAlt[T] {
+  Alternative(Array[T])
+  NoCase(T)
+  Case(T)
+} derive(Eq, @debug.Debug)
+pub fn[T : Eq] AstAlt::equal(Self[T], Self[T]) -> Bool
+pub fn[T : Eq] AstAlt::not_equal(Self[T], Self[T]) -> Bool
+pub fn[T : @debug.Debug] AstAlt::to_repr(Self[T]) -> @debug.Repr
+
+pub(all) enum AstCset {
+  CsetOf(@re_base.Cset)
+  Intersection(Array[AstCset])
+  Complement(Array[AstCset])
+  Difference(AstCset, AstCset)
+  Cast(AstAlt[AstCset])
+} derive(Eq, @debug.Debug)
+pub fn AstCset::equal(Self, Self) -> Bool
+pub fn AstCset::not_equal(Self, Self) -> Bool
+pub fn AstCset::to_repr(Self) -> @debug.Repr
+
+pub(all) enum AstGen[T] {
+  Set(T)
+  AstNode(AstAlt[AstGen[T]])
+  Sequence(Array[AstGen[T]])
+  Repeat(AstGen[T], Int32, Int32?)
+  BegOfLine
+  EndOfLine
+  BegOfWord
+  EndOfWord
+  NotBound
+  BegOfStr
+  EndOfStr
+  LastEndOfLine
+  Start
+  Stop
+  Group(String?, AstGen[T])
+  NoGroup(AstGen[T])
+  Nest(AstGen[T])
+  Pmark(@re_base.Pmark, AstGen[T])
+  Sem(@re_base.Sem, AstGen[T])
+  SemGreedy(@re_base.RepKind, AstGen[T])
+} derive(Eq, @debug.Debug)
+pub fn AstGen::alt(Array[Self[AstCset]]) -> Self[AstCset]
+pub fn AstGen::anchored(Self[AstCset]) -> Bool
+pub fn AstGen::anchored_ast(AstAlt[Self[AstCset]]) -> Bool
+pub fn AstGen::any() -> Self[AstCset]
+pub fn AstGen::bol() -> Self[AstCset]
+pub fn AstGen::bos() -> Self[AstCset]
+pub fn AstGen::bow() -> Self[AstCset]
+pub fn AstGen::case(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::char(Char) -> Self[AstCset]
+pub fn AstGen::colorize(ColorMap, Self[@re_base.Cset]) -> Bool
+pub fn AstGen::compl(Array[Self[AstCset]]) -> Self[AstCset] raise
+pub fn AstGen::cset(@re_base.Cset) -> Self[AstCset]
+pub fn AstGen::diff(Self[AstCset], Self[AstCset]) -> Self[AstCset] raise
+pub fn AstGen::empty() -> Self[AstCset]
+pub fn AstGen::eol() -> Self[AstCset]
+pub fn AstGen::eos() -> Self[AstCset]
+pub fn AstGen::eow() -> Self[AstCset]
+pub fn AstGen::epsilon() -> Self[AstCset]
+pub fn[T : Eq] AstGen::equal(Self[T], Self[T]) -> Bool
+pub fn AstGen::first(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::greedy(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::group(name? : String?, Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::handle_case(Self[AstCset], Bool) -> Self[@re_base.Cset]
+pub fn AstGen::inter(Array[Self[AstCset]]) -> Self[AstCset] raise
+pub fn AstGen::leol() -> Self[AstCset]
+pub fn AstGen::longest(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::mark(Self[AstCset]) -> (@re_base.Pmark, Self[AstCset])
+pub fn AstGen::merge_sequences(Array[Self[AstCset]]) -> Array[Self[AstCset]]
+pub fn AstGen::merge_sequences_no_case(Array[Self[@re_base.Cset]]) -> Array[Self[@re_base.Cset]]
+pub fn AstGen::nest(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::no_case(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::no_group(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::non_greedy(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::not_boundary() -> Self[AstCset]
+pub fn[T : Eq] AstGen::not_equal(Self[T], Self[T]) -> Bool
+pub fn AstGen::opt(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::rep(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::rep1(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::repn(Self[AstCset], Int32, Int32?) -> Self[AstCset]
+pub fn AstGen::seq(Array[Self[AstCset]]) -> Self[AstCset]
+pub fn AstGen::set(Bytes) -> Self[AstCset]
+pub fn AstGen::shortest(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::start() -> Self[AstCset]
+pub fn AstGen::stop() -> Self[AstCset]
+pub fn AstGen::str(Bytes) -> Self[AstCset]
+pub fn AstGen::t_of_cset(AstCset) -> Self[AstCset]
+pub fn AstGen::to_dyn(Self[AstCset]) -> @re_base.Dyn
+pub fn[T : @debug.Debug] AstGen::to_repr(Self[T]) -> @debug.Repr
+pub fn AstGen::whole_string(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::word(Self[AstCset]) -> Self[AstCset]
+
+pub struct BoundaryTable {
+  data : FixedArray[Byte]
+}
+pub fn BoundaryTable::unsafe_next_boundary(Self, Int32) -> Int32
+
+pub struct ColorMap {
+  csets : Array[@re_base.Cset]
+}
+pub fn ColorMap::flatten(Self) -> (ColorTable, BoundaryTable, ColorRepr)
+pub fn ColorMap::make() -> Self
+pub fn ColorMap::split(Self, @re_base.Cset) -> Unit
+
+pub struct ColorRepr {
+  data : Bytes
+}
+pub fn ColorRepr::length(Self) -> Int32
+pub fn ColorRepr::repr(Self, Int32) -> Byte
+
+pub struct ColorTable {
+  data : Bytes
+}
+pub fn ColorTable::get(Self, Int32) -> Int32
+pub fn ColorTable::get_char(Self, Int32) -> Byte
+pub fn ColorTable::translate_colors(Self, BoundaryTable, @re_base.Cset) -> @re_base.Cset
+
+pub struct Desc {
+}
+pub fn Desc::add_eps(Array[ET], Marks) -> Array[ET]
+pub fn Desc::add_expr(Array[ET], ET) -> Array[ET]
+pub fn Desc::add_match(Array[ET], Marks) -> Array[ET]
+pub fn Desc::empty() -> Array[ET]
+pub fn Desc::equal(Array[ET], Array[ET]) -> Bool
+pub fn Desc::first_match(Array[ET]) -> Marks?
+pub fn[T] Desc::fold_right(Array[ET], init~ : T, f~ : (ET, T) -> T) -> T
+pub fn Desc::hash(Array[ET], Int32) -> Int32
+pub fn Desc::initial(Expr) -> Array[ET]
+pub fn Desc::iter_marks(Array[ET], (Marks) -> Unit) -> Unit
+pub fn Desc::remove_duplicates(@re_base.HashSet, Array[ET], Expr) -> Array[ET]
+pub fn Desc::remove_matches(Array[ET]) -> Array[ET]
+pub fn Desc::set_idx(Int32, Array[ET]) -> Array[ET]
+pub fn Desc::split_at_match(Array[ET]) -> (Array[ET], Array[ET])
+pub fn Desc::status(Array[ET]) -> Status
+pub fn Desc::status_is_ambiguous(Array[ET], @re_base.Pmark) -> Bool
+pub fn Desc::texp(Marks, Expr, Array[ET]) -> Array[ET]
+pub fn Desc::tseq(@re_base.Sem, Array[ET], Expr, Array[ET]) -> Array[ET]
+
+pub enum ET {
+  TSeq(@re_base.Sem, Array[ET], Expr)
+  TExp(Marks, Expr)
+  TMatch(Marks)
+}
+pub fn ET::equal(Self, Self) -> Bool
+pub fn ET::equal_list(Array[Self], Array[Self]) -> Bool
+pub fn ET::hash(Self, Int32) -> Int32
+pub fn ET::hash_list(Array[Self], Int32) -> Int32
+
+pub(all) enum Expr {
+  Cst(Int32, @re_base.Cset)
+  Alt(Int32, Array[Expr])
+  Seq(Int32, @re_base.Sem, Expr, Expr)
+  Eps(Int32)
+  Rep(Int32, @re_base.RepKind, @re_base.Sem, Expr)
+  MarkOf(Int32, Int32)
+  Erase(Int32, Int32, Int32)
+  Before(Int32, @re_base.Category)
+  After(Int32, @re_base.Category)
+  PmarkOf(Int32, @re_base.Pmark)
+} derive(@debug.Debug)
+pub fn Expr::after(@re_base.Ids, @re_base.Category) -> Self
+pub fn Expr::alt(@re_base.Ids, Array[Self]) -> Self
+pub fn Expr::before(@re_base.Ids, @re_base.Category) -> Self
+pub fn Expr::cst(@re_base.Ids, @re_base.Cset) -> Self
+pub fn Expr::empty(@re_base.Ids) -> Self
+pub fn Expr::eps(@re_base.Ids) -> Self
+pub fn Expr::eps_expr() -> Self
+pub fn Expr::erase(@re_base.Ids, Int32, Int32) -> Self
+pub fn Expr::id(Self) -> Int32
+pub fn Expr::is_eps(Self) -> Bool
+pub fn Expr::mark(@re_base.Ids, Int32) -> Self
+pub fn Expr::pmark(@re_base.Ids, @re_base.Pmark) -> Self
+pub fn Expr::rename(@re_base.Ids, Self) -> Self
+pub fn Expr::rep(@re_base.Ids, @re_base.RepKind, @re_base.Sem, Self) -> Self
+pub fn Expr::seq(@re_base.Ids, @re_base.Sem, Self, Self) -> Self
+pub fn Expr::to_dyn(Self) -> @re_base.Dyn
+pub fn Expr::to_repr(Self) -> @debug.Repr
+
+pub struct Marks {
+  marks : Array[(Int32, Int32)]
+  pmarks : @re_base.PmarkSet
+}
+pub fn Marks::empty() -> Self
+pub fn Marks::equal(Self, Self) -> Bool
+pub fn Marks::filter(Self, Int32, Int32) -> Self
+pub fn Marks::hash(Self, Int32) -> Int32
+pub fn Marks::marks_set_idx(Self, Int32) -> Self
+pub fn Marks::set_mark(Self, Int32) -> Self
+pub fn Marks::set_pmark(Self, @re_base.Pmark) -> Self
+
+pub struct State {
+  idx : Int32
+  category : @re_base.Category
+  desc : Array[ET]
+  mut status : Status?
+  hash : Int32
+}
+pub fn State::create(@re_base.Category, Expr) -> Self
+pub fn State::dummy() -> Self
+pub fn State::equal(Self, Self) -> Bool
+pub fn State::idx(Self) -> Int32
+pub fn State::mk(Int32, @re_base.Category, Array[ET]) -> Self
+pub fn State::status(Self) -> Status
+pub fn State::status_no_mutex(Self) -> Status
+pub fn State::to_dyn(Self) -> @re_base.Dyn
+
+pub enum Status {
+  Failed
+  Match(@re_base.MarkInfos, @re_base.PmarkSet)
+  Running
+}
+
+pub struct WorkingArea {
+  mut ids : @re_base.BitVector
+  seen : @re_base.HashSet
+  mut index_count : Int32
+}
+pub fn WorkingArea::create() -> Self
+pub fn WorkingArea::free_index(Self, Array[ET]) -> Int32
+pub fn WorkingArea::index_count(Self) -> Int32
+
+// Type aliases
+pub type Ast = AstGen[AstCset]
+
+pub type AstNoCase = AstGen[@re_base.Cset]
+
+// Traits

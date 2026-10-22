@@ -3,7 +3,7 @@
 
 ///|
 pub struct ColorMap {
-  csets : Array[Cset]
+  csets : Array[@base.Cset]
 }
 
 ///|
@@ -12,23 +12,23 @@ pub fn ColorMap::make() -> ColorMap {
 }
 
 ///|
-fn size_cset(cset : Cset) -> Int32 {
+fn size_cset(cset : @base.Cset) -> Int32 {
   let mut size = 0
-  Cset::iter(cset, f=fn(c1, c2) { size += c2 - c1 + 1 })
+  @base.Cset::iter(cset, f=fn(c1, c2) { size += c2 - c1 + 1 })
   size
 }
 
 ///|
-fn cset_or_compl(cset : Cset) -> Cset {
+fn cset_or_compl(cset : @base.Cset) -> @base.Cset {
   if size_cset(cset) > 128 {
-    Cset::diff(Cset::cany(), cset)
+    @base.Cset::diff(@base.Cset::cany(), cset)
   } else {
     cset
   }
 }
 
 ///|
-pub fn ColorMap::split(self : ColorMap, set : Cset) -> Unit {
+pub fn ColorMap::split(self : ColorMap, set : @base.Cset) -> Unit {
   self.csets.push(cset_or_compl(set))
 }
 
@@ -41,11 +41,11 @@ pub struct BoundaryTable {
 }
 
 ///|
-fn BoundaryTable::create(csets : Array[Cset]) -> BoundaryTable {
+fn BoundaryTable::create(csets : Array[@base.Cset]) -> BoundaryTable {
   let b = FixedArray::make(257, (255).to_byte())
   b[0] = (0).to_byte()
   for cset in csets {
-    Cset::iter(cset, f=fn(c1, c2) {
+    @base.Cset::iter(cset, f=fn(c1, c2) {
       b[c1] = (0).to_byte()
       b[c2 + 1] = (0).to_byte()
     })
@@ -93,11 +93,11 @@ pub fn ColorTable::get(t : ColorTable, c : Int32) -> Int32 {
 pub fn ColorTable::translate_colors(
   t : ColorTable,
   boundary_table : BoundaryTable,
-  cset : Cset,
-) -> Cset {
+  cset : @base.Cset,
+) -> @base.Cset {
   let cs : Array[Int32] = []
   let mut last_version = -1
-  Cset::iter(cset, f=fn(c1, c2) {
+  @base.Cset::iter(cset, f=fn(c1, c2) {
     let mut ci = c1
     while ci <= c2 {
       let v = t.data[ci].to_int()
@@ -112,7 +112,7 @@ pub fn ColorTable::translate_colors(
   for k in 0..<cs.length() {
     cs_rev.push(cs[cs.length() - 1 - k])
   }
-  Cset::union_singles_in_strictly_decreasing_order(cs_rev)
+  @base.Cset::union_singles_in_strictly_decreasing_order(cs_rev)
 }
 
 // --- ColorRepr (Repr.t in OCaml) ---
@@ -155,7 +155,7 @@ pub fn ColorMap::flatten(
     if bt.data[i] == (0).to_byte() {
       ids_buf.clear()
       for csetid in 0..<csets.length() {
-        if Cset::mem(i, csets[csetid]) {
+        if @base.Cset::mem(i, csets[csetid]) {
           ids_buf.push(csetid + 1)
         }
       }

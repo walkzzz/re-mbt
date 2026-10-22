@@ -1,7 +1,7 @@
 // Glob — glob pattern parser (port of lib/glob.ml)
 
 ///|
-let glob_double_star_slash : Bytes = sb("**/")
+let glob_double_star_slash : Bytes = @base.sb("**/")
 
 ///|
 #warnings("-struct_never_constructed")
@@ -25,36 +25,36 @@ priv enum GlobPiece {
 
 ///|
 fn glob_enclosed_loop(
-  buf : ParseBuffer,
+  buf : @base.ParseBuffer,
   s : Array[GlobEnclosed],
 ) -> Array[GlobEnclosed] raise {
-  if s.length() > 0 && ParseBuffer::accept(buf, ']') {
+  if s.length() > 0 && @base.ParseBuffer::accept(buf, ']') {
     s.rev_in_place()
     s
   } else {
-    if !ParseBuffer::accept(buf, '\\') {
+    if !@base.ParseBuffer::accept(buf, '\\') {
       fail("Glob parse error")
     }
-    if ParseBuffer::eos(buf) {
+    if @base.ParseBuffer::eos(buf) {
       fail("Glob parse error")
     }
-    let c = ParseBuffer::get(buf)
-    if !ParseBuffer::accept(buf, '-') {
+    let c = @base.ParseBuffer::get(buf)
+    if !@base.ParseBuffer::accept(buf, '-') {
       s.push(GlobChar(c))
       glob_enclosed_loop(buf, s)
-    } else if ParseBuffer::accept(buf, ']') {
+    } else if @base.ParseBuffer::accept(buf, ']') {
       s.push(GlobChar(c))
       s.push(GlobChar('-'))
       s.rev_in_place()
       s
     } else {
-      if !ParseBuffer::accept(buf, '\\') {
+      if !@base.ParseBuffer::accept(buf, '\\') {
         fail("Glob parse error")
       }
-      if ParseBuffer::eos(buf) {
+      if @base.ParseBuffer::eos(buf) {
         fail("Glob parse error")
       }
-      let c2 = ParseBuffer::get(buf)
+      let c2 = @base.ParseBuffer::get(buf)
       s.push(GlobRange(c, c2))
       glob_enclosed_loop(buf, s)
     }
@@ -62,13 +62,13 @@ fn glob_enclosed_loop(
 }
 
 ///|
-fn glob_enclosed(buf : ParseBuffer) -> Array[GlobEnclosed] raise {
+fn glob_enclosed(buf : @base.ParseBuffer) -> Array[GlobEnclosed] raise {
   glob_enclosed_loop(buf, [])
 }
 
 ///|
 fn glob_piece_fn(
-  buf : ParseBuffer,
+  buf : @base.ParseBuffer,
   acc : Array[GlobPiece],
   double_asterisk : Bool,
 ) -> Array[GlobPiece] raise {
@@ -79,29 +79,29 @@ fn glob_piece_fn(
   }
   if double_asterisk &&
     is_at_start &&
-    ParseBuffer::accept_s(buf, glob_double_star_slash) {
+    @base.ParseBuffer::accept_s(buf, glob_double_star_slash) {
     acc.push(GlobManyMany(true))
     acc
-  } else if ParseBuffer::accept(buf, '*') {
-    let p = if double_asterisk && ParseBuffer::accept(buf, '*') {
+  } else if @base.ParseBuffer::accept(buf, '*') {
+    let p = if double_asterisk && @base.ParseBuffer::accept(buf, '*') {
       GlobManyMany(false)
     } else {
       GlobMany
     }
     acc.push(p)
     acc
-  } else if ParseBuffer::accept(buf, '?') {
+  } else if @base.ParseBuffer::accept(buf, '?') {
     acc.push(GlobOne)
     acc
-  } else if !ParseBuffer::accept(buf, '[') {
-    let _ = ParseBuffer::accept(buf, '\\')
-    if ParseBuffer::eos(buf) {
+  } else if !@base.ParseBuffer::accept(buf, '[') {
+    let _ = @base.ParseBuffer::accept(buf, '\\')
+    if @base.ParseBuffer::eos(buf) {
       fail("Glob parse error")
     }
-    let c = ParseBuffer::get(buf)
+    let c = @base.ParseBuffer::get(buf)
     acc.push(GlobExactly(c))
     acc
-  } else if ParseBuffer::accept(buf, '^') || ParseBuffer::accept(buf, '!') {
+  } else if @base.ParseBuffer::accept(buf, '^') || @base.ParseBuffer::accept(buf, '!') {
     acc.push(GlobAnyBut(glob_enclosed(buf)))
     acc
   } else {
@@ -112,9 +112,9 @@ fn glob_piece_fn(
 
 ///|
 fn glob_of_string(s : Bytes, double_asterisk : Bool) -> Array[GlobPiece] raise {
-  let buf = ParseBuffer::create(s)
+  let buf = @base.ParseBuffer::create(s)
   let mut pieces : Array[GlobPiece] = []
-  while !ParseBuffer::eos(buf) {
+  while !@base.ParseBuffer::eos(buf) {
     pieces = glob_piece_fn(buf, pieces, double_asterisk)
   }
   pieces
@@ -122,7 +122,7 @@ fn glob_of_string(s : Bytes, double_asterisk : Bool) -> Array[GlobPiece] raise {
 
 ///|
 priv struct GlobState {
-  re_pieces : Array[Ast]
+  re_pieces : Array[@ast.Ast]
   remaining : Array[GlobPiece]
   remaining_pos : Int32
   am_at_start_of_pattern : Bool
@@ -174,7 +174,7 @@ fn GlobState::slashes(t : GlobState) -> Array[Char] {
 ///|
 fn GlobState::append(
   t : GlobState,
-  piece : Ast,
+  piece : @ast.Ast,
   am_at_start_of_component~ : Bool = false,
 ) -> GlobState {
   t.re_pieces.push(piece)
@@ -191,8 +191,8 @@ fn GlobState::append(
 }
 
 ///|
-fn GlobState::to_re(t : GlobState) -> Ast {
-  Ast::seq(t.re_pieces)
+fn GlobState::to_re(t : GlobState) -> @ast.Ast {
+  @ast.Ast::seq(t.re_pieces)
 }
 
 ///|
@@ -210,28 +210,28 @@ fn glob_one(
   explicit_slash~ : Bool,
   slashes~ : Array[Char],
   explicit_period~ : Bool,
-) -> Ast raise {
-  let chars : Array[Ast] = []
+) -> @ast.Ast raise {
+  let chars : Array[@ast.Ast] = []
   if explicit_slash {
     for s in slashes {
-      chars.push(Ast::char(s))
+      chars.push(@ast.Ast::char(s))
     }
   }
   if explicit_period {
-    chars.push(Ast::char('.'))
+    chars.push(@ast.Ast::char('.'))
   }
   if chars.length() == 0 {
-    Ast::any()
+    @ast.Ast::any()
   } else {
-    Ast::compl(chars)
+    @ast.Ast::compl(chars)
   }
 }
 
 ///|
-fn glob_enclosed_to_ast(enc : GlobEnclosed) -> Ast {
+fn glob_enclosed_to_ast(enc : GlobEnclosed) -> @ast.Ast {
   match enc {
-    GlobChar(c) => Ast::char(c)
-    GlobRange(low, high) => Re::rg(low, high)
+    GlobChar(c) => @ast.Ast::char(c)
+    GlobRange(low, high) => @compile.Re::rg(low, high)
   }
 }
 
@@ -242,13 +242,13 @@ fn glob_enclosed_set(
   explicit_slash~ : Bool,
   slashes~ : Array[Char],
   explicit_period~ : Bool,
-) -> Ast raise {
-  let set_asts : Array[Ast] = []
+) -> @ast.Ast raise {
+  let set_asts : Array[@ast.Ast] = []
   for e in set {
     set_asts.push(glob_enclosed_to_ast(e))
   }
-  let enclosure = if kind { Ast::alt(set_asts) } else { Ast::compl(set_asts) }
-  Ast::inter([enclosure, glob_one(explicit_slash~, slashes~, explicit_period~)])
+  let enclosure = if kind { @ast.Ast::alt(set_asts) } else { @ast.Ast::compl(set_asts) }
+  @ast.Ast::inter([enclosure, glob_one(explicit_slash~, slashes~, explicit_period~)])
 }
 
 ///|
@@ -264,18 +264,18 @@ fn glob_exactly(state : GlobState, c : Char) -> GlobState {
     f
   }
   let chars = if am_at_start_of_component { slashes } else { [c] }
-  let char_asts : Array[Ast] = []
+  let char_asts : Array[@ast.Ast] = []
   for ch in chars {
-    char_asts.push(Ast::char(ch))
+    char_asts.push(@ast.Ast::char(ch))
   }
-  GlobState::append(state, Ast::alt(char_asts), am_at_start_of_component~)
+  GlobState::append(state, @ast.Ast::alt(char_asts), am_at_start_of_component~)
 }
 
 ///|
-fn glob_match_component(slashes : Array[Char], ep : Bool) -> Ast raise {
-  Ast::seq([
+fn glob_match_component(slashes : Array[Char], ep : Bool) -> @ast.Ast raise {
+  @ast.Ast::seq([
     glob_one(explicit_slash=true, slashes~, explicit_period=ep),
-    Ast::rep(glob_one(explicit_slash=true, slashes~, explicit_period=false)),
+    @ast.Ast::rep(glob_one(explicit_slash=true, slashes~, explicit_period=false)),
   ])
 }
 
@@ -286,22 +286,22 @@ fn glob_many_many(
 ) -> GlobState raise {
   let explicit_period = state.period && state.pathname
   let slashes = GlobState::slashes(state)
-  let slashes_re_asts : Array[Ast] = []
+  let slashes_re_asts : Array[@ast.Ast] = []
   for s in slashes {
-    slashes_re_asts.push(Ast::char(s))
+    slashes_re_asts.push(@ast.Ast::char(s))
   }
-  let slashes_re = Ast::alt(slashes_re_asts)
-  let match_components = Ast::seq([
-    Ast::opt(glob_match_component(slashes, explicit_period)),
-    Ast::rep(
-      Ast::seq([
+  let slashes_re = @ast.Ast::alt(slashes_re_asts)
+  let match_components = @ast.Ast::seq([
+    @ast.Ast::opt(glob_match_component(slashes, explicit_period)),
+    @ast.Ast::rep(
+      @ast.Ast::seq([
         slashes_re,
-        Ast::opt(glob_match_component(slashes, explicit_period)),
+        @ast.Ast::opt(glob_match_component(slashes, explicit_period)),
       ]),
     ),
   ])
   let result = if component_with_terminator {
-    Ast::opt(Ast::seq([match_components, slashes_re]))
+    @ast.Ast::opt(@ast.Ast::seq([match_components, slashes_re]))
   } else {
     match_components
   }
@@ -316,26 +316,26 @@ fn glob_many(state : GlobState) -> GlobState raise {
   if !explicit_period {
     GlobState::append(
       state,
-      Ast::rep(glob_one(explicit_slash~, slashes~, explicit_period~)),
+      @ast.Ast::rep(glob_one(explicit_slash~, slashes~, explicit_period~)),
     )
   } else if !explicit_slash {
     GlobState::append(
       state,
-      Ast::opt(
-        Ast::seq([
+      @ast.Ast::opt(
+        @ast.Ast::seq([
           glob_one(explicit_slash=false, slashes~, explicit_period~),
-          Ast::rep(
+          @ast.Ast::rep(
             glob_one(explicit_slash=false, slashes~, explicit_period=false),
           ),
         ]),
       ),
     )
   } else {
-    let not_empty = Ast::seq([
+    let not_empty = @ast.Ast::seq([
       glob_one(explicit_slash=true, slashes~, explicit_period=true),
-      Ast::rep(glob_one(explicit_slash=true, slashes~, explicit_period=false)),
+      @ast.Ast::rep(glob_one(explicit_slash=true, slashes~, explicit_period=false)),
     ])
-    let maybe_empty = Ast::opt(not_empty)
+    let maybe_empty = @ast.Ast::opt(not_empty)
     glob_many_lookahead(state, not_empty, maybe_empty)
   }
 }
@@ -343,8 +343,8 @@ fn glob_many(state : GlobState) -> GlobState raise {
 ///|
 fn glob_many_lookahead(
   state : GlobState,
-  not_empty : Ast,
-  maybe_empty : Ast,
+  not_empty : @ast.Ast,
+  maybe_empty : @ast.Ast,
 ) -> GlobState raise {
   match GlobState::next(state) {
     None => GlobState::append(state, maybe_empty)
@@ -367,7 +367,7 @@ fn glob_many_lookahead(
           let slashes = GlobState::slashes(state)
           GlobState::append(
             state2,
-            Ast::alt([
+            @ast.Ast::alt([
               glob_enclosed_set(
                 true,
                 enclosed,
@@ -375,7 +375,7 @@ fn glob_many_lookahead(
                 slashes~,
                 explicit_period=true,
               ),
-              Ast::seq([
+              @ast.Ast::seq([
                 not_empty,
                 glob_enclosed_set(
                   true,
@@ -392,7 +392,7 @@ fn glob_many_lookahead(
           let slashes = GlobState::slashes(state)
           GlobState::append(
             state2,
-            Ast::alt([
+            @ast.Ast::alt([
               glob_enclosed_set(
                 false,
                 enclosed,
@@ -400,7 +400,7 @@ fn glob_many_lookahead(
                 slashes~,
                 explicit_period=true,
               ),
-              Ast::seq([
+              @ast.Ast::seq([
                 not_empty,
                 glob_enclosed_set(
                   false,
@@ -468,7 +468,7 @@ fn glob_to_re(
   match_backslashes~ : Bool,
   period~ : Bool,
   pieces : Array[GlobPiece],
-) -> Ast raise {
+) -> @ast.Ast raise {
   let mut state = GlobState::create(
     period~,
     pathname~,
@@ -492,7 +492,7 @@ pub fn Glob::glob(
   match_backslashes~ : Bool = false,
   period~ : Bool = true,
   double_asterisk~ : Bool = true,
-) -> Ast raise {
+) -> @ast.Ast raise {
   let da = double_asterisk && pathname
   let re = glob_to_re(
     pathname~,
@@ -501,7 +501,7 @@ pub fn Glob::glob(
     glob_of_string(s, da),
   )
   if anchored {
-    Ast::whole_string(re)
+    @ast.Ast::whole_string(re)
   } else {
     re
   }
@@ -515,8 +515,8 @@ pub fn Glob::compile(
   match_backslashes~ : Bool = false,
   period~ : Bool = true,
   double_asterisk~ : Bool = true,
-) -> Re raise {
-  compile(
+) -> @compile.Re raise {
+  @compile.compile(
     Glob::glob(
       s,
       anchored~,

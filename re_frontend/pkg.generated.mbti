@@ -1,0 +1,134 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt/re_frontend"
+
+import {
+  "walkzzz/re-mbt/re_ast",
+  "walkzzz/re-mbt/re_compile",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct Emacs {
+}
+pub fn Emacs::compile_pat(Bytes, case? : Bool) -> @re_compile.Re raise
+pub fn Emacs::re(Bytes, case? : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
+pub fn Emacs::re_no_emacs(Bytes, case~ : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
+
+pub struct Glob {
+}
+pub fn Glob::compile(Bytes, anchored? : Bool, pathname? : Bool, match_backslashes? : Bool, period? : Bool, double_asterisk? : Bool) -> @re_compile.Re raise
+pub fn Glob::glob(Bytes, anchored? : Bool, pathname? : Bool, match_backslashes? : Bool, period? : Bool, double_asterisk? : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
+
+pub struct Pcre {
+}
+pub fn Pcre::exec(@re_compile.Re, Bytes, pos? : Int32) -> @re_compile.GroupT raise
+pub fn Pcre::extract(@re_compile.Re, Bytes) -> Array[Bytes] raise
+pub fn Pcre::full_split(@re_compile.Re, Bytes, max? : Int32) -> Array[PcreSplitResult] raise
+pub fn Pcre::get_named_substring(@re_compile.Re, String, @re_compile.GroupT) -> Bytes raise
+pub fn Pcre::get_named_substring_opt(@re_compile.Re, String, @re_compile.GroupT) -> Bytes?
+pub fn Pcre::get_substring(@re_compile.GroupT, Int32) -> Bytes
+pub fn Pcre::get_substring_ofs(@re_compile.GroupT, Int32) -> (Int32, Int32) raise
+pub fn Pcre::names(@re_compile.Re) -> Array[String]
+pub fn Pcre::pmatch(@re_compile.Re, Bytes) -> Bool raise
+pub fn Pcre::quote(Bytes) -> Bytes
+pub fn Pcre::re(Bytes, flags? : Array[PcreFlag]) -> @re_ast.AstGen[@re_ast.AstCset] raise
+pub fn Pcre::regexp(Bytes, flags? : Array[PcreFlag]) -> @re_compile.Re raise
+pub fn Pcre::split(@re_compile.Re, Bytes) -> Array[Bytes] raise
+
+pub enum PcreFlag {
+  Caseless
+  MultilineP
+  AnchoredP
+  DotallP
+}
+pub fn PcreFlag::anchored_p() -> Self
+pub fn PcreFlag::caseless() -> Self
+pub fn PcreFlag::dotall_p() -> Self
+pub fn PcreFlag::multiline_p() -> Self
+
+pub enum PcreSplitResult {
+  PcreText(Bytes)
+  PcreDelim(Bytes)
+  PcreGroup(Int32, Bytes)
+  PcreNoGroup
+}
+
+pub struct Perl {
+}
+pub fn Perl::compile_pat(Bytes, opts? : Array[PerlOpt]) -> @re_compile.Re raise
+pub fn Perl::re(Bytes, opts? : Array[PerlOpt]) -> @re_ast.AstGen[@re_ast.AstCset] raise
+
+pub enum PerlOpt {
+  Ungreedy
+  Dotall
+  DollarEndonly
+  Multiline
+  Anchored
+  Caseless
+}
+pub fn PerlOpt::anchored() -> Self
+pub fn PerlOpt::caseless() -> Self
+pub fn PerlOpt::dollar_endonly() -> Self
+pub fn PerlOpt::dotall() -> Self
+pub fn PerlOpt::multiline() -> Self
+pub fn PerlOpt::ungreedy() -> Self
+
+pub struct Posix {
+}
+pub fn Posix::compile(Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
+pub fn Posix::compile_pat(Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
+pub fn Posix::re(Bytes, opts? : Array[PosixOpt]) -> @re_ast.AstGen[@re_ast.AstCset] raise
+
+pub enum PosixOpt {
+  ICase
+  NoSub
+  Newline
+}
+
+pub struct Str {
+}
+pub fn Str::bounded_full_split(StrRegexp, Bytes, Int32) -> Array[StrSplitResult] raise
+pub fn Str::bounded_split(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
+pub fn Str::bounded_split_delim(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
+pub fn Str::compile_regexp(Bytes, Bool) -> StrRegexp raise
+pub fn Str::first_chars(Bytes, Int32) -> Bytes
+pub fn Str::full_split(StrRegexp, Bytes) -> Array[StrSplitResult] raise
+pub fn Str::global_replace(StrRegexp, Bytes, Bytes) -> Bytes raise
+pub fn Str::global_substitute(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
+pub fn Str::group_beginning(Int32) -> Int32 raise
+pub fn Str::group_end(Int32) -> Int32 raise
+pub fn Str::last_chars(Bytes, Int32) -> Bytes
+pub fn Str::match_beginning() -> Int32 raise
+pub fn Str::match_end() -> Int32 raise
+pub fn Str::matched_group(Int32, Bytes) -> Bytes raise
+pub fn Str::matched_string(Bytes) -> Bytes raise
+pub fn Str::quote(Bytes) -> Bytes
+pub fn Str::regexp(Bytes) -> StrRegexp raise
+pub fn Str::regexp_case_fold(Bytes) -> StrRegexp raise
+pub fn Str::regexp_string(Bytes) -> StrRegexp raise
+pub fn Str::regexp_string_case_fold(Bytes) -> StrRegexp raise
+pub fn Str::replace_first(StrRegexp, Bytes, Bytes) -> Bytes raise
+pub fn Str::replace_matched(Bytes, Bytes) -> Bytes raise
+pub fn Str::search_backward(StrRegexp, Bytes, Int32) -> Int32 raise
+pub fn Str::search_forward(StrRegexp, Bytes, Int32) -> Int32 raise
+pub fn Str::split(StrRegexp, Bytes) -> Array[Bytes] raise
+pub fn Str::split_delim(StrRegexp, Bytes) -> Array[Bytes] raise
+pub fn Str::string_after(Bytes, Int32) -> Bytes
+pub fn Str::string_before(Bytes, Int32) -> Bytes
+pub fn Str::string_match(StrRegexp, Bytes, Int32) -> Bool raise
+pub fn Str::string_partial_match(StrRegexp, Bytes, Int32) -> Bool raise
+pub fn Str::substitute_first(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
+
+type StrRegexp
+
+pub enum StrSplitResult {
+  StrText(Bytes)
+  StrDelim(Bytes)
+}
+
+// Type aliases
+
+// Traits

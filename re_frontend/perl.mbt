@@ -47,7 +47,7 @@ pub fn PerlOpt::anchored() -> PerlOpt {
 ///|
 priv enum PerlElem {
   PerlChar(Char)
-  PerlSet(Ast)
+  PerlSet(@ast.Ast)
 }
 
 ///|
@@ -63,7 +63,7 @@ fn perl_char_of_int(x : Int32) -> Char raise {
 fn perl_acc_digits(base : Int32, digits : Array[Int32]) -> Int32 {
   let mut acc = 0
   let mut i = 1
-  for d in array_reverse(digits) {
+  for d in @base.array_reverse(digits) {
     acc = acc + d * i
     i = i * base
   }
@@ -71,32 +71,32 @@ fn perl_acc_digits(base : Int32, digits : Array[Int32]) -> Int32 {
 }
 
 ///|
-fn perl_greedy_mod(buf : ParseBuffer, ungreedy : Bool, r : Ast) -> Ast {
-  let gr = ParseBuffer::accept(buf, '?')
+fn perl_greedy_mod(buf : @base.ParseBuffer, ungreedy : Bool, r : @ast.Ast) -> @ast.Ast {
+  let gr = @base.ParseBuffer::accept(buf, '?')
   let gr2 = if ungreedy { !gr } else { gr }
   if gr2 {
-    Ast::non_greedy(r)
+    @ast.Ast::non_greedy(r)
   } else {
-    Ast::greedy(r)
+    @ast.Ast::greedy(r)
   }
 }
 
 ///|
-fn perl_regexp(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
+fn perl_regexp(buf : @base.ParseBuffer, opts : PerlOpts) -> @ast.Ast raise {
   perl_regexp_(buf, [perl_branch(buf, opts)], opts)
 }
 
 ///|
 fn perl_regexp_(
-  buf : ParseBuffer,
-  left : Array[Ast],
+  buf : @base.ParseBuffer,
+  left : Array[@ast.Ast],
   opts : PerlOpts,
-) -> Ast raise {
-  if ParseBuffer::accept(buf, '|') {
+) -> @ast.Ast raise {
+  if @base.ParseBuffer::accept(buf, '|') {
     left.push(perl_branch(buf, opts))
     perl_regexp_(buf, left, opts)
   } else {
-    Ast::alt(left)
+    @ast.Ast::alt(left)
   }
 }
 
@@ -109,20 +109,20 @@ priv struct PerlOpts {
 }
 
 ///|
-fn perl_branch(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
+fn perl_branch(buf : @base.ParseBuffer, opts : PerlOpts) -> @ast.Ast raise {
   perl_branch_(buf, [], opts)
 }
 
 ///|
 fn perl_branch_(
-  buf : ParseBuffer,
-  left : Array[Ast],
+  buf : @base.ParseBuffer,
+  left : Array[@ast.Ast],
   opts : PerlOpts,
-) -> Ast raise {
-  if ParseBuffer::eos(buf) ||
-    ParseBuffer::peek(buf, '|') ||
-    ParseBuffer::peek(buf, ')') {
-    Ast::seq(left)
+) -> @ast.Ast raise {
+  if @base.ParseBuffer::eos(buf) ||
+    @base.ParseBuffer::peek(buf, '|') ||
+    @base.ParseBuffer::peek(buf, ')') {
+    @ast.Ast::seq(left)
   } else {
     left.push(perl_piece(buf, opts))
     perl_branch_(buf, left, opts)
@@ -130,33 +130,33 @@ fn perl_branch_(
 }
 
 ///|
-fn perl_piece(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
+fn perl_piece(buf : @base.ParseBuffer, opts : PerlOpts) -> @ast.Ast raise {
   let r = perl_atom(buf, opts)
-  if ParseBuffer::accept(buf, '*') {
-    perl_greedy_mod(buf, opts.ungreedy, Ast::rep(r))
-  } else if ParseBuffer::accept(buf, '+') {
-    perl_greedy_mod(buf, opts.ungreedy, Ast::rep1(r))
-  } else if ParseBuffer::accept(buf, '?') {
-    perl_greedy_mod(buf, opts.ungreedy, Ast::opt(r))
-  } else if ParseBuffer::accept(buf, '{') {
-    match ParseBuffer::integer(buf) {
+  if @base.ParseBuffer::accept(buf, '*') {
+    perl_greedy_mod(buf, opts.ungreedy, @ast.Ast::rep(r))
+  } else if @base.ParseBuffer::accept(buf, '+') {
+    perl_greedy_mod(buf, opts.ungreedy, @ast.Ast::rep1(r))
+  } else if @base.ParseBuffer::accept(buf, '?') {
+    perl_greedy_mod(buf, opts.ungreedy, @ast.Ast::opt(r))
+  } else if @base.ParseBuffer::accept(buf, '{') {
+    match @base.ParseBuffer::integer(buf) {
       Some(i) => {
-        let j = if ParseBuffer::accept(buf, ',') {
-          ParseBuffer::integer(buf)
+        let j = if @base.ParseBuffer::accept(buf, ',') {
+          @base.ParseBuffer::integer(buf)
         } else {
           Some(i)
         }
-        if !ParseBuffer::accept(buf, '}') {
+        if !@base.ParseBuffer::accept(buf, '}') {
           fail("Perl parse error")
         }
         match j {
           Some(jv) => if jv < i { fail("Perl parse error") }
           None => ()
         }
-        perl_greedy_mod(buf, opts.ungreedy, Ast::repn(r, i, j))
+        perl_greedy_mod(buf, opts.ungreedy, @ast.Ast::repn(r, i, j))
       }
       None => {
-        ParseBuffer::unget(buf)
+        @base.ParseBuffer::unget(buf)
         r
       }
     }
@@ -166,99 +166,99 @@ fn perl_piece(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
 }
 
 ///|
-fn perl_atom(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
-  if ParseBuffer::accept(buf, '.') {
+fn perl_atom(buf : @base.ParseBuffer, opts : PerlOpts) -> @ast.Ast raise {
+  if @base.ParseBuffer::accept(buf, '.') {
     if opts.dotall {
-      Ast::any()
+      @ast.Ast::any()
     } else {
-      Re::notnl()
+      @compile.Re::notnl()
     }
-  } else if ParseBuffer::accept(buf, '(') {
-    if ParseBuffer::accept(buf, '?') {
-      if ParseBuffer::accept(buf, ':') {
+  } else if @base.ParseBuffer::accept(buf, '(') {
+    if @base.ParseBuffer::accept(buf, '?') {
+      if @base.ParseBuffer::accept(buf, ':') {
         let r = perl_regexp(buf, opts)
-        if !ParseBuffer::accept(buf, ')') {
+        if !@base.ParseBuffer::accept(buf, ')') {
           fail("Perl parse error")
         }
         r
-      } else if ParseBuffer::accept(buf, '#') {
+      } else if @base.ParseBuffer::accept(buf, '#') {
         perl_comment(buf)
-      } else if ParseBuffer::accept(buf, '<') {
+      } else if @base.ParseBuffer::accept(buf, '<') {
         let name = perl_name(buf)
         let r = perl_regexp(buf, opts)
-        if !ParseBuffer::accept(buf, ')') {
+        if !@base.ParseBuffer::accept(buf, ')') {
           fail("Perl parse error")
         }
-        Ast::group(name=Some(name), r)
+        @ast.Ast::group(name=Some(name), r)
       } else {
         fail("Perl parse error")
       }
     } else {
       let r = perl_regexp(buf, opts)
-      if !ParseBuffer::accept(buf, ')') {
+      if !@base.ParseBuffer::accept(buf, ')') {
         fail("Perl parse error")
       }
-      Ast::group(r)
+      @ast.Ast::group(r)
     }
-  } else if ParseBuffer::accept(buf, '^') {
+  } else if @base.ParseBuffer::accept(buf, '^') {
     if opts.multiline {
-      Ast::bol()
+      @ast.Ast::bol()
     } else {
-      Ast::bos()
+      @ast.Ast::bos()
     }
-  } else if ParseBuffer::accept(buf, '$') {
+  } else if @base.ParseBuffer::accept(buf, '$') {
     if opts.multiline {
-      Ast::eol()
+      @ast.Ast::eol()
     } else if opts.dollar_endonly {
-      Ast::leol()
+      @ast.Ast::leol()
     } else {
-      Ast::eos()
+      @ast.Ast::eos()
     }
-  } else if ParseBuffer::accept(buf, '[') {
-    if ParseBuffer::accept(buf, '^') {
-      Ast::compl(perl_bracket(buf, []))
+  } else if @base.ParseBuffer::accept(buf, '[') {
+    if @base.ParseBuffer::accept(buf, '^') {
+      @ast.Ast::compl(perl_bracket(buf, []))
     } else {
-      Ast::alt(perl_bracket(buf, []))
+      @ast.Ast::alt(perl_bracket(buf, []))
     }
-  } else if ParseBuffer::accept(buf, '\\') {
-    if ParseBuffer::eos(buf) {
+  } else if @base.ParseBuffer::accept(buf, '\\') {
+    if @base.ParseBuffer::eos(buf) {
       fail("Perl parse error")
     }
-    let c = ParseBuffer::get(buf)
+    let c = @base.ParseBuffer::get(buf)
     if c == 'w' {
-      Ast::alt([Re::alnum(), Ast::char('_')])
+      @ast.Ast::alt([@compile.Re::alnum(), @ast.Ast::char('_')])
     } else if c == 'W' {
-      Ast::compl([Re::alnum(), Ast::char('_')])
+      @ast.Ast::compl([@compile.Re::alnum(), @ast.Ast::char('_')])
     } else if c == 's' {
-      Re::space()
+      @compile.Re::space()
     } else if c == 'S' {
-      Ast::compl([Re::space()])
+      @ast.Ast::compl([@compile.Re::space()])
     } else if c == 'd' {
-      Re::digit()
+      @compile.Re::digit()
     } else if c == 'D' {
-      Ast::compl([Re::digit()])
+      @ast.Ast::compl([@compile.Re::digit()])
     } else if c == 'b' {
-      Ast::alt([Ast::bow(), Ast::eow()])
+      @ast.Ast::alt([@ast.Ast::bow(), @ast.Ast::eow()])
     } else if c == 'B' {
-      Ast::not_boundary()
+      @ast.Ast::not_boundary()
     } else if c == 'A' {
-      Ast::bos()
+      @ast.Ast::bos()
     } else if c == 'Z' {
-      Ast::leol()
+      @ast.Ast::leol()
     } else if c == 'z' {
-      Ast::eos()
+      @ast.Ast::eos()
     } else if c == 'G' {
-      Ast::start()
+      @ast.Ast::start()
     } else if c == 'e' {
-      Ast::char((27).unsafe_to_char())
+      @ast.Ast::char((27).unsafe_to_char())
     } else if c == 'f' {
-      Ast::char((12).unsafe_to_char())
+      @ast.Ast::char((12).unsafe_to_char())
     } else if c == 'n' {
-      Ast::char('\n')
+      @ast.Ast::char('\n')
     } else if c == 'r' {
-      Ast::char('\r')
+      @ast.Ast::char('\r')
     } else if c == 't' {
-      Ast::char('\t')
+      @ast.Ast::char('\t')
     } else if c == 'Q' {
       perl_quote(buf, [])
     } else if c == 'E' {
@@ -274,29 +274,29 @@ fn perl_atom(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
     } else if c == '8' || c == '9' {
       fail("Perl not supported: \\8 or \\9")
     } else {
-      Ast::char(c)
+      @ast.Ast::char(c)
     }
   } else {
-    if ParseBuffer::eos(buf) {
+    if @base.ParseBuffer::eos(buf) {
       fail("Perl parse error")
     }
-    let c = ParseBuffer::get(buf)
+    let c = @base.ParseBuffer::get(buf)
     if c == '*' || c == '+' || c == '?' || c == '{' || c == '\\' {
       fail("Perl parse error")
     } else {
-      Ast::char(c)
+      @ast.Ast::char(c)
     }
   }
 }
 
 ///|
-fn perl_parse_hex(buf : ParseBuffer) -> Ast raise {
+fn perl_parse_hex(buf : @base.ParseBuffer) -> @ast.Ast raise {
   let digits : Array[Int32] = []
-  if ParseBuffer::accept(buf, '{') {
-    while !ParseBuffer::accept(buf, '}') {
+  if @base.ParseBuffer::accept(buf, '{') {
+    while !@base.ParseBuffer::accept(buf, '}') {
       digits.push(perl_hexdigit(buf))
     }
-    let rev = array_reverse(digits)
+    let rev = @base.array_reverse(digits)
     let code = if rev.length() == 2 {
       rev[0] * 16 + rev[1]
     } else if rev.length() == 1 {
@@ -304,39 +304,39 @@ fn perl_parse_hex(buf : ParseBuffer) -> Ast raise {
     } else {
       fail("Perl parse error")
     }
-    Ast::char(perl_char_of_int(code))
+    @ast.Ast::char(perl_char_of_int(code))
   } else {
     let c1 = perl_hexdigit(buf)
     let c2 = perl_hexdigit(buf)
     let code = c1 * 16 + c2
-    Ast::char(perl_char_of_int(code))
+    @ast.Ast::char(perl_char_of_int(code))
   }
 }
 
 ///|
-fn perl_parse_oct(buf : ParseBuffer) -> Ast raise {
-  if !ParseBuffer::accept(buf, '{') {
+fn perl_parse_oct(buf : @base.ParseBuffer) -> @ast.Ast raise {
+  if !@base.ParseBuffer::accept(buf, '{') {
     fail("Perl parse error")
   }
   let digits : Array[Int32] = []
-  while !ParseBuffer::accept(buf, '}') {
+  while !@base.ParseBuffer::accept(buf, '}') {
     match perl_maybe_octaldigit(buf) {
       Some(d) => digits.push(d)
       None => fail("Perl parse error")
     }
   }
-  Ast::char(perl_char_of_int(perl_acc_digits(8, digits)))
+  @ast.Ast::char(perl_char_of_int(perl_acc_digits(8, digits)))
 }
 
 ///|
-fn perl_parse_octal_escape(buf : ParseBuffer, n1_char : Char) -> Ast raise {
+fn perl_parse_octal_escape(buf : @base.ParseBuffer, n1_char : Char) -> @ast.Ast raise {
   let n1 = n1_char.to_int() - '0'.to_int()
   match perl_maybe_octaldigit(buf) {
     Some(n2) =>
       match perl_maybe_octaldigit(buf) {
         Some(n3) => {
           let code = n1 * 64 + n2 * 8 + n3
-          Ast::char(perl_char_of_int(code))
+          @ast.Ast::char(perl_char_of_int(code))
         }
         None => fail("Perl not supported: octal escape")
       }
@@ -345,35 +345,35 @@ fn perl_parse_octal_escape(buf : ParseBuffer, n1_char : Char) -> Ast raise {
 }
 
 ///|
-fn perl_quote(buf : ParseBuffer, acc : Array[Byte]) -> Ast raise {
-  if ParseBuffer::accept(buf, '\\') {
-    if ParseBuffer::eos(buf) {
+fn perl_quote(buf : @base.ParseBuffer, acc : Array[Byte]) -> @ast.Ast raise {
+  if @base.ParseBuffer::accept(buf, '\\') {
+    if @base.ParseBuffer::eos(buf) {
       fail("Perl parse error")
     }
-    let c = ParseBuffer::get(buf)
+    let c = @base.ParseBuffer::get(buf)
     if c == 'E' {
-      Ast::str(Bytes::from_array(acc))
+      @ast.Ast::str(Bytes::from_array(acc))
     } else {
       acc.push('\\'.to_int().to_byte())
       acc.push(c.to_int().to_byte())
       perl_quote(buf, acc)
     }
   } else {
-    if ParseBuffer::eos(buf) {
+    if @base.ParseBuffer::eos(buf) {
       fail("Perl parse error")
     }
-    let c = ParseBuffer::get(buf)
+    let c = @base.ParseBuffer::get(buf)
     acc.push(c.to_int().to_byte())
     perl_quote(buf, acc)
   }
 }
 
 ///|
-fn perl_hexdigit(buf : ParseBuffer) -> Int32 raise {
-  if ParseBuffer::eos(buf) {
+fn perl_hexdigit(buf : @base.ParseBuffer) -> Int32 raise {
+  if @base.ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
-  let d = ParseBuffer::get(buf)
+  let d = @base.ParseBuffer::get(buf)
   if d >= '0' && d <= '9' {
     d.to_int() - '0'.to_int()
   } else if d >= 'a' && d <= 'f' {
@@ -386,26 +386,26 @@ fn perl_hexdigit(buf : ParseBuffer) -> Int32 raise {
 }
 
 ///|
-fn perl_maybe_octaldigit(buf : ParseBuffer) -> Int32? {
-  if ParseBuffer::eos(buf) {
+fn perl_maybe_octaldigit(buf : @base.ParseBuffer) -> Int32? {
+  if @base.ParseBuffer::eos(buf) {
     None
   } else {
-    let d = ParseBuffer::get(buf)
+    let d = @base.ParseBuffer::get(buf)
     if d >= '0' && d <= '7' {
       Some(d.to_int() - '0'.to_int())
     } else {
-      ParseBuffer::unget(buf)
+      @base.ParseBuffer::unget(buf)
       None
     }
   }
 }
 
 ///|
-fn perl_name(buf : ParseBuffer) -> String raise {
-  if ParseBuffer::eos(buf) {
+fn perl_name(buf : @base.ParseBuffer) -> String raise {
+  if @base.ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
-  let c = ParseBuffer::get(buf)
+  let c = @base.ParseBuffer::get(buf)
   if c == '_' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') {
     perl_name_(buf, [c])
   } else {
@@ -414,11 +414,11 @@ fn perl_name(buf : ParseBuffer) -> String raise {
 }
 
 ///|
-fn perl_name_(buf : ParseBuffer, acc : Array[Char]) -> String raise {
-  if ParseBuffer::eos(buf) {
+fn perl_name_(buf : @base.ParseBuffer, acc : Array[Char]) -> String raise {
+  if @base.ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
-  let c = ParseBuffer::get(buf)
+  let c = @base.ParseBuffer::get(buf)
   if c == '_' ||
     (c >= 'a' && c <= 'z') ||
     (c >= 'A' && c <= 'Z') ||
@@ -437,8 +437,8 @@ fn perl_name_(buf : ParseBuffer, acc : Array[Char]) -> String raise {
 }
 
 ///|
-fn perl_bracket(buf : ParseBuffer, s : Array[Ast]) -> Array[Ast] raise {
-  if s.length() > 0 && ParseBuffer::accept(buf, ']') {
+fn perl_bracket(buf : @base.ParseBuffer, s : Array[@ast.Ast]) -> Array[@ast.Ast] raise {
+  if s.length() > 0 && @base.ParseBuffer::accept(buf, ']') {
     s.rev_in_place()
     s
   } else {
@@ -448,28 +448,28 @@ fn perl_bracket(buf : ParseBuffer, s : Array[Ast]) -> Array[Ast] raise {
         perl_bracket(buf, s)
       }
       PerlChar(c) =>
-        if ParseBuffer::accept(buf, '-') {
-          if ParseBuffer::accept(buf, ']') {
-            s.push(Ast::char(c))
-            s.push(Ast::char('-'))
+        if @base.ParseBuffer::accept(buf, '-') {
+          if @base.ParseBuffer::accept(buf, ']') {
+            s.push(@ast.Ast::char(c))
+            s.push(@ast.Ast::char('-'))
             s.rev_in_place()
             s
           } else {
             match perl_char_elem(buf) {
               PerlChar(c2) => {
-                s.push(Re::rg(c, c2))
+                s.push(@compile.Re::rg(c, c2))
                 perl_bracket(buf, s)
               }
               PerlSet(st2) => {
-                s.push(Ast::char(c))
-                s.push(Ast::char('-'))
+                s.push(@ast.Ast::char(c))
+                s.push(@ast.Ast::char('-'))
                 s.push(st2)
                 perl_bracket(buf, s)
               }
             }
           }
         } else {
-          s.push(Ast::char(c))
+          s.push(@ast.Ast::char(c))
           perl_bracket(buf, s)
         }
     }
@@ -477,27 +477,27 @@ fn perl_bracket(buf : ParseBuffer, s : Array[Ast]) -> Array[Ast] raise {
 }
 
 ///|
-fn perl_char_elem(buf : ParseBuffer) -> PerlElem raise {
-  if ParseBuffer::eos(buf) {
+fn perl_char_elem(buf : @base.ParseBuffer) -> PerlElem raise {
+  if @base.ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
-  let c = ParseBuffer::get(buf)
+  let c = @base.ParseBuffer::get(buf)
   if c == '[' {
-    if ParseBuffer::accept(buf, '=') {
+    if @base.ParseBuffer::accept(buf, '=') {
       fail("Perl not supported: [=...=]")
     }
     match PosixClass::parse(buf) {
       Some(set) => PerlSet(set)
       None =>
-        if ParseBuffer::accept(buf, '.') {
-          if ParseBuffer::eos(buf) {
+        if @base.ParseBuffer::accept(buf, '.') {
+          if @base.ParseBuffer::eos(buf) {
             fail("Perl parse error")
           }
-          let c2 = ParseBuffer::get(buf)
-          if !ParseBuffer::accept(buf, '.') {
+          let c2 = @base.ParseBuffer::get(buf)
+          if !@base.ParseBuffer::accept(buf, '.') {
             fail("Perl not supported: collating element")
           }
-          if !ParseBuffer::accept(buf, ']') {
+          if !@base.ParseBuffer::accept(buf, ']') {
             fail("Perl parse error")
           }
           PerlChar(c2)
@@ -506,10 +506,10 @@ fn perl_char_elem(buf : ParseBuffer) -> PerlElem raise {
         }
     }
   } else if c == '\\' {
-    if ParseBuffer::eos(buf) {
+    if @base.ParseBuffer::eos(buf) {
       fail("Perl parse error")
     }
-    let c2 = ParseBuffer::get(buf)
+    let c2 = @base.ParseBuffer::get(buf)
     if c2 == 'b' {
       PerlChar((8).unsafe_to_char())
     } else if c2 == 'n' {
@@ -519,17 +519,17 @@ fn perl_char_elem(buf : ParseBuffer) -> PerlElem raise {
     } else if c2 == 't' {
       PerlChar('\t')
     } else if c2 == 'w' {
-      PerlSet(Ast::alt([Re::alnum(), Ast::char('_')]))
+      PerlSet(@ast.Ast::alt([@compile.Re::alnum(), @ast.Ast::char('_')]))
     } else if c2 == 'W' {
-      PerlSet(Ast::alt([Re::alnum(), Ast::char('_')]))
+      PerlSet(@ast.Ast::alt([@compile.Re::alnum(), @ast.Ast::char('_')]))
     } else if c2 == 's' {
-      PerlSet(Re::space())
+      PerlSet(@compile.Re::space())
     } else if c2 == 'S' {
-      PerlSet(Ast::compl([Re::space()]))
+      PerlSet(@ast.Ast::compl([@compile.Re::space()]))
     } else if c2 == 'd' {
-      PerlSet(Re::digit())
+      PerlSet(@compile.Re::digit())
     } else if c2 == 'D' {
-      PerlSet(Ast::compl([Re::digit()]))
+      PerlSet(@ast.Ast::compl([@compile.Re::digit()]))
     } else if (c2 >= 'a' && c2 <= 'z') || (c2 >= 'A' && c2 <= 'Z') {
       fail("Perl parse error")
     } else if c2 >= '0' && c2 <= '9' {
@@ -543,14 +543,14 @@ fn perl_char_elem(buf : ParseBuffer) -> PerlElem raise {
 }
 
 ///|
-fn perl_comment(buf : ParseBuffer) -> Ast raise {
-  if ParseBuffer::eos(buf) {
+fn perl_comment(buf : @base.ParseBuffer) -> @ast.Ast raise {
+  if @base.ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
-  if ParseBuffer::accept(buf, ')') {
-    Ast::epsilon()
+  if @base.ParseBuffer::accept(buf, ')') {
+    @ast.Ast::epsilon()
   } else {
-    ParseBuffer::junk(buf)
+    @base.ParseBuffer::junk(buf)
     perl_comment(buf)
   }
 }
@@ -575,31 +575,31 @@ fn perl_has_opt(opts : Array[PerlOpt], target : PerlOpt) -> Bool {
 }
 
 ///|
-pub fn Perl::re(s : Bytes, opts~ : Array[PerlOpt] = []) -> Ast raise {
+pub fn Perl::re(s : Bytes, opts~ : Array[PerlOpt] = []) -> @ast.Ast raise {
   let opts_rec : PerlOpts = {
     multiline: perl_has_opt(opts, Multiline),
     dollar_endonly: perl_has_opt(opts, DollarEndonly),
     dotall: perl_has_opt(opts, Dotall),
     ungreedy: perl_has_opt(opts, Ungreedy),
   }
-  let buf = ParseBuffer::create(s)
+  let buf = @base.ParseBuffer::create(s)
   let r = perl_regexp(buf, opts_rec)
-  if !ParseBuffer::eos(buf) {
+  if !@base.ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
   let r = if perl_has_opt(opts, Anchored) {
-    Ast::seq([Ast::start(), r])
+    @ast.Ast::seq([@ast.Ast::start(), r])
   } else {
     r
   }
   if perl_has_opt(opts, Caseless) {
-    Ast::no_case(r)
+    @ast.Ast::no_case(r)
   } else {
     r
   }
 }
 
 ///|
-pub fn Perl::compile_pat(s : Bytes, opts~ : Array[PerlOpt] = []) -> Re raise {
-  compile(Perl::re(s, opts~))
+pub fn Perl::compile_pat(s : Bytes, opts~ : Array[PerlOpt] = []) -> @compile.Re raise {
+  @compile.compile(Perl::re(s, opts~))
 }

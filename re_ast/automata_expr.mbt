@@ -2,17 +2,17 @@
 // Expr is a single enum with id baked into each variant (avoids struct+enum mutual recursion).
 
 ///|
-pub enum Expr {
-  Cst(Int32, Cset)
+pub(all) enum Expr {
+  Cst(Int32, @base.Cset)
   Alt(Int32, Array[Expr])
-  Seq(Int32, Sem, Expr, Expr)
+  Seq(Int32, @base.Sem, Expr, Expr)
   Eps(Int32)
-  Rep(Int32, RepKind, Sem, Expr)
+  Rep(Int32, @base.RepKind, @base.Sem, Expr)
   MarkOf(Int32, Int32)
   Erase(Int32, Int32, Int32)
-  Before(Int32, Category)
-  After(Int32, Category)
-  PmarkOf(Int32, Pmark)
+  Before(Int32, @base.Category)
+  After(Int32, @base.Category)
+  PmarkOf(Int32, @base.Pmark)
 } derive(Debug)
 
 ///|
@@ -40,13 +40,13 @@ pub fn Expr::eps_expr() -> Expr {
 }
 
 ///|
-pub fn Expr::empty(ids : Ids) -> Expr {
+pub fn Expr::empty(ids : @base.Ids) -> Expr {
   Alt(ids.next(), [])
 }
 
 ///|
-pub fn Expr::cst(ids : Ids, s : Cset) -> Expr {
-  if Cset::is_empty(s) {
+pub fn Expr::cst(ids : @base.Ids, s : @base.Cset) -> Expr {
+  if @base.Cset::is_empty(s) {
     Expr::empty(ids)
   } else {
     Cst(ids.next(), s)
@@ -54,42 +54,42 @@ pub fn Expr::cst(ids : Ids, s : Cset) -> Expr {
 }
 
 ///|
-pub fn Expr::eps(ids : Ids) -> Expr {
+pub fn Expr::eps(ids : @base.Ids) -> Expr {
   Eps(ids.next())
 }
 
 ///|
-pub fn Expr::rep(ids : Ids, kind : RepKind, sem : Sem, x : Expr) -> Expr {
+pub fn Expr::rep(ids : @base.Ids, kind : @base.RepKind, sem : @base.Sem, x : Expr) -> Expr {
   Rep(ids.next(), kind, sem, x)
 }
 
 ///|
-pub fn Expr::mark(ids : Ids, m : Int32) -> Expr {
+pub fn Expr::mark(ids : @base.Ids, m : Int32) -> Expr {
   MarkOf(ids.next(), m)
 }
 
 ///|
-pub fn Expr::pmark(ids : Ids, i : Pmark) -> Expr {
+pub fn Expr::pmark(ids : @base.Ids, i : @base.Pmark) -> Expr {
   PmarkOf(ids.next(), i)
 }
 
 ///|
-pub fn Expr::erase(ids : Ids, m : Int32, m2 : Int32) -> Expr {
+pub fn Expr::erase(ids : @base.Ids, m : Int32, m2 : Int32) -> Expr {
   Erase(ids.next(), m, m2)
 }
 
 ///|
-pub fn Expr::before(ids : Ids, c : Category) -> Expr {
+pub fn Expr::before(ids : @base.Ids, c : @base.Category) -> Expr {
   Before(ids.next(), c)
 }
 
 ///|
-pub fn Expr::after(ids : Ids, c : Category) -> Expr {
+pub fn Expr::after(ids : @base.Ids, c : @base.Category) -> Expr {
   After(ids.next(), c)
 }
 
 ///|
-pub fn Expr::alt(ids : Ids, l : Array[Expr]) -> Expr {
+pub fn Expr::alt(ids : @base.Ids, l : Array[Expr]) -> Expr {
   if l.length() == 0 {
     Expr::empty(ids)
   } else if l.length() == 1 {
@@ -100,7 +100,7 @@ pub fn Expr::alt(ids : Ids, l : Array[Expr]) -> Expr {
 }
 
 ///|
-pub fn Expr::seq(ids : Ids, kind : Sem, x : Expr, y : Expr) -> Expr {
+pub fn Expr::seq(ids : @base.Ids, kind : @base.Sem, x : Expr, y : Expr) -> Expr {
   let x_empty = match x {
     Alt(_, arr) => arr.length() == 0
     _ => false
@@ -123,7 +123,7 @@ pub fn Expr::seq(ids : Ids, kind : Sem, x : Expr, y : Expr) -> Expr {
     y
   } else if x_eps {
     y
-  } else if y_eps && kind == First {
+  } else if y_eps && kind == @base.First {
     x
   } else {
     Seq(ids.next(), kind, x, y)
@@ -139,7 +139,7 @@ pub fn Expr::is_eps(e : Expr) -> Bool {
 }
 
 ///|
-fn seq_as_list(sem : Sem, t : Expr) -> Array[Expr] {
+fn seq_as_list(sem : @base.Sem, t : Expr) -> Array[Expr] {
   match t {
     Eps(_) => []
     Seq(_, sem2, x, y) =>
@@ -158,7 +158,7 @@ fn seq_as_list(sem : Sem, t : Expr) -> Array[Expr] {
 }
 
 ///|
-pub fn Expr::rename(ids : Ids, x : Expr) -> Expr {
+pub fn Expr::rename(ids : @base.Ids, x : Expr) -> Expr {
   match x {
     Cst(_, s) => Cst(ids.next(), s)
     Eps(_) => Eps(ids.next())
@@ -178,31 +178,31 @@ pub fn Expr::rename(ids : Ids, x : Expr) -> Expr {
 }
 
 ///|
-pub fn Expr::to_dyn(e : Expr) -> Dyn {
+pub fn Expr::to_dyn(e : Expr) -> @base.Dyn {
   match e {
     Cst(_, cset) => cset.to_dyn()
     Alt(_, alt) => {
       let arr = Array::map(alt, fn(e2) { Expr::to_dyn(e2) })
-      Dyn::variant("Alt", arr)
+      @base.Dyn::variant("Alt", arr)
     }
     Seq(_, sem, x, y) => {
       let ys = seq_as_list(sem, y)
-      let args : Array[Dyn] = [Expr::to_dyn(x)]
+      let args : Array[@base.Dyn] = [Expr::to_dyn(x)]
       for e2 in ys {
         args.push(Expr::to_dyn(e2))
       }
-      Dyn::variant("Seq:" + Sem::to_string_short(sem), args)
+      @base.Dyn::variant("Seq:" + @base.Sem::to_string_short(sem), args)
     }
-    Eps(_) => Dyn::enum_("Eps")
+    Eps(_) => @base.Dyn::enum_("Eps")
     Rep(_, kind, sem, t) =>
-      Dyn::variant(
-        "Rep" + RepKind::to_string_short(kind) + ":" + Sem::to_string_short(sem),
+      @base.Dyn::variant(
+        "Rep" + @base.RepKind::to_string_short(kind) + ":" + @base.Sem::to_string_short(sem),
         [Expr::to_dyn(t)],
       )
-    MarkOf(_, m) => Dyn::variant("Mark", [Mark::to_dyn(m)])
-    PmarkOf(_, m) => Dyn::variant("Pmark", [m.to_dyn()])
-    Erase(_, x, y) => Dyn::variant("Erase", [Mark::to_dyn(x), Mark::to_dyn(y)])
-    Before(_, c) => Dyn::variant("Before", [c.to_dyn()])
-    After(_, c) => Dyn::variant("After", [c.to_dyn()])
+    MarkOf(_, m) => @base.Dyn::variant("Mark", [@base.Mark::to_dyn(m)])
+    PmarkOf(_, m) => @base.Dyn::variant("Pmark", [m.to_dyn()])
+    Erase(_, x, y) => @base.Dyn::variant("Erase", [@base.Mark::to_dyn(x), @base.Mark::to_dyn(y)])
+    Before(_, c) => @base.Dyn::variant("Before", [c.to_dyn()])
+    After(_, c) => @base.Dyn::variant("After", [c.to_dyn()])
   }
 }

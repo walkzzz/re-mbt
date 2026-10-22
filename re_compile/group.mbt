@@ -12,7 +12,7 @@ pub fn GroupT::get_opt(g : GroupT, i : Int32) -> Bytes? {
 
 ///|
 pub fn GroupT::offset_opt(g : GroupT, i : Int32) -> (Int32, Int32)? {
-  match MarkInfos::offset(g.marks, i) {
+  match @base.MarkInfos::offset(g.marks, i) {
     None => None
     Some((start, stop)) => Some((g.gpos[start], g.gpos[stop]))
   }
@@ -60,7 +60,7 @@ pub fn GroupT::stop(g : GroupT, i : Int32) -> Int32 raise {
 
 ///|
 pub fn GroupT::matched(g : GroupT, i : Int32) -> Bool {
-  MarkInfos::has(g.marks, i)
+  @base.MarkInfos::has(g.marks, i)
 }
 
 ///|
@@ -70,9 +70,9 @@ pub fn GroupT::nb_groups(g : GroupT) -> Int32 {
 
 ///|
 pub fn GroupT::start_offset(g : GroupT, i : Int32) -> Int32 {
-  let off = MarkInfos::start_offset(g.marks, i)
-  if MarkOffset::is_present(off) {
-    g.gpos[MarkOffset::get_no_check(off)]
+  let off = @base.MarkInfos::start_offset(g.marks, i)
+  if @base.MarkOffset::is_present(off) {
+    g.gpos[@base.MarkOffset::get_no_check(off)]
   } else {
     -1
   }
@@ -80,23 +80,23 @@ pub fn GroupT::start_offset(g : GroupT, i : Int32) -> Int32 {
 
 ///|
 pub fn GroupT::stop_offset(g : GroupT, i : Int32) -> Int32 {
-  let off = MarkInfos::stop_offset(g.marks, i)
-  if MarkOffset::is_present(off) {
-    g.gpos[MarkOffset::get_no_check(off)]
+  let off = @base.MarkInfos::stop_offset(g.marks, i)
+  if @base.MarkOffset::is_present(off) {
+    g.gpos[@base.MarkOffset::get_no_check(off)]
   } else {
     -1
   }
 }
 
 ///|
-pub fn GroupT::pmarks(g : GroupT) -> PmarkSet {
+pub fn GroupT::pmarks(g : GroupT) -> @base.PmarkSet {
   g.pmarks
 }
 
 ///|
 pub fn GroupT::all_offset(g : GroupT) -> Array[(Int32, Int32)] {
   let res = Array::make(g.gcount, (-1, -1))
-  MarkInfos::iteri(g.marks, fn(i, start, stop) {
+  @base.MarkInfos::iteri(g.marks, fn(i, start, stop) {
     res[i] = (g.gpos[start], g.gpos[stop])
   })
   res
@@ -106,7 +106,7 @@ pub fn GroupT::all_offset(g : GroupT) -> Array[(Int32, Int32)] {
 pub fn GroupT::all(g : GroupT) -> Array[Bytes] {
   let empty = Bytes::from_array([])
   let res = Array::make(g.gcount, empty)
-  MarkInfos::iteri(g.marks, fn(i, start, stop) {
+  @base.MarkInfos::iteri(g.marks, fn(i, start, stop) {
     let p1 = g.gpos[start]
     let p2 = g.gpos[stop]
     let len = p2 - p1

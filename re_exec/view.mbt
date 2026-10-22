@@ -26,21 +26,21 @@ pub fn ViewRange::last(r : ViewRange) -> Char {
 }
 
 ///|
-pub fn CsetView::view(t : Cset) -> Array[ViewRange] {
+pub fn CsetView::view(t : @base.Cset) -> Array[ViewRange] {
   let result : Array[ViewRange] = []
   for p in t.intervals {
     let (first, last) = p
-    result.push({ first: CsetC::to_char(first), last: CsetC::to_char(last), })
+    result.push({ first: @base.CsetC::to_char(first), last: @base.CsetC::to_char(last), })
   }
   result
 }
 
 ///|
 pub enum ViewT {
-  SetT(Cset)
-  SequenceT(Array[Ast])
-  AlternativeT(Array[Ast])
-  RepeatT(Ast, Int32, Int32?)
+  SetT(@base.Cset)
+  SequenceT(Array[@ast.Ast])
+  AlternativeT(Array[@ast.Ast])
+  RepeatT(@ast.Ast, Int32, Int32?)
   BegOfLineT
   EndOfLineT
   BegOfWordT
@@ -51,21 +51,21 @@ pub enum ViewT {
   LastEndOfLineT
   StartT
   StopT
-  SemT(Sem, Ast)
-  SemGreedyT(RepKind, Ast)
-  GroupT(String?, Ast)
-  NoGroupT(Ast)
-  NestT(Ast)
-  CaseT(Ast)
-  NoCaseT(Ast)
-  IntersectionT(Array[Ast])
-  ComplementT(Array[Ast])
-  DifferenceT(Ast, Ast)
-  PmarkT(Pmark, Ast)
+  SemT(@base.Sem, @ast.Ast)
+  SemGreedyT(@base.RepKind, @ast.Ast)
+  GroupT(String?, @ast.Ast)
+  NoGroupT(@ast.Ast)
+  NestT(@ast.Ast)
+  CaseT(@ast.Ast)
+  NoCaseT(@ast.Ast)
+  IntersectionT(Array[@ast.Ast])
+  ComplementT(Array[@ast.Ast])
+  DifferenceT(@ast.Ast, @ast.Ast)
+  PmarkT(@base.Pmark, @ast.Ast)
 }
 
 ///|
-fn[T] view_ast(f : (T) -> Ast, t : AstAlt[T]) -> ViewT {
+fn[T] view_ast(f : (T) -> @ast.Ast, t : @ast.AstAlt[T]) -> ViewT {
   match t {
     Alternative(a) => AlternativeT(Array::map(a, f))
     NoCase(a) => NoCaseT(f(a))
@@ -74,20 +74,20 @@ fn[T] view_ast(f : (T) -> Ast, t : AstAlt[T]) -> ViewT {
 }
 
 ///|
-fn view_set(cset : AstCset) -> ViewT {
+fn view_set(cset : @ast.AstCset) -> ViewT {
   match cset {
     CsetOf(set) => SetT(set)
     Intersection(sets) =>
-      IntersectionT(Array::map(sets, fn(x) { Ast::t_of_cset(x) }))
+      IntersectionT(Array::map(sets, fn(x) { @ast.Ast::t_of_cset(x) }))
     Complement(sets) =>
-      ComplementT(Array::map(sets, fn(x) { Ast::t_of_cset(x) }))
-    Difference(x, y) => DifferenceT(Ast::t_of_cset(x), Ast::t_of_cset(y))
-    Cast(ast) => view_ast(fn(x) { Ast::t_of_cset(x) }, ast)
+      ComplementT(Array::map(sets, fn(x) { @ast.Ast::t_of_cset(x) }))
+    Difference(x, y) => DifferenceT(@ast.Ast::t_of_cset(x), @ast.Ast::t_of_cset(y))
+    Cast(ast) => view_ast(fn(x) { @ast.Ast::t_of_cset(x) }, ast)
   }
 }
 
 ///|
-pub fn View::view(t : Ast) -> ViewT {
+pub fn View::view(t : @ast.Ast) -> ViewT {
   match t {
     Set(s) => view_set(s)
     AstNode(s) => view_ast(fn(x) { x }, s)
@@ -103,11 +103,11 @@ pub fn View::view(t : Ast) -> ViewT {
     LastEndOfLine => LastEndOfLineT
     Start => StartT
     Stop => StopT
-    Sem(sem, a) => SemT(sem, a)
+    @ast.Sem(sem, a) => SemT(sem, a)
     SemGreedy(sem, a) => SemGreedyT(sem, a)
     Group(name, t) => GroupT(name, t)
     NoGroup(a) => NoGroupT(a)
     Nest(t) => NestT(t)
-    Pmark(pmark, t) => PmarkT(pmark, t)
+    @ast.Pmark(pmark, t) => PmarkT(pmark, t)
   }
 }

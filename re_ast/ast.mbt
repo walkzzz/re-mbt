@@ -3,7 +3,7 @@
 // we drop the phantom case parameter and use a unified generic enum AstGen[T].
 
 ///|
-pub enum AstAlt[T] {
+pub(all) enum AstAlt[T] {
   Alternative(Array[T])
   NoCase(T)
   Case(T)
@@ -16,8 +16,8 @@ pub extend AstAlt with @moonbitlang/core/debug.Debug::{to_repr}
 pub extend AstAlt with Eq::{equal, not_equal}
 
 ///|
-pub enum AstCset {
-  CsetOf(Cset)
+pub(all) enum AstCset {
+  CsetOf(@base.Cset)
   Intersection(Array[AstCset])
   Complement(Array[AstCset])
   Difference(AstCset, AstCset)
@@ -31,7 +31,7 @@ pub extend AstCset with @moonbitlang/core/debug.Debug::{to_repr}
 pub extend AstCset with Eq::{equal, not_equal}
 
 ///|
-pub enum AstGen[T] {
+pub(all) enum AstGen[T] {
   Set(T)
   AstNode(AstAlt[AstGen[T]])
   Sequence(Array[AstGen[T]])
@@ -49,9 +49,9 @@ pub enum AstGen[T] {
   Group(String?, AstGen[T])
   NoGroup(AstGen[T])
   Nest(AstGen[T])
-  Pmark(Pmark, AstGen[T])
-  Sem(Sem, AstGen[T])
-  SemGreedy(RepKind, AstGen[T])
+  Pmark(@base.Pmark, AstGen[T])
+  Sem(@base.Sem, AstGen[T])
+  SemGreedy(@base.RepKind, AstGen[T])
 } derive(Debug, Eq)
 
 ///|
@@ -64,93 +64,93 @@ pub extend AstGen with Eq::{equal, not_equal}
 pub type Ast = AstGen[AstCset]
 
 ///|
-pub type AstNoCase = AstGen[Cset]
+pub type AstNoCase = AstGen[@base.Cset]
 
 // --- to_dyn (free functions to avoid generic method inference issues) ---
 
 ///|
-fn ast_alt_to_dyn_cset(x : AstAlt[AstCset]) -> Dyn {
+fn ast_alt_to_dyn_cset(x : AstAlt[AstCset]) -> @base.Dyn {
   match x {
     Alternative(xs) =>
-      Dyn::variant("Alternative", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
-    NoCase(a) => Dyn::variant("No_case", [ast_cset_to_dyn(a)])
-    Case(a) => Dyn::variant("Case", [ast_cset_to_dyn(a)])
+      @base.Dyn::variant("Alternative", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
+    NoCase(a) => @base.Dyn::variant("No_case", [ast_cset_to_dyn(a)])
+    Case(a) => @base.Dyn::variant("Case", [ast_cset_to_dyn(a)])
   }
 }
 
 ///|
-fn ast_cset_to_dyn(x : AstCset) -> Dyn {
+fn ast_cset_to_dyn(x : AstCset) -> @base.Dyn {
   match x {
-    CsetOf(cset) => Dyn::variant("Cset", [cset.to_dyn()])
+    CsetOf(cset) => @base.Dyn::variant("Cset", [cset.to_dyn()])
     Intersection(xs) =>
-      Dyn::variant("Intersection", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
+      @base.Dyn::variant("Intersection", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
     Complement(xs) =>
-      Dyn::variant("Complement", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
+      @base.Dyn::variant("Complement", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
     Difference(x, y) =>
-      Dyn::variant("Difference", [ast_cset_to_dyn(x), ast_cset_to_dyn(y)])
-    Cast(c) => Dyn::variant("Cast", [ast_alt_to_dyn_cset(c)])
+      @base.Dyn::variant("Difference", [ast_cset_to_dyn(x), ast_cset_to_dyn(y)])
+    Cast(c) => @base.Dyn::variant("Cast", [ast_alt_to_dyn_cset(c)])
   }
 }
 
 ///|
-fn ast_to_dyn(x : Ast) -> Dyn {
+fn ast_to_dyn(x : Ast) -> @base.Dyn {
   match x {
-    Set(a) => Dyn::variant("Set", [ast_cset_to_dyn(a)])
-    AstNode(ast) => Dyn::variant("Ast", [ast_alt_to_dyn_ast(ast)])
+    Set(a) => @base.Dyn::variant("Set", [ast_cset_to_dyn(a)])
+    AstNode(ast) => @base.Dyn::variant("Ast", [ast_alt_to_dyn_ast(ast)])
     Sequence(xs) =>
-      Dyn::variant("Sequence", Array::map(xs, fn(a) { ast_to_dyn(a) }))
+      @base.Dyn::variant("Sequence", Array::map(xs, fn(a) { ast_to_dyn(a) }))
     Repeat(gen, min, max) => {
-      let base : Array[Dyn] = match max {
+      let base : Array[@base.Dyn] = match max {
         None => []
-        Some(x) => [Dyn::int(x)]
+        Some(x) => [@base.Dyn::int(x)]
       }
-      Dyn::variant("Repeat", [ast_to_dyn(gen), Dyn::int(min), ..base])
+      @base.Dyn::variant("Repeat", [ast_to_dyn(gen), @base.Dyn::int(min), ..base])
     }
-    BegOfLine => Dyn::enum_("Beg_of_line")
-    EndOfLine => Dyn::enum_("End_of_line")
-    BegOfWord => Dyn::enum_("Beg_of_word")
-    EndOfWord => Dyn::enum_("End_of_word")
-    NotBound => Dyn::enum_("Not_bound")
-    BegOfStr => Dyn::enum_("Beg_of_str")
-    EndOfStr => Dyn::enum_("End_of_str")
-    LastEndOfLine => Dyn::enum_("Last_end_of_line")
-    Start => Dyn::enum_("Start")
-    Stop => Dyn::enum_("Stop")
+    BegOfLine => @base.Dyn::enum_("Beg_of_line")
+    EndOfLine => @base.Dyn::enum_("End_of_line")
+    BegOfWord => @base.Dyn::enum_("Beg_of_word")
+    EndOfWord => @base.Dyn::enum_("End_of_word")
+    NotBound => @base.Dyn::enum_("Not_bound")
+    BegOfStr => @base.Dyn::enum_("Beg_of_str")
+    EndOfStr => @base.Dyn::enum_("End_of_str")
+    LastEndOfLine => @base.Dyn::enum_("Last_end_of_line")
+    Start => @base.Dyn::enum_("Start")
+    Stop => @base.Dyn::enum_("Stop")
     Group(name, t) => {
-      let args : Array[Dyn] = match name {
+      let args : Array[@base.Dyn] = match name {
         None => [ast_to_dyn(t)]
-        Some(n) => [Dyn::string(n), ast_to_dyn(t)]
+        Some(n) => [@base.Dyn::string(n), ast_to_dyn(t)]
       }
-      Dyn::variant("Group", args)
+      @base.Dyn::variant("Group", args)
     }
-    NoGroup(x) => Dyn::variant("No_group", [ast_to_dyn(x)])
-    Nest(x) => Dyn::variant("Nest", [ast_to_dyn(x)])
-    Pmark(pmark, t) => Dyn::variant("Pmark", [pmark.to_dyn(), ast_to_dyn(t)])
-    Sem(sem, t) => Dyn::variant("Sem", [Sem::to_dyn(sem), ast_to_dyn(t)])
+    NoGroup(x) => @base.Dyn::variant("No_group", [ast_to_dyn(x)])
+    Nest(x) => @base.Dyn::variant("Nest", [ast_to_dyn(x)])
+    Pmark(pmark, t) => @base.Dyn::variant("Pmark", [pmark.to_dyn(), ast_to_dyn(t)])
+    Sem(sem, t) => @base.Dyn::variant("Sem", [@base.Sem::to_dyn(sem), ast_to_dyn(t)])
     SemGreedy(rep, t) =>
-      Dyn::variant("Sem_greedy", [RepKind::to_dyn(rep), ast_to_dyn(t)])
+      @base.Dyn::variant("Sem_greedy", [@base.RepKind::to_dyn(rep), ast_to_dyn(t)])
   }
 }
 
 ///|
-fn ast_alt_to_dyn_ast(x : AstAlt[Ast]) -> Dyn {
+fn ast_alt_to_dyn_ast(x : AstAlt[Ast]) -> @base.Dyn {
   match x {
     Alternative(xs) =>
-      Dyn::variant("Alternative", Array::map(xs, fn(a) { ast_to_dyn(a) }))
-    NoCase(a) => Dyn::variant("No_case", [ast_to_dyn(a)])
-    Case(a) => Dyn::variant("Case", [ast_to_dyn(a)])
+      @base.Dyn::variant("Alternative", Array::map(xs, fn(a) { ast_to_dyn(a) }))
+    NoCase(a) => @base.Dyn::variant("No_case", [ast_to_dyn(a)])
+    Case(a) => @base.Dyn::variant("Case", [ast_to_dyn(a)])
   }
 }
 
 ///|
-pub fn Ast::to_dyn(self : Ast) -> Dyn {
+pub fn Ast::to_dyn(self : Ast) -> @base.Dyn {
   ast_to_dyn(self)
 }
 
 // --- cset constructor ---
 
 ///|
-pub fn Ast::cset(c : Cset) -> Ast {
+pub fn Ast::cset(c : @base.Cset) -> Ast {
   Set(CsetOf(c))
 }
 
@@ -162,25 +162,25 @@ pub fn Ast::t_of_cset(x : AstCset) -> Ast {
 // --- handle_case ---
 
 ///|
-fn handle_case_cset(x : AstCset, ign_case : Bool) -> Cset {
+fn handle_case_cset(x : AstCset, ign_case : Bool) -> @base.Cset {
   match x {
-    CsetOf(s) => if ign_case { Cset::case_insens(s) } else { s }
+    CsetOf(s) => if ign_case { @base.Cset::case_insens(s) } else { s }
     Cast(Alternative(l)) => {
       let arr = Array::map(l, fn(x) { handle_case_cset(x, ign_case) })
-      Cset::union_all(arr)
+      @base.Cset::union_all(arr)
     }
     Complement(l) => {
       let arr = Array::map(l, fn(x) { handle_case_cset(x, ign_case) })
-      Cset::diff(Cset::cany(), Cset::union_all(arr))
+      @base.Cset::diff(@base.Cset::cany(), @base.Cset::union_all(arr))
     }
     Difference(r, r2) =>
-      Cset::inter(
+      @base.Cset::inter(
         handle_case_cset(r, ign_case),
-        Cset::diff(Cset::cany(), handle_case_cset(r2, ign_case)),
+        @base.Cset::diff(@base.Cset::cany(), handle_case_cset(r2, ign_case)),
       )
     Intersection(l) => {
       let arr = Array::map(l, fn(x) { handle_case_cset(x, ign_case) })
-      Cset::intersect_all(arr)
+      @base.Cset::intersect_all(arr)
     }
     Cast(NoCase(a)) => handle_case_cset(a, true)
     Cast(Case(a)) => handle_case_cset(a, false)
@@ -461,11 +461,11 @@ fn ast_colorize_rec(
     AstNode(NoCase(r2)) => ast_colorize_rec(color_map, lnl, r2)
     AstNode(Case(r2)) => ast_colorize_rec(color_map, lnl, r2)
     Repeat(r2, _, _) => ast_colorize_rec(color_map, lnl, r2)
-    BegOfLine => ColorMap::split(color_map, Cset::nl())
-    EndOfLine => ColorMap::split(color_map, Cset::nl())
-    BegOfWord => ColorMap::split(color_map, Cset::cword())
-    EndOfWord => ColorMap::split(color_map, Cset::cword())
-    NotBound => ColorMap::split(color_map, Cset::cword())
+    BegOfLine => ColorMap::split(color_map, @base.Cset::nl())
+    EndOfLine => ColorMap::split(color_map, @base.Cset::nl())
+    BegOfWord => ColorMap::split(color_map, @base.Cset::cword())
+    EndOfWord => ColorMap::split(color_map, @base.Cset::cword())
+    NotBound => ColorMap::split(color_map, @base.Cset::cword())
     BegOfStr => ()
     EndOfStr => ()
     Start => ()
@@ -499,8 +499,8 @@ pub fn Ast::seq(l : Array[Ast]) -> Ast {
 }
 
 ///|
-let ast_char_cache : (Int32) -> Ast = DenseMap::make(size=256, f=fn(i) {
-  Set(CsetOf(Cset::single(i)))
+let ast_char_cache : (Int32) -> Ast = @base.DenseMap::make(size=256, f=fn(i) {
+  Set(CsetOf(@base.Cset::single(i)))
 })
 
 ///|
@@ -510,7 +510,7 @@ pub fn Ast::char(c : Char) -> Ast {
 
 ///|
 pub fn Ast::any() -> Ast {
-  Set(CsetOf(Cset::cany()))
+  Set(CsetOf(@base.Cset::cany()))
 }
 
 ///|
@@ -662,27 +662,27 @@ fn preserve_set(f : (Ast) -> Ast, t : Ast) -> Ast {
 
 ///|
 pub fn Ast::longest(t : Ast) -> Ast {
-  preserve_set(fn(r) { Sem(Longest, r) }, t)
+  preserve_set(fn(r) { Sem(@base.Longest, r) }, t)
 }
 
 ///|
 pub fn Ast::shortest(t : Ast) -> Ast {
-  preserve_set(fn(r) { Sem(Shortest, r) }, t)
+  preserve_set(fn(r) { Sem(@base.Shortest, r) }, t)
 }
 
 ///|
 pub fn Ast::first(t : Ast) -> Ast {
-  preserve_set(fn(r) { Sem(First, r) }, t)
+  preserve_set(fn(r) { Sem(@base.First, r) }, t)
 }
 
 ///|
 pub fn Ast::greedy(t : Ast) -> Ast {
-  preserve_set(fn(r) { SemGreedy(Greedy, r) }, t)
+  preserve_set(fn(r) { SemGreedy(@base.Greedy, r) }, t)
 }
 
 ///|
 pub fn Ast::non_greedy(t : Ast) -> Ast {
-  preserve_set(fn(r) { SemGreedy(NonGreedy, r) }, t)
+  preserve_set(fn(r) { SemGreedy(@base.NonGreedy, r) }, t)
 }
 
 ///|
@@ -702,12 +702,12 @@ pub fn Ast::nest(r : Ast) -> Ast {
 
 ///|
 pub fn Ast::set(str : Bytes) -> Ast {
-  Set(CsetOf(Cset::set(str)))
+  Set(CsetOf(@base.Cset::set(str)))
 }
 
 ///|
-pub fn Ast::mark(r : Ast) -> (Pmark, Ast) {
-  let i = Pmark::gen()
+pub fn Ast::mark(r : Ast) -> (@base.Pmark, Ast) {
+  let i = @base.Pmark::gen()
   (i, Pmark(i, r))
 }
 

@@ -1,0 +1,78 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt/re_exec"
+
+import {
+  "walkzzz/re-mbt/re_ast",
+  "walkzzz/re-mbt/re_base",
+  "walkzzz/re-mbt/re_compile",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct CsetView {
+}
+pub fn CsetView::view(@re_base.Cset) -> Array[ViewRange]
+
+pub struct Replace {
+}
+pub fn Replace::replace(@re_compile.Re, Bytes, f~ : (@re_compile.GroupT) -> Bytes, pos? : Int32, len? : Int32, all? : Bool) -> Bytes raise
+pub fn Replace::replace_string(@re_compile.Re, Bytes, by~ : Bytes, pos? : Int32, len? : Int32, all? : Bool) -> Bytes raise
+
+pub struct Search {
+}
+pub fn Search::all(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[@re_compile.GroupT] raise
+pub fn Search::matches(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
+pub fn Search::split(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
+pub fn Search::split_delim(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
+pub fn Search::split_full(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[SplitToken] raise
+
+pub enum SplitToken {
+  SplitText(Bytes)
+  SplitDelim(@re_compile.GroupT)
+}
+
+pub struct View {
+}
+pub fn View::view(@re_ast.AstGen[@re_ast.AstCset]) -> ViewT
+
+pub struct ViewRange {
+  first : Char
+  last : Char
+}
+pub fn ViewRange::first(Self) -> Char
+pub fn ViewRange::last(Self) -> Char
+
+pub enum ViewT {
+  SetT(@re_base.Cset)
+  SequenceT(Array[@re_ast.AstGen[@re_ast.AstCset]])
+  AlternativeT(Array[@re_ast.AstGen[@re_ast.AstCset]])
+  RepeatT(@re_ast.AstGen[@re_ast.AstCset], Int32, Int32?)
+  BegOfLineT
+  EndOfLineT
+  BegOfWordT
+  EndOfWordT
+  NotBoundT
+  BegOfStrT
+  EndOfStrT
+  LastEndOfLineT
+  StartT
+  StopT
+  SemT(@re_base.Sem, @re_ast.AstGen[@re_ast.AstCset])
+  SemGreedyT(@re_base.RepKind, @re_ast.AstGen[@re_ast.AstCset])
+  GroupT(String?, @re_ast.AstGen[@re_ast.AstCset])
+  NoGroupT(@re_ast.AstGen[@re_ast.AstCset])
+  NestT(@re_ast.AstGen[@re_ast.AstCset])
+  CaseT(@re_ast.AstGen[@re_ast.AstCset])
+  NoCaseT(@re_ast.AstGen[@re_ast.AstCset])
+  IntersectionT(Array[@re_ast.AstGen[@re_ast.AstCset]])
+  ComplementT(Array[@re_ast.AstGen[@re_ast.AstCset]])
+  DifferenceT(@re_ast.AstGen[@re_ast.AstCset], @re_ast.AstGen[@re_ast.AstCset])
+  PmarkT(@re_base.Pmark, @re_ast.AstGen[@re_ast.AstCset])
+}
+
+// Type aliases
+
+// Traits

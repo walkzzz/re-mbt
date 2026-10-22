@@ -6,12 +6,12 @@
 ///|
 pub struct Marks {
   marks : Array[(Int32, Int32)] // (Mark.t, Idx.t)
-  pmarks : PmarkSet
+  pmarks : @base.PmarkSet
 }
 
 ///|
 pub fn Marks::empty() -> Marks {
-  { marks: [], pmarks: PmarkSet::empty(), }
+  { marks: [], pmarks: @base.PmarkSet::empty(), }
 }
 
 ///|
@@ -26,23 +26,23 @@ pub fn Marks::equal(m1 : Marks, m2 : Marks) -> Bool {
       return false
     }
   }
-  PmarkSet::equal(m1.pmarks, m2.pmarks)
+  @base.PmarkSet::equal(m1.pmarks, m2.pmarks)
 }
 
 ///|
-fn pmark_set_hash(s : PmarkSet) -> Int32 {
+fn pmark_set_hash(s : @base.PmarkSet) -> Int32 {
   let mut h = 0
-  s.iter(fn(p) { h = hash_combine(p.id, h) })
+  s.iter(fn(p) { h = @base.hash_combine(p.id, h) })
   h
 }
 
 ///|
 pub fn Marks::hash(m : Marks, accu : Int32) -> Int32 {
-  let accu1 = hash_combine(pmark_set_hash(m.pmarks), accu)
+  let accu1 = @base.hash_combine(pmark_set_hash(m.pmarks), accu)
   let mut result = accu1
   for p in m.marks {
     let (a, i) = p
-    result = hash_combine(a, hash_combine(i, result))
+    result = @base.hash_combine(a, @base.hash_combine(i, result))
   }
   result
 }
@@ -56,7 +56,7 @@ fn marks_set_idx_rec(
   let mut done = false
   for p in marks {
     let (a, idx2) = p
-    if !done && idx2 == Idx::unknown() {
+    if !done && idx2 == @base.Idx::unknown() {
       result.push((a, idx))
     } else {
       done = true
@@ -76,7 +76,7 @@ pub fn Marks::filter(m : Marks, b : Int32, e : Int32) -> Marks {
   let filtered : Array[(Int32, Int32)] = []
   for p in m.marks {
     let (i, _) = p
-    if Mark::outside_range(i, start_inclusive=b, stop_inclusive=e) {
+    if @base.Mark::outside_range(i, start_inclusive=b, stop_inclusive=e) {
       filtered.push(p)
     }
   }
@@ -85,7 +85,7 @@ pub fn Marks::filter(m : Marks, b : Int32, e : Int32) -> Marks {
 
 ///|
 pub fn Marks::set_mark(m : Marks, i : Int32) -> Marks {
-  let filtered : Array[(Int32, Int32)] = [(i, Idx::unknown())]
+  let filtered : Array[(Int32, Int32)] = [(i, @base.Idx::unknown())]
   for p in m.marks {
     let (mi, _) = p
     if mi != i {
@@ -96,7 +96,7 @@ pub fn Marks::set_mark(m : Marks, i : Int32) -> Marks {
 }
 
 ///|
-pub fn Marks::set_pmark(m : Marks, i : Pmark) -> Marks {
+pub fn Marks::set_pmark(m : Marks, i : @base.Pmark) -> Marks {
   { marks: m.marks, pmarks: m.pmarks.add(i), }
 }
 
@@ -105,7 +105,7 @@ pub fn Marks::set_pmark(m : Marks, i : Pmark) -> Marks {
 ///|
 pub enum Status {
   Failed
-  Match(MarkInfos, PmarkSet)
+  Match(@base.MarkInfos, @base.PmarkSet)
   Running
 }
 
@@ -113,7 +113,7 @@ pub enum Status {
 
 ///|
 pub enum ET {
-  TSeq(Sem, Array[ET], Expr)
+  TSeq(@base.Sem, Array[ET], Expr)
   TExp(Marks, Expr)
   TMatch(Marks)
 }
@@ -142,7 +142,7 @@ pub fn Desc::initial(expr : Expr) -> Array[ET] {
 
 ///|
 pub fn Desc::tseq(
-  kind : Sem,
+  kind : @base.Sem,
   x : Array[ET],
   y : Expr,
   rem : Array[ET],
@@ -241,14 +241,14 @@ pub fn Desc::status(t : Array[ET]) -> Status {
     Failed
   } else {
     match t[0] {
-      TMatch(m) => Match(MarkInfos::make(m.marks), m.pmarks)
+      TMatch(m) => Match(@base.MarkInfos::make(m.marks), m.pmarks)
       _ => Running
     }
   }
 }
 
 ///|
-pub fn Desc::status_is_ambiguous(t : Array[ET], ambiguity_mark : Pmark) -> Bool {
+pub fn Desc::status_is_ambiguous(t : Array[ET], ambiguity_mark : @base.Pmark) -> Bool {
   if t.length() > 0 {
     match t[0] {
       TMatch(m) => m.pmarks.mem(ambiguity_mark)
@@ -325,16 +325,16 @@ pub fn ET::equal_list(l1 : Array[ET], l2 : Array[ET]) -> Bool {
 pub fn ET::hash(e : ET, accu : Int32) -> Int32 {
   match e {
     TSeq(_, l, expr) =>
-      hash_combine(
+      @base.hash_combine(
         0x172a1bce,
-        hash_combine(Expr::id(expr), ET::hash_list(l, accu)),
+        @base.hash_combine(Expr::id(expr), ET::hash_list(l, accu)),
       )
     TExp(marks, expr) =>
-      hash_combine(
+      @base.hash_combine(
         0x2b4c0d77,
-        hash_combine(Expr::id(expr), Marks::hash(marks, accu)),
+        @base.hash_combine(Expr::id(expr), Marks::hash(marks, accu)),
       )
-    TMatch(marks) => hash_combine(0x1c205ad5, Marks::hash(marks, accu))
+    TMatch(marks) => @base.hash_combine(0x1c205ad5, Marks::hash(marks, accu))
   }
 }
 
@@ -363,7 +363,7 @@ pub fn Desc::hash(t : Array[ET], accu : Int32) -> Int32 {
 
 ///|
 fn desc_remove_duplicates_loop(
-  seen : HashSet,
+  seen : @base.HashSet,
   l : Array[ET],
   start : Int32,
   y : Expr,
@@ -396,7 +396,7 @@ fn desc_remove_duplicates_loop(
 
 ///|
 pub fn Desc::remove_duplicates(
-  seen : HashSet,
+  seen : @base.HashSet,
   l : Array[ET],
   y : Expr,
 ) -> Array[ET] {

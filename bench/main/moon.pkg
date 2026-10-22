@@ -1,5 +1,7 @@
 import {
-  "walkzzz/re-mbt/re",
+  "walkzzz/re-mbt/re_compile" @compile,
+  "walkzzz/re-mbt/re_exec" @exec,
+  "walkzzz/re-mbt/re_frontend" @frontend,
 }
 
 supported_targets = "native"

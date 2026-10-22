@@ -5,8 +5,8 @@
 
 ///|
 priv enum Ctx {
-  CDelta(Int32, Category, Category) // (c, prev_cat, next_cat)
-  CAdvance(Category, Pmark) // (prev_cat, ambiguity_mark)
+  CDelta(Int32, @base.Category, @base.Category) // (c, prev_cat, next_cat)
+  CAdvance(@base.Category, @base.Pmark) // (prev_cat, ambiguity_mark)
 }
 
 // --- State ---
@@ -14,20 +14,20 @@ priv enum Ctx {
 ///|
 pub struct State {
   idx : Int32 // Idx.t
-  category : Category
+  category : @base.Category
   desc : Array[ET] // Desc.t
   mut status : Status?
   hash : Int32
 }
 
 ///|
-fn state_compute_hash(idx : Int32, cat : Category, desc : Array[ET]) -> Int32 {
-  Desc::hash(desc, hash_combine(idx, hash_combine(Category::to_int(cat), 0))) &
+fn state_compute_hash(idx : Int32, cat : @base.Category, desc : Array[ET]) -> Int32 {
+  Desc::hash(desc, @base.hash_combine(idx, @base.hash_combine(@base.Category::to_int(cat), 0))) &
   0x3FFFFFFF
 }
 
 ///|
-pub fn State::mk(idx : Int32, cat : Category, desc : Array[ET]) -> State {
+pub fn State::mk(idx : Int32, cat : @base.Category, desc : Array[ET]) -> State {
   {
     idx,
     category: cat,
@@ -38,15 +38,15 @@ pub fn State::mk(idx : Int32, cat : Category, desc : Array[ET]) -> State {
 }
 
 ///|
-pub fn State::create(cat : Category, e : Expr) -> State {
-  State::mk(Idx::initial(), cat, Desc::initial(e))
+pub fn State::create(cat : @base.Category, e : Expr) -> State {
+  State::mk(@base.Idx::initial(), cat, Desc::initial(e))
 }
 
 ///|
 pub fn State::dummy() -> State {
   {
-    idx: Idx::unknown(),
-    category: Category::dummy(),
+    idx: @base.Idx::unknown(),
+    category: @base.Category::dummy(),
     desc: Desc::empty(),
     status: None,
     hash: -1,
@@ -62,7 +62,7 @@ pub fn State::idx(s : State) -> Int32 {
 pub fn State::equal(s1 : State, s2 : State) -> Bool {
   s1.hash == s2.hash &&
   s1.idx == s2.idx &&
-  Category::equal(s1.category, s2.category) &&
+  @base.Category::equal(s1.category, s2.category) &&
   Desc::equal(s1.desc, s2.desc)
 }
 
@@ -84,22 +84,22 @@ pub fn State::status(s : State) -> Status {
 }
 
 ///|
-pub fn State::to_dyn(s : State) -> Dyn {
-  Dyn::variant("State", [Dyn::int(s.idx)])
+pub fn State::to_dyn(s : State) -> @base.Dyn {
+  @base.Dyn::variant("State", [@base.Dyn::int(s.idx)])
 }
 
 // --- WorkingArea ---
 
 ///|
 pub struct WorkingArea {
-  mut ids : BitVector
-  seen : HashSet
+  mut ids : @base.BitVector
+  seen : @base.HashSet
   mut index_count : Int32
 }
 
 ///|
 pub fn WorkingArea::create() -> WorkingArea {
-  { ids: BitVector::create_zero(1), seen: HashSet::create(), index_count: 0, }
+  { ids: @base.BitVector::create_zero(1), seen: @base.HashSet::create(), index_count: 0, }
 }
 
 ///|
@@ -108,11 +108,11 @@ pub fn WorkingArea::index_count(w : WorkingArea) -> Int32 {
 }
 
 ///|
-fn mark_used_indices(tbl : BitVector, l : Array[ET]) -> Unit {
+fn mark_used_indices(tbl : @base.BitVector, l : Array[ET]) -> Unit {
   Desc::iter_marks(l, fn(marks) {
     for p in marks.marks {
       let (_, i) = p
-      if Idx::used(i) {
+      if @base.Idx::used(i) {
         if i < tbl.length() {
           tbl.unsafe_set(i, true)
         }
@@ -122,7 +122,7 @@ fn mark_used_indices(tbl : BitVector, l : Array[ET]) -> Unit {
 }
 
 ///|
-fn find_free(tbl : BitVector, idx : Int32, len : Int32) -> Int32 {
+fn find_free(tbl : @base.BitVector, idx : Int32, len : Int32) -> Int32 {
   if idx == len || !tbl.unsafe_get(idx) {
     idx
   } else {
@@ -137,7 +137,7 @@ pub fn WorkingArea::free_index(t : WorkingArea, l : Array[ET]) -> Int32 {
   let len = t.ids.length()
   let idx = find_free(t.ids, 0, len)
   if idx == len {
-    t.ids = BitVector::create_zero(2 * len)
+    t.ids = @base.BitVector::create_zero(2 * len)
     t.index_count = 2 * len
   }
   idx
@@ -151,7 +151,7 @@ fn delta_expr(ctx : Ctx, marks : Marks, x : Expr, rem : Array[ET]) -> Array[ET] 
     Cst(_, s) =>
       match ctx {
         CDelta(c, _, _) =>
-          if Cset::mem(c, s) {
+          if @base.Cset::mem(c, s) {
             Desc::add_eps(rem, marks)
           } else {
             rem
@@ -172,7 +172,7 @@ fn delta_expr(ctx : Ctx, marks : Marks, x : Expr, rem : Array[ET]) -> Array[ET] 
     Before(_, cat) =>
       match ctx {
         CDelta(_, _, next_cat) =>
-          if Category::intersect(next_cat, cat) {
+          if @base.Category::intersect(next_cat, cat) {
             Desc::add_match(rem, marks)
           } else {
             rem
@@ -185,7 +185,7 @@ fn delta_expr(ctx : Ctx, marks : Marks, x : Expr, rem : Array[ET]) -> Array[ET] 
         CDelta(_, prev_cat, _) => prev_cat
         CAdvance(prev_cat, _) => prev_cat
       }
-      if Category::intersect(prev_cat, cat) {
+      if @base.Category::intersect(prev_cat, cat) {
         Desc::add_match(rem, marks)
       } else {
         rem
@@ -199,8 +199,8 @@ fn delta_rep(
   ctx : Ctx,
   marks : Marks,
   x : Expr,
-  rep_kind : RepKind,
-  kind : Sem,
+  rep_kind : @base.RepKind,
+  kind : @base.Sem,
   y : Expr,
   rem : Array[ET],
 ) -> Array[ET] {
@@ -210,8 +210,8 @@ fn delta_rep(
     Some(m) => (Desc::remove_matches(y0), m)
   }
   match rep_kind {
-    Greedy => Desc::tseq(kind, y1, x, Desc::add_match(rem, marks2))
-    NonGreedy => Desc::add_match(Desc::tseq(kind, y1, x, rem), marks2)
+    @base.Greedy => Desc::tseq(kind, y1, x, Desc::add_match(rem, marks2))
+    @base.NonGreedy => Desc::add_match(Desc::tseq(kind, y1, x, rem), marks2)
   }
 }
 
@@ -233,7 +233,7 @@ fn delta_alt(
 ///|
 fn delta_seq(
   ctx : Ctx,
-  kind : Sem,
+  kind : @base.Sem,
   y : Array[ET],
   z : Expr,
   rem : Array[ET],
@@ -242,21 +242,21 @@ fn delta_seq(
     None => Desc::tseq(kind, y, z, rem)
     Some(marks) =>
       match kind {
-        Longest =>
+        @base.Longest =>
           Desc::tseq(
             kind,
             Desc::remove_matches(y),
             z,
             delta_expr(ctx, marks, z, rem),
           )
-        Shortest =>
+        @base.Shortest =>
           delta_expr(
             ctx,
             marks,
             z,
             Desc::tseq(kind, Desc::remove_matches(y), z, rem),
           )
-        First => {
+        @base.First => {
           let (y1, y2) = Desc::split_at_match(y)
           Desc::tseq(
             kind,
@@ -291,7 +291,7 @@ fn delta_desc(ctx : Ctx, l : Array[ET], rem : Array[ET]) -> Array[ET] {
 ///|
 fn create_state(
   tbl_ref : WorkingArea,
-  next_cat : Category,
+  next_cat : @base.Category,
   expr : Array[ET],
 ) -> State {
   let idx = WorkingArea::free_index(tbl_ref, expr)
@@ -302,7 +302,7 @@ fn create_state(
 ///|
 pub fn delta(
   tbl_ref : WorkingArea,
-  next_cat : Category,
+  next_cat : @base.Category,
   char : Int32,
   st : State,
 ) -> State {
@@ -318,7 +318,7 @@ pub fn delta(
 
 ///|
 pub fn advance(tbl_ref : WorkingArea, st : State) -> State {
-  let ambiguity_mark = Pmark::gen()
+  let ambiguity_mark = @base.Pmark::gen()
   let prev_cat = st.category
   let ctx = CAdvance(prev_cat, ambiguity_mark)
   let desc = Desc::remove_duplicates(

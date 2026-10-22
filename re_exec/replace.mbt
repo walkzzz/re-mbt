@@ -6,9 +6,9 @@ pub struct Replace {}
 
 ///|
 pub fn Replace::replace(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
-  f~ : (GroupT) -> Bytes,
+  f~ : (@compile.GroupT) -> Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
   all~ : Bool = true,
@@ -33,7 +33,7 @@ pub fn Replace::replace(
       done = true
     } else {
       match
-        match_str(
+        @compile.match_str(
           groups=true,
           partial=false,
           re,
@@ -41,9 +41,9 @@ pub fn Replace::replace(
           pos=cur_pos,
           len=limit - cur_pos,
         ) {
-        MatchInfo(substr) => {
-          let p1 = GroupT::start_offset(substr, 0)
-          let p2 = GroupT::stop_offset(substr, 0)
+        @compile.MatchInfo(substr) => {
+          let p1 = @compile.GroupT::start_offset(substr, 0)
+          let p2 = @compile.GroupT::stop_offset(substr, 0)
           if cur_pos == p1 && p1 == p2 && on_match {
             if p2 < limit {
               buf.push(s[p2])
@@ -91,7 +91,7 @@ pub fn Replace::replace(
 
 ///|
 pub fn Replace::replace_string(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
   by~ : Bytes,
   pos~ : Int32 = 0,
@@ -99,5 +99,5 @@ pub fn Replace::replace_string(
   all~ : Bool = true,
 ) -> Bytes raise {
   let by_val = by
-  Replace::replace(re, s, f=fn(_ : GroupT) { by_val }, pos~, len~, all~)
+  Replace::replace(re, s, f=fn(_ : @compile.GroupT) { by_val }, pos~, len~, all~)
 }

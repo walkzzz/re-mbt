@@ -58,8 +58,8 @@ pub fn CompileIdx::break_idx(t : Int32) -> Int32 {
 ///|
 pub struct StateInfo {
   idx : Int32 // CompileIdx.t
-  final_ : Array[(Category, (Int32, Status))] // (cat, (idx, status))
-  desc : State // Automata.State.t
+  final_ : Array[(@base.Category, (Int32, @ast.Status))] // (cat, (idx, status))
+  desc : @ast.State // Automata.State.t
 }
 
 // --- CompileState: state with transition table ---
@@ -105,14 +105,14 @@ pub fn CompileState::is_unknown_transition(
 
 ///|
 pub struct StateHashTable {
-  buckets : Array[Array[(State, CompileState)]]
+  buckets : Array[Array[(@ast.State, CompileState)]]
   mut size : Int32
 }
 
 ///|
 pub fn StateHashTable::create(capacity : Int32) -> StateHashTable {
   let n = if capacity < 1 { 1 } else { capacity }
-  let buckets : Array[Array[(State, CompileState)]] = []
+  let buckets : Array[Array[(@ast.State, CompileState)]] = []
   for _ in 0..<n {
     buckets.push([])
   }
@@ -120,12 +120,12 @@ pub fn StateHashTable::create(capacity : Int32) -> StateHashTable {
 }
 
 ///|
-pub fn StateHashTable::find(tbl : StateHashTable, key : State) -> CompileState? {
+pub fn StateHashTable::find(tbl : StateHashTable, key : @ast.State) -> CompileState? {
   let h = key.hash.reinterpret_as_uint().reinterpret_as_int() &
     (tbl.buckets.length() - 1)
   for p in tbl.buckets[h] {
     let (k, v) = p
-    if State::equal(k, key) {
+    if @ast.State::equal(k, key) {
       return Some(v)
     }
   }
@@ -135,7 +135,7 @@ pub fn StateHashTable::find(tbl : StateHashTable, key : State) -> CompileState? 
 ///|
 pub fn StateHashTable::add(
   tbl : StateHashTable,
-  key : State,
+  key : @ast.State,
   value : CompileState,
 ) -> Unit {
   let h = key.hash.reinterpret_as_uint().reinterpret_as_int() &
@@ -148,13 +148,13 @@ pub fn StateHashTable::add(
 
 ///|
 pub struct Re {
-  initial : Expr
-  initial_states : Array[(Category, CompileState)]
-  colors : ColorTable
-  color_repr : ColorRepr
+  initial : @ast.Expr
+  initial_states : Array[(@base.Category, CompileState)]
+  colors : @ast.ColorTable
+  color_repr : @ast.ColorRepr
   ncolor : Int32
   lnl : Int32 // Cset.c (color index)
-  tbl : WorkingArea
+  tbl : @ast.WorkingArea
   states : StateHashTable
   group_names : Array[(String, Int32)]
   group_count : Int32
@@ -228,7 +228,7 @@ pub fn Positions::first(t : Positions) -> Int32 {
 ///|
 pub fn Positions::make(groups~ : Bool, re : Re) -> Positions {
   if groups {
-    let length = WorkingArea::index_count(re.tbl) + 1
+    let length = @ast.WorkingArea::index_count(re.tbl) + 1
     { positions: Array::make(length, 0), length, }
   } else {
     Positions::empty()
@@ -238,38 +238,38 @@ pub fn Positions::make(groups~ : Bool, re : Re) -> Positions {
 // --- category ---
 
 ///|
-let category_lnl : Category = Category::add(
-  Category::add(Category::lastnewline(), Category::newline()),
-  Category::not_letter(),
+let category_lnl : @base.Category = @base.Category::add(
+  @base.Category::add(@base.Category::lastnewline(), @base.Category::newline()),
+  @base.Category::not_letter(),
 )
 
 ///|
-fn compile_category(re : Re, color : Int32) -> Category {
-  if CsetC::equal_c(color, CsetC::null_char()) {
-    Category::inexistant()
-  } else if CsetC::equal_c(color, re.lnl) {
+fn compile_category(re : Re, color : Int32) -> @base.Category {
+  if @base.CsetC::equal_c(color, @base.CsetC::null_char()) {
+    @base.Category::inexistant()
+  } else if @base.CsetC::equal_c(color, re.lnl) {
     category_lnl
   } else {
-    Category::from_char(re.color_repr.repr(color).to_int().unsafe_to_char())
+    @base.Category::from_char(re.color_repr.repr(color).to_int().unsafe_to_char())
   }
 }
 
 // --- find_state ---
 
 ///|
-fn find_state(re : Re, desc : State) -> CompileState {
+fn find_state(re : Re, desc : @ast.State) -> CompileState {
   match StateHashTable::find(re.states, desc) {
     Some(st) => st
     None => {
-      let break_state = match State::status_no_mutex(desc) {
+      let break_state = match @ast.State::status_no_mutex(desc) {
         Running => false
         Failed => true
         Match(_, _) => true
       }
       let info_idx = if break_state {
-        CompileIdx::make_break(State::idx(desc))
+        CompileIdx::make_break(@ast.State::idx(desc))
       } else {
-        CompileIdx::of_idx(State::idx(desc))
+        CompileIdx::of_idx(@ast.State::idx(desc))
       }
       let st_info = { idx: info_idx, final_: [], desc, }
       let st = if break_state {
@@ -291,7 +291,7 @@ fn compile_unknown_state() -> CompileState {
   let unknown_info : StateInfo = {
     idx: CompileIdx::unknown(),
     final_: [],
-    desc: State::dummy(),
+    desc: @ast.State::dummy(),
   }
   { info: unknown_info, transitions: [], }
 }
@@ -299,8 +299,8 @@ fn compile_unknown_state() -> CompileState {
 // --- delta and validate ---
 
 ///|
-fn compile_delta(re : Re, cat : Category, color : Int32, st : State) -> State {
-  delta(re.tbl, cat, color, st)
+fn compile_delta(re : Re, cat : @base.Category, color : Int32, st : @ast.State) -> @ast.State {
+  @ast.delta(re.tbl, cat, color, st)
 }
 
 ///|
@@ -316,7 +316,7 @@ fn validate(re : Re, s : Bytes, pos : Int32, st : CompileState) -> Unit {
 
 ///|
 fn next_state(
-  colors : ColorTable,
+  colors : @ast.ColorTable,
   st : CompileState,
   s : Bytes,
   pos : Int32,
@@ -329,7 +329,7 @@ fn next_state(
 ///|
 fn match_loop(
   re : Re,
-  colors : ColorTable,
+  colors : @ast.ColorTable,
   positions : Positions,
   s : Bytes,
   pos : Int32,
@@ -363,7 +363,7 @@ fn match_loop(
 ///|
 fn match_loop_no_mark(
   re : Re,
-  colors : ColorTable,
+  colors : @ast.ColorTable,
   s : Bytes,
   pos : Int32,
   last : Int32,
@@ -392,12 +392,12 @@ fn match_loop_no_mark(
 fn find_or_add_final(
   re : Re,
   st : StateInfo,
-  cat : Category,
-  f : (Re, StateInfo, Category) -> (Int32, Status),
-) -> (Int32, Status) {
+  cat : @base.Category,
+  f : (Re, StateInfo, @base.Category) -> (Int32, @ast.Status),
+) -> (Int32, @ast.Status) {
   for p in st.final_ {
     let (c, res) = p
-    if Category::equal(c, cat) {
+    if @base.Category::equal(c, cat) {
       return res
     }
   }
@@ -407,25 +407,25 @@ fn find_or_add_final(
 }
 
 ///|
-fn final_state(re : Re, st : StateInfo, cat : Category) -> (Int32, Status) {
-  let st2 = compile_delta(re, cat, CsetC::null_char(), st.desc)
-  (State::idx(st2), State::status_no_mutex(st2))
+fn final_state(re : Re, st : StateInfo, cat : @base.Category) -> (Int32, @ast.Status) {
+  let st2 = compile_delta(re, cat, @base.CsetC::null_char(), st.desc)
+  (@ast.State::idx(st2), @ast.State::status_no_mutex(st2))
 }
 
 ///|
-fn advance_state(re : Re, st : StateInfo, _cat : Category) -> (Int32, Status) {
-  let st2 = advance(re.tbl, st.desc)
-  (State::idx(st2), State::status_no_mutex(st2))
+fn advance_state(re : Re, st : StateInfo, _cat : @base.Category) -> (Int32, @ast.Status) {
+  let st2 = @ast.advance(re.tbl, st.desc)
+  (@ast.State::idx(st2), @ast.State::status_no_mutex(st2))
 }
 
 ///|
-fn compile_final(re : Re, st : StateInfo, cat : Category) -> (Int32, Status) {
+fn compile_final(re : Re, st : StateInfo, cat : @base.Category) -> (Int32, @ast.Status) {
   find_or_add_final(re, st, cat, fn(r, si, c) { final_state(r, si, c) })
 }
 
 ///|
-fn compile_advance(re : Re, st : StateInfo) -> (Int32, Status) {
-  find_or_add_final(re, st, Category::dummy(), fn(r, si, c) {
+fn compile_advance(re : Re, st : StateInfo) -> (Int32, @ast.Status) {
+  find_or_add_final(re, st, @base.Category::dummy(), fn(r, si, c) {
     advance_state(r, si, c)
   })
 }
@@ -433,14 +433,14 @@ fn compile_advance(re : Re, st : StateInfo) -> (Int32, Status) {
 // --- find_initial_state ---
 
 ///|
-fn find_initial_state(re : Re, cat : Category) -> CompileState {
+fn find_initial_state(re : Re, cat : @base.Category) -> CompileState {
   for p in re.initial_states {
     let (c, st) = p
-    if Category::equal(c, cat) {
+    if @base.Category::equal(c, cat) {
       return st
     }
   }
-  let st = find_state(re, State::create(cat, re.initial))
+  let st = find_state(re, @ast.State::create(cat, re.initial))
   re.initial_states.push((cat, st))
   st
 }
@@ -450,13 +450,13 @@ fn find_initial_state(re : Re, cat : Category) -> CompileState {
 ///|
 fn get_color(re : Re, s : Bytes, pos : Int32) -> Int32 {
   if pos < 0 {
-    CsetC::null_char()
+    @base.CsetC::null_char()
   } else {
     let slen = s.length()
     if pos >= slen {
-      CsetC::null_char()
+      @base.CsetC::null_char()
     } else if pos == slen - 1 &&
-      !CsetC::equal_c(re.lnl, CsetC::null_char()) &&
+      !@base.CsetC::equal_c(re.lnl, @base.CsetC::null_char()) &&
       s[pos].to_int() == 10 {
       re.lnl
     } else {
@@ -513,7 +513,7 @@ fn scan_str(
   groups : Bool,
 ) -> CompileState {
   if last == s.length() &&
-    !CsetC::equal_c(re.lnl, CsetC::null_char()) &&
+    !@base.CsetC::equal_c(re.lnl, @base.CsetC::null_char()) &&
     last > pos &&
     s[last - 1].to_int() == 10 {
     let last2 = last - 1
@@ -558,11 +558,11 @@ fn final_boundary_check(
   s : Bytes,
   state_info : StateInfo,
   groups : Bool,
-) -> Status {
-  let final_cat = Category::add(
-    Category::search_boundary(),
+) -> @ast.Status {
+  let final_cat = @base.Category::add(
+    @base.Category::search_boundary(),
     if last == slen {
-      Category::inexistant()
+      @base.Category::inexistant()
     } else {
       compile_category(re, get_color(re, s, last))
     },
@@ -584,7 +584,7 @@ fn final_advance(
   last : Int32,
   state_info : StateInfo,
   groups : Bool,
-) -> Status {
+) -> @ast.Status {
   let (idx, res) = compile_advance(re, state_info)
   if groups {
     match res {
@@ -609,8 +609,8 @@ pub enum MatchInfo {
 ///|
 pub struct GroupT {
   s : Bytes
-  marks : MarkInfos
-  pmarks : PmarkSet
+  marks : @base.MarkInfos
+  pmarks : @base.PmarkSet
   gpos : Array[Int32]
   gcount : Int32
 }
@@ -618,8 +618,8 @@ pub struct GroupT {
 ///|
 pub fn GroupT::create(
   s : Bytes,
-  marks : MarkInfos,
-  pmarks : PmarkSet,
+  marks : @base.MarkInfos,
+  pmarks : @base.PmarkSet,
   gpos : Array[Int32],
   gcount : Int32,
 ) -> GroupT {
@@ -628,7 +628,7 @@ pub fn GroupT::create(
 
 ///|
 pub fn GroupT::get(g : GroupT, i : Int32) -> Bytes? {
-  match MarkInfos::offset(g.marks, i) {
+  match @base.MarkInfos::offset(g.marks, i) {
     None => None
     Some((start, stop)) => {
       let s_start = g.gpos[start]
@@ -658,14 +658,14 @@ fn make_match_str(
   partial : Bool,
   s : Bytes,
   pos : Int32,
-) -> Status {
+) -> @ast.Status {
   let slen = s.length()
   let last = if len == -1 { slen } else { pos + len }
   let initial_state = {
-    let initial_cat = Category::add(
-      Category::search_boundary(),
+    let initial_cat = @base.Category::add(
+      @base.Category::search_boundary(),
       if pos == 0 {
-        Category::inexistant()
+        @base.Category::inexistant()
       } else {
         compile_category(re, get_color(re, s, pos - 1))
       },
@@ -675,13 +675,13 @@ fn make_match_str(
   let st = scan_str(re, positions, s, initial_state, last, pos, groups)
   let state_info = st.info
   if partial {
-    match State::status(state_info.desc) {
+    match @ast.State::status(state_info.desc) {
       Match(_, _) as status => status
       Failed as status => status
       Running => final_advance(re, positions, last, state_info, groups)
     }
   } else if CompileIdx::is_break(state_info.idx) {
-    State::status(state_info.desc)
+    @ast.State::status(state_info.desc)
   } else {
     final_boundary_check(re, positions, last, slen, s, state_info, groups)
   }
@@ -761,9 +761,9 @@ pub fn match_str_p(
 
 ///|
 pub fn mk_re(
-  initial~ : Expr,
-  colors~ : ColorTable,
-  color_repr~ : ColorRepr,
+  initial~ : @ast.Expr,
+  colors~ : @ast.ColorTable,
+  color_repr~ : @ast.ColorRepr,
   ncolor~ : Int32,
   lnl~ : Int32,
   group_names~ : Array[(String, Int32)],
@@ -776,7 +776,7 @@ pub fn mk_re(
     color_repr,
     ncolor,
     lnl,
-    tbl: WorkingArea::create(),
+    tbl: @ast.WorkingArea::create(),
     states: StateHashTable::create(64),
     group_names,
     group_count,

@@ -6,17 +6,17 @@ pub struct Str {}
 
 ///|
 struct StrRegexp {
-  mtch : Re
-  srch : Re
+  mtch : @compile.Re
+  srch : @compile.Re
 }
 
 ///|
-let str_state : Ref[GroupT?] = Ref::{ val: None, }
+let str_state : Ref[@compile.GroupT?] = Ref::{ val: None, }
 
 ///|
 pub fn Str::compile_regexp(s : Bytes, case_fold : Bool) -> StrRegexp raise {
   let re = Emacs::re_no_emacs(s, case=!case_fold)
-  { mtch: compile(Ast::seq([Ast::start(), re])), srch: compile(re), }
+  { mtch: @compile.compile(@ast.Ast::seq([@ast.Ast::start(), re])), srch: @compile.compile(re), }
 }
 
 ///|
@@ -57,7 +57,7 @@ pub fn Str::regexp_string(s : Bytes) -> StrRegexp raise {
 
 ///|
 pub fn Str::string_match(re : StrRegexp, s : Bytes, p : Int32) -> Bool raise {
-  match exec_opt(re.mtch, s, pos=p) {
+  match @compile.exec_opt(re.mtch, s, pos=p) {
     Some(res) => {
       str_state.val = Some(res)
       true
@@ -71,10 +71,10 @@ pub fn Str::string_match(re : StrRegexp, s : Bytes, p : Int32) -> Bool raise {
 
 ///|
 pub fn Str::search_forward(re : StrRegexp, s : Bytes, p : Int32) -> Int32 raise {
-  match exec_opt(re.srch, s, pos=p) {
+  match @compile.exec_opt(re.srch, s, pos=p) {
     Some(res) => {
       str_state.val = Some(res)
-      GroupT::start(res, 0)
+      @compile.GroupT::start(res, 0)
     }
     None => fail("Str.search_forward: not found")
   }
@@ -83,7 +83,7 @@ pub fn Str::search_forward(re : StrRegexp, s : Bytes, p : Int32) -> Int32 raise 
 ///|
 pub fn Str::match_beginning() -> Int32 raise {
   match str_state.val {
-    Some(m) => GroupT::start(m, 0)
+    Some(m) => @compile.GroupT::start(m, 0)
     None => fail("Str: no match")
   }
 }
@@ -91,7 +91,7 @@ pub fn Str::match_beginning() -> Int32 raise {
 ///|
 pub fn Str::match_end() -> Int32 raise {
   match str_state.val {
-    Some(m) => GroupT::stop(m, 0)
+    Some(m) => @compile.GroupT::stop(m, 0)
     None => fail("Str: no match")
   }
 }
@@ -99,7 +99,7 @@ pub fn Str::match_end() -> Int32 raise {
 ///|
 pub fn Str::matched_string(_txt : Bytes) -> Bytes raise {
   match str_state.val {
-    Some(m) => GroupT::get(m, 0).unwrap()
+    Some(m) => @compile.GroupT::get(m, 0).unwrap()
     None => fail("Str: no match")
   }
 }
@@ -107,7 +107,7 @@ pub fn Str::matched_string(_txt : Bytes) -> Bytes raise {
 ///|
 pub fn Str::group_beginning(n : Int32) -> Int32 raise {
   match str_state.val {
-    Some(m) => GroupT::start(m, n)
+    Some(m) => @compile.GroupT::start(m, n)
     None => fail("Str: no match")
   }
 }
@@ -115,7 +115,7 @@ pub fn Str::group_beginning(n : Int32) -> Int32 raise {
 ///|
 pub fn Str::group_end(n : Int32) -> Int32 raise {
   match str_state.val {
-    Some(m) => GroupT::stop(m, n)
+    Some(m) => @compile.GroupT::stop(m, n)
     None => fail("Str: no match")
   }
 }
@@ -123,7 +123,7 @@ pub fn Str::group_end(n : Int32) -> Int32 raise {
 ///|
 pub fn Str::matched_group(n : Int32, _txt : Bytes) -> Bytes raise {
   match str_state.val {
-    Some(m) => GroupT::get(m, n).unwrap()
+    Some(m) => @compile.GroupT::get(m, n).unwrap()
     None => fail("Str: no match")
   }
 }
@@ -188,10 +188,10 @@ pub fn Str::bounded_split(
   let mut cur = start
   let mut n = num
   while cur < text.length() && n != 1 {
-    match exec_opt(re.srch, text, pos=cur) {
+    match @compile.exec_opt(re.srch, text, pos=cur) {
       Some(m) => {
-        let pos = GroupT::start(m, 0)
-        let end_pos = GroupT::stop(m, 0)
+        let pos = @compile.GroupT::start(m, 0)
+        let end_pos = @compile.GroupT::stop(m, 0)
         str_state.val = Some(m)
         if end_pos > cur {
           let buf : Array[Byte] = []
@@ -230,12 +230,12 @@ pub fn Str::full_split(
   let result : Array[StrSplitResult] = []
   let mut cur = 0
   while cur < text.length() {
-    match exec_opt(re.srch, text, pos=cur) {
+    match @compile.exec_opt(re.srch, text, pos=cur) {
       Some(m) => {
-        let pos = GroupT::start(m, 0)
-        let end_pos = GroupT::stop(m, 0)
+        let pos = @compile.GroupT::start(m, 0)
+        let end_pos = @compile.GroupT::stop(m, 0)
         str_state.val = Some(m)
-        let matched = GroupT::get(m, 0).unwrap()
+        let matched = @compile.GroupT::get(m, 0).unwrap()
         if pos > cur {
           let buf : Array[Byte] = []
           for i in cur..<pos {
@@ -275,7 +275,7 @@ pub fn Str::search_backward(
 ) -> Int32 raise {
   let mut pos = p
   while pos >= 0 {
-    match exec_opt(re.mtch, s, pos~) {
+    match @compile.exec_opt(re.mtch, s, pos~) {
       Some(res) => {
         str_state.val = Some(res)
         return pos
@@ -296,7 +296,7 @@ pub fn Str::string_partial_match(
   s : Bytes,
   p : Int32,
 ) -> Bool raise {
-  match exec_partial(re.mtch, s, pos=p) {
+  match @compile.exec_partial(re.mtch, s, pos=p) {
     Full => Str::string_match(re, s, p)
     Partial => true
     Mismatch => false
@@ -326,7 +326,7 @@ fn str_replacement_text(repl : Bytes, orig : Bytes) -> Bytes raise {
         let group = c2 - 48
         match str_state.val {
           Some(m) =>
-            match GroupT::offset_opt(m, group) {
+            match @compile.GroupT::offset_opt(m, group) {
               Some((b, e)) =>
                 for i in b..<e {
                   result.push(orig[i])
@@ -368,10 +368,10 @@ pub fn Str::global_substitute(
       }
       break
     }
-    match exec_opt(re.srch, text, pos=startpos) {
+    match @compile.exec_opt(re.srch, text, pos=startpos) {
       Some(m) => {
-        let pos = GroupT::start(m, 0)
-        let end_pos = GroupT::stop(m, 0)
+        let pos = @compile.GroupT::start(m, 0)
+        let end_pos = @compile.GroupT::stop(m, 0)
         str_state.val = Some(m)
         for i in start..<pos {
           result.push(text[i])
@@ -400,10 +400,10 @@ pub fn Str::substitute_first(
   repl_fun : (Bytes) -> Bytes raise,
   text : Bytes,
 ) -> Bytes raise {
-  match exec_opt(re.srch, text) {
+  match @compile.exec_opt(re.srch, text) {
     Some(m) => {
-      let pos = GroupT::start(m, 0)
-      let end_pos = GroupT::stop(m, 0)
+      let pos = @compile.GroupT::start(m, 0)
+      let end_pos = @compile.GroupT::stop(m, 0)
       str_state.val = Some(m)
       let result : Array[Byte] = []
       for i in 0..<pos {
@@ -435,10 +435,10 @@ pub fn Str::bounded_split_delim(
   let mut cur = 0
   let mut n = num
   while cur <= text.length() && n != 1 {
-    match exec_opt(re.srch, text, pos=cur) {
+    match @compile.exec_opt(re.srch, text, pos=cur) {
       Some(m) => {
-        let pos = GroupT::start(m, 0)
-        let end_pos = GroupT::stop(m, 0)
+        let pos = @compile.GroupT::start(m, 0)
+        let end_pos = @compile.GroupT::stop(m, 0)
         str_state.val = Some(m)
         if end_pos > cur {
           let buf : Array[Byte] = []
@@ -478,12 +478,12 @@ pub fn Str::bounded_full_split(
   let mut cur = 0
   let mut n = num
   while cur < text.length() && n != 1 {
-    match exec_opt(re.srch, text, pos=cur) {
+    match @compile.exec_opt(re.srch, text, pos=cur) {
       Some(m) => {
-        let pos = GroupT::start(m, 0)
-        let end_pos = GroupT::stop(m, 0)
+        let pos = @compile.GroupT::start(m, 0)
+        let end_pos = @compile.GroupT::stop(m, 0)
         str_state.val = Some(m)
-        let matched = GroupT::get(m, 0).unwrap()
+        let matched = @compile.GroupT::get(m, 0).unwrap()
         if pos > cur {
           let buf : Array[Byte] = []
           for i in cur..<pos {

@@ -21,31 +21,31 @@ pub extend Dyn with @moonbitlang/core/debug.Debug::{to_repr}
 pub extend Dyn with Eq::{equal, not_equal}
 
 ///|
-fn Dyn::variant(name : String, args : Array[Dyn]) -> Dyn {
+pub fn Dyn::variant(name : String, args : Array[Dyn]) -> Dyn {
   Variant(name, args)
 }
 
 ///|
-fn Dyn::list(xs : Array[Dyn]) -> Dyn {
+pub fn Dyn::list(xs : Array[Dyn]) -> Dyn {
   List(xs)
 }
 
 ///|
-fn Dyn::int(x : Int32) -> Dyn {
+pub fn Dyn::int(x : Int32) -> Dyn {
   Int(x)
 }
 
 ///|
-fn Dyn::pair(x : Dyn, y : Dyn) -> Dyn {
+pub fn Dyn::pair(x : Dyn, y : Dyn) -> Dyn {
   Tuple([x, y])
 }
 
 ///|
-fn Dyn::enum_(name : String) -> Dyn {
+pub fn Dyn::enum_(name : String) -> Dyn {
   Enum(name)
 }
 
 ///|
-fn Dyn::string(s : String) -> Dyn {
+pub fn Dyn::string(s : String) -> Dyn {
   String(s)
 }

@@ -8,7 +8,7 @@ pub struct Search {}
 ///|
 pub enum SplitToken {
   SplitText(Bytes)
-  SplitDelim(GroupT)
+  SplitDelim(@compile.GroupT)
 }
 
 ///|
@@ -24,11 +24,11 @@ fn bytes_sub(s : Bytes, start : Int32, len : Int32) -> Bytes {
 
 ///|
 pub fn Search::all(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
-) -> Array[GroupT] raise {
+) -> Array[@compile.GroupT] raise {
   if pos < 0 {
     fail("Re.all: invalid pos")
   }
@@ -40,12 +40,12 @@ pub fn Search::all(
     }
     pos + len
   }
-  let result : Array[GroupT] = []
+  let result : Array[@compile.GroupT] = []
   let mut cur_pos = pos
   let mut on_match = false
   while cur_pos <= limit {
     match
-      match_str(
+      @compile.match_str(
         groups=true,
         partial=false,
         re,
@@ -53,9 +53,9 @@ pub fn Search::all(
         pos=cur_pos,
         len=limit - cur_pos,
       ) {
-      MatchInfo(substr) => {
-        let p1 = GroupT::start_offset(substr, 0)
-        let p2 = GroupT::stop_offset(substr, 0)
+      @compile.MatchInfo(substr) => {
+        let p1 = @compile.GroupT::start_offset(substr, 0)
+        let p2 = @compile.GroupT::stop_offset(substr, 0)
         if on_match && p1 == cur_pos && p1 == p2 {
           cur_pos = cur_pos + 1
           on_match = false
@@ -75,7 +75,7 @@ pub fn Search::all(
 
 ///|
 pub fn Search::matches(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
@@ -83,7 +83,7 @@ pub fn Search::matches(
   let groups = Search::all(re, s, pos~, len~)
   let result : Array[Bytes] = []
   for g in groups {
-    match GroupT::get(g, 0) {
+    match @compile.GroupT::get(g, 0) {
       Some(b) => result.push(b)
       None => result.push(Bytes::from_array([]))
     }
@@ -95,7 +95,7 @@ pub fn Search::matches(
 
 ///|
 pub fn Search::split_full(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
@@ -127,7 +127,7 @@ pub fn Search::split_full(
           break
         }
         match
-          match_str(
+          @compile.match_str(
             groups=true,
             partial=false,
             re,
@@ -135,9 +135,9 @@ pub fn Search::split_full(
             pos=cur_pos,
             len=limit - cur_pos,
           ) {
-          MatchInfo(substr) => {
-            let p1 = GroupT::start_offset(substr, 0)
-            let p2 = GroupT::stop_offset(substr, 0)
+          @compile.MatchInfo(substr) => {
+            let p1 = @compile.GroupT::start_offset(substr, 0)
+            let p2 = @compile.GroupT::stop_offset(substr, 0)
             let new_pos = if p1 == p2 { p2 + 1 } else { p2 }
             let old_i = i
             i = p2
@@ -172,7 +172,7 @@ pub fn Search::split_full(
 
 ///|
 pub fn Search::split(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
@@ -192,7 +192,7 @@ pub fn Search::split(
 
 ///|
 pub fn Search::split_delim(
-  re : Re,
+  re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,

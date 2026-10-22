@@ -19,7 +19,7 @@ pub fn bs(b : Bytes) -> String {
 }
 
 ///|
-fn[T] array_reverse(arr : Array[T]) -> Array[T] {
+pub fn[T] array_reverse(arr : Array[T]) -> Array[T] {
   let n = arr.length()
   let result : Array[T] = []
   for i in 0..<n {

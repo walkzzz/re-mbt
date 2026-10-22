@@ -2,7 +2,7 @@
 // Expr, Desc, State, delta/advance are in separate files.
 
 ///|
-pub enum Sem {
+pub(all) enum Sem {
   Longest
   Shortest
   First
@@ -18,7 +18,7 @@ pub extend Sem with Eq::{equal, not_equal}
 pub extend Sem with Compare::{compare, op_lt, op_le, op_gt, op_ge}
 
 ///|
-pub enum RepKind {
+pub(all) enum RepKind {
   Greedy
   NonGreedy
 } derive(Debug, Eq, Compare)
@@ -210,6 +210,6 @@ pub fn Ids::next(self : Ids) -> Int32 {
 // --- hash_combine ---
 
 ///|
-fn hash_combine(h : Int32, accu : Int32) -> Int32 {
+pub fn hash_combine(h : Int32, accu : Int32) -> Int32 {
   accu * 65599 + h
 }

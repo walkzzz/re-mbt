@@ -1,0 +1,168 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt/re_compile"
+
+import {
+  "moonbitlang/core/debug",
+  "walkzzz/re-mbt/re_ast",
+  "walkzzz/re-mbt/re_base",
+}
+
+// Values
+pub fn compile(@re_ast.AstGen[@re_ast.AstCset]) -> Re
+
+pub fn copy_re(Re) -> Re
+
+pub fn exec(Re, Bytes, pos? : Int32, len? : Int32) -> GroupT raise
+
+pub fn exec_opt(Re, Bytes, pos? : Int32, len? : Int32) -> GroupT? raise
+
+pub fn exec_partial(Re, Bytes, pos? : Int32, len? : Int32) -> ExecPartialResult raise
+
+pub fn exec_partial_detailed(Re, Bytes, pos? : Int32, len? : Int32) -> ExecPartialDetailedResult raise
+
+pub fn execp(Re, Bytes, pos? : Int32, len? : Int32) -> Bool raise
+
+pub fn match_str(groups~ : Bool, partial~ : Bool, Re, Bytes, pos~ : Int32, len~ : Int32) -> MatchInfo raise
+
+pub fn match_str_no_bounds(groups~ : Bool, partial~ : Bool, Re, Bytes, pos~ : Int32, len~ : Int32) -> MatchInfo
+
+pub fn match_str_p(Re, Bytes, pos~ : Int32, len~ : Int32) -> Bool raise
+
+pub fn mk_re(initial~ : @re_ast.Expr, colors~ : @re_ast.ColorTable, color_repr~ : @re_ast.ColorRepr, ncolor~ : Int32, lnl~ : Int32, group_names~ : Array[(String, Int32)], group_count~ : Int32) -> Re
+
+// Errors
+
+// Types and methods
+pub struct CompileIdx {
+}
+pub fn CompileIdx::break_idx(Int32) -> Int32
+pub fn CompileIdx::break_value() -> Int32
+pub fn CompileIdx::idx(Int32) -> Int32
+pub fn CompileIdx::is_break(Int32) -> Bool
+pub fn CompileIdx::is_idx(Int32) -> Bool
+pub fn CompileIdx::is_unknown(Int32) -> Bool
+pub fn CompileIdx::make_break(Int32) -> Int32
+pub fn CompileIdx::of_idx(Int32) -> Int32
+pub fn CompileIdx::unknown() -> Int32
+
+pub struct CompileState {
+  info : StateInfo
+  transitions : Array[CompileState]
+}
+pub fn CompileState::follow_transition(Self, Int32) -> Self
+pub fn CompileState::get_info(Self) -> StateInfo
+pub fn CompileState::is_unknown_transition(Self, Int32) -> Bool
+pub fn CompileState::set_transition(Self, Int32, Self) -> Unit
+
+pub enum ExecPartialDetailedResult {
+  FullD(GroupT)
+  PartialD(Int32)
+  MismatchD
+}
+
+pub(all) enum ExecPartialResult {
+  Full
+  Partial
+  Mismatch
+} derive(Eq, @debug.Debug)
+pub fn ExecPartialResult::equal(Self, Self) -> Bool
+pub fn ExecPartialResult::full() -> Self
+pub fn ExecPartialResult::mismatch() -> Self
+pub fn ExecPartialResult::not_equal(Self, Self) -> Bool
+pub fn ExecPartialResult::partial() -> Self
+pub fn ExecPartialResult::to_repr(Self) -> @debug.Repr
+
+pub struct GroupT {
+  s : Bytes
+  marks : @re_base.MarkInfos
+  pmarks : @re_base.PmarkSet
+  gpos : Array[Int32]
+  gcount : Int32
+}
+pub fn GroupT::all(Self) -> Array[Bytes]
+pub fn GroupT::all_offset(Self) -> Array[(Int32, Int32)]
+pub fn GroupT::create(Bytes, @re_base.MarkInfos, @re_base.PmarkSet, Array[Int32], Int32) -> Self
+pub fn GroupT::get(Self, Int32) -> Bytes?
+pub fn GroupT::get_opt(Self, Int32) -> Bytes?
+pub fn GroupT::matched(Self, Int32) -> Bool
+pub fn GroupT::nb_groups(Self) -> Int32
+pub fn GroupT::offset(Self, Int32) -> (Int32, Int32) raise
+pub fn GroupT::offset_opt(Self, Int32) -> (Int32, Int32)?
+pub fn GroupT::pmarks(Self) -> @re_base.PmarkSet
+pub fn GroupT::start(Self, Int32) -> Int32 raise
+pub fn GroupT::start_offset(Self, Int32) -> Int32
+pub fn GroupT::start_opt(Self, Int32) -> Int32?
+pub fn GroupT::stop(Self, Int32) -> Int32 raise
+pub fn GroupT::stop_offset(Self, Int32) -> Int32
+pub fn GroupT::stop_opt(Self, Int32) -> Int32?
+
+pub enum MatchInfo {
+  MatchInfo(GroupT)
+  FailedInfo
+  RunningInfo(Int32)
+}
+
+pub struct Positions {
+  mut positions : Array[Int32]
+  mut length : Int32
+}
+pub fn Positions::all(Self) -> Array[Int32]
+pub fn Positions::empty() -> Self
+pub fn Positions::first(Self) -> Int32
+pub fn Positions::length(Self) -> Int32
+pub fn Positions::make(groups~ : Bool, Re) -> Self
+pub fn Positions::set(Self, Int32, Int32) -> Unit
+pub fn Positions::unsafe_set(Self, Int32, Int32) -> Unit
+
+pub struct Re {
+  initial : @re_ast.Expr
+  initial_states : Array[(@re_base.Category, CompileState)]
+  colors : @re_ast.ColorTable
+  color_repr : @re_ast.ColorRepr
+  ncolor : Int32
+  lnl : Int32
+  tbl : @re_ast.WorkingArea
+  states : StateHashTable
+  group_names : Array[(String, Int32)]
+  group_count : Int32
+}
+pub fn Re::alnum() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::alpha() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::ascii() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::blank() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::cntrl() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::digit() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::graph() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::group_count(Self) -> Int32
+pub fn Re::group_names(Self) -> Array[(String, Int32)]
+pub fn Re::lower() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::mark_all(GroupT) -> @re_base.PmarkSet
+pub fn Re::mark_test(GroupT, @re_base.Pmark) -> Bool
+pub fn Re::notnl() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::pp(@re_ast.AstGen[@re_ast.AstCset]) -> String
+pub fn Re::pp_re(Self) -> String
+pub fn Re::print() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::punct() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::rg(Char, Char) -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::space() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::upper() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::wordc() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::xdigit() -> @re_ast.AstGen[@re_ast.AstCset]
+
+pub struct StateHashTable {
+  buckets : Array[Array[(@re_ast.State, CompileState)]]
+  mut size : Int32
+}
+pub fn StateHashTable::add(Self, @re_ast.State, CompileState) -> Unit
+pub fn StateHashTable::create(Int32) -> Self
+pub fn StateHashTable::find(Self, @re_ast.State) -> CompileState?
+
+pub struct StateInfo {
+  idx : Int32
+  final_ : Array[(@re_base.Category, (Int32, @re_ast.Status))]
+  desc : @re_ast.State
+}
+
+// Type aliases
+
+// Traits

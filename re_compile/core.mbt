@@ -4,83 +4,83 @@
 // --- Character class shortcuts (return Ast) ---
 
 ///|
-pub fn Re::rg(c : Char, c2 : Char) -> Ast {
-  Ast::cset(Cset::cseq(c, c2))
+pub fn Re::rg(c : Char, c2 : Char) -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::cseq(c, c2))
 }
 
 ///|
-pub fn Re::notnl() -> Ast {
-  Ast::cset(Cset::notnl())
+pub fn Re::notnl() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::notnl())
 }
 
 ///|
-pub fn Re::lower() -> Ast {
-  Ast::cset(Cset::lower())
+pub fn Re::lower() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::lower())
 }
 
 ///|
-pub fn Re::upper() -> Ast {
-  Ast::cset(Cset::upper())
+pub fn Re::upper() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::upper())
 }
 
 ///|
-pub fn Re::alpha() -> Ast {
-  Ast::cset(Cset::alpha())
+pub fn Re::alpha() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::alpha())
 }
 
 ///|
-pub fn Re::digit() -> Ast {
-  Ast::cset(Cset::cdigit())
+pub fn Re::digit() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::cdigit())
 }
 
 ///|
-pub fn Re::alnum() -> Ast {
-  Ast::cset(Cset::alnum())
+pub fn Re::alnum() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::alnum())
 }
 
 ///|
-pub fn Re::wordc() -> Ast {
-  Ast::cset(Cset::wordc())
+pub fn Re::wordc() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::wordc())
 }
 
 ///|
-pub fn Re::ascii() -> Ast {
-  Ast::cset(Cset::ascii())
+pub fn Re::ascii() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::ascii())
 }
 
 ///|
-pub fn Re::blank() -> Ast {
-  Ast::cset(Cset::blank())
+pub fn Re::blank() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::blank())
 }
 
 ///|
-pub fn Re::cntrl() -> Ast {
-  Ast::cset(Cset::cntrl())
+pub fn Re::cntrl() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::cntrl())
 }
 
 ///|
-pub fn Re::graph() -> Ast {
-  Ast::cset(Cset::graph())
+pub fn Re::graph() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::graph())
 }
 
 ///|
-pub fn Re::print() -> Ast {
-  Ast::cset(Cset::print())
+pub fn Re::print() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::print())
 }
 
 ///|
-pub fn Re::punct() -> Ast {
-  Ast::cset(Cset::punct())
+pub fn Re::punct() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::punct())
 }
 
 ///|
-pub fn Re::space() -> Ast {
-  Ast::cset(Cset::space())
+pub fn Re::space() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::space())
 }
 
 ///|
-pub fn Re::xdigit() -> Ast {
-  Ast::cset(Cset::xdigit())
+pub fn Re::xdigit() -> @ast.Ast {
+  @ast.Ast::cset(@base.Cset::xdigit())
 }
 
 // --- exec_opt ---
@@ -132,7 +132,7 @@ pub fn execp(
 // --- exec_partial ---
 
 ///|
-pub enum ExecPartialResult {
+pub(all) enum ExecPartialResult {
   Full
   Partial
   Mismatch
@@ -199,12 +199,12 @@ pub fn exec_partial_detailed(
 // --- Mark module ---
 
 ///|
-pub fn Re::mark_test(g : GroupT, p : Pmark) -> Bool {
+pub fn Re::mark_test(g : GroupT, p : @base.Pmark) -> Bool {
   GroupT::pmarks(g).mem(p)
 }
 
 ///|
-pub fn Re::mark_all(g : GroupT) -> PmarkSet {
+pub fn Re::mark_all(g : GroupT) -> @base.PmarkSet {
   GroupT::pmarks(g)
 }
 
@@ -213,8 +213,8 @@ pub fn Re::mark_all(g : GroupT) -> PmarkSet {
 ///|
 /// Pretty-print an AST (uncompiled regexp) to a string.
 /// Corresponds to OCaml `Re.pp`.
-pub fn Re::pp(ast : Ast) -> String {
-  let repr : @debug.Repr = Ast::to_dyn(ast).to_repr()
+pub fn Re::pp(ast : @ast.Ast) -> String {
+  let repr : @debug.Repr = @ast.Ast::to_dyn(ast).to_repr()
   "\{repr}"
 }
 

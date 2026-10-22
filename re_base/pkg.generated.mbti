@@ -1,0 +1,294 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt/re_base"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn[T] array_reverse(Array[T]) -> Array[T]
+
+pub fn bs(Bytes) -> String
+
+pub fn hash_combine(Int32, Int32) -> Int32
+
+pub fn sb(String) -> Bytes
+
+// Errors
+
+// Types and methods
+pub struct BitVector {
+  len : Int32
+  bits : FixedArray[Byte]
+}
+pub fn BitVector::create_zero(Int32) -> Self
+pub fn BitVector::get(Self, Int32) -> Bool raise
+pub fn BitVector::length(Self) -> Int32
+pub fn BitVector::reset_zero(Self) -> Unit
+pub fn BitVector::set(Self, Int32, Bool) -> Unit raise
+pub fn BitVector::unsafe_get(Self, Int32) -> Bool
+pub fn BitVector::unsafe_set(Self, Int32, Bool) -> Unit
+
+pub struct CSetMap {
+  entries : Array[(Int32, Cset, Cset)]
+}
+pub fn CSetMap::add(Self, (Int32, Cset), Cset) -> Self
+pub fn CSetMap::empty() -> Self
+pub fn CSetMap::find(Self, (Int32, Cset)) -> Cset?
+
+pub struct Category {
+  bits : Int32
+} derive(Compare, Eq, @debug.Debug)
+pub fn Category::add(Self, Self) -> Self
+pub fn Category::compare(Self, Self) -> Int32
+pub fn Category::dummy() -> Self
+pub fn Category::equal(Self, Self) -> Bool
+pub fn Category::from_char(Char) -> Self
+pub fn Category::from_int(Int32) -> Self
+pub fn Category::inexistant() -> Self
+pub fn Category::intersect(Self, Self) -> Bool
+pub fn Category::lastnewline() -> Self
+pub fn Category::letter() -> Self
+pub fn Category::newline() -> Self
+pub fn Category::not_equal(Self, Self) -> Bool
+pub fn Category::not_letter() -> Self
+pub fn Category::op_ge(Self, Self) -> Bool
+pub fn Category::op_gt(Self, Self) -> Bool
+pub fn Category::op_le(Self, Self) -> Bool
+pub fn Category::op_lt(Self, Self) -> Bool
+pub fn Category::search_boundary() -> Self
+pub fn Category::to_dyn(Self) -> Dyn
+pub fn Category::to_int(Self) -> Int32
+pub fn Category::to_repr(Self) -> @debug.Repr
+
+pub struct Cset {
+  intervals : Array[(Int32, Int32)]
+} derive(Compare, Eq, @debug.Debug)
+pub fn Cset::add(Int32, Self) -> Self
+pub fn Cset::alnum() -> Self
+pub fn Cset::alpha() -> Self
+pub fn Cset::ascii() -> Self
+pub fn Cset::blank() -> Self
+pub fn Cset::cadd(Char, Self) -> Self
+pub fn Cset::calnum() -> Self
+pub fn Cset::calpha() -> Self
+pub fn Cset::cany() -> Self
+pub fn Cset::case_insens(Self) -> Self
+pub fn Cset::cdigit() -> Self
+pub fn Cset::char(Char) -> Self
+pub fn Cset::clower() -> Self
+pub fn Cset::cntrl() -> Self
+pub fn Cset::compare(Self, Self) -> Int32
+pub fn Cset::cseq(Char, Char) -> Self
+pub fn Cset::csingle(Char) -> Self
+pub fn Cset::cword() -> Self
+pub fn Cset::diff(Self, Self) -> Self
+pub fn Cset::empty() -> Self
+pub fn Cset::equal(Self, Self) -> Bool
+pub fn Cset::graph() -> Self
+pub fn Cset::hash(Self) -> Int32
+pub fn Cset::inter(Self, Self) -> Self
+pub fn Cset::intersect_all(Array[Self]) -> Self
+pub fn Cset::is_empty(Self) -> Bool
+pub fn Cset::iter(Self, f~ : (Int32, Int32) -> Unit) -> Unit
+pub fn Cset::lower() -> Self
+pub fn Cset::mem(Int32, Self) -> Bool
+pub fn Cset::nl() -> Self
+pub fn Cset::not_equal(Self, Self) -> Bool
+pub fn Cset::notnl() -> Self
+pub fn Cset::offset(Int32, Self) -> Self
+pub fn Cset::one_char(Self) -> Int32?
+pub fn Cset::op_ge(Self, Self) -> Bool
+pub fn Cset::op_gt(Self, Self) -> Bool
+pub fn Cset::op_le(Self, Self) -> Bool
+pub fn Cset::op_lt(Self, Self) -> Bool
+pub fn Cset::pick(Self) -> Int32 raise
+pub fn Cset::print() -> Self
+pub fn Cset::punct() -> Self
+pub fn Cset::rg(Char, Char) -> Self
+pub fn Cset::seq(Int32, Int32) -> Self
+pub fn Cset::set(Bytes) -> Self
+pub fn Cset::single(Int32) -> Self
+pub fn Cset::space() -> Self
+pub fn Cset::to_dyn(Self) -> Dyn
+pub fn Cset::to_repr(Self) -> @debug.Repr
+pub fn Cset::union(Self, Self) -> Self
+pub fn Cset::union_all(Array[Self]) -> Self
+pub fn Cset::union_singles_in_strictly_decreasing_order(Array[Int32]) -> Self
+pub fn Cset::upper() -> Self
+pub fn Cset::wordc() -> Self
+pub fn Cset::xdigit() -> Self
+
+pub struct CsetC {
+}
+pub fn CsetC::equal_c(Int32, Int32) -> Bool
+pub fn CsetC::null_char() -> Int32
+pub fn CsetC::of_char(Char) -> Int32
+pub fn CsetC::of_int(Int32) -> Int32
+pub fn CsetC::to_char(Int32) -> Char
+pub fn CsetC::to_int(Int32) -> Int32
+
+pub struct DenseMap {
+}
+pub fn[T] DenseMap::make(size~ : Int32, f~ : (Int32) -> T) -> (Int32) -> T
+
+pub enum Dyn {
+  Int(Int32)
+  Tuple(Array[Dyn])
+  Enum(String)
+  String(String)
+  List(Array[Dyn])
+  Variant(String, Array[Dyn])
+  Record(Array[(String, Dyn)])
+} derive(Eq, @debug.Debug)
+pub fn Dyn::enum_(String) -> Self
+pub fn Dyn::equal(Self, Self) -> Bool
+pub fn Dyn::int(Int32) -> Self
+pub fn Dyn::list(Array[Self]) -> Self
+pub fn Dyn::not_equal(Self, Self) -> Bool
+pub fn Dyn::pair(Self, Self) -> Self
+pub fn Dyn::string(String) -> Self
+pub fn Dyn::to_repr(Self) -> @debug.Repr
+pub fn Dyn::variant(String, Array[Self]) -> Self
+
+pub struct HashSet {
+  mut table : FixedArray[Int32]
+  mut size : Int32
+}
+pub fn HashSet::absent() -> Int32
+pub fn HashSet::add(Self, Int32) -> Unit
+pub fn HashSet::add_no_resize(Self, Int32) -> Unit
+pub fn HashSet::clear(Self) -> Unit
+pub fn HashSet::create() -> Self
+pub fn HashSet::index_of_offset(Int32, Int32, Int32) -> Int32
+pub fn HashSet::is_empty(Self) -> Bool
+pub fn HashSet::mem(Self, Int32) -> Bool
+pub fn HashSet::resize(Self) -> Unit
+pub fn HashSet::should_grow(Self) -> Bool
+
+pub struct Ids {
+  mut counter : Int32
+}
+pub fn Ids::create() -> Self
+pub fn Ids::next(Self) -> Int32
+
+pub struct Idx {
+}
+pub fn Idx::initial() -> Int32
+pub fn Idx::to_dyn(Int32) -> Dyn
+pub fn Idx::to_int(Int32) -> Int32
+pub fn Idx::unknown() -> Int32
+pub fn Idx::used(Int32) -> Bool
+
+pub struct Mark {
+}
+pub fn Mark::compare(Int32, Int32) -> Int32
+pub fn Mark::group_count(Int32) -> Int32
+pub fn Mark::next(Int32) -> Int32
+pub fn Mark::next2(Int32) -> Int32
+pub fn Mark::outside_range(Int32, start_inclusive~ : Int32, stop_inclusive~ : Int32) -> Bool
+pub fn Mark::prev(Int32) -> Int32
+pub fn Mark::start() -> Int32
+pub fn Mark::to_dyn(Int32) -> Dyn
+
+pub struct MarkInfos {
+  table : Array[Int32]
+}
+pub fn MarkInfos::has(Self, Int32) -> Bool
+pub fn MarkInfos::iteri(Self, (Int32, Int32, Int32) -> Unit) -> Unit
+pub fn MarkInfos::make(Array[(Int32, Int32)]) -> Self
+pub fn MarkInfos::offset(Self, Int32) -> (Int32, Int32)?
+pub fn MarkInfos::start_offset(Self, Int32) -> MarkOffset
+pub fn MarkInfos::stop_offset(Self, Int32) -> MarkOffset
+
+pub struct MarkOffset {
+  val : Int32
+}
+pub fn MarkOffset::get_no_check(Self) -> Int32
+pub fn MarkOffset::is_present(Self) -> Bool
+
+pub struct ParseBuffer {
+  str : Bytes
+  mut pos : Int32
+}
+pub fn ParseBuffer::accept(Self, Char) -> Bool
+pub fn ParseBuffer::accept_s(Self, Bytes) -> Bool
+pub fn ParseBuffer::create(Bytes) -> Self
+pub fn ParseBuffer::eos(Self) -> Bool
+pub fn ParseBuffer::get(Self) -> Char
+pub fn ParseBuffer::integer(Self) -> Int32? raise
+pub fn ParseBuffer::junk(Self) -> Unit
+pub fn ParseBuffer::peek(Self, Char) -> Bool
+pub fn ParseBuffer::peek2(Self, Char, Char) -> Bool
+pub fn ParseBuffer::unget(Self) -> Unit
+
+pub struct Pmark {
+  id : Int32
+} derive(Compare, Eq, @debug.Debug)
+pub fn Pmark::compare(Self, Self) -> Int32
+pub fn Pmark::equal(Self, Self) -> Bool
+pub fn Pmark::gen() -> Self
+pub fn Pmark::not_equal(Self, Self) -> Bool
+pub fn Pmark::op_ge(Self, Self) -> Bool
+pub fn Pmark::op_gt(Self, Self) -> Bool
+pub fn Pmark::op_le(Self, Self) -> Bool
+pub fn Pmark::op_lt(Self, Self) -> Bool
+pub fn Pmark::to_dyn(Self) -> Dyn
+pub fn Pmark::to_int(Self) -> Int32
+pub fn Pmark::to_repr(Self) -> @debug.Repr
+
+pub struct PmarkSet {
+  elems : Array[Pmark]
+}
+pub fn PmarkSet::add(Self, Pmark) -> Self
+pub fn PmarkSet::empty() -> Self
+pub fn PmarkSet::equal(Self, Self) -> Bool
+pub fn PmarkSet::is_empty(Self) -> Bool
+pub fn PmarkSet::iter(Self, (Pmark) -> Unit) -> Unit
+pub fn PmarkSet::length(Self) -> Int32
+pub fn PmarkSet::mem(Self, Pmark) -> Bool
+pub fn PmarkSet::single(Pmark) -> Self
+pub fn PmarkSet::to_list(Self) -> Array[Pmark]
+pub fn PmarkSet::union(Self, Self) -> Self
+
+pub(all) enum RepKind {
+  Greedy
+  NonGreedy
+} derive(Compare, Eq, @debug.Debug)
+pub fn RepKind::compare(Self, Self) -> Int32
+pub fn RepKind::equal(Self, Self) -> Bool
+pub fn RepKind::greedy() -> Self
+pub fn RepKind::non_greedy() -> Self
+pub fn RepKind::not_equal(Self, Self) -> Bool
+pub fn RepKind::op_ge(Self, Self) -> Bool
+pub fn RepKind::op_gt(Self, Self) -> Bool
+pub fn RepKind::op_le(Self, Self) -> Bool
+pub fn RepKind::op_lt(Self, Self) -> Bool
+pub fn RepKind::to_dyn(Self) -> Dyn
+pub fn RepKind::to_repr(Self) -> @debug.Repr
+pub fn RepKind::to_string(Self) -> String
+pub fn RepKind::to_string_short(Self) -> String
+
+pub(all) enum Sem {
+  Longest
+  Shortest
+  First
+} derive(Compare, Eq, @debug.Debug)
+pub fn Sem::compare(Self, Self) -> Int32
+pub fn Sem::equal(Self, Self) -> Bool
+pub fn Sem::first() -> Self
+pub fn Sem::longest() -> Self
+pub fn Sem::not_equal(Self, Self) -> Bool
+pub fn Sem::op_ge(Self, Self) -> Bool
+pub fn Sem::op_gt(Self, Self) -> Bool
+pub fn Sem::op_le(Self, Self) -> Bool
+pub fn Sem::op_lt(Self, Self) -> Bool
+pub fn Sem::shortest() -> Self
+pub fn Sem::to_dyn(Self) -> Dyn
+pub fn Sem::to_repr(Self) -> @debug.Repr
+pub fn Sem::to_string(Self) -> String
+pub fn Sem::to_string_short(Self) -> String
+
+// Type aliases
+
+// Traits
