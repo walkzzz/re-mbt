@@ -125,3 +125,24 @@
 - commit: 见最新提交
 
 > **R11 回**：已交付 S16-S18（Str 优化 + ReCache + R2 五类测试），下环无阻塞。
+---
+
+## Trait 抽象 Sprint（S19-S21）
+
+> **R11 记**：R18/R19 要求 trait 化公共行为模式，P0 最高 ROI = Dynable（10 类型跨 2 包）。
+> **R11 锁**：pub impl + pub extend 与现有 API 兼容，无冲突。
+> **R11 回**：已交付 S19-S21（P0 trait 化 + R2 五类测试），下环无阻塞。
+
+### Sprint 19 — P0 trait 化 ✅ 已完成
+- 新增 3 pub(open) trait：Dynable / Hashable / Equatable
+- 11 个 pub impl + pub extend（re_base 6 + re_ast 8）
+- Cset::hash 签名统一为 hash(Self, Int32) -> Int32
+- moon check 0 warning 0 error, moon test 481/481 passed
+
+### Sprint 20 — R2 五类多手段测试 ✅ 已完成
+- 形式化证明 18 tests / AI 6 / FAKE 8 / MOCK 4 / E2E 4
+- 新增 40 tests，总 521/521 passed
+- 报告追加到 docs/arch_test_report.md
+
+### Sprint 21 — R11 回 + 提交 ✅ 已完成
+- commit: 见最新提交
