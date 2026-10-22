@@ -12,11 +12,14 @@ import {
 
 // Types and methods
 pub struct Emacs {
-}
+} derive(Default)
 pub fn Emacs::compile_pat(Bytes, case? : Bool) -> @re_compile.Re raise
 pub fn Emacs::compile_pat_cached(@re_compile.ReCache, Bytes, case? : Bool) -> @re_compile.Re raise
+pub fn Emacs::default() -> Self
 pub fn Emacs::re(Bytes, case? : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
 pub fn Emacs::re_no_emacs(Bytes, case~ : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
+pub impl RegexCompiler for Emacs
+pub impl RegexParser for Emacs
 
 pub struct Glob {
 }
@@ -25,7 +28,8 @@ pub fn Glob::compile_cached(@re_compile.ReCache, Bytes, anchored? : Bool, pathna
 pub fn Glob::glob(Bytes, anchored? : Bool, pathname? : Bool, match_backslashes? : Bool, period? : Bool, double_asterisk? : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
 
 pub struct Pcre {
-}
+} derive(Default)
+pub fn Pcre::default() -> Self
 pub fn Pcre::exec(@re_compile.Re, Bytes, pos? : Int32) -> @re_compile.GroupT raise
 pub fn Pcre::extract(@re_compile.Re, Bytes) -> Array[Bytes] raise
 pub fn Pcre::full_split(@re_compile.Re, Bytes, max? : Int32) -> Array[PcreSplitResult] raise
@@ -40,6 +44,8 @@ pub fn Pcre::re(Bytes, flags? : Array[PcreFlag]) -> @re_ast.AstGen[@re_ast.AstCs
 pub fn Pcre::regexp(Bytes, flags? : Array[PcreFlag]) -> @re_compile.Re raise
 pub fn Pcre::regexp_cached(@re_compile.ReCache, Bytes, flags? : Array[PcreFlag]) -> @re_compile.Re raise
 pub fn Pcre::split(@re_compile.Re, Bytes) -> Array[Bytes] raise
+pub impl Quotable for Pcre
+pub impl RegexParser for Pcre
 
 pub enum PcreFlag {
   Caseless
@@ -60,10 +66,12 @@ pub enum PcreSplitResult {
 }
 
 pub struct Perl {
-}
+} derive(Default)
 pub fn Perl::compile_pat(Bytes, opts? : Array[PerlOpt]) -> @re_compile.Re raise
 pub fn Perl::compile_pat_cached(@re_compile.ReCache, Bytes, opts? : Array[PerlOpt]) -> @re_compile.Re raise
+pub fn Perl::default() -> Self
 pub fn Perl::re(Bytes, opts? : Array[PerlOpt]) -> @re_ast.AstGen[@re_ast.AstCset] raise
+pub impl RegexParser for Perl
 
 pub enum PerlOpt {
   Ungreedy
@@ -81,12 +89,14 @@ pub fn PerlOpt::multiline() -> Self
 pub fn PerlOpt::ungreedy() -> Self
 
 pub struct Posix {
-}
+} derive(Default)
 pub fn Posix::compile(Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
 pub fn Posix::compile_cached(@re_compile.ReCache, Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
 pub fn Posix::compile_pat(Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
 pub fn Posix::compile_pat_cached(@re_compile.ReCache, Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
+pub fn Posix::default() -> Self
 pub fn Posix::re(Bytes, opts? : Array[PosixOpt]) -> @re_ast.AstGen[@re_ast.AstCset] raise
+pub impl RegexParser for Posix
 
 pub enum PosixOpt {
   ICase
@@ -95,12 +105,13 @@ pub enum PosixOpt {
 }
 
 pub struct Str {
-}
+} derive(Default)
 pub fn Str::bounded_full_split(StrRegexp, Bytes, Int32) -> Array[StrSplitResult] raise
 pub fn Str::bounded_split(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
 pub fn Str::bounded_split_delim(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
 pub fn Str::compile_regexp(Bytes, Bool) -> StrRegexp raise
 pub fn Str::compile_regexp_cached(@re_compile.ReCache, Bytes, Bool) -> StrRegexp raise
+pub fn Str::default() -> Self
 pub fn Str::first_chars(Bytes, Int32) -> Bytes
 pub fn Str::full_split(StrRegexp, Bytes) -> Array[StrSplitResult] raise
 pub fn Str::global_replace(StrRegexp, Bytes, Bytes) -> Bytes raise
@@ -128,6 +139,7 @@ pub fn Str::string_before(Bytes, Int32) -> Bytes
 pub fn Str::string_match(StrRegexp, Bytes, Int32) -> Bool raise
 pub fn Str::string_partial_match(StrRegexp, Bytes, Int32) -> Bool raise
 pub fn Str::substitute_first(StrRegexp, (Bytes) -> Bytes raise, Bytes) -> Bytes raise
+pub impl Quotable for Str
 
 type StrRegexp
 
@@ -139,3 +151,14 @@ pub enum StrSplitResult {
 // Type aliases
 
 // Traits
+pub(open) trait Quotable {
+  fn quote(Self, Bytes) -> Bytes
+}
+
+pub(open) trait RegexCompiler {
+  fn compile_pat(Self, Bytes, case~ : Bool) -> @re_compile.Re raise
+}
+
+pub(open) trait RegexParser {
+  fn re(Self, Bytes) -> @re_ast.AstGen[@re_ast.AstCset] raise
+}

@@ -271,3 +271,72 @@
 - `moon test`：521/521 passed ✅
 - 新增测试：40 个（re_base/traits_test.mbt 15 个 + re_ast/traits_test.mbt 25 个）
 - 报告文件：`docs/arch_test_report.md`
+---
+
+## P3 trait 化 R17 五类多手段测试（re_frontend/traits_test.mbt）
+
+> 生成时间：2026-10-23
+> 测试范围：P3 trait 化新增 3 trait（RegexParser / RegexCompiler / Quotable）+ 7 impl
+> 源文件：`re_frontend/traits.mbt` ｜ 测试文件：`re_frontend/traits_test.mbt`
+> 基线：521 tests passed → 测试后：543 tests passed（新增 22 tests，全部通过）
+
+### 前置改动
+
+为支持跨包构造 trait 实例，给 5 个前端 struct（Perl / Posix / Pcre / Emacs / Str）添加 `derive(Default)` + `pub extend Type with Default::{default}`，并删除 `#warnings("-struct_never_constructed")` 抑制（R13 根因治理）。
+
+### 测试结果
+
+| 测试手段 | 测试数 | 通过数 | 失败数 | 结果 |
+|----------|--------|--------|--------|------|
+| 形式化证明 | 7 | 7 | 0 | ✅ Pass |
+| AI 测试 | 4 | 4 | 0 | ✅ Pass |
+| FAKE 测试 | 4 | 4 | 0 | ✅ Pass |
+| MOCK 测试 | 3 | 3 | 0 | ✅ Pass |
+| E2E 测试 | 4 | 4 | 0 | ✅ Pass |
+| **合计** | **22** | **22** | **0** | **✅ 全 Pass** |
+
+### 各类测试详情
+
+#### 1. 形式化证明（7 tests）— 返回类型契约 + 语义正确性
+- `R17-trait-formal-1/2/3/4`：RegexParser::re 对 Perl/Posix/Pcre/Emacs 返回可编译 AstGen，编译后 execp 匹配正确
+- `R17-trait-formal-5`：RegexCompiler::compile_pat 对 Emacs 返回可执行 Re
+- `R17-trait-formal-6`：Quotable::quote 对 Pcre 返回转义 Bytes，编译后只匹配字面
+- `R17-trait-formal-7`：Quotable::quote 对 Str 返回转义 Bytes
+
+#### 2. AI 测试（4 tests）— trait 多态调用 + 跨前端一致性
+- `R17-trait-ai-1`：用 RegexParser::re 统一调用 4 个前端，验证多态分发
+- `R17-trait-ai-2`：相同字面模式跨前端解析一致性
+- `R17-trait-ai-3`：trait 分发结果与直接关联函数调用一致
+- `R17-trait-ai-4`：Quotable 多态分发 Pcre/Str 均返回 Bytes
+
+#### 3. FAKE 测试（4 tests）— 边界/假数据不崩溃
+- `R17-trait-fake-1`：空模式 re() 可控不崩溃（try/catch）
+- `R17-trait-fake-2`：简单模式 re() 不崩溃
+- `R17-trait-fake-3`：空模式 compile_pat/quote 可控不崩溃
+- `R17-trait-fake-4`：简单模式 compile_pat/quote 不崩溃
+
+#### 4. MOCK 测试（3 tests）— pub(open) trait 跨包可扩展 + 分发一致性
+- `R17-trait-mock-1`：pub(open) trait 跨包扩展（MockParser impl RegexParser）
+- `R17-trait-mock-2`：trait 分发一致性（重复调用结果一致）
+- `R17-trait-mock-3`：Quotable trait 分发与直接 quote 一致
+
+#### 5. E2E 测试（4 tests）— 端到端全链路
+- `R17-trait-e2e-1`：re() → compile → execp 全链路 Perl
+- `R17-trait-e2e-2`：compile_pat → execp 全链路 Emacs
+- `R17-trait-e2e-3`：quote() → re → compile → 匹配字面 Pcre
+- `R17-trait-e2e-4`：quote() → Str compile → 匹配字面 Str
+
+### 验证不变量
+
+1. **RegexParser::re 返回可编译 AstGen**：4 个前端 re() 返回值经 @compile.compile 编译后 execp 匹配正确 ✅
+2. **RegexCompiler::compile_pat 返回可执行 Re**：Emacs compile_pat 返回值 execp 匹配正确 ✅
+3. **Quotable::quote 返回转义 Bytes**：Pcre/Str quote 后元字符被转义，编译后只匹配字面 ✅
+4. **trait 分发 = 直接调用**：trait 方法结果与直接关联函数调用一致 ✅
+5. **pub(open) trait 跨包可扩展**：MockParser 在测试包中 impl RegexParser 成功 ✅
+
+### 验收门禁
+
+- `moon check`：0 warning 0 error ✅
+- `moon test`：543/543 passed ✅
+- 新增测试：22 个（re_frontend/traits_test.mbt）
+- 报告文件：`docs/arch_test_report.md`

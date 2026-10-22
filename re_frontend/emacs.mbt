@@ -7,8 +7,7 @@ let emacs_pipe : Bytes = @base.sb("|")
 let emacs_close_group : Bytes = @base.sb("\\)")
 
 ///|
-#warnings("-struct_never_constructed")
-pub struct Emacs {}
+pub struct Emacs {} derive(Default)
 
 ///|
 fn emacs_by_code(f : (Int32, Int32) -> Int32, c : Char, c2 : Char) -> Char {

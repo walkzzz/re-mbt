@@ -66,10 +66,7 @@ test "R17-formal: Equatable::equal symmetry for State" {
   let cat = @base.Category::from_char('a')
   let s1 = @re_ast.State::create(cat, expr)
   let s2 = @re_ast.State::create(cat, expr)
-  assert_eq(
-    @base.Equatable::equal(s1, s2),
-    @base.Equatable::equal(s2, s1),
-  )
+  assert_eq(@base.Equatable::equal(s1, s2), @base.Equatable::equal(s2, s1))
 }
 
 ///|
@@ -82,10 +79,7 @@ test "R17-formal: Equatable::equal reflexivity for Marks" {
 test "R17-formal: Equatable::equal symmetry for Marks" {
   let m1 = @re_ast.Marks::empty()
   let m2 = @re_ast.Marks::empty()
-  assert_eq(
-    @base.Equatable::equal(m1, m2),
-    @base.Equatable::equal(m2, m1),
-  )
+  assert_eq(@base.Equatable::equal(m1, m2), @base.Equatable::equal(m2, m1))
 }
 
 ///|
@@ -104,10 +98,7 @@ test "R17-formal: Equatable::equal symmetry for ET" {
   let ets = @re_ast.Desc::initial(expr)
   let et1 = ets[0]
   let et2 = ets[0]
-  assert_eq(
-    @base.Equatable::equal(et1, et2),
-    @base.Equatable::equal(et2, et1),
-  )
+  assert_eq(@base.Equatable::equal(et1, et2), @base.Equatable::equal(et2, et1))
 }
 
 // =========================================================================
