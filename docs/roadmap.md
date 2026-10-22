@@ -84,7 +84,7 @@
 | S2 | implicit_impl 治理 | ✅ 已完成 | 3c8119f |
 | S3 | test_unqualified 治理 | ✅ 已完成 | 3c8119f |
 | S4 | 文档治理 + 提交 | ✅ 已完成 | 3c8119f |
-| S5 | moon.mod 配置 + pub fn 注释 | ✅ 已完成 | 见下方 |
-| S6 | 根包重导出 + re/README | ✅ 已完成 | 见下方 |
-| S7 | 文档治理 (api/arch/design/examples) | ✅ 已完成 | 见下方 |
-| S8 | 验证 + 提交 | ✅ 已完成 | 见下方 |
+| S5 | moon.mod 配置 + pub fn 注释 | ✅ 已完成 | f49fbc1 |
+| S6 | 根包重导出 + re/README | ✅ 已完成 | f49fbc1 |
+| S7 | 文档治理 (api/arch/design/examples) | ✅ 已完成 | f49fbc1 |
+| S8 | 验证 + 提交 | ✅ 已完成 | f49fbc1 |
