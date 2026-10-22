@@ -147,7 +147,10 @@ fn emacs_atom(buf : @base.ParseBuffer, emacs_only : Bool) -> @ast.Ast raise {
 }
 
 ///|
-fn emacs_bracket(buf : @base.ParseBuffer, s : Array[@ast.Ast]) -> Array[@ast.Ast] raise {
+fn emacs_bracket(
+  buf : @base.ParseBuffer,
+  s : Array[@ast.Ast],
+) -> Array[@ast.Ast] raise {
   if s.length() > 0 && @base.ParseBuffer::accept(buf, ']') {
     s.rev_in_place()
     s

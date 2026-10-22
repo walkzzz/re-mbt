@@ -99,5 +99,12 @@ pub fn Replace::replace_string(
   all~ : Bool = true,
 ) -> Bytes raise {
   let by_val = by
-  Replace::replace(re, s, f=fn(_ : @compile.GroupT) { by_val }, pos~, len~, all~)
+  Replace::replace(
+    re,
+    s,
+    f=fn(_ : @compile.GroupT) { by_val },
+    pos~,
+    len~,
+    all~,
+  )
 }

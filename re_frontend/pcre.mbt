@@ -60,7 +60,10 @@ pub fn Pcre::re(pat : Bytes, flags~ : Array[PcreFlag] = []) -> @ast.Ast raise {
 }
 
 ///|
-pub fn Pcre::regexp(pat : Bytes, flags~ : Array[PcreFlag] = []) -> @compile.Re raise {
+pub fn Pcre::regexp(
+  pat : Bytes,
+  flags~ : Array[PcreFlag] = [],
+) -> @compile.Re raise {
   @compile.compile(Pcre::re(pat, flags~))
 }
 
@@ -71,7 +74,11 @@ pub fn Pcre::extract(rex : @compile.Re, s : Bytes) -> Array[Bytes] raise {
 }
 
 ///|
-pub fn Pcre::exec(rex : @compile.Re, s : Bytes, pos~ : Int32 = 0) -> @compile.GroupT raise {
+pub fn Pcre::exec(
+  rex : @compile.Re,
+  s : Bytes,
+  pos~ : Int32 = 0,
+) -> @compile.GroupT raise {
   @compile.exec(rex, s, pos~)
 }
 
@@ -105,7 +112,10 @@ pub fn Pcre::get_named_substring_opt(
 }
 
 ///|
-pub fn Pcre::get_substring_ofs(s : @compile.GroupT, i : Int32) -> (Int32, Int32) raise {
+pub fn Pcre::get_substring_ofs(
+  s : @compile.GroupT,
+  i : Int32,
+) -> (Int32, Int32) raise {
   @compile.GroupT::offset(s, i)
 }
 

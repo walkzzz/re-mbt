@@ -248,7 +248,10 @@ pub fn Desc::status(t : Array[ET]) -> Status {
 }
 
 ///|
-pub fn Desc::status_is_ambiguous(t : Array[ET], ambiguity_mark : @base.Pmark) -> Bool {
+pub fn Desc::status_is_ambiguous(
+  t : Array[ET],
+  ambiguity_mark : @base.Pmark,
+) -> Bool {
   if t.length() > 0 {
     match t[0] {
       TMatch(m) => m.pmarks.mem(ambiguity_mark)

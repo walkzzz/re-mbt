@@ -18,7 +18,12 @@ priv struct CompileContext {
 // --- enforce_kind ---
 
 ///|
-fn enforce_kind(ids : @base.Ids, kind : @base.Sem, kind2 : @base.Sem, cr : @ast.Expr) -> @ast.Expr {
+fn enforce_kind(
+  ids : @base.Ids,
+  kind : @base.Sem,
+  kind2 : @base.Sem,
+  cr : @ast.Expr,
+) -> @ast.Expr {
   match (kind, kind2) {
     (First, First) => cr
     (First, k) => @ast.Expr::seq(ids, k, cr, @ast.Expr::eps(ids))
@@ -92,7 +97,10 @@ fn iter_n(n : Int32, f : (@ast.Expr) -> @ast.Expr, v : @ast.Expr) -> @ast.Expr {
 // --- translate ---
 
 ///|
-fn translate(ctx : CompileContext, ast : @ast.AstNoCase) -> (@ast.Expr, @base.Sem) {
+fn translate(
+  ctx : CompileContext,
+  ast : @ast.AstNoCase,
+) -> (@ast.Expr, @base.Sem) {
   match ast {
     Set(s) => {
       let cset = trans_set(ctx.cache, ctx.colors, ctx.boundary_table, s)
@@ -129,33 +137,50 @@ fn translate(ctx : CompileContext, ast : @ast.AstNoCase) -> (@ast.Expr, @base.Se
       }
       let result = iter_n(
         i,
-        fn(rem2) { @ast.Expr::seq(ctx.ids, kind2, @ast.Expr::rename(ctx.ids, cr), rem2) },
+        fn(rem2) {
+          @ast.Expr::seq(ctx.ids, kind2, @ast.Expr::rename(ctx.ids, cr), rem2)
+        },
         rem,
       )
       (result, ctx.kind)
     }
     BegOfLine => {
-      let cat = @base.Category::add(@base.Category::inexistant(), @base.Category::newline())
+      let cat = @base.Category::add(
+        @base.Category::inexistant(),
+        @base.Category::newline(),
+      )
       (@ast.Expr::after(ctx.ids, cat), ctx.kind)
     }
     EndOfLine => {
-      let cat = @base.Category::add(@base.Category::inexistant(), @base.Category::newline())
+      let cat = @base.Category::add(
+        @base.Category::inexistant(),
+        @base.Category::newline(),
+      )
       (@ast.Expr::before(ctx.ids, cat), ctx.kind)
     }
     BegOfWord => {
-      let cat1 = @base.Category::add(@base.Category::inexistant(), @base.Category::not_letter())
+      let cat1 = @base.Category::add(
+        @base.Category::inexistant(),
+        @base.Category::not_letter(),
+      )
       let e1 = @ast.Expr::after(ctx.ids, cat1)
       let e2 = @ast.Expr::before(ctx.ids, @base.Category::letter())
       (@ast.Expr::seq(ctx.ids, @base.Sem::first(), e1, e2), ctx.kind)
     }
     EndOfWord => {
       let e1 = @ast.Expr::after(ctx.ids, @base.Category::letter())
-      let cat = @base.Category::add(@base.Category::inexistant(), @base.Category::not_letter())
+      let cat = @base.Category::add(
+        @base.Category::inexistant(),
+        @base.Category::not_letter(),
+      )
       let e2 = @ast.Expr::before(ctx.ids, cat)
       (@ast.Expr::seq(ctx.ids, @base.Sem::first(), e1, e2), ctx.kind)
     }
     NotBound => {
-      let cat1 = @base.Category::add(@base.Category::inexistant(), @base.Category::not_letter())
+      let cat1 = @base.Category::add(
+        @base.Category::inexistant(),
+        @base.Category::not_letter(),
+      )
       let e1 = @ast.Expr::seq(
         ctx.ids,
         @base.Sem::first(),
@@ -170,14 +195,21 @@ fn translate(ctx : CompileContext, ast : @ast.AstNoCase) -> (@ast.Expr, @base.Se
       )
       (@ast.Expr::alt(ctx.ids, [e1, e2]), ctx.kind)
     }
-    BegOfStr => (@ast.Expr::after(ctx.ids, @base.Category::inexistant()), ctx.kind)
-    EndOfStr => (@ast.Expr::before(ctx.ids, @base.Category::inexistant()), ctx.kind)
+    BegOfStr =>
+      (@ast.Expr::after(ctx.ids, @base.Category::inexistant()), ctx.kind)
+    EndOfStr =>
+      (@ast.Expr::before(ctx.ids, @base.Category::inexistant()), ctx.kind)
     LastEndOfLine => {
-      let cat = @base.Category::add(@base.Category::inexistant(), @base.Category::lastnewline())
+      let cat = @base.Category::add(
+        @base.Category::inexistant(),
+        @base.Category::lastnewline(),
+      )
       (@ast.Expr::before(ctx.ids, cat), ctx.kind)
     }
-    Start => (@ast.Expr::after(ctx.ids, @base.Category::search_boundary()), ctx.kind)
-    Stop => (@ast.Expr::before(ctx.ids, @base.Category::search_boundary()), ctx.kind)
+    Start =>
+      (@ast.Expr::after(ctx.ids, @base.Category::search_boundary()), ctx.kind)
+    Stop =>
+      (@ast.Expr::before(ctx.ids, @base.Category::search_boundary()), ctx.kind)
     @ast.Sem(kind2, r) => {
       let ctx2 = { ..ctx, kind: kind2, }
       let (cr, kind3) = translate(ctx2, r)
@@ -220,14 +252,27 @@ fn translate(ctx : CompileContext, ast : @ast.AstNoCase) -> (@ast.Expr, @base.Se
         (cr, kind2)
       } else {
         (
-          @ast.Expr::seq(ctx.ids, @base.Sem::first(), @ast.Expr::erase(ctx.ids, b, e), cr),
+          @ast.Expr::seq(
+            ctx.ids,
+            @base.Sem::first(),
+            @ast.Expr::erase(ctx.ids, b, e),
+            cr,
+          ),
           kind2,
         )
       }
     }
     @ast.Pmark(i, r) => {
       let (cr, kind2) = translate(ctx, r)
-      (@ast.Expr::seq(ctx.ids, @base.Sem::first(), @ast.Expr::pmark(ctx.ids, i), cr), kind2)
+      (
+        @ast.Expr::seq(
+          ctx.ids,
+          @base.Sem::first(),
+          @ast.Expr::pmark(ctx.ids, i),
+          cr,
+        ),
+        kind2,
+      )
     }
   }
 }
@@ -235,7 +280,11 @@ fn translate(ctx : CompileContext, ast : @ast.AstNoCase) -> (@ast.Expr, @base.Se
 // --- trans_seq ---
 
 ///|
-fn trans_seq(ctx : CompileContext, l : Array[@ast.AstNoCase], start : Int32) -> @ast.Expr {
+fn trans_seq(
+  ctx : CompileContext,
+  l : Array[@ast.AstNoCase],
+  start : Int32,
+) -> @ast.Expr {
   if start >= l.length() {
     @ast.Expr::eps(ctx.ids)
   } else {
@@ -260,7 +309,11 @@ fn compile_1(regexp : @ast.Ast) -> Re {
   let need_lnl = @ast.Ast::colorize(color_map, regexp_nc)
   let (colors, boundary_table, color_repr) = @ast.ColorMap::flatten(color_map)
   let ncolor = @ast.ColorRepr::length(color_repr)
-  let lnl = if need_lnl { @base.CsetC::of_int(ncolor) } else { @base.CsetC::null_char() }
+  let lnl = if need_lnl {
+    @base.CsetC::of_int(ncolor)
+  } else {
+    @base.CsetC::null_char()
+  }
   let ncolor2 = if need_lnl { ncolor + 1 } else { ncolor }
   let ctx = {
     ids: @base.Ids::create(),
@@ -295,7 +348,10 @@ pub fn compile(r : @ast.Ast) -> Re {
   let r_nc = if @ast.Ast::anchored(r) {
     @ast.Ast::group(r)
   } else {
-    @ast.Ast::seq([@ast.Ast::shortest(@ast.Ast::rep(@ast.Ast::any())), @ast.Ast::group(r)])
+    @ast.Ast::seq([
+      @ast.Ast::shortest(@ast.Ast::rep(@ast.Ast::any())),
+      @ast.Ast::group(r),
+    ])
   }
   compile_1(r_nc)
 }

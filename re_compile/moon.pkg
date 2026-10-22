@@ -3,3 +3,8 @@ import {
   "walkzzz/re-mbt/re_base" @base,
   "walkzzz/re-mbt/re_ast" @ast,
 }
+
+import {
+  "walkzzz/re-mbt/re_exec" @exec,
+  "walkzzz/re-mbt/re_frontend" @frontend,
+} for "test"

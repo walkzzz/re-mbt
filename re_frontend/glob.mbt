@@ -101,7 +101,8 @@ fn glob_piece_fn(
     let c = @base.ParseBuffer::get(buf)
     acc.push(GlobExactly(c))
     acc
-  } else if @base.ParseBuffer::accept(buf, '^') || @base.ParseBuffer::accept(buf, '!') {
+  } else if @base.ParseBuffer::accept(buf, '^') ||
+    @base.ParseBuffer::accept(buf, '!') {
     acc.push(GlobAnyBut(glob_enclosed(buf)))
     acc
   } else {
@@ -247,8 +248,15 @@ fn glob_enclosed_set(
   for e in set {
     set_asts.push(glob_enclosed_to_ast(e))
   }
-  let enclosure = if kind { @ast.Ast::alt(set_asts) } else { @ast.Ast::compl(set_asts) }
-  @ast.Ast::inter([enclosure, glob_one(explicit_slash~, slashes~, explicit_period~)])
+  let enclosure = if kind {
+    @ast.Ast::alt(set_asts)
+  } else {
+    @ast.Ast::compl(set_asts)
+  }
+  @ast.Ast::inter([
+    enclosure,
+    glob_one(explicit_slash~, slashes~, explicit_period~),
+  ])
 }
 
 ///|
@@ -275,7 +283,9 @@ fn glob_exactly(state : GlobState, c : Char) -> GlobState {
 fn glob_match_component(slashes : Array[Char], ep : Bool) -> @ast.Ast raise {
   @ast.Ast::seq([
     glob_one(explicit_slash=true, slashes~, explicit_period=ep),
-    @ast.Ast::rep(glob_one(explicit_slash=true, slashes~, explicit_period=false)),
+    @ast.Ast::rep(
+      glob_one(explicit_slash=true, slashes~, explicit_period=false),
+    ),
   ])
 }
 
@@ -333,7 +343,9 @@ fn glob_many(state : GlobState) -> GlobState raise {
   } else {
     let not_empty = @ast.Ast::seq([
       glob_one(explicit_slash=true, slashes~, explicit_period=true),
-      @ast.Ast::rep(glob_one(explicit_slash=true, slashes~, explicit_period=false)),
+      @ast.Ast::rep(
+        glob_one(explicit_slash=true, slashes~, explicit_period=false),
+      ),
     ])
     let maybe_empty = @ast.Ast::opt(not_empty)
     glob_many_lookahead(state, not_empty, maybe_empty)

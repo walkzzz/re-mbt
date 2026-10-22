@@ -1,5 +1,4 @@
 import {
-  "moonbitlang/core/debug",
   "walkzzz/re-mbt/re_base" @base,
   "walkzzz/re-mbt/re_ast" @ast,
   "walkzzz/re-mbt/re_compile" @compile,

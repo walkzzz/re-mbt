@@ -1,0 +1,169 @@
+// Tests for Compile module
+
+///|
+fn sb(s : String) -> Bytes {
+  let arr : Array[Byte] = []
+  for c in s {
+    arr.push(c.to_int().to_byte())
+  }
+  Bytes::from_array(arr)
+}
+
+///|
+test "compile and match: single char 'a'" {
+  let re = @re_compile.compile(@ast.Ast::char('a'))
+  let s = sb("a")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), true)
+}
+
+///|
+test "compile and match: single char 'a' no match 'b'" {
+  let re = @re_compile.compile(@ast.Ast::char('a'))
+  let s = sb("b")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), false)
+}
+
+///|
+test "compile and match: 'a' in 'abc'" {
+  let re = @re_compile.compile(@ast.Ast::char('a'))
+  let s = sb("abc")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), true)
+}
+
+///|
+test "compile and match: 'b' in 'abc' at pos 1" {
+  let re = @re_compile.compile(@ast.Ast::char('b'))
+  let s = sb("abc")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), true)
+}
+
+///|
+test "compile and match: 'abc' matches 'abc'" {
+  let re = @re_compile.compile(@ast.Ast::str(sb("abc")))
+  let s = sb("abc")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), true)
+}
+
+///|
+test "compile and match: 'abc' no match 'abd'" {
+  let re = @re_compile.compile(@ast.Ast::str(sb("abc")))
+  let s = sb("abd")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), false)
+}
+
+///|
+test "compile and match: 'a*' matches 'aaa'" {
+  let re = @re_compile.compile(@ast.Ast::rep(@ast.Ast::char('a')))
+  let s = sb("aaa")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), true)
+}
+
+///|
+test "compile and match: 'a*' matches empty" {
+  let re = @re_compile.compile(@ast.Ast::rep(@ast.Ast::char('a')))
+  let s = sb("")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=0), true)
+}
+
+///|
+test "compile and match: 'a|b' matches 'a'" {
+  let re = @re_compile.compile(
+    @ast.Ast::alt([@ast.Ast::char('a'), @ast.Ast::char('b')]),
+  )
+  let s = sb("a")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), true)
+}
+
+///|
+test "compile and match: 'a|b' matches 'b'" {
+  let re = @re_compile.compile(
+    @ast.Ast::alt([@ast.Ast::char('a'), @ast.Ast::char('b')]),
+  )
+  let s = sb("b")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), true)
+}
+
+///|
+test "compile and match: 'a|b' no match 'c'" {
+  let re = @re_compile.compile(
+    @ast.Ast::alt([@ast.Ast::char('a'), @ast.Ast::char('b')]),
+  )
+  let s = sb("c")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), false)
+}
+
+///|
+test "compile and match: 'a+' matches 'aaa'" {
+  let re = @re_compile.compile(@ast.Ast::rep1(@ast.Ast::char('a')))
+  let s = sb("aaa")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), true)
+}
+
+///|
+test "compile and match: 'a+' no match empty" {
+  let re = @re_compile.compile(@ast.Ast::rep1(@ast.Ast::char('a')))
+  let s = sb("")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=0), false)
+}
+
+///|
+test "compile and match: 'a?' matches 'a'" {
+  let re = @re_compile.compile(@ast.Ast::opt(@ast.Ast::char('a')))
+  let s = sb("a")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), true)
+}
+
+///|
+test "compile and match: 'a?' matches empty" {
+  let re = @re_compile.compile(@ast.Ast::opt(@ast.Ast::char('a')))
+  let s = sb("")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=0), true)
+}
+
+///|
+test "compile and match: any matches 'x'" {
+  let re = @re_compile.compile(@ast.Ast::any())
+  let s = sb("x")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), true)
+}
+
+///|
+test "compile and match: 'a*b' matches 'aaab'" {
+  let re = @re_compile.compile(
+    @ast.Ast::seq([@ast.Ast::rep(@ast.Ast::char('a')), @ast.Ast::char('b')]),
+  )
+  let s = sb("aaab")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=4), true)
+}
+
+///|
+test "compile and match: 'a*b' matches 'b'" {
+  let re = @re_compile.compile(
+    @ast.Ast::seq([@ast.Ast::rep(@ast.Ast::char('a')), @ast.Ast::char('b')]),
+  )
+  let s = sb("b")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=1), true)
+}
+
+///|
+test "compile and match: 'a*b' no match 'aaa'" {
+  let re = @re_compile.compile(
+    @ast.Ast::seq([@ast.Ast::rep(@ast.Ast::char('a')), @ast.Ast::char('b')]),
+  )
+  let s = sb("aaa")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), false)
+}
+
+///|
+test "compile and match: whole_string 'abc' matches 'abc'" {
+  let re = @re_compile.compile(@ast.Ast::whole_string(@ast.Ast::str(sb("abc"))))
+  let s = sb("abc")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=3), true)
+}
+
+///|
+test "compile and match: whole_string 'abc' no match 'abcd'" {
+  let re = @re_compile.compile(@ast.Ast::whole_string(@ast.Ast::str(sb("abc"))))
+  let s = sb("abcd")
+  assert_eq(@re_compile.match_str_p(re, s, pos=0, len=4), false)
+}

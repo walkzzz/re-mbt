@@ -21,8 +21,15 @@ pub struct State {
 }
 
 ///|
-fn state_compute_hash(idx : Int32, cat : @base.Category, desc : Array[ET]) -> Int32 {
-  Desc::hash(desc, @base.hash_combine(idx, @base.hash_combine(@base.Category::to_int(cat), 0))) &
+fn state_compute_hash(
+  idx : Int32,
+  cat : @base.Category,
+  desc : Array[ET],
+) -> Int32 {
+  Desc::hash(
+    desc,
+    @base.hash_combine(idx, @base.hash_combine(@base.Category::to_int(cat), 0)),
+  ) &
   0x3FFFFFFF
 }
 
@@ -99,7 +106,11 @@ pub struct WorkingArea {
 
 ///|
 pub fn WorkingArea::create() -> WorkingArea {
-  { ids: @base.BitVector::create_zero(1), seen: @base.HashSet::create(), index_count: 0, }
+  {
+    ids: @base.BitVector::create_zero(1),
+    seen: @base.HashSet::create(),
+    index_count: 0,
+  }
 }
 
 ///|

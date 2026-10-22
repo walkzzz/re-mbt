@@ -71,7 +71,11 @@ fn perl_acc_digits(base : Int32, digits : Array[Int32]) -> Int32 {
 }
 
 ///|
-fn perl_greedy_mod(buf : @base.ParseBuffer, ungreedy : Bool, r : @ast.Ast) -> @ast.Ast {
+fn perl_greedy_mod(
+  buf : @base.ParseBuffer,
+  ungreedy : Bool,
+  r : @ast.Ast,
+) -> @ast.Ast {
   let gr = @base.ParseBuffer::accept(buf, '?')
   let gr2 = if ungreedy { !gr } else { gr }
   if gr2 {
@@ -329,7 +333,10 @@ fn perl_parse_oct(buf : @base.ParseBuffer) -> @ast.Ast raise {
 }
 
 ///|
-fn perl_parse_octal_escape(buf : @base.ParseBuffer, n1_char : Char) -> @ast.Ast raise {
+fn perl_parse_octal_escape(
+  buf : @base.ParseBuffer,
+  n1_char : Char,
+) -> @ast.Ast raise {
   let n1 = n1_char.to_int() - '0'.to_int()
   match perl_maybe_octaldigit(buf) {
     Some(n2) =>
@@ -437,7 +444,10 @@ fn perl_name_(buf : @base.ParseBuffer, acc : Array[Char]) -> String raise {
 }
 
 ///|
-fn perl_bracket(buf : @base.ParseBuffer, s : Array[@ast.Ast]) -> Array[@ast.Ast] raise {
+fn perl_bracket(
+  buf : @base.ParseBuffer,
+  s : Array[@ast.Ast],
+) -> Array[@ast.Ast] raise {
   if s.length() > 0 && @base.ParseBuffer::accept(buf, ']') {
     s.rev_in_place()
     s
@@ -600,6 +610,9 @@ pub fn Perl::re(s : Bytes, opts~ : Array[PerlOpt] = []) -> @ast.Ast raise {
 }
 
 ///|
-pub fn Perl::compile_pat(s : Bytes, opts~ : Array[PerlOpt] = []) -> @compile.Re raise {
+pub fn Perl::compile_pat(
+  s : Bytes,
+  opts~ : Array[PerlOpt] = [],
+) -> @compile.Re raise {
   @compile.compile(Perl::re(s, opts~))
 }

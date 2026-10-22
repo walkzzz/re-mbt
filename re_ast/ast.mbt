@@ -72,7 +72,10 @@ pub type AstNoCase = AstGen[@base.Cset]
 fn ast_alt_to_dyn_cset(x : AstAlt[AstCset]) -> @base.Dyn {
   match x {
     Alternative(xs) =>
-      @base.Dyn::variant("Alternative", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
+      @base.Dyn::variant(
+        "Alternative",
+        Array::map(xs, fn(a) { ast_cset_to_dyn(a) }),
+      )
     NoCase(a) => @base.Dyn::variant("No_case", [ast_cset_to_dyn(a)])
     Case(a) => @base.Dyn::variant("Case", [ast_cset_to_dyn(a)])
   }
@@ -83,9 +86,15 @@ fn ast_cset_to_dyn(x : AstCset) -> @base.Dyn {
   match x {
     CsetOf(cset) => @base.Dyn::variant("Cset", [cset.to_dyn()])
     Intersection(xs) =>
-      @base.Dyn::variant("Intersection", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
+      @base.Dyn::variant(
+        "Intersection",
+        Array::map(xs, fn(a) { ast_cset_to_dyn(a) }),
+      )
     Complement(xs) =>
-      @base.Dyn::variant("Complement", Array::map(xs, fn(a) { ast_cset_to_dyn(a) }))
+      @base.Dyn::variant(
+        "Complement",
+        Array::map(xs, fn(a) { ast_cset_to_dyn(a) }),
+      )
     Difference(x, y) =>
       @base.Dyn::variant("Difference", [ast_cset_to_dyn(x), ast_cset_to_dyn(y)])
     Cast(c) => @base.Dyn::variant("Cast", [ast_alt_to_dyn_cset(c)])
@@ -104,7 +113,10 @@ fn ast_to_dyn(x : Ast) -> @base.Dyn {
         None => []
         Some(x) => [@base.Dyn::int(x)]
       }
-      @base.Dyn::variant("Repeat", [ast_to_dyn(gen), @base.Dyn::int(min), ..base])
+      @base.Dyn::variant(
+        "Repeat",
+        [ast_to_dyn(gen), @base.Dyn::int(min), ..base],
+      )
     }
     BegOfLine => @base.Dyn::enum_("Beg_of_line")
     EndOfLine => @base.Dyn::enum_("End_of_line")
@@ -125,10 +137,15 @@ fn ast_to_dyn(x : Ast) -> @base.Dyn {
     }
     NoGroup(x) => @base.Dyn::variant("No_group", [ast_to_dyn(x)])
     Nest(x) => @base.Dyn::variant("Nest", [ast_to_dyn(x)])
-    Pmark(pmark, t) => @base.Dyn::variant("Pmark", [pmark.to_dyn(), ast_to_dyn(t)])
-    Sem(sem, t) => @base.Dyn::variant("Sem", [@base.Sem::to_dyn(sem), ast_to_dyn(t)])
+    Pmark(pmark, t) =>
+      @base.Dyn::variant("Pmark", [pmark.to_dyn(), ast_to_dyn(t)])
+    Sem(sem, t) =>
+      @base.Dyn::variant("Sem", [@base.Sem::to_dyn(sem), ast_to_dyn(t)])
     SemGreedy(rep, t) =>
-      @base.Dyn::variant("Sem_greedy", [@base.RepKind::to_dyn(rep), ast_to_dyn(t)])
+      @base.Dyn::variant("Sem_greedy", [
+        @base.RepKind::to_dyn(rep),
+        ast_to_dyn(t),
+      ])
   }
 }
 

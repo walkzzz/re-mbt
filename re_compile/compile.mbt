@@ -120,7 +120,10 @@ pub fn StateHashTable::create(capacity : Int32) -> StateHashTable {
 }
 
 ///|
-pub fn StateHashTable::find(tbl : StateHashTable, key : @ast.State) -> CompileState? {
+pub fn StateHashTable::find(
+  tbl : StateHashTable,
+  key : @ast.State,
+) -> CompileState? {
   let h = key.hash.reinterpret_as_uint().reinterpret_as_int() &
     (tbl.buckets.length() - 1)
   for p in tbl.buckets[h] {
@@ -250,7 +253,9 @@ fn compile_category(re : Re, color : Int32) -> @base.Category {
   } else if @base.CsetC::equal_c(color, re.lnl) {
     category_lnl
   } else {
-    @base.Category::from_char(re.color_repr.repr(color).to_int().unsafe_to_char())
+    @base.Category::from_char(
+      re.color_repr.repr(color).to_int().unsafe_to_char(),
+    )
   }
 }
 
@@ -299,7 +304,12 @@ fn compile_unknown_state() -> CompileState {
 // --- delta and validate ---
 
 ///|
-fn compile_delta(re : Re, cat : @base.Category, color : Int32, st : @ast.State) -> @ast.State {
+fn compile_delta(
+  re : Re,
+  cat : @base.Category,
+  color : Int32,
+  st : @ast.State,
+) -> @ast.State {
   @ast.delta(re.tbl, cat, color, st)
 }
 
@@ -407,19 +417,31 @@ fn find_or_add_final(
 }
 
 ///|
-fn final_state(re : Re, st : StateInfo, cat : @base.Category) -> (Int32, @ast.Status) {
+fn final_state(
+  re : Re,
+  st : StateInfo,
+  cat : @base.Category,
+) -> (Int32, @ast.Status) {
   let st2 = compile_delta(re, cat, @base.CsetC::null_char(), st.desc)
   (@ast.State::idx(st2), @ast.State::status_no_mutex(st2))
 }
 
 ///|
-fn advance_state(re : Re, st : StateInfo, _cat : @base.Category) -> (Int32, @ast.Status) {
+fn advance_state(
+  re : Re,
+  st : StateInfo,
+  _cat : @base.Category,
+) -> (Int32, @ast.Status) {
   let st2 = @ast.advance(re.tbl, st.desc)
   (@ast.State::idx(st2), @ast.State::status_no_mutex(st2))
 }
 
 ///|
-fn compile_final(re : Re, st : StateInfo, cat : @base.Category) -> (Int32, @ast.Status) {
+fn compile_final(
+  re : Re,
+  st : StateInfo,
+  cat : @base.Category,
+) -> (Int32, @ast.Status) {
   find_or_add_final(re, st, cat, fn(r, si, c) { final_state(r, si, c) })
 }
 

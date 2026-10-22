@@ -59,7 +59,12 @@ pub fn Expr::eps(ids : @base.Ids) -> Expr {
 }
 
 ///|
-pub fn Expr::rep(ids : @base.Ids, kind : @base.RepKind, sem : @base.Sem, x : Expr) -> Expr {
+pub fn Expr::rep(
+  ids : @base.Ids,
+  kind : @base.RepKind,
+  sem : @base.Sem,
+  x : Expr,
+) -> Expr {
   Rep(ids.next(), kind, sem, x)
 }
 
@@ -196,12 +201,16 @@ pub fn Expr::to_dyn(e : Expr) -> @base.Dyn {
     Eps(_) => @base.Dyn::enum_("Eps")
     Rep(_, kind, sem, t) =>
       @base.Dyn::variant(
-        "Rep" + @base.RepKind::to_string_short(kind) + ":" + @base.Sem::to_string_short(sem),
+        "Rep" +
+        @base.RepKind::to_string_short(kind) +
+        ":" +
+        @base.Sem::to_string_short(sem),
         [Expr::to_dyn(t)],
       )
     MarkOf(_, m) => @base.Dyn::variant("Mark", [@base.Mark::to_dyn(m)])
     PmarkOf(_, m) => @base.Dyn::variant("Pmark", [m.to_dyn()])
-    Erase(_, x, y) => @base.Dyn::variant("Erase", [@base.Mark::to_dyn(x), @base.Mark::to_dyn(y)])
+    Erase(_, x, y) =>
+      @base.Dyn::variant("Erase", [@base.Mark::to_dyn(x), @base.Mark::to_dyn(y)])
     Before(_, c) => @base.Dyn::variant("Before", [c.to_dyn()])
     After(_, c) => @base.Dyn::variant("After", [c.to_dyn()])
   }

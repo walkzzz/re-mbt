@@ -1,7 +1,3 @@
 import {
   "walkzzz/re-mbt/re_base" @base,
-  "walkzzz/re-mbt/re_ast" @ast,
-  "walkzzz/re-mbt/re_compile" @compile,
-  "walkzzz/re-mbt/re_exec" @exec,
-  "walkzzz/re-mbt/re_frontend" @frontend,
 }

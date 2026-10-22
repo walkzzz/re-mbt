@@ -115,7 +115,10 @@ fn posix_atom(buf : @base.ParseBuffer, newline : Bool) -> @ast.Ast raise {
     }
   } else if @base.ParseBuffer::accept(buf, '[') {
     if @base.ParseBuffer::accept(buf, '^') {
-      @ast.Ast::diff(@ast.Ast::compl(posix_bracket(buf, [])), @ast.Ast::char('\n'))
+      @ast.Ast::diff(
+        @ast.Ast::compl(posix_bracket(buf, [])),
+        @ast.Ast::char('\n'),
+      )
     } else {
       @ast.Ast::alt(posix_bracket(buf, []))
     }
@@ -160,7 +163,10 @@ priv enum PosixElem {
 }
 
 ///|
-fn posix_bracket(buf : @base.ParseBuffer, s : Array[@ast.Ast]) -> Array[@ast.Ast] raise {
+fn posix_bracket(
+  buf : @base.ParseBuffer,
+  s : Array[@ast.Ast],
+) -> Array[@ast.Ast] raise {
   if s.length() > 0 && @base.ParseBuffer::accept(buf, ']') {
     s.rev_in_place()
     s
@@ -263,11 +269,17 @@ pub fn Posix::re(s : Bytes, opts~ : Array[PosixOpt] = []) -> @ast.Ast raise {
 }
 
 ///|
-pub fn Posix::compile(s : Bytes, opts~ : Array[PosixOpt] = []) -> @compile.Re raise {
+pub fn Posix::compile(
+  s : Bytes,
+  opts~ : Array[PosixOpt] = [],
+) -> @compile.Re raise {
   @compile.compile(@ast.Ast::longest(Posix::re(s, opts~)))
 }
 
 ///|
-pub fn Posix::compile_pat(s : Bytes, opts~ : Array[PosixOpt] = []) -> @compile.Re raise {
+pub fn Posix::compile_pat(
+  s : Bytes,
+  opts~ : Array[PosixOpt] = [],
+) -> @compile.Re raise {
   Posix::compile(s, opts~)
 }

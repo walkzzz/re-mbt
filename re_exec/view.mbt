@@ -30,7 +30,10 @@ pub fn CsetView::view(t : @base.Cset) -> Array[ViewRange] {
   let result : Array[ViewRange] = []
   for p in t.intervals {
     let (first, last) = p
-    result.push({ first: @base.CsetC::to_char(first), last: @base.CsetC::to_char(last), })
+    result.push({
+      first: @base.CsetC::to_char(first),
+      last: @base.CsetC::to_char(last),
+    })
   }
   result
 }
@@ -81,7 +84,8 @@ fn view_set(cset : @ast.AstCset) -> ViewT {
       IntersectionT(Array::map(sets, fn(x) { @ast.Ast::t_of_cset(x) }))
     Complement(sets) =>
       ComplementT(Array::map(sets, fn(x) { @ast.Ast::t_of_cset(x) }))
-    Difference(x, y) => DifferenceT(@ast.Ast::t_of_cset(x), @ast.Ast::t_of_cset(y))
+    Difference(x, y) =>
+      DifferenceT(@ast.Ast::t_of_cset(x), @ast.Ast::t_of_cset(y))
     Cast(ast) => view_ast(fn(x) { @ast.Ast::t_of_cset(x) }, ast)
   }
 }
