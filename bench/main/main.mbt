@@ -1,5 +1,12 @@
-// Sectioned benchmark - uses top-level let for section selection
+// Sectioned benchmark with timing - uses top-level let for section selection
 // Modify bench_section to run only one section (0 = all)
+// Timing via C clock() FFI (native backend). CLOCKS_PER_SEC = 1000 on Windows.
+
+///|
+extern "c" fn clock() -> Int = "clock"
+
+///|
+let clocks_per_sec : Int = 1000
 
 ///|
 let bench_section : Int32 = 0
@@ -51,9 +58,25 @@ fn[T] ignore(_ : T) -> Unit {
 }
 
 ///|
-fn run_section(sec : Int32, f : () -> Unit) -> Unit {
+fn fmt_ms(elapsed_ticks : Int) -> String {
+  let ms = elapsed_ticks * 1000 / clocks_per_sec
+  ms.to_string() + " ms"
+}
+
+///|
+fn run_section(sec : Int32, name : String, f : () -> Unit) -> Unit {
   if bench_section == 0 || bench_section == sec {
+    let start = clock()
     f()
+    let elapsed = clock() - start
+    println(
+      "Section " +
+      sec.to_string() +
+      " [" +
+      name +
+      "]: " +
+      fmt_ms(elapsed),
+    )
   }
 }
 
@@ -94,8 +117,10 @@ fn main {
     sb("[^aeiou][aeiou][^aeiou]"),
   ]
 
+  let total_start = clock()
+
   // Section 1: Perl compile
-  run_section(1, fn() {
+  run_section(1, "Perl compile", fn() {
     for _ in 0..<iters {
       for p in patterns {
         ignore(try! @frontend.Perl::compile_pat(p))
@@ -104,7 +129,7 @@ fn main {
   })
 
   // Section 2: Perl match
-  run_section(2, fn() {
+  run_section(2, "Perl match", fn() {
     for _ in 0..<iters {
       ignore(try! @compile.execp(re_simple, input_small))
       ignore(try! @compile.execp(re_star, gen_input(50, 'a')))
@@ -115,7 +140,7 @@ fn main {
   })
 
   // Section 3: Emacs
-  run_section(3, fn() {
+  run_section(3, "Emacs", fn() {
     for _ in 0..<iters {
       ignore(try! @frontend.Emacs::compile_pat(sb("hello")))
       ignore(try! @frontend.Emacs::compile_pat(sb("a*b")))
@@ -125,7 +150,7 @@ fn main {
   })
 
   // Section 4: POSIX
-  run_section(4, fn() {
+  run_section(4, "POSIX", fn() {
     for _ in 0..<iters {
       ignore(try! @frontend.Posix::compile(sb("hello")))
       ignore(try! @frontend.Posix::compile(sb("a*b")))
@@ -135,7 +160,7 @@ fn main {
   })
 
   // Section 5: Glob
-  run_section(5, fn() {
+  run_section(5, "Glob", fn() {
     for _ in 0..<iters {
       ignore(try! @frontend.Glob::compile(sb("*.txt")))
       ignore(try! @frontend.Glob::compile(sb("a*b")))
@@ -145,7 +170,7 @@ fn main {
   })
 
   // Section 6: Pcre
-  run_section(6, fn() {
+  run_section(6, "Pcre", fn() {
     for _ in 0..<iters {
       ignore(try! @frontend.Pcre::regexp(sb("hello")))
       ignore(try! @frontend.Pcre::regexp(sb("[a-z]+@[a-z]+\\.[a-z]+")))
@@ -154,7 +179,7 @@ fn main {
   })
 
   // Section 7: Str
-  run_section(7, fn() {
+  run_section(7, "Str", fn() {
     for _ in 0..<iters {
       ignore(try! @frontend.Str::regexp(sb("hello")))
       ignore(try! @frontend.Str::regexp(sb("[a-z]+")))
@@ -163,7 +188,7 @@ fn main {
   })
 
   // Section 8: Search
-  run_section(8, fn() {
+  run_section(8, "Search", fn() {
     for _ in 0..<iters {
       ignore(try! @exec.Search::all(re_word, input_large))
       ignore(try! @exec.Search::matches(re_word, input_large))
@@ -171,7 +196,7 @@ fn main {
   })
 
   // Section 9: Split + Replace
-  run_section(9, fn() {
+  run_section(9, "Split+Replace", fn() {
     for _ in 0..<iters {
       ignore(try! @exec.Search::split(re_split, split_input))
       ignore(
@@ -181,12 +206,14 @@ fn main {
   })
 
   // Section 10: Large + Caseless
-  run_section(10, fn() {
+  run_section(10, "Large+Caseless", fn() {
     for _ in 0..<iters {
       ignore(try! @compile.execp(re_large, input_aaaa))
       ignore(try! @compile.execp(re_caseless, sb("HELLO")))
     }
   })
 
+  let total_elapsed = clock() - total_start
+  println("Total: " + fmt_ms(total_elapsed))
   println("done")
 }
