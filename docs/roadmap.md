@@ -146,3 +146,16 @@
 
 ### Sprint 21 — R11 回 + 提交 ✅ 已完成
 - commit: 见最新提交
+### Sprint 22 — P3 trait 化（前端方言统一）✅ 已完成
+- 新增 3 pub(open) trait：RegexParser / RegexCompiler / Quotable
+- 7 个 pub impl（RegexParser 4 + RegexCompiler 1 + Quotable 2）
+- R13：删除 #warnings(-struct_never_constructed)，改用 derive(Default)
+
+### Sprint 23 — R2 五类多手段测试 ✅ 已完成
+- 形式化证明 7 / AI 4 / FAKE 4 / MOCK 3 / E2E 4
+- 新增 22 tests，总 543/543 passed
+
+### Sprint 24 — R11 回 + 提交 ✅ 已完成
+- commit: 见最新提交
+
+> **R11 回**：已交付 S22-S24（P3 前端 trait 化 + R2 五类测试），下环无阻塞。
