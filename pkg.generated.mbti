@@ -1,12 +1,172 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "walkzzz/re-mbt"
 
+import {
+  "walkzzz/re-mbt/re_ast",
+  "walkzzz/re-mbt/re_base",
+  "walkzzz/re-mbt/re_compile",
+  "walkzzz/re-mbt/re_exec",
+  "walkzzz/re-mbt/re_frontend",
+}
+
 // Values
+pub fn advance(@re_ast.WorkingArea, @re_ast.State) -> @re_ast.State
+
+pub fn bs(Bytes) -> String
+
+pub fn compile(@re_ast.AstGen[@re_ast.AstCset]) -> @re_compile.Re
+
+pub fn copy_re(@re_compile.Re) -> @re_compile.Re
+
+pub fn delta(@re_ast.WorkingArea, @re_base.Category, Int32, @re_ast.State) -> @re_ast.State
+
+pub fn exec(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> @re_compile.GroupT raise
+
+pub fn exec_opt(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> @re_compile.GroupT? raise
+
+pub fn exec_partial(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> @re_compile.ExecPartialResult raise
+
+pub fn exec_partial_detailed(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> @re_compile.ExecPartialDetailedResult raise
+
+pub fn execp(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Bool raise
+
+pub fn hash_combine(Int32, Int32) -> Int32
+
+pub fn match_str(groups~ : Bool, partial~ : Bool, @re_compile.Re, Bytes, pos~ : Int32, len~ : Int32) -> @re_compile.MatchInfo raise
+
+pub fn match_str_no_bounds(groups~ : Bool, partial~ : Bool, @re_compile.Re, Bytes, pos~ : Int32, len~ : Int32) -> @re_compile.MatchInfo
+
+pub fn match_str_p(@re_compile.Re, Bytes, pos~ : Int32, len~ : Int32) -> Bool raise
+
+pub fn mk_re(initial~ : @re_ast.Expr, colors~ : @re_ast.ColorTable, color_repr~ : @re_ast.ColorRepr, ncolor~ : Int32, lnl~ : Int32, group_names~ : Array[(String, Int32)], group_count~ : Int32) -> @re_compile.Re
+
+pub fn sb(String) -> Bytes
 
 // Errors
 
 // Types and methods
 
 // Type aliases
+pub type Ast = @re_ast.AstGen[@re_ast.AstCset]
+
+pub using @re_ast {type AstCset}
+
+pub using @re_ast {type AstGen}
+
+pub type AstNoCase = @re_ast.AstGen[@re_base.Cset]
+
+pub using @re_base {type BitVector}
+
+pub using @re_ast {type BoundaryTable}
+
+pub using @re_base {type CSetMap}
+
+pub using @re_base {type Category}
+
+pub using @re_ast {type ColorMap}
+
+pub using @re_ast {type ColorRepr}
+
+pub using @re_ast {type ColorTable}
+
+pub using @re_compile {type CompileIdx}
+
+pub using @re_compile {type CompileState}
+
+pub using @re_base {type Cset}
+
+pub using @re_base {type CsetC}
+
+pub using @re_exec {type CsetView}
+
+pub using @re_base {type DenseMap}
+
+pub using @re_ast {type Desc}
+
+pub using @re_base {type Dyn}
+
+pub using @re_ast {type ET}
+
+pub using @re_frontend {type Emacs}
+
+pub using @re_compile {type ExecPartialDetailedResult}
+
+pub using @re_compile {type ExecPartialResult}
+
+pub using @re_ast {type Expr}
+
+pub using @re_frontend {type Glob}
+
+pub using @re_compile {type GroupT}
+
+pub using @re_base {type HashSet}
+
+pub using @re_base {type Ids}
+
+pub using @re_base {type Idx}
+
+pub using @re_base {type Mark}
+
+pub using @re_base {type MarkInfos}
+
+pub using @re_base {type MarkOffset}
+
+pub using @re_ast {type Marks}
+
+pub using @re_compile {type MatchInfo}
+
+pub using @re_base {type ParseBuffer}
+
+pub using @re_frontend {type Pcre}
+
+pub using @re_frontend {type PcreFlag}
+
+pub using @re_frontend {type PcreSplitResult}
+
+pub using @re_frontend {type Perl}
+
+pub using @re_frontend {type PerlOpt}
+
+pub using @re_base {type Pmark}
+
+pub using @re_base {type PmarkSet}
+
+pub using @re_compile {type Positions}
+
+pub using @re_frontend {type Posix}
+
+pub using @re_frontend {type PosixOpt}
+
+pub using @re_compile {type Re}
+
+pub using @re_base {type RepKind}
+
+pub using @re_exec {type Replace}
+
+pub using @re_exec {type Search}
+
+pub using @re_base {type Sem}
+
+pub using @re_exec {type SplitToken}
+
+pub using @re_ast {type State}
+
+pub using @re_compile {type StateHashTable}
+
+pub using @re_compile {type StateInfo}
+
+pub using @re_ast {type Status}
+
+pub using @re_frontend {type Str}
+
+pub using @re_frontend {type StrSplitResult}
+
+pub using @re_exec {type View}
+
+pub using @re_exec {type ViewRange}
+
+pub using @re_exec {type ViewT}
+
+pub using @re_ast {type WorkingArea}
 
 // Traits
