@@ -114,9 +114,14 @@
 - commit: a1a39f5
 - **R2 状态**：⚠️ 未执行五类多手段测试
 
-### Sprint 18 — R2 多手段测试补测 ⏳ 待开始
-- **形式化证明**：校验 ReCache 缓存 key 唯一性、Str 延迟编译语义等价性
-- **AI 测试**：模拟 ReCache 重复编译场景，验证缓存命中
-- **FAKE 测试**：构造假 Re/假 AST，验证 ReCache::compile 不崩溃
-- **MOCK 测试**：mock 编译管道，验证缓存跳过编译
-- **E2E 测试**：端到端编译→匹配→缓存命中→释放
+### Sprint 18 — R2 多手段测试补测 ✅ 已完成
+- **形式化证明**：9 tests — ReCache key 唯一性 + Str 语义等价性
+- **AI 测试**：4 tests — 重复编译缓存命中模拟
+- **FAKE 测试**：5 tests — 空/超长模式 + get 不存在的 key
+- **MOCK 测试**：4 tests — 缓存跳过编译 + 不同 opts 不命中
+- **E2E 测试**：5 tests — 编译→匹配→缓存→clear→Str 延迟编译全链路
+- 新增 27 tests，总 481/481 passed
+- 报告：`docs/arch_test_report.md`
+- commit: 见最新提交
+
+> **R11 回**：已交付 S16-S18（Str 优化 + ReCache + R2 五类测试），下环无阻塞。
