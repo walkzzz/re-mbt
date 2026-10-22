@@ -41,7 +41,9 @@ test "search all with pos" {
 
 ///|
 test "search all overlapping pattern" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::str(sb("a")), @re.Ast::str(sb("a"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::str(sb("a")), @re.Ast::str(sb("a"))]),
+  )
   let results = @re.Search::all(re, sb("aaaa"))
   assert_eq(results.length(), 2)
 }

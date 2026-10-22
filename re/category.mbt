@@ -3,7 +3,7 @@
 
 ///|
 pub struct Category {
-  bits : Int
+  bits : Int32
 } derive(Debug, Eq, Compare)
 
 ///|
@@ -16,13 +16,14 @@ pub extend Category with Eq::{not_equal}
 pub extend Category with Compare::{op_lt, op_le, op_ge, op_gt}
 
 ///|
-
-pub fn Category::from_int(i : Int) -> Category {
-  { bits: i }
+/// 从整数创建 Category。
+/// Create a Category from an integer.
+pub fn Category::from_int(i : Int32) -> Category {
+  { bits: i, }
 }
 
 ///|
-pub fn Category::to_int(self : Category) -> Int {
+pub fn Category::to_int(self : Category) -> Int32 {
   self.bits
 }
 
@@ -32,7 +33,7 @@ pub fn Category::equal(x : Category, y : Category) -> Bool {
 }
 
 ///|
-pub fn Category::compare(x : Category, y : Category) -> Int {
+pub fn Category::compare(x : Category, y : Category) -> Int32 {
   x.bits.compare(y.bits)
 }
 
@@ -43,42 +44,42 @@ pub fn Category::intersect(x : Category, y : Category) -> Bool {
 
 ///|
 pub fn Category::add(x : Category, y : Category) -> Category {
-  { bits: x.bits | y.bits }
+  { bits: x.bits | y.bits, }
 }
 
 ///|
 pub fn Category::dummy() -> Category {
-  { bits: -1 }
+  { bits: -1, }
 }
 
 ///|
 pub fn Category::inexistant() -> Category {
-  { bits: 1 }
+  { bits: 1, }
 }
 
 ///|
 pub fn Category::letter() -> Category {
-  { bits: 2 }
+  { bits: 2, }
 }
 
 ///|
 pub fn Category::not_letter() -> Category {
-  { bits: 4 }
+  { bits: 4, }
 }
 
 ///|
 pub fn Category::newline() -> Category {
-  { bits: 8 }
+  { bits: 8, }
 }
 
 ///|
 pub fn Category::lastnewline() -> Category {
-  { bits: 16 }
+  { bits: 16, }
 }
 
 ///|
 pub fn Category::search_boundary() -> Category {
-  { bits: 32 }
+  { bits: 32, }
 }
 
 // from_char: should match [cword] definition in Cset.

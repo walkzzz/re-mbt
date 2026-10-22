@@ -91,8 +91,8 @@ pub fn Re::xdigit() -> Ast {
 pub fn exec_opt(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> GroupT? raise {
   match match_str(groups=true, partial=false, re, s, pos~, len~) {
     MatchInfo(substr) => Some(substr)
@@ -107,8 +107,8 @@ pub fn exec_opt(
 pub fn exec(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> GroupT raise {
   match match_str(groups=true, partial=false, re, s, pos~, len~) {
     MatchInfo(substr) => substr
@@ -120,7 +120,12 @@ pub fn exec(
 
 ///|
 /// Test whether `re` matches anywhere in `s`. More efficient than `exec_opt`.
-pub fn execp(re : Re, s : Bytes, pos? : Int = 0, len? : Int = -1) -> Bool raise {
+pub fn execp(
+  re : Re,
+  s : Bytes,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
+) -> Bool raise {
   match_str_p(re, s, pos~, len~)
 }
 
@@ -158,8 +163,8 @@ pub fn ExecPartialResult::mismatch() -> ExecPartialResult {
 pub fn exec_partial(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> ExecPartialResult raise {
   match match_str(groups=false, partial=true, re, s, pos~, len~) {
     MatchInfo(_) => Full
@@ -173,7 +178,7 @@ pub fn exec_partial(
 ///|
 pub enum ExecPartialDetailedResult {
   FullD(GroupT)
-  PartialD(Int)
+  PartialD(Int32)
   MismatchD
 }
 
@@ -181,8 +186,8 @@ pub enum ExecPartialDetailedResult {
 pub fn exec_partial_detailed(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> ExecPartialDetailedResult raise {
   match match_str(groups=true, partial=true, re, s, pos~, len~) {
     MatchInfo(group) => FullD(group)

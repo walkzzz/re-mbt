@@ -75,7 +75,9 @@ test "view nest" {
 
 ///|
 test "view no_group" {
-  let r = @re.Ast::no_group(@re.Ast::seq([@re.Ast::char('a'), @re.Ast::char('b')]))
+  let r = @re.Ast::no_group(
+    @re.Ast::seq([@re.Ast::char('a'), @re.Ast::char('b')]),
+  )
   match @re.View::view(r) {
     NoGroupT(_) => assert_eq(true, true)
     _ => assert_eq(true, false)

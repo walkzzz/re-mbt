@@ -2,7 +2,7 @@
 // GroupT is defined in compile.mbt
 
 ///|
-pub fn GroupT::get_opt(g : GroupT, i : Int) -> Bytes? {
+pub fn GroupT::get_opt(g : GroupT, i : Int32) -> Bytes? {
   if GroupT::matched(g, i) {
     GroupT::get(g, i)
   } else {
@@ -11,7 +11,7 @@ pub fn GroupT::get_opt(g : GroupT, i : Int) -> Bytes? {
 }
 
 ///|
-pub fn GroupT::offset_opt(g : GroupT, i : Int) -> (Int, Int)? {
+pub fn GroupT::offset_opt(g : GroupT, i : Int32) -> (Int32, Int32)? {
   match MarkInfos::offset(g.marks, i) {
     None => None
     Some((start, stop)) => Some((g.gpos[start], g.gpos[stop]))
@@ -19,7 +19,7 @@ pub fn GroupT::offset_opt(g : GroupT, i : Int) -> (Int, Int)? {
 }
 
 ///|
-pub fn GroupT::offset(g : GroupT, i : Int) -> (Int, Int) raise {
+pub fn GroupT::offset(g : GroupT, i : Int32) -> (Int32, Int32) raise {
   match GroupT::offset_opt(g, i) {
     Some(p) => p
     None => fail("Group.offset: not found")
@@ -27,7 +27,7 @@ pub fn GroupT::offset(g : GroupT, i : Int) -> (Int, Int) raise {
 }
 
 ///|
-pub fn GroupT::start_opt(g : GroupT, i : Int) -> Int? {
+pub fn GroupT::start_opt(g : GroupT, i : Int32) -> Int32? {
   match GroupT::offset_opt(g, i) {
     Some((p1, _)) => Some(p1)
     None => None
@@ -35,7 +35,7 @@ pub fn GroupT::start_opt(g : GroupT, i : Int) -> Int? {
 }
 
 ///|
-pub fn GroupT::start(g : GroupT, i : Int) -> Int raise {
+pub fn GroupT::start(g : GroupT, i : Int32) -> Int32 raise {
   match GroupT::start_opt(g, i) {
     Some(p) => p
     None => fail("Group.start: not found")
@@ -43,7 +43,7 @@ pub fn GroupT::start(g : GroupT, i : Int) -> Int raise {
 }
 
 ///|
-pub fn GroupT::stop_opt(g : GroupT, i : Int) -> Int? {
+pub fn GroupT::stop_opt(g : GroupT, i : Int32) -> Int32? {
   match GroupT::offset_opt(g, i) {
     Some((_, p2)) => Some(p2)
     None => None
@@ -51,7 +51,7 @@ pub fn GroupT::stop_opt(g : GroupT, i : Int) -> Int? {
 }
 
 ///|
-pub fn GroupT::stop(g : GroupT, i : Int) -> Int raise {
+pub fn GroupT::stop(g : GroupT, i : Int32) -> Int32 raise {
   match GroupT::stop_opt(g, i) {
     Some(p) => p
     None => fail("Group.stop: not found")
@@ -59,17 +59,17 @@ pub fn GroupT::stop(g : GroupT, i : Int) -> Int raise {
 }
 
 ///|
-pub fn GroupT::matched(g : GroupT, i : Int) -> Bool {
+pub fn GroupT::matched(g : GroupT, i : Int32) -> Bool {
   MarkInfos::has(g.marks, i)
 }
 
 ///|
-pub fn GroupT::nb_groups(g : GroupT) -> Int {
+pub fn GroupT::nb_groups(g : GroupT) -> Int32 {
   g.gcount
 }
 
 ///|
-pub fn GroupT::start_offset(g : GroupT, i : Int) -> Int {
+pub fn GroupT::start_offset(g : GroupT, i : Int32) -> Int32 {
   let off = MarkInfos::start_offset(g.marks, i)
   if MarkOffset::is_present(off) {
     g.gpos[MarkOffset::get_no_check(off)]
@@ -79,7 +79,7 @@ pub fn GroupT::start_offset(g : GroupT, i : Int) -> Int {
 }
 
 ///|
-pub fn GroupT::stop_offset(g : GroupT, i : Int) -> Int {
+pub fn GroupT::stop_offset(g : GroupT, i : Int32) -> Int32 {
   let off = MarkInfos::stop_offset(g.marks, i)
   if MarkOffset::is_present(off) {
     g.gpos[MarkOffset::get_no_check(off)]
@@ -94,7 +94,7 @@ pub fn GroupT::pmarks(g : GroupT) -> PmarkSet {
 }
 
 ///|
-pub fn GroupT::all_offset(g : GroupT) -> Array[(Int, Int)] {
+pub fn GroupT::all_offset(g : GroupT) -> Array[(Int32, Int32)] {
   let res = Array::make(g.gcount, (-1, -1))
   MarkInfos::iteri(g.marks, fn(i, start, stop) {
     res[i] = (g.gpos[start], g.gpos[stop])

@@ -13,7 +13,9 @@ fn bs_ct(b : Bytes) -> String {
 
 ///|
 test "translate alt basic" {
-  let re = @re.compile(@re.Ast::alt([@re.Ast::str(sb("foo")), @re.Ast::str(sb("bar"))]))
+  let re = @re.compile(
+    @re.Ast::alt([@re.Ast::str(sb("foo")), @re.Ast::str(sb("bar"))]),
+  )
   assert_eq(@re.execp(re, sb("foo")), true)
   assert_eq(@re.execp(re, sb("bar")), true)
   assert_eq(@re.execp(re, sb("baz")), false)
@@ -22,7 +24,11 @@ test "translate alt basic" {
 ///|
 test "translate alt three branches" {
   let re = @re.compile(
-    @re.Ast::alt([@re.Ast::str(sb("a")), @re.Ast::str(sb("b")), @re.Ast::str(sb("c"))]),
+    @re.Ast::alt([
+      @re.Ast::str(sb("a")),
+      @re.Ast::str(sb("b")),
+      @re.Ast::str(sb("c")),
+    ]),
   )
   assert_eq(@re.execp(re, sb("a")), true)
   assert_eq(@re.execp(re, sb("b")), true)
@@ -42,7 +48,9 @@ test "translate alt empty" {
 
 ///|
 test "translate seq basic" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::str(sb("ab")), @re.Ast::str(sb("cd"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::str(sb("ab")), @re.Ast::str(sb("cd"))]),
+  )
   assert_eq(@re.execp(re, sb("abcd")), true)
   assert_eq(@re.execp(re, sb("ab")), false)
 }
@@ -114,7 +122,12 @@ test "translate nested groups" {
   let re = @re.compile(
     @re.Ast::seq([
       @re.Ast::group(@re.Ast::str(sb("a"))),
-      @re.Ast::group(@re.Ast::seq([@re.Ast::str(sb("b")), @re.Ast::group(@re.Ast::str(sb("c")))])),
+      @re.Ast::group(
+        @re.Ast::seq([
+          @re.Ast::str(sb("b")),
+          @re.Ast::group(@re.Ast::str(sb("c"))),
+        ]),
+      ),
     ]),
   )
   match @re.exec_opt(re, sb("abc")) {
@@ -143,7 +156,10 @@ test "translate no_group" {
 test "translate longest" {
   let re = @re.compile(
     @re.Ast::longest(
-      @re.Ast::seq([@re.Ast::rep(@re.Ast::str(sb("a"))), @re.Ast::rep(@re.Ast::str(sb("a")))]),
+      @re.Ast::seq([
+        @re.Ast::rep(@re.Ast::str(sb("a"))),
+        @re.Ast::rep(@re.Ast::str(sb("a"))),
+      ]),
     ),
   )
   match @re.exec_opt(re, sb("aaa")) {
@@ -159,7 +175,10 @@ test "translate longest" {
 test "translate shortest" {
   let re = @re.compile(
     @re.Ast::shortest(
-      @re.Ast::seq([@re.Ast::rep(@re.Ast::str(sb("a"))), @re.Ast::rep(@re.Ast::str(sb("a")))]),
+      @re.Ast::seq([
+        @re.Ast::rep(@re.Ast::str(sb("a"))),
+        @re.Ast::rep(@re.Ast::str(sb("a"))),
+      ]),
     ),
   )
   match @re.exec_opt(re, sb("aaa")) {
@@ -222,7 +241,10 @@ test "translate cset inter" {
 ///|
 test "translate cset diff" {
   let re = @re.compile(
-    @re.Ast::diff(@re.Ast::cset(@re.Cset::cseq('a', 'z')), @re.Ast::cset(@re.Cset::cseq('a', 'm'))),
+    @re.Ast::diff(
+      @re.Ast::cset(@re.Cset::cseq('a', 'z')),
+      @re.Ast::cset(@re.Cset::cseq('a', 'm')),
+    ),
   )
   assert_eq(@re.execp(re, sb("a")), false)
   assert_eq(@re.execp(re, sb("n")), true)
@@ -267,7 +289,12 @@ test "translate case" {
 test "translate nest" {
   let re = @re.compile(
     @re.Ast::rep1(
-      @re.Ast::nest(@re.Ast::alt([@re.Ast::group(@re.Ast::str(sb("a"))), @re.Ast::str(sb("b"))])),
+      @re.Ast::nest(
+        @re.Ast::alt([
+          @re.Ast::group(@re.Ast::str(sb("a"))),
+          @re.Ast::str(sb("b")),
+        ]),
+      ),
     ),
   )
   match @re.exec_opt(re, sb("ab")) {

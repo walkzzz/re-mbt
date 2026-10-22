@@ -30,7 +30,7 @@ pub fn CsetView::view(t : Cset) -> Array[ViewRange] {
   let result : Array[ViewRange] = []
   for p in t.intervals {
     let (first, last) = p
-    result.push({ first: CsetC::to_char(first), last: CsetC::to_char(last) })
+    result.push({ first: CsetC::to_char(first), last: CsetC::to_char(last), })
   }
   result
 }
@@ -40,7 +40,7 @@ pub enum ViewT {
   SetT(Cset)
   SequenceT(Array[Ast])
   AlternativeT(Array[Ast])
-  RepeatT(Ast, Int, Int?)
+  RepeatT(Ast, Int32, Int32?)
   BegOfLineT
   EndOfLineT
   BegOfWordT

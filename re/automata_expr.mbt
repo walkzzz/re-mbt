@@ -3,23 +3,23 @@
 
 ///|
 pub enum Expr {
-  Cst(Int, Cset)
-  Alt(Int, Array[Expr])
-  Seq(Int, Sem, Expr, Expr)
-  Eps(Int)
-  Rep(Int, RepKind, Sem, Expr)
-  MarkOf(Int, Int)
-  Erase(Int, Int, Int)
-  Before(Int, Category)
-  After(Int, Category)
-  PmarkOf(Int, Pmark)
+  Cst(Int32, Cset)
+  Alt(Int32, Array[Expr])
+  Seq(Int32, Sem, Expr, Expr)
+  Eps(Int32)
+  Rep(Int32, RepKind, Sem, Expr)
+  MarkOf(Int32, Int32)
+  Erase(Int32, Int32, Int32)
+  Before(Int32, Category)
+  After(Int32, Category)
+  PmarkOf(Int32, Pmark)
 } derive(Debug)
 
 ///|
 pub extend Expr with @moonbitlang/core/debug.Debug::{to_repr}
 
 ///|
-pub fn Expr::id(e : Expr) -> Int {
+pub fn Expr::id(e : Expr) -> Int32 {
   match e {
     Cst(i, _) => i
     Alt(i, _) => i
@@ -64,7 +64,7 @@ pub fn Expr::rep(ids : Ids, kind : RepKind, sem : Sem, x : Expr) -> Expr {
 }
 
 ///|
-pub fn Expr::mark(ids : Ids, m : Int) -> Expr {
+pub fn Expr::mark(ids : Ids, m : Int32) -> Expr {
   MarkOf(ids.next(), m)
 }
 
@@ -74,7 +74,7 @@ pub fn Expr::pmark(ids : Ids, i : Pmark) -> Expr {
 }
 
 ///|
-pub fn Expr::erase(ids : Ids, m : Int, m2 : Int) -> Expr {
+pub fn Expr::erase(ids : Ids, m : Int32, m2 : Int32) -> Expr {
   Erase(ids.next(), m, m2)
 }
 

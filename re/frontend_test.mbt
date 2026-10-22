@@ -344,7 +344,9 @@ test "perl multiline opt" {
 
 ///|
 test "perl dollar_endonly opt" {
-  let re_de = @re.Perl::compile_pat(sb("abc$"), opts=[@re.PerlOpt::dollar_endonly()])
+  let re_de = @re.Perl::compile_pat(sb("abc$"), opts=[
+    @re.PerlOpt::dollar_endonly(),
+  ])
   assert_eq(@re.execp(re_de, sb("abc\n")), true)
   assert_eq(@re.execp(re_de, sb("abc")), true)
   let re_no = @re.Perl::compile_pat(sb("abc$"))
@@ -404,7 +406,10 @@ test "pcre dotall flag" {
 test "str global_replace replaces all matches" {
   let re = @re.Str::regexp(sb("o"))
   let repl = sb("X")
-  assert_eq(bs(@re.Str::global_replace(re, repl, sb("foo bar boo"))), "fXX bar bXX")
+  assert_eq(
+    bs(@re.Str::global_replace(re, repl, sb("foo bar boo"))),
+    "fXX bar bXX",
+  )
   assert_eq(bs(@re.Str::global_replace(re, repl, sb("xyz"))), "xyz")
 }
 

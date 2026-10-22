@@ -4,11 +4,11 @@
 
 ///|
 pub struct MarkInfos {
-  table : Array[Int]
+  table : Array[Int32]
 }
 
 ///|
-pub fn MarkInfos::make(marks : Array[(Int, Int)]) -> MarkInfos {
+pub fn MarkInfos::make(marks : Array[(Int32, Int32)]) -> MarkInfos {
   let mut len = 0
   for p in marks {
     if p.0 > len {
@@ -20,11 +20,11 @@ pub fn MarkInfos::make(marks : Array[(Int, Int)]) -> MarkInfos {
   for p in marks {
     t[p.0] = p.1
   }
-  { table: t }
+  { table: t, }
 }
 
 ///|
-pub fn MarkInfos::has(t : MarkInfos, i : Int) -> Bool {
+pub fn MarkInfos::has(t : MarkInfos, i : Int32) -> Bool {
   if 2 * i >= t.table.length() {
     false
   } else {
@@ -34,7 +34,7 @@ pub fn MarkInfos::has(t : MarkInfos, i : Int) -> Bool {
 
 ///|
 pub struct MarkOffset {
-  val : Int
+  val : Int32
 }
 
 ///|
@@ -43,32 +43,32 @@ pub fn MarkOffset::is_present(t : MarkOffset) -> Bool {
 }
 
 ///|
-pub fn MarkOffset::get_no_check(t : MarkOffset) -> Int {
+pub fn MarkOffset::get_no_check(t : MarkOffset) -> Int32 {
   t.val
 }
 
 ///|
-pub fn MarkInfos::start_offset(t : MarkInfos, i : Int) -> MarkOffset {
+pub fn MarkInfos::start_offset(t : MarkInfos, i : Int32) -> MarkOffset {
   let start_i = 2 * i
   if start_i + 1 >= t.table.length() {
-    { val: -1 }
+    { val: -1, }
   } else {
-    { val: t.table[start_i] }
+    { val: t.table[start_i], }
   }
 }
 
 ///|
-pub fn MarkInfos::stop_offset(t : MarkInfos, i : Int) -> MarkOffset {
+pub fn MarkInfos::stop_offset(t : MarkInfos, i : Int32) -> MarkOffset {
   let stop_i = 2 * i + 1
   if stop_i >= t.table.length() {
-    { val: -1 }
+    { val: -1, }
   } else {
-    { val: t.table[stop_i] }
+    { val: t.table[stop_i], }
   }
 }
 
 ///|
-pub fn MarkInfos::offset(t : MarkInfos, i : Int) -> (Int, Int)? {
+pub fn MarkInfos::offset(t : MarkInfos, i : Int32) -> (Int32, Int32)? {
   let start_i = 2 * i
   let stop_i = start_i + 1
   if stop_i >= t.table.length() {
@@ -85,7 +85,10 @@ pub fn MarkInfos::offset(t : MarkInfos, i : Int) -> (Int, Int)? {
 }
 
 ///|
-pub fn MarkInfos::iteri(t : MarkInfos, f : (Int, Int, Int) -> Unit) -> Unit {
+pub fn MarkInfos::iteri(
+  t : MarkInfos,
+  f : (Int32, Int32, Int32) -> Unit,
+) -> Unit {
   let n = t.table.length() / 2
   for i in 0..<n {
     let idx = 2 * i

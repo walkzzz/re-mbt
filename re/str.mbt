@@ -11,12 +11,12 @@ struct StrRegexp {
 }
 
 ///|
-let str_state : Ref[GroupT?] = Ref::{ val: None }
+let str_state : Ref[GroupT?] = Ref::{ val: None, }
 
 ///|
 pub fn Str::compile_regexp(s : Bytes, case_fold : Bool) -> StrRegexp raise {
   let re = Emacs::re_no_emacs(s, case=!case_fold)
-  { mtch: compile(Ast::seq([Ast::start(), re])), srch: compile(re) }
+  { mtch: compile(Ast::seq([Ast::start(), re])), srch: compile(re), }
 }
 
 ///|
@@ -56,7 +56,7 @@ pub fn Str::regexp_string(s : Bytes) -> StrRegexp raise {
 }
 
 ///|
-pub fn Str::string_match(re : StrRegexp, s : Bytes, p : Int) -> Bool raise {
+pub fn Str::string_match(re : StrRegexp, s : Bytes, p : Int32) -> Bool raise {
   match exec_opt(re.mtch, s, pos=p) {
     Some(res) => {
       str_state.val = Some(res)
@@ -70,7 +70,7 @@ pub fn Str::string_match(re : StrRegexp, s : Bytes, p : Int) -> Bool raise {
 }
 
 ///|
-pub fn Str::search_forward(re : StrRegexp, s : Bytes, p : Int) -> Int raise {
+pub fn Str::search_forward(re : StrRegexp, s : Bytes, p : Int32) -> Int32 raise {
   match exec_opt(re.srch, s, pos=p) {
     Some(res) => {
       str_state.val = Some(res)
@@ -81,7 +81,7 @@ pub fn Str::search_forward(re : StrRegexp, s : Bytes, p : Int) -> Int raise {
 }
 
 ///|
-pub fn Str::match_beginning() -> Int raise {
+pub fn Str::match_beginning() -> Int32 raise {
   match str_state.val {
     Some(m) => GroupT::start(m, 0)
     None => fail("Str: no match")
@@ -89,7 +89,7 @@ pub fn Str::match_beginning() -> Int raise {
 }
 
 ///|
-pub fn Str::match_end() -> Int raise {
+pub fn Str::match_end() -> Int32 raise {
   match str_state.val {
     Some(m) => GroupT::stop(m, 0)
     None => fail("Str: no match")
@@ -105,7 +105,7 @@ pub fn Str::matched_string(_txt : Bytes) -> Bytes raise {
 }
 
 ///|
-pub fn Str::group_beginning(n : Int) -> Int raise {
+pub fn Str::group_beginning(n : Int32) -> Int32 raise {
   match str_state.val {
     Some(m) => GroupT::start(m, n)
     None => fail("Str: no match")
@@ -113,7 +113,7 @@ pub fn Str::group_beginning(n : Int) -> Int raise {
 }
 
 ///|
-pub fn Str::group_end(n : Int) -> Int raise {
+pub fn Str::group_end(n : Int32) -> Int32 raise {
   match str_state.val {
     Some(m) => GroupT::stop(m, n)
     None => fail("Str: no match")
@@ -121,7 +121,7 @@ pub fn Str::group_end(n : Int) -> Int raise {
 }
 
 ///|
-pub fn Str::matched_group(n : Int, _txt : Bytes) -> Bytes raise {
+pub fn Str::matched_group(n : Int32, _txt : Bytes) -> Bytes raise {
   match str_state.val {
     Some(m) => GroupT::get(m, n).unwrap()
     None => fail("Str: no match")
@@ -129,7 +129,7 @@ pub fn Str::matched_group(n : Int, _txt : Bytes) -> Bytes raise {
 }
 
 ///|
-pub fn Str::string_before(s : Bytes, n : Int) -> Bytes {
+pub fn Str::string_before(s : Bytes, n : Int32) -> Bytes {
   let buf : Array[Byte] = []
   for i in 0..<n {
     buf.push(s[i])
@@ -138,7 +138,7 @@ pub fn Str::string_before(s : Bytes, n : Int) -> Bytes {
 }
 
 ///|
-pub fn Str::string_after(s : Bytes, n : Int) -> Bytes {
+pub fn Str::string_after(s : Bytes, n : Int32) -> Bytes {
   let buf : Array[Byte] = []
   for i in n..<s.length() {
     buf.push(s[i])
@@ -152,7 +152,11 @@ pub fn Str::global_replace(
   repl : Bytes,
   text : Bytes,
 ) -> Bytes raise {
-  Str::global_substitute(re, fn(_s) raise { str_replacement_text(repl, _s) }, text)
+  Str::global_substitute(
+    re,
+    fn(_s) raise { str_replacement_text(repl, _s) },
+    text,
+  )
 }
 
 ///|
@@ -161,7 +165,11 @@ pub fn Str::replace_first(
   repl : Bytes,
   text : Bytes,
 ) -> Bytes raise {
-  Str::substitute_first(re, fn(_s) raise { str_replacement_text(repl, _s) }, text)
+  Str::substitute_first(
+    re,
+    fn(_s) raise { str_replacement_text(repl, _s) },
+    text,
+  )
 }
 
 ///|
@@ -173,7 +181,7 @@ pub fn Str::split(re : StrRegexp, text : Bytes) -> Array[Bytes] raise {
 pub fn Str::bounded_split(
   re : StrRegexp,
   text : Bytes,
-  num : Int,
+  num : Int32,
 ) -> Array[Bytes] raise {
   let result : Array[Bytes] = []
   let start = if Str::string_match(re, text, 0) { Str::match_end() } else { 0 }
@@ -260,7 +268,11 @@ pub fn Str::regexp_string_case_fold(s : Bytes) -> StrRegexp raise {
 }
 
 ///|
-pub fn Str::search_backward(re : StrRegexp, s : Bytes, p : Int) -> Int raise {
+pub fn Str::search_backward(
+  re : StrRegexp,
+  s : Bytes,
+  p : Int32,
+) -> Int32 raise {
   let mut pos = p
   while pos >= 0 {
     match exec_opt(re.mtch, s, pos~) {
@@ -282,7 +294,7 @@ pub fn Str::search_backward(re : StrRegexp, s : Bytes, p : Int) -> Int raise {
 pub fn Str::string_partial_match(
   re : StrRegexp,
   s : Bytes,
-  p : Int,
+  p : Int32,
 ) -> Bool raise {
   match exec_partial(re.mtch, s, pos=p) {
     Full => Str::string_match(re, s, p)
@@ -414,7 +426,7 @@ pub fn Str::substitute_first(
 pub fn Str::bounded_split_delim(
   re : StrRegexp,
   text : Bytes,
-  num : Int,
+  num : Int32,
 ) -> Array[Bytes] raise {
   if text.length() == 0 {
     return []
@@ -460,7 +472,7 @@ pub fn Str::split_delim(re : StrRegexp, text : Bytes) -> Array[Bytes] raise {
 pub fn Str::bounded_full_split(
   re : StrRegexp,
   text : Bytes,
-  num : Int,
+  num : Int32,
 ) -> Array[StrSplitResult] raise {
   let result : Array[StrSplitResult] = []
   let mut cur = 0
@@ -507,12 +519,12 @@ pub fn Str::bounded_full_split(
 }
 
 ///|
-pub fn Str::first_chars(s : Bytes, n : Int) -> Bytes {
+pub fn Str::first_chars(s : Bytes, n : Int32) -> Bytes {
   Str::string_before(s, n)
 }
 
 ///|
-pub fn Str::last_chars(s : Bytes, n : Int) -> Bytes {
+pub fn Str::last_chars(s : Bytes, n : Int32) -> Bytes {
   let buf : Array[Byte] = []
   let start = s.length() - n
   for i in start..<s.length() {

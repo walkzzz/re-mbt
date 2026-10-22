@@ -11,7 +11,7 @@ let emacs_close_group : Bytes = sb("\\)")
 pub struct Emacs {}
 
 ///|
-fn emacs_by_code(f : (Int, Int) -> Int, c : Char, c2 : Char) -> Char {
+fn emacs_by_code(f : (Int32, Int32) -> Int32, c : Char, c2 : Char) -> Char {
   let ci = c.to_int()
   let c2i = c2.to_int()
   f(ci, c2i).unsafe_to_char()
@@ -161,7 +161,7 @@ fn emacs_bracket(buf : ParseBuffer, s : Array[Ast]) -> Array[Ast] raise {
         s
       } else {
         let c2 = emacs_char(buf)
-        let c2_max = emacs_by_code(Int::max, c, c2)
+        let c2_max = emacs_by_code(Int32::max, c, c2)
         s.push(Re::rg(c, c2_max))
         emacs_bracket(buf, s)
       }
@@ -181,7 +181,7 @@ fn emacs_char(buf : ParseBuffer) -> Char raise {
 }
 
 ///|
-pub fn Emacs::re(s : Bytes, case? : Bool = true) -> Ast raise {
+pub fn Emacs::re(s : Bytes, case~ : Bool = true) -> Ast raise {
   let buf = ParseBuffer::create(s)
   let r = emacs_regexp(buf, true)
   if !ParseBuffer::eos(buf) {
@@ -209,6 +209,6 @@ pub fn Emacs::re_no_emacs(s : Bytes, case~ : Bool) -> Ast raise {
 }
 
 ///|
-pub fn Emacs::compile_pat(s : Bytes, case? : Bool = true) -> Re raise {
+pub fn Emacs::compile_pat(s : Bytes, case~ : Bool = true) -> Re raise {
   compile(Emacs::re(s, case~))
 }

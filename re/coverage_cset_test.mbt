@@ -79,7 +79,11 @@ test "Cset::offset" {
 
 ///|
 test "Cset::union_all" {
-  let u = @re.Cset::union_all([@re.Cset::single(65), @re.Cset::single(66), @re.Cset::single(67)])
+  let u = @re.Cset::union_all([
+    @re.Cset::single(65),
+    @re.Cset::single(66),
+    @re.Cset::single(67),
+  ])
   assert_eq(@re.Cset::mem(65, u), true)
   assert_eq(@re.Cset::mem(66, u), true)
   assert_eq(@re.Cset::mem(67, u), true)
@@ -109,7 +113,7 @@ test "Cset::hash differs for different sets" {
 ///|
 test "Cset::iter" {
   let s = @re.Cset::union(@re.Cset::seq(0, 5), @re.Cset::seq(10, 15))
-  let pairs : Array[(Int, Int)] = []
+  let pairs : Array[(Int32, Int32)] = []
   @re.Cset::iter(s, f=fn(c1, c2) { pairs.push((c1, c2)) })
   assert_eq(pairs.length(), 2)
   assert_eq(pairs[0], (0, 5))

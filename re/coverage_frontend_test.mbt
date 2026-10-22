@@ -168,7 +168,9 @@ test "replace with function all=false" {
 
 ///|
 test "exec_partial_detailed partial" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]),
+  )
   let result = @re.exec_partial_detailed(re, sb("hel"))
   match result {
     PartialD(_) => assert_eq(true, true)
@@ -178,7 +180,9 @@ test "exec_partial_detailed partial" {
 
 ///|
 test "exec_partial_detailed mismatch" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]),
+  )
   let result = @re.exec_partial_detailed(re, sb("world"))
   match result {
     MismatchD => assert_eq(true, true)

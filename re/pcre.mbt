@@ -36,7 +36,7 @@ pub fn PcreFlag::dotall_p() -> PcreFlag {
 pub enum PcreSplitResult {
   PcreText(Bytes)
   PcreDelim(Bytes)
-  PcreGroup(Int, Bytes)
+  PcreGroup(Int32, Bytes)
   PcreNoGroup
 }
 
@@ -55,12 +55,12 @@ fn pcre_flags_to_opts(flags : Array[PcreFlag]) -> Array[PerlOpt] {
 }
 
 ///|
-pub fn Pcre::re(pat : Bytes, flags? : Array[PcreFlag] = []) -> Ast raise {
+pub fn Pcre::re(pat : Bytes, flags~ : Array[PcreFlag] = []) -> Ast raise {
   Perl::re(pat, opts=pcre_flags_to_opts(flags))
 }
 
 ///|
-pub fn Pcre::regexp(pat : Bytes, flags? : Array[PcreFlag] = []) -> Re raise {
+pub fn Pcre::regexp(pat : Bytes, flags~ : Array[PcreFlag] = []) -> Re raise {
   compile(Pcre::re(pat, flags~))
 }
 
@@ -71,7 +71,7 @@ pub fn Pcre::extract(rex : Re, s : Bytes) -> Array[Bytes] raise {
 }
 
 ///|
-pub fn Pcre::exec(rex : Re, s : Bytes, pos? : Int = 0) -> GroupT raise {
+pub fn Pcre::exec(rex : Re, s : Bytes, pos~ : Int32 = 0) -> GroupT raise {
   exec(rex, s, pos~)
 }
 
@@ -105,7 +105,7 @@ pub fn Pcre::get_named_substring_opt(
 }
 
 ///|
-pub fn Pcre::get_substring_ofs(s : GroupT, i : Int) -> (Int, Int) raise {
+pub fn Pcre::get_substring_ofs(s : GroupT, i : Int32) -> (Int32, Int32) raise {
   GroupT::offset(s, i)
 }
 
@@ -154,7 +154,7 @@ pub fn Pcre::split(rex : Re, s : Bytes) -> Array[Bytes] raise {
 pub fn Pcre::full_split(
   rex : Re,
   s : Bytes,
-  max? : Int = 0,
+  max~ : Int32 = 0,
 ) -> Array[PcreSplitResult] raise {
   if s.length() == 0 {
     []
@@ -185,7 +185,7 @@ pub fn Pcre::full_split(
 }
 
 ///|
-pub fn Pcre::get_substring(s : GroupT, i : Int) -> Bytes {
+pub fn Pcre::get_substring(s : GroupT, i : Int32) -> Bytes {
   GroupT::get(s, i).unwrap()
 }
 

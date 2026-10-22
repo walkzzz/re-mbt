@@ -10,32 +10,32 @@
 pub struct CsetC {}
 
 ///|
-pub fn CsetC::null_char() -> Int {
+pub fn CsetC::null_char() -> Int32 {
   -1
 }
 
 ///|
-pub fn CsetC::equal_c(x : Int, y : Int) -> Bool {
+pub fn CsetC::equal_c(x : Int32, y : Int32) -> Bool {
   x == y
 }
 
 ///|
-pub fn CsetC::to_int(x : Int) -> Int {
+pub fn CsetC::to_int(x : Int32) -> Int32 {
   x
 }
 
 ///|
-pub fn CsetC::of_int(x : Int) -> Int {
+pub fn CsetC::of_int(x : Int32) -> Int32 {
   x
 }
 
 ///|
-pub fn CsetC::to_char(t : Int) -> Char {
+pub fn CsetC::to_char(t : Int32) -> Char {
   t.unsafe_to_char()
 }
 
 ///|
-pub fn CsetC::of_char(c : Char) -> Int {
+pub fn CsetC::of_char(c : Char) -> Int32 {
   c.to_int()
 }
 
@@ -43,7 +43,7 @@ pub fn CsetC::of_char(c : Char) -> Int {
 
 ///|
 pub struct Cset {
-  intervals : Array[(Int, Int)]
+  intervals : Array[(Int32, Int32)]
 } derive(Debug, Eq, Compare)
 
 ///|
@@ -56,9 +56,10 @@ pub extend Cset with Eq::{not_equal}
 pub extend Cset with Compare::{op_lt, op_le, op_ge, op_gt}
 
 ///|
-
+/// 返回空字符集。
+/// Return an empty character set.
 pub fn Cset::empty() -> Cset {
-  { intervals: [] }
+  { intervals: [], }
 }
 
 ///|
@@ -68,7 +69,7 @@ pub fn Cset::is_empty(t : Cset) -> Bool {
 
 ///|
 pub fn Cset::cany() -> Cset {
-  { intervals: [(0, 255)] }
+  { intervals: [(0, 255)], }
 }
 
 ///|
@@ -86,7 +87,7 @@ pub fn Cset::equal(t1 : Cset, t2 : Cset) -> Bool {
 }
 
 ///|
-fn compare_pair(p1 : (Int, Int), p2 : (Int, Int)) -> Int {
+fn compare_pair(p1 : (Int32, Int32), p2 : (Int32, Int32)) -> Int32 {
   let c = p1.0.compare(p2.0)
   if c != 0 {
     c
@@ -96,7 +97,7 @@ fn compare_pair(p1 : (Int, Int), p2 : (Int, Int)) -> Int {
 }
 
 ///|
-pub fn Cset::compare(t1 : Cset, t2 : Cset) -> Int {
+pub fn Cset::compare(t1 : Cset, t2 : Cset) -> Int32 {
   let n1 = t1.intervals.length()
   let n2 = t2.intervals.length()
   let mut i = 0
@@ -119,8 +120,8 @@ pub fn Cset::union(l : Cset, r : Cset) -> Cset {
   let result = Array(capacity=li.length() + ri.length())
   let mut i = 0
   let mut j = 0
-  let mut li_over : (Int, Int)? = None
-  let mut ri_over : (Int, Int)? = None
+  let mut li_over : (Int32, Int32)? = None
+  let mut ri_over : (Int32, Int32)? = None
   while i < li.length() && j < ri.length() {
     let (c1, c2) = match li_over {
       Some(p) => p
@@ -170,7 +171,7 @@ pub fn Cset::union(l : Cset, r : Cset) -> Cset {
     result.push(ri[j])
     j += 1
   }
-  { intervals: result }
+  { intervals: result, }
 }
 
 ///|
@@ -197,7 +198,7 @@ pub fn Cset::inter(l : Cset, r : Cset) -> Cset {
       j += 1
     }
   }
-  { intervals: result }
+  { intervals: result, }
 }
 
 ///|
@@ -207,7 +208,7 @@ pub fn Cset::diff(l : Cset, r : Cset) -> Cset {
   let result = Array(capacity=li.length() + ri.length())
   let mut i = 0
   let mut j = 0
-  let mut li_over : (Int, Int)? = None
+  let mut li_over : (Int32, Int32)? = None
   while i < li.length() && j < ri.length() {
     let (c1, c2) = match li_over {
       Some(p) => p
@@ -246,18 +247,18 @@ pub fn Cset::diff(l : Cset, r : Cset) -> Cset {
     result.push(li[i])
     i += 1
   }
-  { intervals: result }
+  { intervals: result, }
 }
 
 // single character set. OCaml caches 257 entries via Dense_map.
 
 ///|
 let cset_single_cache : ReadOnlyArray[Cset] = [
-  for i in 0..<257 => { intervals: [(i, i)] }
+  for i in 0..<257 => { intervals: [(i, i)], }
 ]
 
 ///|
-pub fn Cset::single(c : Int) -> Cset {
+pub fn Cset::single(c : Int32) -> Cset {
   cset_single_cache[c]
 }
 
@@ -267,7 +268,7 @@ pub fn Cset::csingle(c : Char) -> Cset {
 }
 
 ///|
-pub fn Cset::add(c : Int, l : Cset) -> Cset {
+pub fn Cset::add(c : Int32, l : Cset) -> Cset {
   Cset::union(Cset::single(c), l)
 }
 
@@ -277,11 +278,11 @@ pub fn Cset::cadd(c : Char, s : Cset) -> Cset {
 }
 
 ///|
-pub fn Cset::seq(c : Int, cp : Int) -> Cset {
+pub fn Cset::seq(c : Int32, cp : Int32) -> Cset {
   if c <= cp {
-    { intervals: [(c, cp)] }
+    { intervals: [(c, cp)], }
   } else {
-    { intervals: [(cp, c)] }
+    { intervals: [(cp, c)], }
   }
 }
 
@@ -301,16 +302,16 @@ pub fn Cset::char(c : Char) -> Cset {
 }
 
 ///|
-pub fn Cset::offset(o : Int, l : Cset) -> Cset {
-  let result : Array[(Int, Int)] = []
+pub fn Cset::offset(o : Int32, l : Cset) -> Cset {
+  let result : Array[(Int32, Int32)] = []
   for p in l.intervals {
     result.push((p.0 + o, p.1 + o))
   }
-  { intervals: result }
+  { intervals: result, }
 }
 
 ///|
-fn union_all_rec(ts : Array[Cset], lo : Int, hi : Int) -> Cset {
+fn union_all_rec(ts : Array[Cset], lo : Int32, hi : Int32) -> Cset {
   if lo >= hi {
     return Cset::empty()
   }
@@ -327,7 +328,7 @@ pub fn Cset::union_all(ts : Array[Cset]) -> Cset {
 }
 
 ///|
-fn intersect_all_rec(ts : Array[Cset], lo : Int, hi : Int) -> Cset {
+fn intersect_all_rec(ts : Array[Cset], lo : Int32, hi : Int32) -> Cset {
   if lo >= hi {
     return Cset::cany()
   }
@@ -344,7 +345,7 @@ pub fn Cset::intersect_all(ts : Array[Cset]) -> Cset {
 }
 
 ///|
-pub fn Cset::mem(c : Int, s : Cset) -> Bool {
+pub fn Cset::mem(c : Int32, s : Cset) -> Bool {
   for i in 0..<s.intervals.length() {
     let (c1, c2) = s.intervals[i]
     if c >= c1 && c <= c2 {
@@ -355,7 +356,7 @@ pub fn Cset::mem(c : Int, s : Cset) -> Bool {
 }
 
 ///|
-pub fn Cset::hash(l : Cset) -> Int {
+pub fn Cset::hash(l : Cset) -> Int32 {
   let mut h = 0
   let n = l.intervals.length()
   for k in 0..<n {
@@ -366,14 +367,14 @@ pub fn Cset::hash(l : Cset) -> Int {
 }
 
 ///|
-pub fn Cset::iter(t : Cset, f~ : (Int, Int) -> Unit) -> Unit {
+pub fn Cset::iter(t : Cset, f~ : (Int32, Int32) -> Unit) -> Unit {
   for p in t.intervals {
     f(p.0, p.1)
   }
 }
 
 ///|
-pub fn Cset::one_char(t : Cset) -> Int? {
+pub fn Cset::one_char(t : Cset) -> Int32? {
   if t.intervals.length() == 1 && t.intervals[0].0 == t.intervals[0].1 {
     Some(t.intervals[0].0)
   } else {
@@ -382,7 +383,7 @@ pub fn Cset::one_char(t : Cset) -> Int? {
 }
 
 ///|
-pub fn Cset::pick(t : Cset) -> Int raise {
+pub fn Cset::pick(t : Cset) -> Int32 raise {
   if t.intervals.length() == 0 {
     fail("Re_cset.pick")
   }
@@ -391,12 +392,12 @@ pub fn Cset::pick(t : Cset) -> Int raise {
 
 ///|
 pub fn Cset::union_singles_in_strictly_decreasing_order(
-  cs : Array[Int],
+  cs : Array[Int32],
 ) -> Cset {
   if cs.length() == 0 {
     return Cset::empty()
   }
-  let result : Array[(Int, Int)] = []
+  let result : Array[(Int32, Int32)] = []
   let c1 = cs[0]
   let mut next = c1
   let mut end_ = c1
@@ -411,19 +412,19 @@ pub fn Cset::union_singles_in_strictly_decreasing_order(
     }
   }
   result.push((next, end_))
-  { intervals: result }
+  { intervals: result, }
 }
 
 // --- predefined character sets ---
 // Helpers for latin1 chars by code point (avoids non-ASCII char literals).
 
 ///|
-fn ch(n : Int) -> Char {
+fn ch(n : Int32) -> Char {
   n.unsafe_to_char()
 }
 
 ///|
-fn iseq(a : Int, b : Int) -> Cset {
+fn iseq(a : Int32, b : Int32) -> Cset {
   Cset::seq(a, b)
 }
 
@@ -651,12 +652,12 @@ pub fn Cset::set(str : Bytes) -> Cset {
   if n == 0 {
     return Cset::empty()
   }
-  let bytes : Array[Int] = Array::make(n, 0)
+  let bytes : Array[Int32] = Array::make(n, 0)
   for i in 0..<n {
     bytes[i] = str[i].to_int()
   }
   bytes.sort()
-  let result : Array[(Int, Int)] = []
+  let result : Array[(Int32, Int32)] = []
   let mut start = bytes[0]
   let mut end_ = bytes[0]
   for i in 1..<n {
@@ -670,7 +671,7 @@ pub fn Cset::set(str : Bytes) -> Cset {
     }
   }
   result.push((start, end_))
-  { intervals: result }
+  { intervals: result, }
 }
 
 ///|
@@ -686,16 +687,16 @@ pub fn Cset::to_dyn(self : Cset) -> Dyn {
 
 ///|
 pub struct CSetMap {
-  entries : Array[(Int, Cset, Cset)] // (hash, key_cset, value)
+  entries : Array[(Int32, Cset, Cset)] // (hash, key_cset, value)
 }
 
 ///|
 pub fn CSetMap::empty() -> CSetMap {
-  { entries: [] }
+  { entries: [], }
 }
 
 ///|
-pub fn CSetMap::find(m : CSetMap, key : (Int, Cset)) -> Cset? {
+pub fn CSetMap::find(m : CSetMap, key : (Int32, Cset)) -> Cset? {
   let (h, k) = key
   for e in m.entries {
     let (eh, ek, ev) = e
@@ -707,7 +708,7 @@ pub fn CSetMap::find(m : CSetMap, key : (Int, Cset)) -> Cset? {
 }
 
 ///|
-pub fn CSetMap::add(m : CSetMap, key : (Int, Cset), value : Cset) -> CSetMap {
+pub fn CSetMap::add(m : CSetMap, key : (Int32, Cset), value : Cset) -> CSetMap {
   let (h, k) = key
   m.entries.push((h, k, value))
   m

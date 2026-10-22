@@ -5,7 +5,7 @@
 
 ///|
 pub struct Pmark {
-  id : Int
+  id : Int32
 } derive(Debug, Eq, Compare)
 
 ///|
@@ -18,28 +18,29 @@ pub extend Pmark with Eq::{not_equal}
 pub extend Pmark with Compare::{op_lt, op_le, op_ge, op_gt}
 
 ///|
-
+/// 比较两个 Pmark 是否相等。
+/// Compare two Pmark values for equality.
 pub fn Pmark::equal(x : Pmark, y : Pmark) -> Bool {
   x.id == y.id
 }
 
 ///|
-pub fn Pmark::compare(x : Pmark, y : Pmark) -> Int {
+pub fn Pmark::compare(x : Pmark, y : Pmark) -> Int32 {
   x.id.compare(y.id)
 }
 
 ///|
-let pmark_counter : Ref[Int] = Ref::{ val: 1 }
+let pmark_counter : Ref[Int32] = Ref::{ val: 1, }
 
 ///|
 pub fn Pmark::gen() -> Pmark {
   let r = pmark_counter.val
   pmark_counter.val = r + 1
-  { id: r }
+  { id: r, }
 }
 
 ///|
-pub fn Pmark::to_int(self : Pmark) -> Int {
+pub fn Pmark::to_int(self : Pmark) -> Int32 {
   self.id
 }
 
@@ -60,12 +61,12 @@ pub struct PmarkSet {
 
 ///|
 pub fn PmarkSet::empty() -> PmarkSet {
-  { elems: [] }
+  { elems: [], }
 }
 
 ///|
 pub fn PmarkSet::single(x : Pmark) -> PmarkSet {
-  { elems: [x] }
+  { elems: [x], }
 }
 
 ///|
@@ -104,7 +105,7 @@ pub fn PmarkSet::add(self : PmarkSet, x : Pmark) -> PmarkSet {
   }
   let xs = self.elems.copy()
   xs.insert(lo, x)
-  { elems: xs }
+  { elems: xs, }
 }
 
 ///|
@@ -135,7 +136,7 @@ pub fn PmarkSet::union(self : PmarkSet, other : PmarkSet) -> PmarkSet {
     result.push(b[j])
     j += 1
   }
-  { elems: result }
+  { elems: result, }
 }
 
 ///|
@@ -156,7 +157,7 @@ pub fn PmarkSet::is_empty(self : PmarkSet) -> Bool {
 }
 
 ///|
-pub fn PmarkSet::length(self : PmarkSet) -> Int {
+pub fn PmarkSet::length(self : PmarkSet) -> Int32 {
   self.elems.length()
 }
 

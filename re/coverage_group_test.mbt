@@ -85,7 +85,9 @@ test "GroupT::pmarks" {
 
 ///|
 test "Re::rg" {
-  let re = @re.compile(@re.Ast::whole_string(@re.Ast::rep1(@re.Re::rg('a', 'z'))))
+  let re = @re.compile(
+    @re.Ast::whole_string(@re.Ast::rep1(@re.Re::rg('a', 'z'))),
+  )
   assert_eq(@re.execp(re, sb("hello")), true)
   assert_eq(@re.execp(re, sb("Hello")), false)
 }
@@ -192,7 +194,9 @@ test "exec raises on no match" {
 
 ///|
 test "exec_partial partial" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]),
+  )
   let result = @re.exec_partial(re, sb("hel"))
   assert_eq(result, @re.ExecPartialResult::partial())
 }

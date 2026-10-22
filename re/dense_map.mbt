@@ -7,7 +7,7 @@
 priv struct DenseMap {}
 
 ///|
-fn[T] DenseMap::make(size~ : Int, f~ : (Int) -> T) -> (Int) -> T {
+fn[T] DenseMap::make(size~ : Int32, f~ : (Int32) -> T) -> (Int32) -> T {
   let cache : Array[T] = Array::makei(size, f)
   fn(i) { cache[i] }
 }

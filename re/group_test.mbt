@@ -14,7 +14,10 @@ fn bs_g(b : Bytes) -> String {
 ///|
 test "group get_opt matched" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("ab"))), @re.Ast::group(@re.Ast::str(sb("cd")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("ab"))),
+      @re.Ast::group(@re.Ast::str(sb("cd"))),
+    ]),
   )
   match @re.exec_opt(re, sb("abcd")) {
     Some(g) => {
@@ -96,7 +99,10 @@ test "group offset raises on unmatched" {
 ///|
 test "group start stop" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("ab"))), @re.Ast::group(@re.Ast::str(sb("cd")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("ab"))),
+      @re.Ast::group(@re.Ast::str(sb("cd"))),
+    ]),
   )
   match @re.exec_opt(re, sb("abcd")) {
     Some(g) => {
@@ -221,7 +227,10 @@ test "group nb_groups" {
 ///|
 test "group start_offset stop_offset" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("ab"))), @re.Ast::group(@re.Ast::str(sb("cd")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("ab"))),
+      @re.Ast::group(@re.Ast::str(sb("cd"))),
+    ]),
   )
   match @re.exec_opt(re, sb("abcd")) {
     Some(g) => {
@@ -258,7 +267,10 @@ test "group start_offset unmatched returns -1" {
 ///|
 test "group all" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("ab"))), @re.Ast::group(@re.Ast::str(sb("cd")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("ab"))),
+      @re.Ast::group(@re.Ast::str(sb("cd"))),
+    ]),
   )
   match @re.exec_opt(re, sb("abcd")) {
     Some(g) => {
@@ -297,7 +309,10 @@ test "group all with unmatched" {
 ///|
 test "group all_offset" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("ab"))), @re.Ast::group(@re.Ast::str(sb("cd")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("ab"))),
+      @re.Ast::group(@re.Ast::str(sb("cd"))),
+    ]),
   )
   match @re.exec_opt(re, sb("abcd")) {
     Some(g) => {

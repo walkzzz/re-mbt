@@ -9,47 +9,47 @@
 pub struct CompileIdx {}
 
 ///|
-pub fn CompileIdx::unknown() -> Int {
+pub fn CompileIdx::unknown() -> Int32 {
   -2
 }
 
 ///|
-pub fn CompileIdx::break_value() -> Int {
+pub fn CompileIdx::break_value() -> Int32 {
   -3
 }
 
 ///|
-pub fn CompileIdx::of_idx(x : Int) -> Int {
+pub fn CompileIdx::of_idx(x : Int32) -> Int32 {
   x
 }
 
 ///|
-pub fn CompileIdx::is_idx(t : Int) -> Bool {
+pub fn CompileIdx::is_idx(t : Int32) -> Bool {
   t >= 0
 }
 
 ///|
-pub fn CompileIdx::is_break(x : Int) -> Bool {
+pub fn CompileIdx::is_break(x : Int32) -> Bool {
   x <= CompileIdx::break_value()
 }
 
 ///|
-pub fn CompileIdx::is_unknown(x : Int) -> Bool {
+pub fn CompileIdx::is_unknown(x : Int32) -> Bool {
   x == CompileIdx::unknown()
 }
 
 ///|
-pub fn CompileIdx::idx(t : Int) -> Int {
+pub fn CompileIdx::idx(t : Int32) -> Int32 {
   t
 }
 
 ///|
-pub fn CompileIdx::make_break(idx : Int) -> Int {
+pub fn CompileIdx::make_break(idx : Int32) -> Int32 {
   -5 - idx
 }
 
 ///|
-pub fn CompileIdx::break_idx(t : Int) -> Int {
+pub fn CompileIdx::break_idx(t : Int32) -> Int32 {
   (t + 5) * -1
 }
 
@@ -57,8 +57,8 @@ pub fn CompileIdx::break_idx(t : Int) -> Int {
 
 ///|
 pub struct StateInfo {
-  idx : Int // CompileIdx.t
-  final_ : Array[(Category, (Int, Status))] // (cat, (idx, status))
+  idx : Int32 // CompileIdx.t
+  final_ : Array[(Category, (Int32, Status))] // (cat, (idx, status))
   desc : State // Automata.State.t
 }
 
@@ -78,7 +78,7 @@ pub fn CompileState::get_info(s : CompileState) -> StateInfo {
 ///|
 pub fn CompileState::follow_transition(
   s : CompileState,
-  color : Int,
+  color : Int32,
 ) -> CompileState {
   s.transitions[color]
 }
@@ -86,7 +86,7 @@ pub fn CompileState::follow_transition(
 ///|
 pub fn CompileState::set_transition(
   s : CompileState,
-  color : Int,
+  color : Int32,
   st : CompileState,
 ) -> Unit {
   s.transitions[color] = st
@@ -95,7 +95,7 @@ pub fn CompileState::set_transition(
 ///|
 pub fn CompileState::is_unknown_transition(
   s : CompileState,
-  color : Int,
+  color : Int32,
 ) -> Bool {
   let st = s.transitions[color]
   CompileIdx::is_unknown(st.info.idx)
@@ -106,17 +106,17 @@ pub fn CompileState::is_unknown_transition(
 ///|
 pub struct StateHashTable {
   buckets : Array[Array[(State, CompileState)]]
-  mut size : Int
+  mut size : Int32
 }
 
 ///|
-pub fn StateHashTable::create(capacity : Int) -> StateHashTable {
+pub fn StateHashTable::create(capacity : Int32) -> StateHashTable {
   let n = if capacity < 1 { 1 } else { capacity }
   let buckets : Array[Array[(State, CompileState)]] = []
   for _ in 0..<n {
     buckets.push([])
   }
-  { buckets, size: 0 }
+  { buckets, size: 0, }
 }
 
 ///|
@@ -152,21 +152,21 @@ pub struct Re {
   initial_states : Array[(Category, CompileState)]
   colors : ColorTable
   color_repr : ColorRepr
-  ncolor : Int
-  lnl : Int // Cset.c (color index)
+  ncolor : Int32
+  lnl : Int32 // Cset.c (color index)
   tbl : WorkingArea
   states : StateHashTable
-  group_names : Array[(String, Int)]
-  group_count : Int
+  group_names : Array[(String, Int32)]
+  group_count : Int32
 }
 
 ///|
-pub fn Re::group_count(r : Re) -> Int {
+pub fn Re::group_count(r : Re) -> Int32 {
   r.group_count
 }
 
 ///|
-pub fn Re::group_names(r : Re) -> Array[(String, Int)] {
+pub fn Re::group_names(r : Re) -> Array[(String, Int32)] {
   r.group_names
 }
 
@@ -174,27 +174,27 @@ pub fn Re::group_names(r : Re) -> Array[(String, Int)] {
 
 ///|
 pub struct Positions {
-  mut positions : Array[Int]
-  mut length : Int
+  mut positions : Array[Int32]
+  mut length : Int32
 }
 
 ///|
 pub fn Positions::empty() -> Positions {
-  { positions: [], length: 0 }
+  { positions: [], length: 0, }
 }
 
 ///|
-pub fn Positions::length(t : Positions) -> Int {
+pub fn Positions::length(t : Positions) -> Int32 {
   t.length
 }
 
 ///|
-pub fn Positions::unsafe_set(t : Positions, idx : Int, pos : Int) -> Unit {
+pub fn Positions::unsafe_set(t : Positions, idx : Int32, pos : Int32) -> Unit {
   t.positions[idx] = pos
 }
 
 ///|
-fn positions_resize(idx : Int, t : Positions) -> Unit {
+fn positions_resize(idx : Int32, t : Positions) -> Unit {
   t.length = 2 * t.length
   if idx >= t.length {
     positions_resize(idx, t)
@@ -208,7 +208,7 @@ fn positions_resize(idx : Int, t : Positions) -> Unit {
 }
 
 ///|
-pub fn Positions::set(t : Positions, idx : Int, pos : Int) -> Unit {
+pub fn Positions::set(t : Positions, idx : Int32, pos : Int32) -> Unit {
   if idx >= Positions::length(t) {
     positions_resize(idx, t)
   }
@@ -216,12 +216,12 @@ pub fn Positions::set(t : Positions, idx : Int, pos : Int) -> Unit {
 }
 
 ///|
-pub fn Positions::all(t : Positions) -> Array[Int] {
+pub fn Positions::all(t : Positions) -> Array[Int32] {
   t.positions
 }
 
 ///|
-pub fn Positions::first(t : Positions) -> Int {
+pub fn Positions::first(t : Positions) -> Int32 {
   t.positions[0]
 }
 
@@ -229,7 +229,7 @@ pub fn Positions::first(t : Positions) -> Int {
 pub fn Positions::make(groups~ : Bool, re : Re) -> Positions {
   if groups {
     let length = WorkingArea::index_count(re.tbl) + 1
-    { positions: Array::make(length, 0), length }
+    { positions: Array::make(length, 0), length, }
   } else {
     Positions::empty()
   }
@@ -244,7 +244,7 @@ let category_lnl : Category = Category::add(
 )
 
 ///|
-fn compile_category(re : Re, color : Int) -> Category {
+fn compile_category(re : Re, color : Int32) -> Category {
   if CsetC::equal_c(color, CsetC::null_char()) {
     Category::inexistant()
   } else if CsetC::equal_c(color, re.lnl) {
@@ -271,9 +271,9 @@ fn find_state(re : Re, desc : State) -> CompileState {
       } else {
         CompileIdx::of_idx(State::idx(desc))
       }
-      let st_info = { idx: info_idx, final_: [], desc }
+      let st_info = { idx: info_idx, final_: [], desc, }
       let st = if break_state {
-        { info: st_info, transitions: [] }
+        { info: st_info, transitions: [], }
       } else {
         {
           info: st_info,
@@ -293,18 +293,18 @@ fn compile_unknown_state() -> CompileState {
     final_: [],
     desc: State::dummy(),
   }
-  { info: unknown_info, transitions: [] }
+  { info: unknown_info, transitions: [], }
 }
 
 // --- delta and validate ---
 
 ///|
-fn compile_delta(re : Re, cat : Category, color : Int, st : State) -> State {
+fn compile_delta(re : Re, cat : Category, color : Int32, st : State) -> State {
   delta(re.tbl, cat, color, st)
 }
 
 ///|
-fn validate(re : Re, s : Bytes, pos : Int, st : CompileState) -> Unit {
+fn validate(re : Re, s : Bytes, pos : Int32, st : CompileState) -> Unit {
   let color = re.colors.get(s[pos].to_int())
   if CompileState::is_unknown_transition(st, color) {
     let cat = compile_category(re, color)
@@ -319,7 +319,7 @@ fn next_state(
   colors : ColorTable,
   st : CompileState,
   s : Bytes,
-  pos : Int,
+  pos : Int32,
 ) -> CompileState {
   st.transitions[colors.get(s[pos].to_int())]
 }
@@ -332,8 +332,8 @@ fn match_loop(
   colors : ColorTable,
   positions : Positions,
   s : Bytes,
-  pos : Int,
-  last : Int,
+  pos : Int32,
+  last : Int32,
   st0 : CompileState,
   st : CompileState,
 ) -> CompileState {
@@ -365,8 +365,8 @@ fn match_loop_no_mark(
   re : Re,
   colors : ColorTable,
   s : Bytes,
-  pos : Int,
-  last : Int,
+  pos : Int32,
+  last : Int32,
   st0 : CompileState,
   st : CompileState,
 ) -> CompileState {
@@ -393,8 +393,8 @@ fn find_or_add_final(
   re : Re,
   st : StateInfo,
   cat : Category,
-  f : (Re, StateInfo, Category) -> (Int, Status),
-) -> (Int, Status) {
+  f : (Re, StateInfo, Category) -> (Int32, Status),
+) -> (Int32, Status) {
   for p in st.final_ {
     let (c, res) = p
     if Category::equal(c, cat) {
@@ -407,24 +407,24 @@ fn find_or_add_final(
 }
 
 ///|
-fn final_state(re : Re, st : StateInfo, cat : Category) -> (Int, Status) {
+fn final_state(re : Re, st : StateInfo, cat : Category) -> (Int32, Status) {
   let st2 = compile_delta(re, cat, CsetC::null_char(), st.desc)
   (State::idx(st2), State::status_no_mutex(st2))
 }
 
 ///|
-fn advance_state(re : Re, st : StateInfo, _cat : Category) -> (Int, Status) {
+fn advance_state(re : Re, st : StateInfo, _cat : Category) -> (Int32, Status) {
   let st2 = advance(re.tbl, st.desc)
   (State::idx(st2), State::status_no_mutex(st2))
 }
 
 ///|
-fn compile_final(re : Re, st : StateInfo, cat : Category) -> (Int, Status) {
+fn compile_final(re : Re, st : StateInfo, cat : Category) -> (Int32, Status) {
   find_or_add_final(re, st, cat, fn(r, si, c) { final_state(r, si, c) })
 }
 
 ///|
-fn compile_advance(re : Re, st : StateInfo) -> (Int, Status) {
+fn compile_advance(re : Re, st : StateInfo) -> (Int32, Status) {
   find_or_add_final(re, st, Category::dummy(), fn(r, si, c) {
     advance_state(r, si, c)
   })
@@ -448,7 +448,7 @@ fn find_initial_state(re : Re, cat : Category) -> CompileState {
 // --- get_color ---
 
 ///|
-fn get_color(re : Re, s : Bytes, pos : Int) -> Int {
+fn get_color(re : Re, s : Bytes, pos : Int32) -> Int32 {
   if pos < 0 {
     CsetC::null_char()
   } else {
@@ -471,7 +471,7 @@ fn get_color(re : Re, s : Bytes, pos : Int) -> Int {
 fn handle_last_newline(
   re : Re,
   positions : Positions,
-  pos : Int,
+  pos : Int32,
   st : CompileState,
   groups : Bool,
 ) -> CompileState {
@@ -508,8 +508,8 @@ fn scan_str(
   positions : Positions,
   s : Bytes,
   initial_state : CompileState,
-  last : Int,
-  pos : Int,
+  last : Int32,
+  pos : Int32,
   groups : Bool,
 ) -> CompileState {
   if last == s.length() &&
@@ -553,8 +553,8 @@ fn scan_str(
 fn final_boundary_check(
   re : Re,
   positions : Positions,
-  last : Int,
-  slen : Int,
+  last : Int32,
+  slen : Int32,
   s : Bytes,
   state_info : StateInfo,
   groups : Bool,
@@ -581,7 +581,7 @@ fn final_boundary_check(
 fn final_advance(
   re : Re,
   positions : Positions,
-  last : Int,
+  last : Int32,
   state_info : StateInfo,
   groups : Bool,
 ) -> Status {
@@ -601,7 +601,7 @@ fn final_advance(
 pub enum MatchInfo {
   MatchInfo(GroupT)
   FailedInfo
-  RunningInfo(Int) // no_match_starts_before
+  RunningInfo(Int32) // no_match_starts_before
 }
 
 // --- Group (simplified for now) ---
@@ -611,8 +611,8 @@ pub struct GroupT {
   s : Bytes
   marks : MarkInfos
   pmarks : PmarkSet
-  gpos : Array[Int]
-  gcount : Int
+  gpos : Array[Int32]
+  gcount : Int32
 }
 
 ///|
@@ -620,14 +620,14 @@ pub fn GroupT::create(
   s : Bytes,
   marks : MarkInfos,
   pmarks : PmarkSet,
-  gpos : Array[Int],
-  gcount : Int,
+  gpos : Array[Int32],
+  gcount : Int32,
 ) -> GroupT {
-  { s, marks, pmarks, gpos, gcount }
+  { s, marks, pmarks, gpos, gcount, }
 }
 
 ///|
-pub fn GroupT::get(g : GroupT, i : Int) -> Bytes? {
+pub fn GroupT::get(g : GroupT, i : Int32) -> Bytes? {
   match MarkInfos::offset(g.marks, i) {
     None => None
     Some((start, stop)) => {
@@ -653,11 +653,11 @@ pub fn GroupT::get(g : GroupT, i : Int) -> Bytes? {
 fn make_match_str(
   re : Re,
   positions : Positions,
-  len : Int,
+  len : Int32,
   groups : Bool,
   partial : Bool,
   s : Bytes,
-  pos : Int,
+  pos : Int32,
 ) -> Status {
   let slen = s.length()
   let last = if len == -1 { slen } else { pos + len }
@@ -695,8 +695,8 @@ pub fn match_str_no_bounds(
   partial~ : Bool,
   re : Re,
   s : Bytes,
-  pos~ : Int,
-  len~ : Int,
+  pos~ : Int32,
+  len~ : Int32,
 ) -> MatchInfo {
   let positions = Positions::make(groups~, re)
   match make_match_str(re, positions, len, groups, partial, s, pos) {
@@ -730,8 +730,8 @@ pub fn match_str(
   partial~ : Bool,
   re : Re,
   s : Bytes,
-  pos~ : Int,
-  len~ : Int,
+  pos~ : Int32,
+  len~ : Int32,
 ) -> MatchInfo raise {
   if pos < 0 || len < -1 || pos + len > s.length() {
     fail("Re.exec: out of bounds")
@@ -742,7 +742,12 @@ pub fn match_str(
 // --- match_str_p ---
 
 ///|
-pub fn match_str_p(re : Re, s : Bytes, pos~ : Int, len~ : Int) -> Bool raise {
+pub fn match_str_p(
+  re : Re,
+  s : Bytes,
+  pos~ : Int32,
+  len~ : Int32,
+) -> Bool raise {
   if pos < 0 || len < -1 || pos + len > s.length() {
     fail("Re.exec: out of bounds")
   }
@@ -759,10 +764,10 @@ pub fn mk_re(
   initial~ : Expr,
   colors~ : ColorTable,
   color_repr~ : ColorRepr,
-  ncolor~ : Int,
-  lnl~ : Int,
-  group_names~ : Array[(String, Int)],
-  group_count~ : Int,
+  ncolor~ : Int32,
+  lnl~ : Int32,
+  group_names~ : Array[(String, Int32)],
+  group_count~ : Int32,
 ) -> Re {
   {
     initial,

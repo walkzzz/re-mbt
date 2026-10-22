@@ -8,11 +8,11 @@ pub struct ColorMap {
 
 ///|
 pub fn ColorMap::make() -> ColorMap {
-  { csets: [] }
+  { csets: [], }
 }
 
 ///|
-fn size_cset(cset : Cset) -> Int {
+fn size_cset(cset : Cset) -> Int32 {
   let mut size = 0
   Cset::iter(cset, f=fn(c1, c2) { size += c2 - c1 + 1 })
   size
@@ -60,11 +60,14 @@ fn BoundaryTable::create(csets : Array[Cset]) -> BoundaryTable {
       b[idx] = skip.to_byte()
     }
   }
-  { data: b }
+  { data: b, }
 }
 
 ///|
-pub fn BoundaryTable::unsafe_next_boundary(t : BoundaryTable, i : Int) -> Int {
+pub fn BoundaryTable::unsafe_next_boundary(
+  t : BoundaryTable,
+  i : Int32,
+) -> Int32 {
   i + 1 + t.data[i + 1].to_int()
 }
 
@@ -77,12 +80,12 @@ pub struct ColorTable {
 }
 
 ///|
-pub fn ColorTable::get_char(t : ColorTable, c : Int) -> Byte {
+pub fn ColorTable::get_char(t : ColorTable, c : Int32) -> Byte {
   t.data[c]
 }
 
 ///|
-pub fn ColorTable::get(t : ColorTable, c : Int) -> Int {
+pub fn ColorTable::get(t : ColorTable, c : Int32) -> Int32 {
   t.data[c].to_int()
 }
 
@@ -92,7 +95,7 @@ pub fn ColorTable::translate_colors(
   boundary_table : BoundaryTable,
   cset : Cset,
 ) -> Cset {
-  let cs : Array[Int] = []
+  let cs : Array[Int32] = []
   let mut last_version = -1
   Cset::iter(cset, f=fn(c1, c2) {
     let mut ci = c1
@@ -105,7 +108,7 @@ pub fn ColorTable::translate_colors(
       ci = BoundaryTable::unsafe_next_boundary(boundary_table, ci)
     }
   })
-  let cs_rev : Array[Int] = []
+  let cs_rev : Array[Int32] = []
   for k in 0..<cs.length() {
     cs_rev.push(cs[cs.length() - 1 - k])
   }
@@ -121,12 +124,12 @@ pub struct ColorRepr {
 }
 
 ///|
-pub fn ColorRepr::repr(t : ColorRepr, color : Int) -> Byte {
+pub fn ColorRepr::repr(t : ColorRepr, color : Int32) -> Byte {
   t.data[color]
 }
 
 ///|
-pub fn ColorRepr::length(t : ColorRepr) -> Int {
+pub fn ColorRepr::length(t : ColorRepr) -> Int32 {
   t.data.length()
 }
 
@@ -142,10 +145,10 @@ pub fn ColorMap::flatten(
   let repr_arr = Array::make(256, (0).to_byte())
   let mut num_colors = 0
   // M1: 预分配 ids 缓冲，循环内 clear 后复用，消除 256 次 Array 分配
-  let ids_buf : Array[Int] = []
+  let ids_buf : Array[Int32] = []
   // A1 + D3: HashMap 按 ids 内容去重，key = ids 副本，value = color_id
   // 消除 O(256 × |unique| × |ids|) 线性查找 → O(256 × |ids|)
-  let color_map : @hashmap.HashMap[Array[Int], Int] = @hashmap.HashMap::HashMap([],
+  let color_map : @hashmap.HashMap[Array[Int32], Int32] = @hashmap.HashMap::HashMap([],
   )
   let mut last_version = 0
   for i in 0..<256 {
@@ -185,5 +188,5 @@ pub fn ColorMap::flatten(
     repr_slice[k] = repr_arr[k]
   }
   let repr_bytes = Bytes::from_array(repr_slice)
-  ({ data: table_bytes }, bt, { data: repr_bytes })
+  ({ data: table_bytes, }, bt, { data: repr_bytes, })
 }

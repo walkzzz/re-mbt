@@ -5,13 +5,13 @@
 
 ///|
 pub struct Marks {
-  marks : Array[(Int, Int)] // (Mark.t, Idx.t)
+  marks : Array[(Int32, Int32)] // (Mark.t, Idx.t)
   pmarks : PmarkSet
 }
 
 ///|
 pub fn Marks::empty() -> Marks {
-  { marks: [], pmarks: PmarkSet::empty() }
+  { marks: [], pmarks: PmarkSet::empty(), }
 }
 
 ///|
@@ -30,14 +30,14 @@ pub fn Marks::equal(m1 : Marks, m2 : Marks) -> Bool {
 }
 
 ///|
-fn pmark_set_hash(s : PmarkSet) -> Int {
+fn pmark_set_hash(s : PmarkSet) -> Int32 {
   let mut h = 0
   s.iter(fn(p) { h = hash_combine(p.id, h) })
   h
 }
 
 ///|
-pub fn Marks::hash(m : Marks, accu : Int) -> Int {
+pub fn Marks::hash(m : Marks, accu : Int32) -> Int32 {
   let accu1 = hash_combine(pmark_set_hash(m.pmarks), accu)
   let mut result = accu1
   for p in m.marks {
@@ -48,8 +48,11 @@ pub fn Marks::hash(m : Marks, accu : Int) -> Int {
 }
 
 ///|
-fn marks_set_idx_rec(idx : Int, marks : Array[(Int, Int)]) -> Array[(Int, Int)] {
-  let result : Array[(Int, Int)] = []
+fn marks_set_idx_rec(
+  idx : Int32,
+  marks : Array[(Int32, Int32)],
+) -> Array[(Int32, Int32)] {
+  let result : Array[(Int32, Int32)] = []
   let mut done = false
   for p in marks {
     let (a, idx2) = p
@@ -64,37 +67,37 @@ fn marks_set_idx_rec(idx : Int, marks : Array[(Int, Int)]) -> Array[(Int, Int)] 
 }
 
 ///|
-pub fn Marks::marks_set_idx(m : Marks, idx : Int) -> Marks {
-  { marks: marks_set_idx_rec(idx, m.marks), pmarks: m.pmarks }
+pub fn Marks::marks_set_idx(m : Marks, idx : Int32) -> Marks {
+  { marks: marks_set_idx_rec(idx, m.marks), pmarks: m.pmarks, }
 }
 
 ///|
-pub fn Marks::filter(m : Marks, b : Int, e : Int) -> Marks {
-  let filtered : Array[(Int, Int)] = []
+pub fn Marks::filter(m : Marks, b : Int32, e : Int32) -> Marks {
+  let filtered : Array[(Int32, Int32)] = []
   for p in m.marks {
     let (i, _) = p
     if Mark::outside_range(i, start_inclusive=b, stop_inclusive=e) {
       filtered.push(p)
     }
   }
-  { marks: filtered, pmarks: m.pmarks }
+  { marks: filtered, pmarks: m.pmarks, }
 }
 
 ///|
-pub fn Marks::set_mark(m : Marks, i : Int) -> Marks {
-  let filtered : Array[(Int, Int)] = [(i, Idx::unknown())]
+pub fn Marks::set_mark(m : Marks, i : Int32) -> Marks {
+  let filtered : Array[(Int32, Int32)] = [(i, Idx::unknown())]
   for p in m.marks {
     let (mi, _) = p
     if mi != i {
       filtered.push(p)
     }
   }
-  { marks: filtered, pmarks: m.pmarks }
+  { marks: filtered, pmarks: m.pmarks, }
 }
 
 ///|
 pub fn Marks::set_pmark(m : Marks, i : Pmark) -> Marks {
-  { marks: m.marks, pmarks: m.pmarks.add(i) }
+  { marks: m.marks, pmarks: m.pmarks.add(i), }
 }
 
 // --- Status ---
@@ -257,7 +260,7 @@ pub fn Desc::status_is_ambiguous(t : Array[ET], ambiguity_mark : Pmark) -> Bool 
 }
 
 ///|
-fn et_set_idx(idx : Int, e : ET) -> ET {
+fn et_set_idx(idx : Int32, e : ET) -> ET {
   match e {
     TMatch(marks) => TMatch(Marks::marks_set_idx(marks, idx))
     TSeq(kind, l, x) => TSeq(kind, Desc::set_idx(idx, l), x)
@@ -266,7 +269,7 @@ fn et_set_idx(idx : Int, e : ET) -> ET {
 }
 
 ///|
-pub fn Desc::set_idx(idx : Int, xs : Array[ET]) -> Array[ET] {
+pub fn Desc::set_idx(idx : Int32, xs : Array[ET]) -> Array[ET] {
   Array::map(xs, fn(e) { et_set_idx(idx, e) })
 }
 
@@ -319,7 +322,7 @@ pub fn ET::equal_list(l1 : Array[ET], l2 : Array[ET]) -> Bool {
 }
 
 ///|
-pub fn ET::hash(e : ET, accu : Int) -> Int {
+pub fn ET::hash(e : ET, accu : Int32) -> Int32 {
   match e {
     TSeq(_, l, expr) =>
       hash_combine(
@@ -336,7 +339,7 @@ pub fn ET::hash(e : ET, accu : Int) -> Int {
 }
 
 ///|
-pub fn ET::hash_list(l : Array[ET], accu : Int) -> Int {
+pub fn ET::hash_list(l : Array[ET], accu : Int32) -> Int32 {
   let mut result = accu
   for e in l {
     result = ET::hash(e, result)
@@ -352,7 +355,7 @@ pub fn Desc::equal(t1 : Array[ET], t2 : Array[ET]) -> Bool {
 }
 
 ///|
-pub fn Desc::hash(t : Array[ET], accu : Int) -> Int {
+pub fn Desc::hash(t : Array[ET], accu : Int32) -> Int32 {
   ET::hash_list(t, accu)
 }
 
@@ -362,7 +365,7 @@ pub fn Desc::hash(t : Array[ET], accu : Int) -> Int {
 fn desc_remove_duplicates_loop(
   seen : HashSet,
   l : Array[ET],
-  start : Int,
+  start : Int32,
   y : Expr,
 ) -> Array[ET] {
   if start >= l.length() {

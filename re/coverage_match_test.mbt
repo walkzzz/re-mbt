@@ -113,7 +113,8 @@ test "match_str_no_bounds len below -1 no raise" {
   let s = sb("hello")
   // match_str_no_bounds 不 raise：直接调用验证不产生错误（len < -1 时 last < pos，
   // 循环不执行，返回 FailedInfo）
-  match @re.match_str_no_bounds(groups=true, partial=false, re, s, pos=0, len=-2) {
+  match
+    @re.match_str_no_bounds(groups=true, partial=false, re, s, pos=0, len=-2) {
     MatchInfo(_) => assert_eq(true, true)
     FailedInfo => assert_eq(true, true)
     RunningInfo(_) => assert_eq(true, true)

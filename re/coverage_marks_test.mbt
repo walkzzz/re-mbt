@@ -124,7 +124,7 @@ test "PmarkSet::iter" {
   let a = @re.Pmark::gen()
   let b = @re.Pmark::gen()
   let s = @re.PmarkSet::empty().add(a).add(b)
-  let count = Ref::{ val: 0 }
+  let count = Ref::{ val: 0, }
   @re.PmarkSet::iter(s, fn(_) { count.val += 1 })
   assert_eq(count.val, 2)
 }
@@ -190,7 +190,7 @@ test "MarkInfos::start_offset / stop_offset" {
 ///|
 test "MarkInfos::iteri" {
   let mi = @re.MarkInfos::make([(0, 1), (2, 3)])
-  let count = Ref::{ val: 0 }
+  let count = Ref::{ val: 0, }
   @re.MarkInfos::iteri(mi, fn(_i, _s, _st) { count.val += 1 })
   assert_eq(count.val, 1)
 }

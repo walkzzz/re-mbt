@@ -9,9 +9,9 @@ pub fn Replace::replace(
   re : Re,
   s : Bytes,
   f~ : (GroupT) -> Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
-  all? : Bool = true,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
+  all~ : Bool = true,
 ) -> Bytes raise {
   if pos < 0 {
     fail("Re.replace: invalid pos")
@@ -94,9 +94,9 @@ pub fn Replace::replace_string(
   re : Re,
   s : Bytes,
   by~ : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
-  all? : Bool = true,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
+  all~ : Bool = true,
 ) -> Bytes raise {
   let by_val = by
   Replace::replace(re, s, f=fn(_ : GroupT) { by_val }, pos~, len~, all~)

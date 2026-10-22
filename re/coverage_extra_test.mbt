@@ -120,9 +120,18 @@ test "ast anchored" {
   assert_eq(@re.Ast::anchored(@re.Ast::start()), true)
   assert_eq(@re.Ast::anchored(@re.Ast::str(sb("a"))), false)
   assert_eq(@re.Ast::anchored(@re.Ast::eol()), false)
-  assert_eq(@re.Ast::anchored(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("a"))])), true)
-  assert_eq(@re.Ast::anchored(@re.Ast::alt([@re.Ast::bos(), @re.Ast::bos()])), true)
-  assert_eq(@re.Ast::anchored(@re.Ast::alt([@re.Ast::bos(), @re.Ast::str(sb("a"))])), false)
+  assert_eq(
+    @re.Ast::anchored(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("a"))])),
+    true,
+  )
+  assert_eq(
+    @re.Ast::anchored(@re.Ast::alt([@re.Ast::bos(), @re.Ast::bos()])),
+    true,
+  )
+  assert_eq(
+    @re.Ast::anchored(@re.Ast::alt([@re.Ast::bos(), @re.Ast::str(sb("a"))])),
+    false,
+  )
   assert_eq(@re.Ast::anchored(@re.Ast::rep(@re.Ast::bos())), false)
   assert_eq(@re.Ast::anchored(@re.Ast::rep1(@re.Ast::bos())), true)
   assert_eq(@re.Ast::anchored(@re.Ast::group(@re.Ast::bos())), true)
@@ -277,7 +286,9 @@ test "re group_count and group_names" {
   assert_eq(@re.Re::group_count(re1), 1)
   assert_eq(@re.Re::group_names(re1).length(), 0)
 
-  let re2 = @re.compile(@re.Ast::group(name=Some("first"), @re.Ast::str(sb("a"))))
+  let re2 = @re.compile(
+    @re.Ast::group(name=Some("first"), @re.Ast::str(sb("a"))),
+  )
   assert_eq(@re.Re::group_count(re2), 2)
   let names2 = @re.Re::group_names(re2)
   assert_eq(names2.length(), 1)

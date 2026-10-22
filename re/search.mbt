@@ -12,7 +12,7 @@ pub enum SplitToken {
 }
 
 ///|
-fn bytes_sub(s : Bytes, start : Int, len : Int) -> Bytes {
+fn bytes_sub(s : Bytes, start : Int32, len : Int32) -> Bytes {
   let buf : Array[Byte] = []
   for k in 0..<len {
     buf.push(s[start + k])
@@ -26,8 +26,8 @@ fn bytes_sub(s : Bytes, start : Int, len : Int) -> Bytes {
 pub fn Search::all(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> Array[GroupT] raise {
   if pos < 0 {
     fail("Re.all: invalid pos")
@@ -77,8 +77,8 @@ pub fn Search::all(
 pub fn Search::matches(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> Array[Bytes] raise {
   let groups = Search::all(re, s, pos~, len~)
   let result : Array[Bytes] = []
@@ -97,8 +97,8 @@ pub fn Search::matches(
 pub fn Search::split_full(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> Array[SplitToken] raise {
   if pos < 0 {
     fail("Re.split: invalid pos")
@@ -174,8 +174,8 @@ pub fn Search::split_full(
 pub fn Search::split(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> Array[Bytes] raise {
   let full = Search::split_full(re, s, pos~, len~)
   let result : Array[Bytes] = []
@@ -194,8 +194,8 @@ pub fn Search::split(
 pub fn Search::split_delim(
   re : Re,
   s : Bytes,
-  pos? : Int = 0,
-  len? : Int = -1,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
 ) -> Array[Bytes] raise {
   let full = Search::split_full(re, s, pos~, len~)
   let result : Array[Bytes] = []

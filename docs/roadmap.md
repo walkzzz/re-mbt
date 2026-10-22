@@ -53,6 +53,26 @@
 - 更新 README / CHANGELOG / roadmap
 - git commit + 回写 commit hash
 
+### Sprint 5 — moon.mod 配置 + pub fn 注释 (R33/R3) ✅ 已完成
+- moon.mod 添加 `preferred_target = "wasm"` + `supported_targets = "+wasm+wasm-gc+js+native"`
+- 为 3 个 `pub fn` 添加 `///` 文档注释（Category::from_int, Cset::empty, Pmark::equal）
+
+### Sprint 6 — 根包重导出 (R10/R12) ✅ 已完成
+- 创建根目录 `moon.pkg`（导入 `re` 子包）
+- 创建 `reexport.mbt`（重导出 67 个公共类型和函数）
+- 创建 `re/README.md`（子包 API 说明）
+
+### Sprint 7 — 文档治理 (R8) ✅ 已完成
+- 创建 `docs/api.md`（公共 API 参考）
+- 创建 `docs/architecture.md`（5 条架构决策记录）
+- 创建 `docs/design.md`（核心设计：类型层次、字符集算法、编译流水线）
+- 创建 `docs/examples.md`（使用示例与最佳实践）
+
+### Sprint 8 — 验证 + 提交 ✅ 已完成
+- `moon check` 0 warning 0 error
+- `moon test` 437/437 passed
+- git commit + roadmap 回写
+
 ---
 
 ## 进度查证
@@ -64,3 +84,7 @@
 | S2 | implicit_impl 治理 | ✅ 已完成 | 3c8119f |
 | S3 | test_unqualified 治理 | ✅ 已完成 | 3c8119f |
 | S4 | 文档治理 + 提交 | ✅ 已完成 | 3c8119f |
+| S5 | moon.mod 配置 + pub fn 注释 | ✅ 已完成 | 见下方 |
+| S6 | 根包重导出 + re/README | ✅ 已完成 | 见下方 |
+| S7 | 文档治理 (api/arch/design/examples) | ✅ 已完成 | 见下方 |
+| S8 | 验证 + 提交 | ✅ 已完成 | 见下方 |

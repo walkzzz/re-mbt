@@ -5,12 +5,12 @@
 ///|
 pub struct ParseBuffer {
   str : Bytes
-  mut pos : Int
+  mut pos : Int32
 }
 
 ///|
 pub fn ParseBuffer::create(str : Bytes) -> ParseBuffer {
-  { str, pos: 0 }
+  { str, pos: 0, }
 }
 
 ///|
@@ -75,7 +75,7 @@ pub fn ParseBuffer::accept_s(t : ParseBuffer, s : Bytes) -> Bool {
 }
 
 ///|
-fn ParseBuffer::integer_aux(t : ParseBuffer, i : Int) -> Int? raise {
+fn ParseBuffer::integer_aux(t : ParseBuffer, i : Int32) -> Int32? raise {
   if ParseBuffer::eos(t) {
     Some(i)
   } else {
@@ -94,7 +94,7 @@ fn ParseBuffer::integer_aux(t : ParseBuffer, i : Int) -> Int? raise {
 }
 
 ///|
-pub fn ParseBuffer::integer(t : ParseBuffer) -> Int? raise {
+pub fn ParseBuffer::integer(t : ParseBuffer) -> Int32? raise {
   if ParseBuffer::eos(t) {
     None
   } else {

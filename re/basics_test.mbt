@@ -169,15 +169,28 @@ test "hashset dedup" {
 ///|
 test "cset empty operations boundary" {
   assert_eq(@re.Cset::union(@re.Cset::empty(), @re.Cset::empty()).intervals, [])
-  assert_eq(@re.Cset::inter(@re.Cset::empty(), @re.Cset::seq(0, 255)).intervals, [])
-  assert_eq(@re.Cset::diff(@re.Cset::seq(0, 255), @re.Cset::empty()).intervals, [(0, 255)])
-  assert_eq(@re.Cset::diff(@re.Cset::empty(), @re.Cset::seq(0, 255)).intervals, [])
+  assert_eq(
+    @re.Cset::inter(@re.Cset::empty(), @re.Cset::seq(0, 255)).intervals,
+    [],
+  )
+  assert_eq(
+    @re.Cset::diff(@re.Cset::seq(0, 255), @re.Cset::empty()).intervals,
+    [(0, 255)],
+  )
+  assert_eq(
+    @re.Cset::diff(@re.Cset::empty(), @re.Cset::seq(0, 255)).intervals,
+    [],
+  )
 }
 
 ///|
 test "cset cany combinations" {
-  assert_eq(@re.Cset::union(@re.Cset::cany(), @re.Cset::single(65)).intervals, [(0, 255)])
-  assert_eq(@re.Cset::inter(@re.Cset::cany(), @re.Cset::single(65)).intervals, [(65, 65)])
+  assert_eq(@re.Cset::union(@re.Cset::cany(), @re.Cset::single(65)).intervals, [
+    (0, 255),
+  ])
+  assert_eq(@re.Cset::inter(@re.Cset::cany(), @re.Cset::single(65)).intervals, [
+    (65, 65),
+  ])
   assert_eq(@re.Cset::diff(@re.Cset::cany(), @re.Cset::cany()).intervals, [])
 }
 

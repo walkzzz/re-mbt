@@ -33,7 +33,11 @@ test "ColorMap translate_colors" {
   let cm = @re.ColorMap::make()
   cm.split(@re.Cset::single(65))
   let (table, bt, _repr) = cm.flatten()
-  let translated = @re.ColorTable::translate_colors(table, bt, @re.Cset::single(65))
+  let translated = @re.ColorTable::translate_colors(
+    table,
+    bt,
+    @re.Cset::single(65),
+  )
   assert_eq(@re.Cset::mem(1, translated), true)
   assert_eq(@re.Cset::mem(0, translated), false)
 }

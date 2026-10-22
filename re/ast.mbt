@@ -35,7 +35,7 @@ pub enum AstGen[T] {
   Set(T)
   AstNode(AstAlt[AstGen[T]])
   Sequence(Array[AstGen[T]])
-  Repeat(AstGen[T], Int, Int?)
+  Repeat(AstGen[T], Int32, Int32?)
   BegOfLine
   EndOfLine
   BegOfWord
@@ -267,7 +267,7 @@ pub fn Ast::anchored(self : Ast) -> Bool {
 // --- merge_sequences and colorize ---
 
 ///|
-fn merge_sequences_from(l : Array[Ast], start : Int) -> Array[Ast] {
+fn merge_sequences_from(l : Array[Ast], start : Int32) -> Array[Ast] {
   if start >= l.length() {
     return []
   }
@@ -360,7 +360,7 @@ fn seq_no_case(l : Array[AstNoCase]) -> AstNoCase {
 ///|
 fn merge_sequences_no_case_from(
   l : Array[AstNoCase],
-  start : Int,
+  start : Int32,
 ) -> Array[AstNoCase] {
   if start >= l.length() {
     return []
@@ -482,7 +482,7 @@ fn ast_colorize_rec(
 
 ///|
 pub fn Ast::colorize(color_map : ColorMap, regexp : AstNoCase) -> Bool {
-  let lnl = Ref::{ val: false }
+  let lnl = Ref::{ val: false, }
   ast_colorize_rec(color_map, lnl, regexp)
   lnl.val
 }
@@ -499,7 +499,7 @@ pub fn Ast::seq(l : Array[Ast]) -> Ast {
 }
 
 ///|
-let ast_char_cache : (Int) -> Ast = DenseMap::make(size=256, f=fn(i) {
+let ast_char_cache : (Int32) -> Ast = DenseMap::make(size=256, f=fn(i) {
   Set(CsetOf(Cset::single(i)))
 })
 
@@ -556,7 +556,7 @@ pub fn Ast::epsilon() -> Ast {
 }
 
 ///|
-pub fn Ast::repn(r : Ast, i : Int, j : Int?) -> Ast {
+pub fn Ast::repn(r : Ast, i : Int32, j : Int32?) -> Ast {
   if i < 0 {
     abort("Ast.repn: negative min")
   }
@@ -686,7 +686,7 @@ pub fn Ast::non_greedy(t : Ast) -> Ast {
 }
 
 ///|
-pub fn Ast::group(name? : String? = None, r : Ast) -> Ast {
+pub fn Ast::group(name~ : String? = None, r : Ast) -> Ast {
   Group(name, r)
 }
 

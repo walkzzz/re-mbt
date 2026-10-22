@@ -4,18 +4,18 @@
 
 ///|
 pub struct HashSet {
-  mut table : FixedArray[Int] // sized to powers of two, absent slots = -1
-  mut size : Int
+  mut table : FixedArray[Int32] // sized to powers of two, absent slots = -1
+  mut size : Int32
 }
 
 ///|
-pub fn HashSet::absent() -> Int {
+pub fn HashSet::absent() -> Int32 {
   -1
 }
 
 ///|
 pub fn HashSet::create() -> HashSet {
-  { table: FixedArray::make(0, -1), size: 0 }
+  { table: FixedArray::make(0, -1), size: 0, }
 }
 
 ///|
@@ -29,7 +29,11 @@ pub fn HashSet::should_grow(self : HashSet) -> Bool {
 }
 
 ///|
-pub fn HashSet::index_of_offset(slots : Int, index : Int, i : Int) -> Int {
+pub fn HashSet::index_of_offset(
+  slots : Int32,
+  index : Int32,
+  i : Int32,
+) -> Int32 {
   (index + i) & (slots - 1)
 }
 
@@ -44,7 +48,7 @@ pub fn HashSet::clear(self : HashSet) -> Unit {
 // raw add without resize
 
 ///|
-pub fn HashSet::add_no_resize(self : HashSet, x : Int) -> Unit {
+pub fn HashSet::add_no_resize(self : HashSet, x : Int32) -> Unit {
   let slots = self.table.length()
   let index = x.reinterpret_as_uint().reinterpret_as_int() & (slots - 1)
   let mut i = 0
@@ -76,7 +80,7 @@ pub fn HashSet::resize(self : HashSet) -> Unit {
 }
 
 ///|
-pub fn HashSet::add(self : HashSet, x : Int) -> Unit {
+pub fn HashSet::add(self : HashSet, x : Int32) -> Unit {
   if self.should_grow() {
     self.resize()
   }
@@ -85,7 +89,7 @@ pub fn HashSet::add(self : HashSet, x : Int) -> Unit {
 }
 
 ///|
-pub fn HashSet::mem(self : HashSet, x : Int) -> Bool {
+pub fn HashSet::mem(self : HashSet, x : Int32) -> Bool {
   if self.is_empty() {
     return false
   }

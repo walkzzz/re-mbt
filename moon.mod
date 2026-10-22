@@ -10,7 +10,11 @@ license = "LGPL-2.1-or-later"
 
 repository = "https://github.com/walkzzz/re-mbt"
 
-keywords = ["regex", "regexp", "regular-expression", "ocaml-re", "port"]
+keywords = [ "regex", "regexp", "regular-expression", "ocaml-re", "port" ]
+
+preferred_target = "wasm"
+
+supported_targets = "+wasm+wasm-gc+js+native"
 
 import {
   "moonbitlang/x@0.4.48",

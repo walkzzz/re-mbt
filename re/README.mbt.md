@@ -9,6 +9,7 @@
 ### Perl 前端
 
 ```mbt check
+///|
 test "perl basic match" {
   let re = @re.Perl::compile_pat(sb("(\\d+)-(\\d+)"))
   match @re.exec_opt(re, sb("2024-12-25")) {
@@ -23,6 +24,7 @@ test "perl basic match" {
 ```
 
 ```mbt check
+///|
 test "perl caseless" {
   let re = @re.Perl::compile_pat(sb("hello"), opts=[@re.PerlOpt::caseless()])
   assert_eq(@re.execp(re, sb("HELLO")), true)
@@ -30,6 +32,7 @@ test "perl caseless" {
 ```
 
 ```mbt check
+///|
 test "perl non-greedy" {
   let re = @re.Perl::compile_pat(sb("a.*?b"))
   match @re.exec_opt(re, sb("axxbxxb")) {
@@ -42,6 +45,7 @@ test "perl non-greedy" {
 ### PCRE 前端
 
 ```mbt check
+///|
 test "pcre caseless" {
   let re = @re.Pcre::regexp(sb("hello"), flags=[@re.PcreFlag::caseless()])
   assert_eq(@re.Pcre::pmatch(re, sb("HELLO")), true)
@@ -49,6 +53,7 @@ test "pcre caseless" {
 ```
 
 ```mbt check
+///|
 test "pcre multiline" {
   let re = @re.Pcre::regexp(sb("^abc$"), flags=[@re.PcreFlag::multiline_p()])
   assert_eq(@re.Pcre::pmatch(re, sb("x\nabc\ny")), true)
@@ -58,6 +63,7 @@ test "pcre multiline" {
 ### Str 前端（OCaml 兼容）
 
 ```mbt check
+///|
 test "str match" {
   let re = @re.Str::regexp(sb("[a-z]+"))
   assert_eq(@re.Str::string_match(re, sb("abc"), 0), true)
@@ -65,6 +71,7 @@ test "str match" {
 ```
 
 ```mbt check
+///|
 test "str search" {
   let re = @re.Str::regexp(sb("world"))
   assert_eq(@re.Str::search_forward(re, sb("hello world"), 0), 6)
@@ -72,6 +79,7 @@ test "str search" {
 ```
 
 ```mbt check
+///|
 test "str split" {
   let re = @re.Str::regexp(sb(","))
   let parts = @re.Str::split(re, sb("a,b,c"))
@@ -83,6 +91,7 @@ test "str split" {
 ```
 
 ```mbt check
+///|
 test "str global_replace" {
   let re = @re.Str::regexp(sb("o"))
   let result = @re.Str::global_replace(re, sb("0"), sb("foo"))
@@ -91,6 +100,7 @@ test "str global_replace" {
 ```
 
 ```mbt check
+///|
 test "str replace_first" {
   let re = @re.Str::regexp(sb("o"))
   let result = @re.Str::replace_first(re, sb("0"), sb("foo"))
@@ -99,6 +109,7 @@ test "str replace_first" {
 ```
 
 ```mbt check
+///|
 test "str case_fold" {
   let re = @re.Str::regexp_case_fold(sb("hello"))
   assert_eq(@re.Str::string_match(re, sb("HELLO"), 0), true)
@@ -108,6 +119,7 @@ test "str case_fold" {
 ### Core API
 
 ```mbt check
+///|
 test "core Search::all" {
   let re = @re.compile(@re.Ast::str(sb("ab")))
   let results = @re.Search::all(re, sb("ab_ab_ab"))
@@ -116,6 +128,7 @@ test "core Search::all" {
 ```
 
 ```mbt check
+///|
 test "core Search::matches" {
   let re = @re.compile(@re.Ast::rep1(@re.Re::digit()))
   let results = @re.Search::matches(re, sb("a12b34c"))
@@ -126,6 +139,7 @@ test "core Search::matches" {
 ```
 
 ```mbt check
+///|
 test "core Re::pp" {
   let ast = @re.Ast::str(sb("hello"))
   let s = @re.Re::pp(ast)

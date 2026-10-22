@@ -1,0 +1,166 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt"
+
+import {
+  "walkzzz/re-mbt/re",
+}
+
+// Values
+pub fn advance(@re.WorkingArea, @re.State) -> @re.State
+
+pub fn bs(Bytes) -> String
+
+pub fn compile(@re.AstGen[@re.AstCset]) -> @re.Re
+
+pub fn copy_re(@re.Re) -> @re.Re
+
+pub fn delta(@re.WorkingArea, @re.Category, Int32, @re.State) -> @re.State
+
+pub fn exec(@re.Re, Bytes, pos? : Int32, len? : Int32) -> @re.GroupT raise
+
+pub fn exec_opt(@re.Re, Bytes, pos? : Int32, len? : Int32) -> @re.GroupT? raise
+
+pub fn exec_partial(@re.Re, Bytes, pos? : Int32, len? : Int32) -> @re.ExecPartialResult raise
+
+pub fn exec_partial_detailed(@re.Re, Bytes, pos? : Int32, len? : Int32) -> @re.ExecPartialDetailedResult raise
+
+pub fn execp(@re.Re, Bytes, pos? : Int32, len? : Int32) -> Bool raise
+
+pub fn match_str(groups~ : Bool, partial~ : Bool, @re.Re, Bytes, pos~ : Int32, len~ : Int32) -> @re.MatchInfo raise
+
+pub fn match_str_no_bounds(groups~ : Bool, partial~ : Bool, @re.Re, Bytes, pos~ : Int32, len~ : Int32) -> @re.MatchInfo
+
+pub fn match_str_p(@re.Re, Bytes, pos~ : Int32, len~ : Int32) -> Bool raise
+
+pub fn mk_re(initial~ : @re.Expr, colors~ : @re.ColorTable, color_repr~ : @re.ColorRepr, ncolor~ : Int32, lnl~ : Int32, group_names~ : Array[(String, Int32)], group_count~ : Int32) -> @re.Re
+
+pub fn sb(String) -> Bytes
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+pub type Ast = @re.AstGen[@re.AstCset]
+
+pub using @re {type AstAlt}
+
+pub using @re {type AstCset}
+
+pub using @re {type AstGen}
+
+pub type AstNoCase = @re.AstGen[@re.Cset]
+
+pub using @re {type BitVector}
+
+pub using @re {type BoundaryTable}
+
+pub using @re {type CSetMap}
+
+pub using @re {type Category}
+
+pub using @re {type ColorMap}
+
+pub using @re {type ColorRepr}
+
+pub using @re {type ColorTable}
+
+pub using @re {type CompileIdx}
+
+pub using @re {type CompileState}
+
+pub using @re {type Cset}
+
+pub using @re {type CsetC}
+
+pub using @re {type CsetView}
+
+pub using @re {type Desc}
+
+pub using @re {type Dyn}
+
+pub using @re {type ET}
+
+pub using @re {type Emacs}
+
+pub using @re {type ExecPartialDetailedResult}
+
+pub using @re {type ExecPartialResult}
+
+pub using @re {type Expr}
+
+pub using @re {type Glob}
+
+pub using @re {type GroupT}
+
+pub using @re {type HashSet}
+
+pub using @re {type Ids}
+
+pub using @re {type Idx}
+
+pub using @re {type Mark}
+
+pub using @re {type MarkInfos}
+
+pub using @re {type MarkOffset}
+
+pub using @re {type Marks}
+
+pub using @re {type MatchInfo}
+
+pub using @re {type ParseBuffer}
+
+pub using @re {type Pcre}
+
+pub using @re {type PcreFlag}
+
+pub using @re {type PcreSplitResult}
+
+pub using @re {type Perl}
+
+pub using @re {type PerlOpt}
+
+pub using @re {type Pmark}
+
+pub using @re {type PmarkSet}
+
+pub using @re {type Positions}
+
+pub using @re {type Posix}
+
+pub using @re {type PosixOpt}
+
+pub using @re {type Re}
+
+pub using @re {type RepKind}
+
+pub using @re {type Replace}
+
+pub using @re {type Search}
+
+pub using @re {type Sem}
+
+pub using @re {type SplitToken}
+
+pub using @re {type State}
+
+pub using @re {type StateHashTable}
+
+pub using @re {type StateInfo}
+
+pub using @re {type Status}
+
+pub using @re {type Str}
+
+pub using @re {type StrSplitResult}
+
+pub using @re {type View}
+
+pub using @re {type ViewRange}
+
+pub using @re {type ViewT}
+
+pub using @re {type WorkingArea}
+
+// Traits

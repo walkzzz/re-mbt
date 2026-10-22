@@ -51,7 +51,7 @@ priv enum PerlElem {
 }
 
 ///|
-fn perl_char_of_int(x : Int) -> Char raise {
+fn perl_char_of_int(x : Int32) -> Char raise {
   if x >= 0 && x <= 255 {
     x.unsafe_to_char()
   } else {
@@ -60,7 +60,7 @@ fn perl_char_of_int(x : Int) -> Char raise {
 }
 
 ///|
-fn perl_acc_digits(base : Int, digits : Array[Int]) -> Int {
+fn perl_acc_digits(base : Int32, digits : Array[Int32]) -> Int32 {
   let mut acc = 0
   let mut i = 1
   for d in array_reverse(digits) {
@@ -291,7 +291,7 @@ fn perl_atom(buf : ParseBuffer, opts : PerlOpts) -> Ast raise {
 
 ///|
 fn perl_parse_hex(buf : ParseBuffer) -> Ast raise {
-  let digits : Array[Int] = []
+  let digits : Array[Int32] = []
   if ParseBuffer::accept(buf, '{') {
     while !ParseBuffer::accept(buf, '}') {
       digits.push(perl_hexdigit(buf))
@@ -318,7 +318,7 @@ fn perl_parse_oct(buf : ParseBuffer) -> Ast raise {
   if !ParseBuffer::accept(buf, '{') {
     fail("Perl parse error")
   }
-  let digits : Array[Int] = []
+  let digits : Array[Int32] = []
   while !ParseBuffer::accept(buf, '}') {
     match perl_maybe_octaldigit(buf) {
       Some(d) => digits.push(d)
@@ -369,7 +369,7 @@ fn perl_quote(buf : ParseBuffer, acc : Array[Byte]) -> Ast raise {
 }
 
 ///|
-fn perl_hexdigit(buf : ParseBuffer) -> Int raise {
+fn perl_hexdigit(buf : ParseBuffer) -> Int32 raise {
   if ParseBuffer::eos(buf) {
     fail("Perl parse error")
   }
@@ -386,7 +386,7 @@ fn perl_hexdigit(buf : ParseBuffer) -> Int raise {
 }
 
 ///|
-fn perl_maybe_octaldigit(buf : ParseBuffer) -> Int? {
+fn perl_maybe_octaldigit(buf : ParseBuffer) -> Int32? {
   if ParseBuffer::eos(buf) {
     None
   } else {
@@ -575,7 +575,7 @@ fn perl_has_opt(opts : Array[PerlOpt], target : PerlOpt) -> Bool {
 }
 
 ///|
-pub fn Perl::re(s : Bytes, opts? : Array[PerlOpt] = []) -> Ast raise {
+pub fn Perl::re(s : Bytes, opts~ : Array[PerlOpt] = []) -> Ast raise {
   let opts_rec : PerlOpts = {
     multiline: perl_has_opt(opts, Multiline),
     dollar_endonly: perl_has_opt(opts, DollarEndonly),
@@ -600,6 +600,6 @@ pub fn Perl::re(s : Bytes, opts? : Array[PerlOpt] = []) -> Ast raise {
 }
 
 ///|
-pub fn Perl::compile_pat(s : Bytes, opts? : Array[PerlOpt] = []) -> Re raise {
+pub fn Perl::compile_pat(s : Bytes, opts~ : Array[PerlOpt] = []) -> Re raise {
   compile(Perl::re(s, opts~))
 }

@@ -5,7 +5,7 @@
 ///|
 #warnings("-unused_constructor")
 pub enum Dyn {
-  Int(Int)
+  Int(Int32)
   Tuple(Array[Dyn])
   Enum(String)
   String(String)
@@ -31,7 +31,7 @@ fn Dyn::list(xs : Array[Dyn]) -> Dyn {
 }
 
 ///|
-fn Dyn::int(x : Int) -> Dyn {
+fn Dyn::int(x : Int32) -> Dyn {
   Int(x)
 }
 

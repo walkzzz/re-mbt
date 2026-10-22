@@ -8,8 +8,8 @@ priv struct CompileContext {
   kind : Sem
   ign_group : Bool
   greedy : RepKind
-  pos : Ref[Int]
-  names : Ref[Array[(String, Int)]]
+  pos : Ref[Int32]
+  names : Ref[Array[(String, Int32)]]
   cache : Ref[CSetMap]
   colors : ColorTable
   boundary_table : BoundaryTable
@@ -81,7 +81,7 @@ fn make_repeater(
 // --- iter (apply f n times) ---
 
 ///|
-fn iter_n(n : Int, f : (Expr) -> Expr, v : Expr) -> Expr {
+fn iter_n(n : Int32, f : (Expr) -> Expr, v : Expr) -> Expr {
   if n == 0 {
     v
   } else {
@@ -99,7 +99,7 @@ fn translate(ctx : CompileContext, ast : AstNoCase) -> (Expr, Sem) {
       (Expr::cst(ctx.ids, cset), ctx.kind)
     }
     Sequence(l) => {
-      let ctx2 = { ..ctx, kind: Sem::first() }
+      let ctx2 = { ..ctx, kind: Sem::first(), }
       (trans_seq(ctx2, l, 0), ctx.kind)
     }
     AstNode(Alternative(l)) => {
@@ -118,7 +118,7 @@ fn translate(ctx : CompileContext, ast : AstNoCase) -> (Expr, Sem) {
     AstNode(NoCase(r)) => translate(ctx, r)
     AstNode(Case(r)) => translate(ctx, r)
     Repeat(r, i, j) => {
-      let ctx2 = { ..ctx, kind: Sem::first() }
+      let ctx2 = { ..ctx, kind: Sem::first(), }
       let (cr, kind2) = translate(ctx2, r)
       let rem = match j {
         None => Expr::rep(ctx.ids, ctx.greedy, kind2, cr)
@@ -179,12 +179,12 @@ fn translate(ctx : CompileContext, ast : AstNoCase) -> (Expr, Sem) {
     Start => (Expr::after(ctx.ids, Category::search_boundary()), ctx.kind)
     Stop => (Expr::before(ctx.ids, Category::search_boundary()), ctx.kind)
     Sem(kind2, r) => {
-      let ctx2 = { ..ctx, kind: kind2 }
+      let ctx2 = { ..ctx, kind: kind2, }
       let (cr, kind3) = translate(ctx2, r)
       (enforce_kind(ctx.ids, kind2, kind3, cr), kind2)
     }
     SemGreedy(greedy2, r) => {
-      let ctx2 = { ..ctx, greedy: greedy2 }
+      let ctx2 = { ..ctx, greedy: greedy2, }
       translate(ctx2, r)
     }
     Group(n, r) =>
@@ -209,7 +209,7 @@ fn translate(ctx : CompileContext, ast : AstNoCase) -> (Expr, Sem) {
         (result, kind2)
       }
     NoGroup(r) => {
-      let ctx2 = { ..ctx, ign_group: true }
+      let ctx2 = { ..ctx, ign_group: true, }
       translate(ctx2, r)
     }
     Nest(r) => {
@@ -235,7 +235,7 @@ fn translate(ctx : CompileContext, ast : AstNoCase) -> (Expr, Sem) {
 // --- trans_seq ---
 
 ///|
-fn trans_seq(ctx : CompileContext, l : Array[AstNoCase], start : Int) -> Expr {
+fn trans_seq(ctx : CompileContext, l : Array[AstNoCase], start : Int32) -> Expr {
   if start >= l.length() {
     Expr::eps(ctx.ids)
   } else {
@@ -267,9 +267,9 @@ fn compile_1(regexp : Ast) -> Re {
     kind: Sem::first(),
     ign_group: false,
     greedy: RepKind::greedy(),
-    pos: Ref::{ val: Mark::start() },
-    names: Ref::{ val: [] },
-    cache: Ref::{ val: CSetMap::empty() },
+    pos: Ref::{ val: Mark::start(), },
+    names: Ref::{ val: [], },
+    cache: Ref::{ val: CSetMap::empty(), },
     colors,
     boundary_table,
   }

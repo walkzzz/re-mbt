@@ -123,21 +123,27 @@ test "compile and match: any matches 'x'" {
 
 ///|
 test "compile and match: 'a*b' matches 'aaab'" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::rep(@re.Ast::char('a')), @re.Ast::char('b')]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::rep(@re.Ast::char('a')), @re.Ast::char('b')]),
+  )
   let s = sb("aaab")
   assert_eq(@re.match_str_p(re, s, pos=0, len=4), true)
 }
 
 ///|
 test "compile and match: 'a*b' matches 'b'" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::rep(@re.Ast::char('a')), @re.Ast::char('b')]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::rep(@re.Ast::char('a')), @re.Ast::char('b')]),
+  )
   let s = sb("b")
   assert_eq(@re.match_str_p(re, s, pos=0, len=1), true)
 }
 
 ///|
 test "compile and match: 'a*b' no match 'aaa'" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::rep(@re.Ast::char('a')), @re.Ast::char('b')]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::rep(@re.Ast::char('a')), @re.Ast::char('b')]),
+  )
   let s = sb("aaa")
   assert_eq(@re.match_str_p(re, s, pos=0, len=3), false)
 }

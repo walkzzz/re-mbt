@@ -2,7 +2,7 @@
 // Modify bench_section to run only one section (0 = all)
 
 ///|
-let bench_section : Int = 0
+let bench_section : Int32 = 0
 
 ///|
 fn sb(s : String) -> Bytes {
@@ -14,7 +14,7 @@ fn sb(s : String) -> Bytes {
 }
 
 ///|
-fn gen_input(len : Int, ch : Char) -> Bytes {
+fn gen_input(len : Int32, ch : Char) -> Bytes {
   let arr : Array[Byte] = []
   for _ in 0..<len {
     arr.push(ch.to_int().to_byte())
@@ -23,7 +23,7 @@ fn gen_input(len : Int, ch : Char) -> Bytes {
 }
 
 ///|
-fn gen_mixed_input(len : Int) -> Bytes {
+fn gen_mixed_input(len : Int32) -> Bytes {
   let arr : Array[Byte] = []
   let chars = "abcdefghij"
   for i in 0..<len {
@@ -34,7 +34,7 @@ fn gen_mixed_input(len : Int) -> Bytes {
 }
 
 ///|
-fn gen_email_input(count : Int) -> Bytes {
+fn gen_email_input(count : Int32) -> Bytes {
   let arr : Array[Byte] = []
   let s = "user@example.com, "
   for _ in 0..<count {
@@ -51,7 +51,7 @@ fn[T] ignore(_ : T) -> Unit {
 }
 
 ///|
-fn run_section(sec : Int, f : () -> Unit) -> Unit {
+fn run_section(sec : Int32, f : () -> Unit) -> Unit {
   if bench_section == 0 || bench_section == sec {
     f()
   }

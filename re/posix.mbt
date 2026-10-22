@@ -247,7 +247,7 @@ fn posix_has_opt(opts : Array[PosixOpt], target : PosixOpt) -> Bool {
 }
 
 ///|
-pub fn Posix::re(s : Bytes, opts? : Array[PosixOpt] = []) -> Ast raise {
+pub fn Posix::re(s : Bytes, opts~ : Array[PosixOpt] = []) -> Ast raise {
   let newline = posix_has_opt(opts, Newline)
   let buf = ParseBuffer::create(s)
   let r = posix_regexp(buf, newline)
@@ -263,11 +263,11 @@ pub fn Posix::re(s : Bytes, opts? : Array[PosixOpt] = []) -> Ast raise {
 }
 
 ///|
-pub fn Posix::compile(s : Bytes, opts? : Array[PosixOpt] = []) -> Re raise {
+pub fn Posix::compile(s : Bytes, opts~ : Array[PosixOpt] = []) -> Re raise {
   compile(Ast::longest(Posix::re(s, opts~)))
 }
 
 ///|
-pub fn Posix::compile_pat(s : Bytes, opts? : Array[PosixOpt] = []) -> Re raise {
+pub fn Posix::compile_pat(s : Bytes, opts~ : Array[PosixOpt] = []) -> Re raise {
   Posix::compile(s, opts~)
 }

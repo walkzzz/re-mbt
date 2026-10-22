@@ -115,46 +115,46 @@ pub fn RepKind::to_string_short(r : RepKind) -> String {
 pub struct Mark {}
 
 ///|
-pub fn Mark::start() -> Int {
+pub fn Mark::start() -> Int32 {
   0
 }
 
 ///|
-pub fn Mark::prev(x : Int) -> Int {
+pub fn Mark::prev(x : Int32) -> Int32 {
   x - 1
 }
 
 ///|
-pub fn Mark::next(x : Int) -> Int {
+pub fn Mark::next(x : Int32) -> Int32 {
   x + 1
 }
 
 ///|
-pub fn Mark::next2(x : Int) -> Int {
+pub fn Mark::next2(x : Int32) -> Int32 {
   x + 2
 }
 
 ///|
-pub fn Mark::group_count(x : Int) -> Int {
+pub fn Mark::group_count(x : Int32) -> Int32 {
   x / 2
 }
 
 ///|
 pub fn Mark::outside_range(
-  t : Int,
-  start_inclusive~ : Int,
-  stop_inclusive~ : Int,
+  t : Int32,
+  start_inclusive~ : Int32,
+  stop_inclusive~ : Int32,
 ) -> Bool {
   t < start_inclusive || t > stop_inclusive
 }
 
 ///|
-pub fn Mark::to_dyn(m : Int) -> Dyn {
+pub fn Mark::to_dyn(m : Int32) -> Dyn {
   Dyn::int(m)
 }
 
 ///|
-pub fn Mark::compare(x : Int, y : Int) -> Int {
+pub fn Mark::compare(x : Int32, y : Int32) -> Int32 {
   x.compare(y)
 }
 
@@ -165,27 +165,27 @@ pub fn Mark::compare(x : Int, y : Int) -> Int {
 pub struct Idx {}
 
 ///|
-pub fn Idx::unknown() -> Int {
+pub fn Idx::unknown() -> Int32 {
   -1
 }
 
 ///|
-pub fn Idx::initial() -> Int {
+pub fn Idx::initial() -> Int32 {
   0
 }
 
 ///|
-pub fn Idx::used(t : Int) -> Bool {
+pub fn Idx::used(t : Int32) -> Bool {
   t >= 0
 }
 
 ///|
-pub fn Idx::to_int(t : Int) -> Int {
+pub fn Idx::to_int(t : Int32) -> Int32 {
   t
 }
 
 ///|
-pub fn Idx::to_dyn(t : Int) -> Dyn {
+pub fn Idx::to_dyn(t : Int32) -> Dyn {
   Dyn::int(t)
 }
 
@@ -193,16 +193,16 @@ pub fn Idx::to_dyn(t : Int) -> Dyn {
 
 ///|
 pub struct Ids {
-  mut counter : Int
+  mut counter : Int32
 }
 
 ///|
 pub fn Ids::create() -> Ids {
-  { counter: 0 }
+  { counter: 0, }
 }
 
 ///|
-pub fn Ids::next(self : Ids) -> Int {
+pub fn Ids::next(self : Ids) -> Int32 {
   self.counter += 1
   self.counter
 }
@@ -210,6 +210,6 @@ pub fn Ids::next(self : Ids) -> Int {
 // --- hash_combine ---
 
 ///|
-fn hash_combine(h : Int, accu : Int) -> Int {
+fn hash_combine(h : Int32, accu : Int32) -> Int32 {
   accu * 65599 + h
 }

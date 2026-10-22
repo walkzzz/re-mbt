@@ -102,7 +102,10 @@ test "group matched and nb_groups" {
 ///|
 test "group all" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("a"))), @re.Ast::group(@re.Ast::str(sb("b")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("a"))),
+      @re.Ast::group(@re.Ast::str(sb("b"))),
+    ]),
   )
   let s = sb("ab")
   match @re.exec_opt(re, s) {
@@ -120,7 +123,10 @@ test "group all" {
 ///|
 test "group all_offset" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::group(@re.Ast::str(sb("a"))), @re.Ast::group(@re.Ast::str(sb("b")))]),
+    @re.Ast::seq([
+      @re.Ast::group(@re.Ast::str(sb("a"))),
+      @re.Ast::group(@re.Ast::str(sb("b"))),
+    ]),
   )
   let s = sb("xab")
   match @re.exec_opt(re, s) {
@@ -158,7 +164,11 @@ test "search matches basic" {
 ///|
 test "search all with groups" {
   let re = @re.compile(
-    @re.Ast::seq([@re.Ast::str(sb("my")), @re.Re::blank(), @re.Ast::word(@re.Ast::rep(@re.Re::alpha()))]),
+    @re.Ast::seq([
+      @re.Ast::str(sb("my")),
+      @re.Re::blank(),
+      @re.Ast::word(@re.Ast::rep(@re.Re::alpha())),
+    ]),
   )
   let s = sb("my head, my shoulders, my knees")
   let groups = @re.Search::all(re, s)
@@ -268,21 +278,27 @@ test "replace with function" {
 
 ///|
 test "exec_partial full match" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]),
+  )
   let result = @re.exec_partial(re, sb("hello"))
   assert_eq(result, @re.ExecPartialResult::full())
 }
 
 ///|
 test "exec_partial mismatch" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]),
+  )
   let result = @re.exec_partial(re, sb("world"))
   assert_eq(result, @re.ExecPartialResult::mismatch())
 }
 
 ///|
 test "exec_partial_detailed full" {
-  let re = @re.compile(@re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]))
+  let re = @re.compile(
+    @re.Ast::seq([@re.Ast::bos(), @re.Ast::str(sb("hello"))]),
+  )
   let result = @re.exec_partial_detailed(re, sb("hello"))
   match result {
     FullD(_) => assert_eq(true, true)
@@ -368,7 +384,9 @@ test "Re::pp_re basic" {
 
 ///|
 test "Re::pp_re with groups" {
-  let re = @re.compile(@re.Ast::group(name=Some("first"), @re.Ast::str(sb("a"))))
+  let re = @re.compile(
+    @re.Ast::group(name=Some("first"), @re.Ast::str(sb("a"))),
+  )
   let s = @re.Re::pp_re(re)
   assert_eq(s.length() > 0, true)
 }

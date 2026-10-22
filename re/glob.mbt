@@ -124,7 +124,7 @@ fn glob_of_string(s : Bytes, double_asterisk : Bool) -> Array[GlobPiece] raise {
 priv struct GlobState {
   re_pieces : Array[Ast]
   remaining : Array[GlobPiece]
-  remaining_pos : Int
+  remaining_pos : Int32
   am_at_start_of_pattern : Bool
   am_at_start_of_component : Bool
   pathname : Bool
@@ -175,7 +175,7 @@ fn GlobState::slashes(t : GlobState) -> Array[Char] {
 fn GlobState::append(
   t : GlobState,
   piece : Ast,
-  am_at_start_of_component? : Bool = false,
+  am_at_start_of_component~ : Bool = false,
 ) -> GlobState {
   t.re_pieces.push(piece)
   {
@@ -201,7 +201,7 @@ fn GlobState::next(t : GlobState) -> (GlobPiece, GlobState)? {
     None
   } else {
     let piece = t.remaining[t.remaining_pos]
-    Some((piece, { ..t, remaining_pos: t.remaining_pos + 1 }))
+    Some((piece, { ..t, remaining_pos: t.remaining_pos + 1, }))
   }
 }
 
@@ -487,11 +487,11 @@ fn glob_to_re(
 ///|
 pub fn Glob::glob(
   s : Bytes,
-  anchored? : Bool = false,
-  pathname? : Bool = true,
-  match_backslashes? : Bool = false,
-  period? : Bool = true,
-  double_asterisk? : Bool = true,
+  anchored~ : Bool = false,
+  pathname~ : Bool = true,
+  match_backslashes~ : Bool = false,
+  period~ : Bool = true,
+  double_asterisk~ : Bool = true,
 ) -> Ast raise {
   let da = double_asterisk && pathname
   let re = glob_to_re(
@@ -510,11 +510,11 @@ pub fn Glob::glob(
 ///|
 pub fn Glob::compile(
   s : Bytes,
-  anchored? : Bool = false,
-  pathname? : Bool = true,
-  match_backslashes? : Bool = false,
-  period? : Bool = true,
-  double_asterisk? : Bool = true,
+  anchored~ : Bool = false,
+  pathname~ : Bool = true,
+  match_backslashes~ : Bool = false,
+  period~ : Bool = true,
+  double_asterisk~ : Bool = true,
 ) -> Re raise {
   compile(
     Glob::glob(

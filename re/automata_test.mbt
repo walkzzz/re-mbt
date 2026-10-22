@@ -88,7 +88,12 @@ test "delta: regex 'a*' with matching char stays running" {
   let ids = @re.Ids::create()
   let a_cset = @re.Cset::single(97)
   let a_expr = @re.Expr::cst(ids, a_cset)
-  let star_expr = @re.Expr::rep(ids, @re.RepKind::greedy(), @re.Sem::longest(), a_expr)
+  let star_expr = @re.Expr::rep(
+    ids,
+    @re.RepKind::greedy(),
+    @re.Sem::longest(),
+    a_expr,
+  )
   let cat = @re.Category::from_char('a')
   let wa = @re.WorkingArea::create()
   let s0 = @re.State::create(cat, star_expr)
@@ -102,7 +107,12 @@ test "advance: regex 'a*' after non-matching char gives match" {
   let ids = @re.Ids::create()
   let a_cset = @re.Cset::single(97)
   let a_expr = @re.Expr::cst(ids, a_cset)
-  let star_expr = @re.Expr::rep(ids, @re.RepKind::greedy(), @re.Sem::longest(), a_expr)
+  let star_expr = @re.Expr::rep(
+    ids,
+    @re.RepKind::greedy(),
+    @re.Sem::longest(),
+    a_expr,
+  )
   let cat = @re.Category::from_char('a')
   let wa = @re.WorkingArea::create()
   let s0 = @re.State::create(cat, star_expr)

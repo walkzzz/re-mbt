@@ -5,7 +5,7 @@
 
 ///|
 priv enum Ctx {
-  CDelta(Int, Category, Category) // (c, prev_cat, next_cat)
+  CDelta(Int32, Category, Category) // (c, prev_cat, next_cat)
   CAdvance(Category, Pmark) // (prev_cat, ambiguity_mark)
 }
 
@@ -13,21 +13,21 @@ priv enum Ctx {
 
 ///|
 pub struct State {
-  idx : Int // Idx.t
+  idx : Int32 // Idx.t
   category : Category
   desc : Array[ET] // Desc.t
   mut status : Status?
-  hash : Int
+  hash : Int32
 }
 
 ///|
-fn state_compute_hash(idx : Int, cat : Category, desc : Array[ET]) -> Int {
+fn state_compute_hash(idx : Int32, cat : Category, desc : Array[ET]) -> Int32 {
   Desc::hash(desc, hash_combine(idx, hash_combine(Category::to_int(cat), 0))) &
   0x3FFFFFFF
 }
 
 ///|
-pub fn State::mk(idx : Int, cat : Category, desc : Array[ET]) -> State {
+pub fn State::mk(idx : Int32, cat : Category, desc : Array[ET]) -> State {
   {
     idx,
     category: cat,
@@ -54,7 +54,7 @@ pub fn State::dummy() -> State {
 }
 
 ///|
-pub fn State::idx(s : State) -> Int {
+pub fn State::idx(s : State) -> Int32 {
   s.idx
 }
 
@@ -94,16 +94,16 @@ pub fn State::to_dyn(s : State) -> Dyn {
 pub struct WorkingArea {
   mut ids : BitVector
   seen : HashSet
-  mut index_count : Int
+  mut index_count : Int32
 }
 
 ///|
 pub fn WorkingArea::create() -> WorkingArea {
-  { ids: BitVector::create_zero(1), seen: HashSet::create(), index_count: 0 }
+  { ids: BitVector::create_zero(1), seen: HashSet::create(), index_count: 0, }
 }
 
 ///|
-pub fn WorkingArea::index_count(w : WorkingArea) -> Int {
+pub fn WorkingArea::index_count(w : WorkingArea) -> Int32 {
   w.index_count
 }
 
@@ -122,7 +122,7 @@ fn mark_used_indices(tbl : BitVector, l : Array[ET]) -> Unit {
 }
 
 ///|
-fn find_free(tbl : BitVector, idx : Int, len : Int) -> Int {
+fn find_free(tbl : BitVector, idx : Int32, len : Int32) -> Int32 {
   if idx == len || !tbl.unsafe_get(idx) {
     idx
   } else {
@@ -131,7 +131,7 @@ fn find_free(tbl : BitVector, idx : Int, len : Int) -> Int {
 }
 
 ///|
-pub fn WorkingArea::free_index(t : WorkingArea, l : Array[ET]) -> Int {
+pub fn WorkingArea::free_index(t : WorkingArea, l : Array[ET]) -> Int32 {
   t.ids.reset_zero()
   mark_used_indices(t.ids, l)
   let len = t.ids.length()
@@ -303,7 +303,7 @@ fn create_state(
 pub fn delta(
   tbl_ref : WorkingArea,
   next_cat : Category,
-  char : Int,
+  char : Int32,
   st : State,
 ) -> State {
   let prev_cat = st.category

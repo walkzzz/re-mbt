@@ -7,8 +7,8 @@
 #warnings("-unused_type_declaration")
 priv struct Slice {
   s : Bytes
-  pos : Int
-  len : Int
+  pos : Int32
+  len : Int32
 }
 
 // SliceL — list of slices (port of Slice.L)
