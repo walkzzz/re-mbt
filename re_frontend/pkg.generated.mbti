@@ -14,12 +14,14 @@ import {
 pub struct Emacs {
 }
 pub fn Emacs::compile_pat(Bytes, case? : Bool) -> @re_compile.Re raise
+pub fn Emacs::compile_pat_cached(@re_compile.ReCache, Bytes, case? : Bool) -> @re_compile.Re raise
 pub fn Emacs::re(Bytes, case? : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
 pub fn Emacs::re_no_emacs(Bytes, case~ : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
 
 pub struct Glob {
 }
 pub fn Glob::compile(Bytes, anchored? : Bool, pathname? : Bool, match_backslashes? : Bool, period? : Bool, double_asterisk? : Bool) -> @re_compile.Re raise
+pub fn Glob::compile_cached(@re_compile.ReCache, Bytes, anchored? : Bool, pathname? : Bool, match_backslashes? : Bool, period? : Bool, double_asterisk? : Bool) -> @re_compile.Re raise
 pub fn Glob::glob(Bytes, anchored? : Bool, pathname? : Bool, match_backslashes? : Bool, period? : Bool, double_asterisk? : Bool) -> @re_ast.AstGen[@re_ast.AstCset] raise
 
 pub struct Pcre {
@@ -36,6 +38,7 @@ pub fn Pcre::pmatch(@re_compile.Re, Bytes) -> Bool raise
 pub fn Pcre::quote(Bytes) -> Bytes
 pub fn Pcre::re(Bytes, flags? : Array[PcreFlag]) -> @re_ast.AstGen[@re_ast.AstCset] raise
 pub fn Pcre::regexp(Bytes, flags? : Array[PcreFlag]) -> @re_compile.Re raise
+pub fn Pcre::regexp_cached(@re_compile.ReCache, Bytes, flags? : Array[PcreFlag]) -> @re_compile.Re raise
 pub fn Pcre::split(@re_compile.Re, Bytes) -> Array[Bytes] raise
 
 pub enum PcreFlag {
@@ -59,6 +62,7 @@ pub enum PcreSplitResult {
 pub struct Perl {
 }
 pub fn Perl::compile_pat(Bytes, opts? : Array[PerlOpt]) -> @re_compile.Re raise
+pub fn Perl::compile_pat_cached(@re_compile.ReCache, Bytes, opts? : Array[PerlOpt]) -> @re_compile.Re raise
 pub fn Perl::re(Bytes, opts? : Array[PerlOpt]) -> @re_ast.AstGen[@re_ast.AstCset] raise
 
 pub enum PerlOpt {
@@ -79,7 +83,9 @@ pub fn PerlOpt::ungreedy() -> Self
 pub struct Posix {
 }
 pub fn Posix::compile(Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
+pub fn Posix::compile_cached(@re_compile.ReCache, Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
 pub fn Posix::compile_pat(Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
+pub fn Posix::compile_pat_cached(@re_compile.ReCache, Bytes, opts? : Array[PosixOpt]) -> @re_compile.Re raise
 pub fn Posix::re(Bytes, opts? : Array[PosixOpt]) -> @re_ast.AstGen[@re_ast.AstCset] raise
 
 pub enum PosixOpt {
@@ -94,6 +100,7 @@ pub fn Str::bounded_full_split(StrRegexp, Bytes, Int32) -> Array[StrSplitResult]
 pub fn Str::bounded_split(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
 pub fn Str::bounded_split_delim(StrRegexp, Bytes, Int32) -> Array[Bytes] raise
 pub fn Str::compile_regexp(Bytes, Bool) -> StrRegexp raise
+pub fn Str::compile_regexp_cached(@re_compile.ReCache, Bytes, Bool) -> StrRegexp raise
 pub fn Str::first_chars(Bytes, Int32) -> Bytes
 pub fn Str::full_split(StrRegexp, Bytes) -> Array[StrSplitResult] raise
 pub fn Str::global_replace(StrRegexp, Bytes, Bytes) -> Bytes raise

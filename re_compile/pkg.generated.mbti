@@ -3,6 +3,7 @@ package "walkzzz/re-mbt/re_compile"
 
 import {
   "moonbitlang/core/debug",
+  "moonbitlang/core/hashmap",
   "walkzzz/re-mbt/re_ast",
   "walkzzz/re-mbt/re_base",
 }
@@ -148,6 +149,16 @@ pub fn Re::space() -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::upper() -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::wordc() -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::xdigit() -> @re_ast.AstGen[@re_ast.AstCset]
+
+pub struct ReCache {
+  cache : @hashmap.HashMap[Bytes, Re]
+}
+pub fn ReCache::clear(Self) -> Unit
+pub fn ReCache::compile(Self, Bytes, @re_ast.AstGen[@re_ast.AstCset]) -> Re
+pub fn ReCache::get(Self, Bytes) -> Re?
+pub fn ReCache::length(Self) -> Int32
+pub fn ReCache::new() -> Self
+pub fn ReCache::new_with_capacity(Int32) -> Self
 
 pub struct StateHashTable {
   buckets : Array[Array[(@re_ast.State, CompileState)]]
