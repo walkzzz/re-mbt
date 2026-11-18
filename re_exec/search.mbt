@@ -220,3 +220,40 @@ pub fn Search::split_delim(
   }
   result
 }
+
+// --- Search::iter_* — Seq 版 API（对齐上游 ocaml-re Re.Seq.*） ---
+// Seq-style API (aligning upstream ocaml-re Re.Seq.*); current implementation
+// materializes the results (Array-backed Iter), lazy streaming is a later concern.
+
+///|
+/// Search::all 的 Seq 版入口 | Seq-style entry of Search::all
+pub fn Search::iter_all(
+  re : @compile.Re,
+  s : Bytes,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
+) -> Iter[@compile.GroupT] raise {
+  Search::all(re, s, pos~, len~).iter()
+}
+
+///|
+/// 全部匹配子串的 Seq 版 | Seq-style matches
+pub fn Search::iter_matches(
+  re : @compile.Re,
+  s : Bytes,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
+) -> Iter[Bytes] raise {
+  Search::matches(re, s, pos~, len~).iter()
+}
+
+///|
+/// 按模式分割（丢弃分隔符）的 Seq 版 | Seq-style split
+pub fn Search::iter_split(
+  re : @compile.Re,
+  s : Bytes,
+  pos~ : Int32 = 0,
+  len~ : Int32 = -1,
+) -> Iter[Bytes] raise {
+  Search::split(re, s, pos~, len~).iter()
+}

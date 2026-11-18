@@ -714,3 +714,20 @@ pub fn CSetMap::add(m : CSetMap, key : (Int32, Cset), value : Cset) -> CSetMap {
   m.entries.push((h, k, value))
   m
 }
+
+///|
+/// 取字符集的一个代表字节（首个合法 latin1 字节），空集返回 None
+/// take one representative byte from the cset, None if empty
+pub fn Cset::first_byte(c : Cset) -> Int32? {
+  for iv in c.intervals {
+    let low = iv.0
+    let high = iv.1
+    // -1 是 null_char 哨兵，跳到 0；区间整体为负则跳过
+    // -1 is the null_char sentinel, start from 0; skip fully-negative intervals
+    let cand = if low < 0 { 0 } else { low }
+    if cand <= high && cand <= 255 {
+      return Some(cand)
+    }
+  }
+  None
+}

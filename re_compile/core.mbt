@@ -236,3 +236,12 @@ pub fn Re::pp_re(re : Re) -> String {
   }
   "Re(group_count=" + Re::group_count(re).to_string() + name_str + ")"
 }
+
+// --- witness (port of lib/witness.ml, AST-level) ---
+
+///|
+/// 从 AST 生成一个匹配串；None 表示不可能匹配（空字符集等）
+/// generate a string matched by the given AST; None if no match is possible
+pub fn Re::witness(ast : @ast.Ast) -> Bytes? {
+  @ast.Ast::witness(ast)
+}

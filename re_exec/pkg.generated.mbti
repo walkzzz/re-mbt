@@ -24,6 +24,9 @@ pub fn Replace::replace_string(@re_compile.Re, Bytes, by~ : Bytes, pos? : Int32,
 pub struct Search {
 }
 pub fn Search::all(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[@re_compile.GroupT] raise
+pub fn Search::iter_all(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Iter[@re_compile.GroupT] raise
+pub fn Search::iter_matches(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Iter[Bytes] raise
+pub fn Search::iter_split(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Iter[Bytes] raise
 pub fn Search::matches(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
 pub fn Search::split(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise
 pub fn Search::split_delim(@re_compile.Re, Bytes, pos? : Int32, len? : Int32) -> Array[Bytes] raise

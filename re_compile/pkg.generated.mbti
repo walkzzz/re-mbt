@@ -148,6 +148,7 @@ pub fn Re::punct() -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::rg(Char, Char) -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::space() -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::upper() -> @re_ast.AstGen[@re_ast.AstCset]
+pub fn Re::witness(@re_ast.AstGen[@re_ast.AstCset]) -> Bytes?
 pub fn Re::wordc() -> @re_ast.AstGen[@re_ast.AstCset]
 pub fn Re::xdigit() -> @re_ast.AstGen[@re_ast.AstCset]
 

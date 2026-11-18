@@ -108,6 +108,7 @@ pub fn AstGen::t_of_cset(AstCset) -> Self[AstCset]
 pub fn AstGen::to_dyn(Self[AstCset]) -> @re_base.Dyn
 pub fn[T : @debug.Debug] AstGen::to_repr(Self[T]) -> @debug.Repr
 pub fn AstGen::whole_string(Self[AstCset]) -> Self[AstCset]
+pub fn AstGen::witness(Self[AstCset]) -> Bytes?
 pub fn AstGen::word(Self[AstCset]) -> Self[AstCset]
 pub impl @re_base.Dynable for AstGen[AstCset]
 
