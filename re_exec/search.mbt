@@ -222,33 +222,87 @@ pub fn Search::split_delim(
 }
 
 // --- Search::iter_* — Seq 版 API（对齐上游 ocaml-re Re.Seq.*） ---
-// Seq-style API (aligning upstream ocaml-re Re.Seq.*); current implementation
-// materializes the results (Array-backed Iter), lazy streaming is a later concern.
+// Seq-style API (aligning upstream ocaml-re Re.Seq.*).
+// iter_all/iter_matches 为真惰性实现（按需逐个匹配）；
+// iter_split 因 split_full 的空段/delim 交替语义复杂，当前为物化委托，惰性化为后续优化。
+// iter_all/iter_matches are truly lazy (match on demand); iter_split materializes
+// via split_full due to its empty-segment/delim semantics.
 
 ///|
-/// Search::all 的 Seq 版入口 | Seq-style entry of Search::all
+/// Search::all 的 Seq 版（真惰性：按需逐个匹配） | Seq-style all (truly lazy)
 pub fn Search::iter_all(
   re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
 ) -> Iter[@compile.GroupT] raise {
-  Search::all(re, s, pos~, len~).iter()
+  if pos < 0 {
+    fail("Re.all: invalid pos")
+  }
+  let limit = if len < 0 {
+    s.length()
+  } else {
+    if pos + len > s.length() {
+      fail("Re.all: invalid len")
+    }
+    pos + len
+  }
+  let mut cur_pos = pos
+  let mut on_match = false
+  Iter::new(fn() -> @compile.GroupT? {
+    while cur_pos <= limit {
+      // 入口已校验 pos/len 边界，此处 match_str 参数恒合法、不会抛错
+      // entry already validated pos/len bounds, so match_str cannot raise here
+      let outcome = try Ok(
+        @compile.match_str(
+          groups=true,
+          partial=false,
+          re,
+          s,
+          pos=cur_pos,
+          len=limit - cur_pos,
+        ),
+      ) catch {
+        _ => Err(())
+      }
+      match outcome {
+        Ok(@compile.MatchInfo(substr)) => {
+          let p1 = @compile.GroupT::start_offset(substr, 0)
+          let p2 = @compile.GroupT::stop_offset(substr, 0)
+          if on_match && p1 == cur_pos && p1 == p2 {
+            cur_pos = cur_pos + 1
+            on_match = false
+          } else {
+            cur_pos = if p1 == p2 { p2 + 1 } else { p2 }
+            on_match = p1 != p2
+            return Some(substr)
+          }
+        }
+        _ => cur_pos = limit + 1
+      }
+    }
+    None
+  })
 }
 
 ///|
-/// 全部匹配子串的 Seq 版 | Seq-style matches
+/// 全部匹配子串的 Seq 版（真惰性，委托 iter_all + map） | Seq-style matches (truly lazy)
 pub fn Search::iter_matches(
   re : @compile.Re,
   s : Bytes,
   pos~ : Int32 = 0,
   len~ : Int32 = -1,
 ) -> Iter[Bytes] raise {
-  Search::matches(re, s, pos~, len~).iter()
+  Search::iter_all(re, s, pos~, len~).map(fn(g) {
+    match @compile.GroupT::get(g, 0) {
+      Some(b) => b
+      None => Bytes::from_array([])
+    }
+  })
 }
 
 ///|
-/// 按模式分割（丢弃分隔符）的 Seq 版 | Seq-style split
+/// 按模式分割（丢弃分隔符）的 Seq 版（物化委托 split_full） | Seq-style split (materialized)
 pub fn Search::iter_split(
   re : @compile.Re,
   s : Bytes,

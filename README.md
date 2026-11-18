@@ -243,7 +243,7 @@ re-mbt/
 │   ├── parse_buffer.mbt  # 解析缓冲区
 │   ├── posix_class.mbt   # POSIX 字符类
 │   └── *_test.mbt
-├── re_compile/           # 编译层 —— 自动机核心、惰性 DFA 驱动器
+├── re_compile/           # 编译层 —— 自动机核心、惰性 DFA 驱动器、高层 Re API
 │   ├── moon.pkg          # 依赖 re_base, re_ast
 │   ├── automata.mbt      # 自动机核心
 │   ├── automata_desc.mbt # Desc（导数表达式）
@@ -251,12 +251,11 @@ re-mbt/
 │   ├── automata_state.mbt# 状态管理
 │   ├── compile.mbt       # 惰性 DFA 驱动器
 │   ├── compile_translate.mbt # AST → 自动机翻译
+│   ├── core.mbt          # 高层 Re API（exec/execp/witness/rg 等）
 │   └── *_test.mbt
-├── re_exec/              # 执行层 —— 高层 Re API、Group、Search、Replace、View
+├── re_exec/              # 执行层 —— Search、Replace、View
 │   ├── moon.pkg          # 依赖 re_base, re_ast, re_compile
-│   ├── core.mbt          # 高层 Re API
-│   ├── group.mbt         # Group（捕获）操作
-│   ├── search.mbt        # 搜索
+│   ├── search.mbt        # 搜索（含 Seq 版 iter_all/iter_matches/iter_split）
 │   ├── replace.mbt       # 替换
 │   ├── view.mbt          # View
 │   └── *_test.mbt
