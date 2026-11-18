@@ -15,3 +15,4 @@ instructions/
 # Temporary files
 moon_check_output.txt
 warnings_raw.jsonl
+uncovered.log

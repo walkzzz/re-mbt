@@ -3,11 +3,12 @@
 // we drop the phantom case parameter and use a unified generic enum AstGen[T].
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AstAlt[T] {
   Alternative(Array[T])
   NoCase(T)
   Case(T)
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AstAlt with @moonbitlang/core/debug.Debug::{to_repr}
@@ -16,13 +17,14 @@ pub extend AstAlt with @moonbitlang/core/debug.Debug::{to_repr}
 pub extend AstAlt with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AstCset {
   CsetOf(@base.Cset)
   Intersection(Array[AstCset])
   Complement(Array[AstCset])
   Difference(AstCset, AstCset)
   Cast(AstAlt[AstCset])
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AstCset with @moonbitlang/core/debug.Debug::{to_repr}
@@ -31,6 +33,7 @@ pub extend AstCset with @moonbitlang/core/debug.Debug::{to_repr}
 pub extend AstCset with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AstGen[T] {
   Set(T)
   AstNode(AstAlt[AstGen[T]])
@@ -52,7 +55,7 @@ pub(all) enum AstGen[T] {
   Pmark(@base.Pmark, AstGen[T])
   Sem(@base.Sem, AstGen[T])
   SemGreedy(@base.RepKind, AstGen[T])
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AstGen with @moonbitlang/core/debug.Debug::{to_repr}

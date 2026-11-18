@@ -17,9 +17,13 @@ jobs:
           echo "$HOME/.moon/bin" >> $GITHUB_PATH
       - name: Update registry
         run: moon update
-      - name: Check
-        run: moon check
-      - name: Test
-        run: moon test
+      - name: Check (deny warnings)
+        run: moon check --deny-warn
+      - name: Test (all supported backends)
+        run: |
+          for t in native wasm wasm-gc js; do
+            echo "== target: $t =="
+            moon test --target $t
+          done
       - name: Build
         run: moon build

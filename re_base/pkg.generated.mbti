@@ -36,9 +36,10 @@ pub fn CSetMap::add(Self, (Int32, Cset), Cset) -> Self
 pub fn CSetMap::empty() -> Self
 pub fn CSetMap::find(Self, (Int32, Cset)) -> Cset?
 
+#derive(Compare, Eq, @debug.Debug)
 pub struct Category {
   bits : Int32
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn Category::add(Self, Self) -> Self
 pub fn Category::compare(Self, Self) -> Int32
 pub fn Category::dummy() -> Self
@@ -62,9 +63,10 @@ pub fn Category::to_int(Self) -> Int32
 pub fn Category::to_repr(Self) -> @debug.Repr
 pub impl Dynable for Category
 
+#derive(Compare, Eq, @debug.Debug)
 pub struct Cset {
   intervals : Array[(Int32, Int32)]
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn Cset::add(Int32, Self) -> Self
 pub fn Cset::alnum() -> Self
 pub fn Cset::alpha() -> Self
@@ -135,6 +137,7 @@ pub struct DenseMap {
 }
 pub fn[T] DenseMap::make(size~ : Int32, f~ : (Int32) -> T) -> (Int32) -> T
 
+#derive(Eq, @debug.Debug)
 pub enum Dyn {
   Int(Int32)
   Tuple(Array[Dyn])
@@ -143,7 +146,7 @@ pub enum Dyn {
   List(Array[Dyn])
   Variant(String, Array[Dyn])
   Record(Array[(String, Dyn)])
-} derive(Eq, @debug.Debug)
+}
 pub fn Dyn::enum_(String) -> Self
 pub fn Dyn::equal(Self, Self) -> Bool
 pub fn Dyn::int(Int32) -> Self
@@ -225,9 +228,10 @@ pub fn ParseBuffer::peek(Self, Char) -> Bool
 pub fn ParseBuffer::peek2(Self, Char, Char) -> Bool
 pub fn ParseBuffer::unget(Self) -> Unit
 
+#derive(Compare, Eq, @debug.Debug)
 pub struct Pmark {
   id : Int32
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn Pmark::compare(Self, Self) -> Int32
 pub fn Pmark::equal(Self, Self) -> Bool
 pub fn Pmark::gen() -> Self
@@ -255,10 +259,11 @@ pub fn PmarkSet::single(Pmark) -> Self
 pub fn PmarkSet::to_list(Self) -> Array[Pmark]
 pub fn PmarkSet::union(Self, Self) -> Self
 
+#derive(Compare, Eq, @debug.Debug)
 pub(all) enum RepKind {
   Greedy
   NonGreedy
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn RepKind::compare(Self, Self) -> Int32
 pub fn RepKind::equal(Self, Self) -> Bool
 pub fn RepKind::greedy() -> Self
@@ -274,11 +279,12 @@ pub fn RepKind::to_string(Self) -> String
 pub fn RepKind::to_string_short(Self) -> String
 pub impl Dynable for RepKind
 
+#derive(Compare, Eq, @debug.Debug)
 pub(all) enum Sem {
   Longest
   Shortest
   First
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn Sem::compare(Self, Self) -> Int32
 pub fn Sem::equal(Self, Self) -> Bool
 pub fn Sem::first() -> Self

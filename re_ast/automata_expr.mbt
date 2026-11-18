@@ -2,6 +2,7 @@
 // Expr is a single enum with id baked into each variant (avoids struct+enum mutual recursion).
 
 ///|
+#derive(Debug)
 pub(all) enum Expr {
   Cst(Int32, @base.Cset)
   Alt(Int32, Array[Expr])
@@ -13,7 +14,7 @@ pub(all) enum Expr {
   Before(Int32, @base.Category)
   After(Int32, @base.Category)
   PmarkOf(Int32, @base.Pmark)
-} derive(Debug)
+}
 
 ///|
 pub extend Expr with @moonbitlang/core/debug.Debug::{to_repr}
@@ -47,7 +48,7 @@ pub fn Expr::empty(ids : @base.Ids) -> Expr {
 ///|
 pub fn Expr::cst(ids : @base.Ids, s : @base.Cset) -> Expr {
   if @base.Cset::is_empty(s) {
-    Expr::empty(ids)
+    Eps(ids.next())
   } else {
     Cst(ids.next(), s)
   }

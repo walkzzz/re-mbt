@@ -279,7 +279,8 @@ test "R17-trait-fake-4: simple pattern compile_pat/quote does not crash" {
 // ============================================================
 
 ///|
-struct MockParser {} derive(Default)
+#derive(Default)
+struct MockParser {}
 
 ///|
 extend MockParser with Default::{default}

@@ -4,6 +4,7 @@
 
 ///|
 #warnings("-unused_constructor")
+#derive(Debug, Eq)
 pub enum Dyn {
   Int(Int32)
   Tuple(Array[Dyn])
@@ -12,7 +13,7 @@ pub enum Dyn {
   List(Array[Dyn])
   Variant(String, Array[Dyn])
   Record(Array[(String, Dyn)])
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend Dyn with @moonbitlang/core/debug.Debug::{to_repr}

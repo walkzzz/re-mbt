@@ -32,13 +32,17 @@ fn glob_enclosed_loop(
     s.rev_in_place()
     s
   } else {
-    if !@base.ParseBuffer::accept(buf, '\\') {
-      fail("Glob parse error")
-    }
     if @base.ParseBuffer::eos(buf) {
       fail("Glob parse error")
     }
-    let c = @base.ParseBuffer::get(buf)
+    let c = if @base.ParseBuffer::accept(buf, '\\') {
+      if @base.ParseBuffer::eos(buf) {
+        fail("Glob parse error")
+      }
+      @base.ParseBuffer::get(buf)
+    } else {
+      @base.ParseBuffer::get(buf)
+    }
     if !@base.ParseBuffer::accept(buf, '-') {
       s.push(GlobChar(c))
       glob_enclosed_loop(buf, s)
@@ -48,13 +52,14 @@ fn glob_enclosed_loop(
       s.rev_in_place()
       s
     } else {
-      if !@base.ParseBuffer::accept(buf, '\\') {
-        fail("Glob parse error")
+      let c2 = if @base.ParseBuffer::accept(buf, '\\') {
+        if @base.ParseBuffer::eos(buf) {
+          fail("Glob parse error")
+        }
+        @base.ParseBuffer::get(buf)
+      } else {
+        @base.ParseBuffer::get(buf)
       }
-      if @base.ParseBuffer::eos(buf) {
-        fail("Glob parse error")
-      }
-      let c2 = @base.ParseBuffer::get(buf)
       s.push(GlobRange(c, c2))
       glob_enclosed_loop(buf, s)
     }
@@ -229,10 +234,10 @@ fn glob_one(
 }
 
 ///|
-fn glob_enclosed_to_ast(enc : GlobEnclosed) -> @ast.Ast {
+fn glob_enclosed_cset(enc : GlobEnclosed) -> @base.Cset {
   match enc {
-    GlobChar(c) => @ast.Ast::char(c)
-    GlobRange(low, high) => @compile.Re::rg(low, high)
+    GlobChar(c) => @base.Cset::cseq(c, c)
+    GlobRange(low, high) => @base.Cset::cseq(low, high)
   }
 }
 
@@ -244,13 +249,21 @@ fn glob_enclosed_set(
   slashes~ : Array[Char],
   explicit_period~ : Bool,
 ) -> @ast.Ast raise {
-  let set_asts : Array[@ast.Ast] = []
+  // 上游 Re.alt/Re.compl 要求元素为集合：这里把字符/范围直接合并为单一 Cset，
+  // 使 enclosure 与 one 均为 Set 节点，Ast::inter 可归约。
+  // upstream Re.alt/Re.compl require set elements: merge chars/ranges into one
+  // Cset locally so both the enclosure and `one` are Set nodes for Ast::inter.
+  let csets : Array[@base.Cset] = []
   for e in set {
-    set_asts.push(glob_enclosed_to_ast(e))
+    csets.push(glob_enclosed_cset(e))
   }
   let enclosure = if kind {
-    @ast.Ast::alt(set_asts)
+    @ast.Ast::cset(@base.Cset::union_all(csets))
   } else {
+    let set_asts : Array[@ast.Ast] = []
+    for c in csets {
+      set_asts.push(@ast.Ast::cset(c))
+    }
     @ast.Ast::compl(set_asts)
   }
   @ast.Ast::inter([

@@ -18,7 +18,11 @@ pub fn MarkInfos::make(marks : Array[(Int32, Int32)]) -> MarkInfos {
   len += 1
   let t = Array::make(len, -1)
   for p in marks {
-    t[p.0] = p.1
+    // 防御：负索引（absent mark）跳过写入，避免数组越界
+    // defensive: skip negative indices (absent marks) to avoid out-of-bounds
+    if p.0 >= 0 {
+      t[p.0] = p.1
+    }
   }
   { table: t, }
 }

@@ -2,9 +2,10 @@
 // OCaml: type t = int with bit flags. MoonBit: struct wrapping Int bits.
 
 ///|
+#derive(Debug, Eq, Compare)
 pub struct Category {
   bits : Int32
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend Category with @moonbitlang/core/debug.Debug::{to_repr}

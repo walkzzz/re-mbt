@@ -25,6 +25,10 @@ pub fn Replace::replace(
     pos + len
   }
   let buf : Array[Byte] = []
+  // 窗口外文本保留：先复制前缀 [0, pos) | preserve text outside window: copy prefix first
+  for k in 0..<pos {
+    buf.push(s[k])
+  }
   let mut cur_pos = pos
   let mut on_match = false
   let mut done = false
@@ -85,6 +89,10 @@ pub fn Replace::replace(
         RunningInfo(_) => done = true
       }
     }
+  }
+  // 复制后缀 [limit, length) | copy the suffix after the window
+  for k in limit..<s.length() {
+    buf.push(s[k])
   }
   Bytes::from_array(buf)
 }

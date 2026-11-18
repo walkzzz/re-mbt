@@ -1,13 +1,14 @@
 // Emacs — Emacs-style regex parser (port of lib/emacs.ml)
 
 ///|
-let emacs_pipe : Bytes = @base.sb("|")
+let emacs_pipe : Bytes = @base.sb("\\|")
 
 ///|
 let emacs_close_group : Bytes = @base.sb("\\)")
 
 ///|
-pub struct Emacs {} derive(Default)
+#derive(Default)
+pub struct Emacs {}
 
 ///|
 fn emacs_by_code(f : (Int32, Int32) -> Int32, c : Char, c2 : Char) -> Char {
@@ -137,7 +138,7 @@ fn emacs_atom(buf : @base.ParseBuffer, emacs_only : Bool) -> @ast.Ast raise {
       fail("Emacs parse error")
     }
     let c = @base.ParseBuffer::get(buf)
-    if c == '*' || c == '+' || c == '?' {
+    if c == '*' || c == '+' || c == '?' || c == ')' {
       fail("Emacs parse error")
     } else {
       @ast.Ast::char(c)
@@ -185,6 +186,9 @@ fn emacs_char(buf : @base.ParseBuffer) -> Char raise {
 ///|
 pub fn Emacs::re(s : Bytes, case~ : Bool = true) -> @ast.Ast raise {
   let buf = @base.ParseBuffer::create(s)
+  if @base.ParseBuffer::eos(buf) {
+    fail("Emacs parse error")
+  }
   let r = emacs_regexp(buf, true)
   if !@base.ParseBuffer::eos(buf) {
     fail("Emacs parse error")
@@ -199,6 +203,9 @@ pub fn Emacs::re(s : Bytes, case~ : Bool = true) -> @ast.Ast raise {
 ///|
 pub fn Emacs::re_no_emacs(s : Bytes, case~ : Bool) -> @ast.Ast raise {
   let buf = @base.ParseBuffer::create(s)
+  if @base.ParseBuffer::eos(buf) {
+    fail("Emacs parse error")
+  }
   let r = emacs_regexp(buf, false)
   if !@base.ParseBuffer::eos(buf) {
     fail("Emacs parse error")

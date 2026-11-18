@@ -1,7 +1,8 @@
 // Pcre — PCRE-compatible API (port of lib/pcre.ml)
 
 ///|
-pub struct Pcre {} derive(Default)
+#derive(Default)
+pub struct Pcre {}
 
 ///|
 pub enum PcreFlag {

@@ -31,6 +31,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `re/cset.mbt`：`Array::new(capacity=...)` → `Array(capacity=...)`，消除 3 个 deprecated warning (W0020)
 - 为 11 个 derive(Debug/Eq/Compare) 类型添加 `pub extend Type with Trait::{method}` 声明，消除 26 个 implicit_impl_as_method warning (W0079)
 - 批量替换测试文件和 README.mbt.md 中 2327 处裸标识符为 `@re.X` 全限定名，消除 2185 个 test_unqualified_package warning (W0025)
+- Glob 解析器：字符类 `[abc]` 普通字符分支误报 parse error（`glob_enclosed_loop` 非转义分支直接 fail）；`[a-z]` 范围与 `[!abc]`/`[^abc]` 补集经 Cset 合并构造（`Ast::inter` 归约）；`[`/`[\` 未闭合 eos 防御
+- Perl 前端：`\x{4F}` hex 转义数字序反转导致码点错误（去反转、支持任意位数）；`a{` 中游离 `{` 按字面量处理（对齐上游 ocaml-re）
+- Emacs 前端：`emacs_pipe` 定义缺失反斜杠（`"\|"` 分支永不可达）；空模式与裸 `)` 报 parse error（对齐上游）
+- POSIX 前端：`a{` 游离 `{` 字面量回退；空模式报 parse error
+- `Replace::replace`：pos/len 窗口语义修复——窗口外前缀 `[0,pos)` 与后缀 `[limit,length)` 文本保留（上游 ocaml-re 行为）
+- `Expr::cst` 空 Cset 构造为 `Eps`（对齐上游 ocaml-re automata.ml）
+- `MarkInfos::make` 防御负索引（absent mark -1 跳过写入）
+- 全项目 17 处 deprecated `derive(...)` 尾置语法迁移为 `#derive(...)` 前置声明，`moon check --deny-warn` 归零
 
 ## [0.1.0] - 2026-08-14
 

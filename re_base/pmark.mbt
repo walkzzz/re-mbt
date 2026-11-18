@@ -4,9 +4,10 @@
 // for now, matching the non-concurrent subset of upstream.
 
 ///|
+#derive(Debug, Eq, Compare)
 pub struct Pmark {
   id : Int32
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend Pmark with @moonbitlang/core/debug.Debug::{to_repr}

@@ -14,26 +14,29 @@ pub fn delta(WorkingArea, @re_base.Category, Int32, State) -> State
 // Errors
 
 // Types and methods
+#derive(Eq, @debug.Debug)
 pub(all) enum AstAlt[T] {
   Alternative(Array[T])
   NoCase(T)
   Case(T)
-} derive(Eq, @debug.Debug)
+}
 pub fn[T : Eq] AstAlt::equal(Self[T], Self[T]) -> Bool
 pub fn[T : Eq] AstAlt::not_equal(Self[T], Self[T]) -> Bool
 pub fn[T : @debug.Debug] AstAlt::to_repr(Self[T]) -> @debug.Repr
 
+#derive(Eq, @debug.Debug)
 pub(all) enum AstCset {
   CsetOf(@re_base.Cset)
   Intersection(Array[AstCset])
   Complement(Array[AstCset])
   Difference(AstCset, AstCset)
   Cast(AstAlt[AstCset])
-} derive(Eq, @debug.Debug)
+}
 pub fn AstCset::equal(Self, Self) -> Bool
 pub fn AstCset::not_equal(Self, Self) -> Bool
 pub fn AstCset::to_repr(Self) -> @debug.Repr
 
+#derive(Eq, @debug.Debug)
 pub(all) enum AstGen[T] {
   Set(T)
   AstNode(AstAlt[AstGen[T]])
@@ -55,7 +58,7 @@ pub(all) enum AstGen[T] {
   Pmark(@re_base.Pmark, AstGen[T])
   Sem(@re_base.Sem, AstGen[T])
   SemGreedy(@re_base.RepKind, AstGen[T])
-} derive(Eq, @debug.Debug)
+}
 pub fn AstGen::alt(Array[Self[AstCset]]) -> Self[AstCset]
 pub fn AstGen::anchored(Self[AstCset]) -> Bool
 pub fn AstGen::anchored_ast(AstAlt[Self[AstCset]]) -> Bool
@@ -166,6 +169,7 @@ pub fn ET::hash_list(Array[Self], Int32) -> Int32
 pub impl @re_base.Equatable for ET
 pub impl @re_base.Hashable for ET
 
+#derive(@debug.Debug)
 pub(all) enum Expr {
   Cst(Int32, @re_base.Cset)
   Alt(Int32, Array[Expr])
@@ -177,7 +181,7 @@ pub(all) enum Expr {
   Before(Int32, @re_base.Category)
   After(Int32, @re_base.Category)
   PmarkOf(Int32, @re_base.Pmark)
-} derive(@debug.Debug)
+}
 pub fn Expr::after(@re_base.Ids, @re_base.Category) -> Self
 pub fn Expr::alt(@re_base.Ids, Array[Self]) -> Self
 pub fn Expr::before(@re_base.Ids, @re_base.Category) -> Self

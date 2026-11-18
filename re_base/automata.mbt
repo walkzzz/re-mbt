@@ -2,11 +2,12 @@
 // Expr, Desc, State, delta/advance are in separate files.
 
 ///|
+#derive(Debug, Eq, Compare)
 pub(all) enum Sem {
   Longest
   Shortest
   First
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend Sem with @moonbitlang/core/debug.Debug::{to_repr}
@@ -18,10 +19,11 @@ pub extend Sem with Eq::{equal, not_equal}
 pub extend Sem with Compare::{compare, op_lt, op_le, op_gt, op_ge}
 
 ///|
+#derive(Debug, Eq, Compare)
 pub(all) enum RepKind {
   Greedy
   NonGreedy
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend RepKind with @moonbitlang/core/debug.Debug::{to_repr}

@@ -132,11 +132,12 @@ pub fn execp(
 // --- exec_partial ---
 
 ///|
+#derive(Eq, Debug)
 pub(all) enum ExecPartialResult {
   Full
   Partial
   Mismatch
-} derive(Eq, Debug)
+}
 
 ///|
 pub extend ExecPartialResult with Eq::{equal, not_equal}

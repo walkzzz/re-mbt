@@ -42,9 +42,10 @@ pub fn CsetC::of_char(c : Char) -> Int32 {
 // --- Cset ---
 
 ///|
+#derive(Debug, Eq, Compare)
 pub struct Cset {
   intervals : Array[(Int32, Int32)]
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend Cset with @moonbitlang/core/debug.Debug::{to_repr}

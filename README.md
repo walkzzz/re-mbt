@@ -20,20 +20,20 @@
 - **线性时间匹配** —— 惰性 DFA + Brzozowski/Antimirov 导数，无灾难性回溯
 - **6 种前端语法** —— Perl、PCRE、POSIX、Emacs、Glob、Str（OCaml 兼容）
 - **面向字节** —— 输入文本、模式、捕获子串均使用 MoonBit `Bytes`
-- **纯 MoonBit** —— 无 C FFI，目标：native、wasm、js
+- **纯 MoonBit** —— 无 C FFI，目标：native、wasm、wasm-gc、js（**四后端 702 测试全绿**）
 - **latin1 大小写处理** —— 与上游 ocaml-re 行为一致
-- **437 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
-- **零警告** —— `moon check` 干净通过
+- **702 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
+- **零警告** —— `moon check --deny-warn` 干净通过
 - **已发布至 [mooncakes](https://mooncakes.io/docs/#/walkzzz/re-mbt/)** —— `walkzzz/re-mbt@0.1.0`
 
 ## 构建与测试
 
 ```bash
-moon check           # 类型检查（0 警告，0 错误）
-moon test            # 运行全部 437 个测试
-moon build           # 构建
-moon fmt             # 格式化代码
-moon info            # 重新生成 pkg.generated.mbti
+moon check --deny-warn  # 类型检查（0 警告 0 错误，deny-warn 严格模式）
+moon test               # 运行全部 702 个测试（四后端：native/wasm/wasm-gc/js）
+moon build              # 构建
+moon fmt                # 格式化代码
+moon info               # 重新生成 pkg.generated.mbti
 ```
 
 ## 快速上手

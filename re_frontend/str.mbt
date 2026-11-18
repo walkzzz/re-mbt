@@ -1,7 +1,8 @@
 // Str — OCaml Str compatibility (port of lib/str.ml)
 
 ///|
-pub struct Str {} derive(Default)
+#derive(Default)
+pub struct Str {}
 
 ///|
 struct StrRegexp {

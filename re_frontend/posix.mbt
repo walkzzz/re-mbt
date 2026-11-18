@@ -1,7 +1,8 @@
 // Posix — POSIX regex parser (port of lib/posix.ml)
 
 ///|
-pub struct Posix {} derive(Default)
+#derive(Default)
+pub struct Posix {}
 
 ///|
 pub enum PosixOpt {
@@ -147,7 +148,7 @@ fn posix_atom(buf : @base.ParseBuffer, newline : Bool) -> @ast.Ast raise {
       fail("Posix parse error")
     }
     let c = @base.ParseBuffer::get(buf)
-    if c == '*' || c == '+' || c == '?' || c == '{' || c == '\\' {
+    if c == '*' || c == '+' || c == '?' || c == '\\' {
       fail("Posix parse error")
     } else {
       @ast.Ast::char(c)
@@ -255,6 +256,9 @@ fn posix_has_opt(opts : Array[PosixOpt], target : PosixOpt) -> Bool {
 pub fn Posix::re(s : Bytes, opts~ : Array[PosixOpt] = []) -> @ast.Ast raise {
   let newline = posix_has_opt(opts, Newline)
   let buf = @base.ParseBuffer::create(s)
+  if @base.ParseBuffer::eos(buf) {
+    fail("Posix parse error")
+  }
   let r = posix_regexp(buf, newline)
   if !@base.ParseBuffer::eos(buf) {
     fail("Posix parse error")

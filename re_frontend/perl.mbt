@@ -1,7 +1,8 @@
 // Perl — Perl-style regex parser (port of lib/perl.ml)
 
 ///|
-pub struct Perl {} derive(Default)
+#derive(Default)
+pub struct Perl {}
 
 ///|
 pub enum PerlOpt {
@@ -284,7 +285,7 @@ fn perl_atom(buf : @base.ParseBuffer, opts : PerlOpts) -> @ast.Ast raise {
       fail("Perl parse error")
     }
     let c = @base.ParseBuffer::get(buf)
-    if c == '*' || c == '+' || c == '?' || c == '{' || c == '\\' {
+    if c == '*' || c == '+' || c == '?' || c == '\\' {
       fail("Perl parse error")
     } else {
       @ast.Ast::char(c)
@@ -299,13 +300,10 @@ fn perl_parse_hex(buf : @base.ParseBuffer) -> @ast.Ast raise {
     while !@base.ParseBuffer::accept(buf, '}') {
       digits.push(perl_hexdigit(buf))
     }
-    let rev = @base.array_reverse(digits)
-    let code = if rev.length() == 2 {
-      rev[0] * 16 + rev[1]
-    } else if rev.length() == 1 {
-      rev[0]
-    } else {
-      fail("Perl parse error")
+    // 高位在前直接累加（\x{4F} = 4*16+15），支持任意位数
+    let mut code = 0
+    for d in digits {
+      code = code * 16 + d
     }
     @ast.Ast::char(perl_char_of_int(code))
   } else {
