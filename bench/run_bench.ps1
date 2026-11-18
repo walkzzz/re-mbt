@@ -11,9 +11,9 @@
     @{Id=10; Name="Large+Caseless"}
 )
 
-$mainFile = "D:\CodeWorkspace\forMoonbit\re-mbt\bench\main\main.mbt"
+$mainFile = Join-Path $PSScriptRoot "main\main.mbt"
 $origContent = Get-Content $mainFile -Raw
-$exe = "D:\CodeWorkspace\forMoonbit\re-mbt\_build\native\release\build\bench\main\main.exe"
+$exe = Join-Path $PSScriptRoot "..\_build\native\release\build\bench\main\main.exe"
 
 Write-Output "Section | Name | Best(ms) | Per-iter(us)"
 Write-Output "--------|------|---------|------------"
