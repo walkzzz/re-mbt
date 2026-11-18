@@ -28,7 +28,7 @@ fn witness_cset(x : AstCset) -> @base.Cset? {
       }
       Some(@base.Cset::diff(@base.Cset::cany(), @base.Cset::union_all(parts)))
     }
-    Difference(r, r2) => {
+    Difference(r, r2) =>
       match witness_cset(r) {
         Some(rc) =>
           match witness_cset(r2) {
@@ -37,7 +37,6 @@ fn witness_cset(x : AstCset) -> @base.Cset? {
           }
         None => None
       }
-    }
     Cast(alt) =>
       match alt {
         Alternative(l) => {
@@ -82,12 +81,7 @@ pub fn Ast::witness(self : Ast) -> Bytes? {
       }
     AstNode(alt) =>
       match alt {
-        Alternative(l) =>
-          if l.is_empty() {
-            None
-          } else {
-            Ast::witness(l[0])
-          }
+        Alternative(l) => if l.is_empty() { None } else { Ast::witness(l[0]) }
         NoCase(x) => Ast::witness(x)
         Case(x) => Ast::witness(x)
       }
@@ -95,11 +89,10 @@ pub fn Ast::witness(self : Ast) -> Bytes? {
       let buf : Array[Byte] = []
       for e in l {
         match Ast::witness(e) {
-          Some(w) => {
+          Some(w) =>
             for b in w {
               buf.push(b)
             }
-          }
           None => return None
         }
       }
@@ -110,11 +103,7 @@ pub fn Ast::witness(self : Ast) -> Bytes? {
         Some(w) => {
           // 重复次数 = clamp(min, 1, max)：max 为 0 时取 0（空匹配），否则至少 1 次
           let n = match max {
-            Some(m) => if m < 1 {
-              0
-            } else {
-              if min < 1 { 1 } else { min }
-            }
+            Some(m) => if m < 1 { 0 } else if min < 1 { 1 } else { min }
             None => if min < 1 { 1 } else { min }
           }
           let buf : Array[Byte] = []
@@ -128,15 +117,15 @@ pub fn Ast::witness(self : Ast) -> Bytes? {
         None => None
       }
     BegOfLine
-  | EndOfLine
-  | BegOfWord
-  | EndOfWord
-  | NotBound
-  | BegOfStr
-  | EndOfStr
-  | LastEndOfLine
-  | Start
-  | Stop => Some(b"")
+    | EndOfLine
+    | BegOfWord
+    | EndOfWord
+    | NotBound
+    | BegOfStr
+    | EndOfStr
+    | LastEndOfLine
+    | Start
+    | Stop => Some(b"")
     Group(_, gen) => Ast::witness(gen)
     NoGroup(gen) => Ast::witness(gen)
     Nest(gen) => Ast::witness(gen)

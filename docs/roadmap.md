@@ -159,3 +159,19 @@
 - commit: 见最新提交
 
 > **R11 回**：已交付 S22-S24（P3 前端 trait 化 + R2 五类测试），下环无阻塞。
+### Sprint 25 — 基线回归修复（13 缺陷）+ 语法迁移 ✅ 已完成 (c48425f)
+- 17 处 deprecated derive(...) → #derive(...) 前置声明，deny-warn 归零
+- 修复覆盖率测试暴露的 13 个真实缺陷：Glob 字符类/范围/补集解析、Perl hex 序反转与游离{、
+  Emacs 管道分支(emacs_pipe 缺反斜杠)/空模式/裸)、POSIX 游离{、Replace pos/len 窗口语义、
+  Expr::cst 空 Cset→Eps、MarkInfos 负索引防御
+- 6 个覆盖率测试文件入库（crap_*），702/702 四后端全绿
+- README/CHANGELOG/CI 同步（deny-warn + 四目标）
+
+### Sprint 26 — 质量增强 + 新功能（v0.2.0）✅ 已完成 (b8f47e7)
+- 覆盖率基线：123 未覆盖行/20 文件（约 98.9%），记录于 docs/bench-baseline.md
+- bench 全段复跑基线：10 section 总 2938ms；run_bench.ps1 旧机器路径修复
+- 新功能：Re::witness（AST 层生成匹配串，port of witness.ml）+ Search::iter_*（Seq 版 API）
+- 新增 11 测试（witness 自洽性质 8 + iter 一致性 3），713/713 四后端全绿
+- 版本 v0.2.0（CHANGELOG 完整记录）
+
+> **R11 回**：已交付 S25-S26（回归修复 + 质量增强 + witness/Seq 新功能），下环无阻塞。

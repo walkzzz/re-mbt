@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-11-18
+
+### Added
+- `Re::witness(ast) -> Bytes?`：从 AST 生成一个匹配串（port of lib/witness.ml 的 AST 层语义）；不可能匹配时返回 None
+- `Search::iter_all / iter_matches / iter_split`：Seq 版迭代器 API（对齐上游 ocaml-re `Re.Seq.*` 模块语义；当前为物化实现，惰性流式为后续优化）
+- `Cset::first_byte`：字符集代表字节（witness 基础设施）
+- 覆盖率：702 测试下 123 未覆盖行 / 20 文件（约 98.9%），长尾分布记录于 `docs/bench-baseline.md`
+- bench 全段复跑基线：10 section 总 2938ms（`docs/bench-baseline.md`）
+- CI 升级：`moon check --deny-warn` + 四后端测试（native/wasm/wasm-gc/js）
+
+### Fixed
+- Glob 解析器：字符类 `[abc]` 普通字符分支误报 parse error；`[a-z]` 范围与 `[!abc]`/`[^abc]` 补集经 Cset 合并构造（`Ast::inter` 归约）；`[`/`[\` 未闭合 eos 防御
+- Perl 前端：`\x{4F}` hex 转义数字序反转致码点错误（去反转、支持任意位数）；`a{` 游离 `{` 按字面量处理（对齐上游）
+- Emacs 前端：`emacs_pipe` 定义缺失反斜杠（`"\|"` 分支永不可达）；空模式与裸 `)` 报 parse error（对齐上游）
+- POSIX 前端：`a{` 游离 `{` 字面量回退；空模式报 parse error
+- `Replace::replace`：pos/len 窗口语义修复——窗口外前缀与后缀文本保留（上游行为）
+- `Expr::cst` 空 Cset 构造为 `Eps`（对齐上游 automata.ml）
+- `MarkInfos::make` 防御负索引（absent mark -1 跳过写入）
+- 全项目 17 处 deprecated `derive(...)` 尾置语法迁移为 `#derive(...)` 前置声明，`moon check --deny-warn` 归零
+- 新增 6 个覆盖率测试文件入库（13 个失败目标测试全部转绿）
+
 ## [Unreleased]
 
 ### Added

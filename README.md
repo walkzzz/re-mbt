@@ -20,17 +20,17 @@
 - **线性时间匹配** —— 惰性 DFA + Brzozowski/Antimirov 导数，无灾难性回溯
 - **6 种前端语法** —— Perl、PCRE、POSIX、Emacs、Glob、Str（OCaml 兼容）
 - **面向字节** —— 输入文本、模式、捕获子串均使用 MoonBit `Bytes`
-- **纯 MoonBit** —— 无 C FFI，目标：native、wasm、wasm-gc、js（**四后端 702 测试全绿**）
+- **纯 MoonBit** —— 无 C FFI，目标：native、wasm、wasm-gc、js（**四后端 713 测试全绿**）
 - **latin1 大小写处理** —— 与上游 ocaml-re 行为一致
-- **702 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
+- **713 个测试** —— 全部通过，覆盖核心 API、前端、错误路径和边界条件
 - **零警告** —— `moon check --deny-warn` 干净通过
-- **已发布至 [mooncakes](https://mooncakes.io/docs/#/walkzzz/re-mbt/)** —— `walkzzz/re-mbt@0.1.0`
+- **已发布至 [mooncakes](https://mooncakes.io/docs/#/walkzzz/re-mbt/)** —— `walkzzz/re-mbt@0.2.0`
 
 ## 构建与测试
 
 ```bash
 moon check --deny-warn  # 类型检查（0 警告 0 错误，deny-warn 严格模式）
-moon test               # 运行全部 702 个测试（四后端：native/wasm/wasm-gc/js）
+moon test               # 运行全部 713 个测试（四后端：native/wasm/wasm-gc/js）
 moon build              # 构建
 moon fmt                # 格式化代码
 moon info               # 重新生成 pkg.generated.mbti
@@ -118,6 +118,7 @@ assert_eq(Str::string_match(re5, sb("HELLO"), 0), true)
 | `execp(re, s, pos?, len?) -> Bool raise` | 谓词：是否匹配 |
 | `exec_partial(re, s, ...) -> ExecPartialResult raise` | 部分匹配（流式） |
 | `exec_partial_detailed(re, s, ...) -> ExecPartialDetailedResult raise` | 部分匹配（含捕获组信息） |
+| `Re::witness(ast) -> Bytes?` | 从 AST 生成一个匹配串（不可能匹配时返回 `None`） |
 | `Re::pp(ast) -> String` | 格式化 AST 为字符串 |
 | `Re::pp_re(re) -> String` | 格式化已编译正则为字符串 |
 
@@ -130,6 +131,9 @@ assert_eq(Str::string_match(re5, sb("HELLO"), 0), true)
 | `Search::split(re, s, ...) -> Array[Bytes]` | 按模式分割（丢弃分隔符） |
 | `Search::split_delim(re, s, ...) -> Array[Bytes]` | 按模式分割（保留空段） |
 | `Search::split_full(re, s, ...) -> Array[SplitToken]` | 分割并返回 `SplitText`/`SplitDelim` 标记 |
+| `Search::iter_all(re, s, ...) -> Iter[GroupT]` | `all` 的 Seq 版迭代器（对齐上游 `Re.Seq.all`） |
+| `Search::iter_matches(re, s, ...) -> Iter[Bytes]` | `matches` 的 Seq 版迭代器 |
+| `Search::iter_split(re, s, ...) -> Iter[Bytes]` | `split` 的 Seq 版迭代器 |
 
 ### 前端编译器
 
