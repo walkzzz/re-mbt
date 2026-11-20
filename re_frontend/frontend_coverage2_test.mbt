@@ -11,10 +11,9 @@ test "perl posix alnum class" {
 ///|
 test "perl ungreedy sem_greedy delta" {
   // opts.ungreedy → SemGreedy 节点 → delta 的 SemGreedyT 分支
-  let re = @re_frontend.Perl::compile_pat(
-    @base.sb("a.*?b"),
-    opts=[@re_frontend.PerlOpt::ungreedy()],
-  )
+  let re = @re_frontend.Perl::compile_pat(@base.sb("a.*?b"), opts=[
+    @re_frontend.PerlOpt::ungreedy(),
+  ])
   match @compile.exec_opt(re, @base.sb("axxbxxb")) {
     Some(g) =>
       assert_eq(@base.bs(@compile.GroupT::get(g, 0).unwrap()), "axxbxxb")

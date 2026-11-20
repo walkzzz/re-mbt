@@ -253,7 +253,7 @@ pub fn Search::iter_all(
     while cur_pos <= limit {
       // 入口已校验 pos/len 边界，此处 match_str 参数恒合法、不会抛错
       // entry already validated pos/len bounds, so match_str cannot raise here
-      let outcome = try Ok(
+      let outcome = Ok(
         @compile.match_str(
           groups=true,
           partial=false,

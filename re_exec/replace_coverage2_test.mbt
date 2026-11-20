@@ -19,11 +19,11 @@ test "replace len window preserves suffix" {
 test "replace empty match advances and keeps char" {
   // 可空匹配 a* 对 "bbb"：空匹配推进 + 保留被空匹配覆盖的字符
   let re = @compile.compile(@ast.Ast::rep(@ast.Ast::char('a')))
-  let result = @re_exec.Replace::replace(
-    re,
-    @base.sb("bbb"),
-    f=fn(_g : @compile.GroupT) { @base.sb("X") },
-  )
+  let result = @re_exec.Replace::replace(re, @base.sb("bbb"), f=fn(
+    _g : @compile.GroupT,
+  ) {
+    @base.sb("X")
+  })
   // 每个空匹配（含首尾位置共 4 个）产出 X 且保留原字符 b
   assert_eq(@base.bs(result).length(), 7)
 }

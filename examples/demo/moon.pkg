@@ -1,0 +1,5 @@
+import {
+  "walkzzz/re-mbt" @re,
+}
+
+pkgtype(kind: "executable")

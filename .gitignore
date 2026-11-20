@@ -16,3 +16,5 @@ instructions/
 moon_check_output.txt
 warnings_raw.jsonl
 uncovered.log
+cov.txt
+cov_summary.txt

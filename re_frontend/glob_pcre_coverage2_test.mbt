@@ -54,27 +54,25 @@ test "glob complement double star mix" {
 
 ///|
 test "pcre dotall flag" {
-  let re = @re_frontend.Pcre::regexp(
-    @base.sb("a.b"),
-    flags=[@re_frontend.PcreFlag::dotall_p()],
-  )
+  let re = @re_frontend.Pcre::regexp(@base.sb("a.b"), flags=[
+    @re_frontend.PcreFlag::dotall_p(),
+  ])
   assert_eq(@re_frontend.Pcre::pmatch(re, @base.sb("a\nb")), true)
 }
 
 ///|
 test "pcre caseless and multiline flags" {
-  let re = @re_frontend.Pcre::regexp(
-    @base.sb("^abc$"),
-    flags=[@re_frontend.PcreFlag::caseless(), @re_frontend.PcreFlag::multiline_p()],
-  )
+  let re = @re_frontend.Pcre::regexp(@base.sb("^abc$"), flags=[
+    @re_frontend.PcreFlag::caseless(),
+    @re_frontend.PcreFlag::multiline_p(),
+  ])
   assert_eq(@re_frontend.Pcre::pmatch(re, @base.sb("x\nAbC\ny")), true)
 }
 
 ///|
 test "pcre anchored flag" {
-  let re = @re_frontend.Pcre::regexp(
-    @base.sb("abc"),
-    flags=[@re_frontend.PcreFlag::anchored_p()],
-  )
+  let re = @re_frontend.Pcre::regexp(@base.sb("abc"), flags=[
+    @re_frontend.PcreFlag::anchored_p(),
+  ])
   assert_eq(@re_frontend.Pcre::pmatch(re, @base.sb("abc")), true)
 }

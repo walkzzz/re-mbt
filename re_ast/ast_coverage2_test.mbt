@@ -3,19 +3,28 @@
 
 ///|
 test "to_dyn no_group branch" {
-  let r = @re_ast.Ast::no_group(@re_ast.Ast::char('a')).to_dyn().to_repr().to_string()
+  let r = @re_ast.Ast::no_group(@re_ast.Ast::char('a'))
+    .to_dyn()
+    .to_repr()
+    .to_string()
   assert_true(r.length() > 0)
 }
 
 ///|
 test "to_dyn sem branch" {
-  let r = @re_ast.Ast::longest(@re_ast.Ast::char('a')).to_dyn().to_repr().to_string()
+  let r = @re_ast.Ast::longest(@re_ast.Ast::char('a'))
+    .to_dyn()
+    .to_repr()
+    .to_string()
   assert_true(r.length() > 0)
 }
 
 ///|
 test "to_dyn no_case branch" {
-  let r = @re_ast.Ast::no_case(@re_ast.Ast::char('a')).to_dyn().to_repr().to_string()
+  let r = @re_ast.Ast::no_case(@re_ast.Ast::char('a'))
+    .to_dyn()
+    .to_repr()
+    .to_string()
   assert_true(r.contains("No_case"))
 }
 

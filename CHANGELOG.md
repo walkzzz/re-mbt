@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-11-20
+
+### Added
+- **测试 764 → 777**：`Ast::witness` 全分支（cset 代数 / 序列 / Repeat clamp / 零宽 / 包装器 / 不可匹配 None）、`Posix_class`（14 类映射、正负解析、错误路径）、`ast_to_dyn` 包装器
+- `scripts/check_coverage.mjs`：覆盖率门槛（core ≥ 95%，排除 bench）
+- `scripts/mutation_test.mjs`：10 变异点（witness 语义 / posix 解析边界）
+- `scripts/check_docs.mjs`：6 断言（版本/CHANGELOG、测试数、旧数字残留、死链、覆盖率门槛+CI、assessment 口径）
+- `examples/demo`：可运行示例（Perl 捕获组 / 大小写 / Glob / 错误路径）
+- `docs/assessment.md`：实测口径、覆盖率缺口、已知限制
+
+### Changed
+- CI 重构：quality（fmt / check / `.mbti` 严格 / docs）/ test × 4 后端 / coverage / examples / bench smoke / 手动 mutation
+- 覆盖率口径修正：旧 98.9% → **实测 95.7%（3857/4029，排除 bench）**；README 旧测试数 713/437 已清除
+- 版本 0.2.1（0.2.0 为 mooncakes 已发布版本）
+
+### Verified
+- 777 测试 × 4 后端全绿；`moon check --deny-warn --target all` 零警告
+- core 覆盖率 95.7%；变异 10/10 KILLED；docs 断言 6/6；`examples/demo` 可运行
+
 ## [0.2.0] - 2026-11-18
 
 ### Added
