@@ -1,0 +1,7 @@
+import {
+  "walkzzz/re-mbt/re_base" @base,
+  "walkzzz/re-mbt/re_compile" @compile,
+  "walkzzz/re-mbt/re_frontend" @frontend,
+}
+
+pkgtype(kind: "foreign_library")

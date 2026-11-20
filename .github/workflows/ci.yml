@@ -40,6 +40,8 @@ jobs:
           git diff --exit-code -- '*.mbti'
       - name: Docs consistency
         run: node scripts/check_docs.mjs
+      - name: Pages demo self-check (assets / JS exports / match semantics)
+        run: node scripts/check_pages.mjs
 
   test:
     name: moon test --target ${{ matrix.target }}

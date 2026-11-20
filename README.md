@@ -27,6 +27,14 @@
 - **零警告** —— `moon check --deny-warn --target all` 干净通过
 - **已发布至 [mooncakes](https://mooncakes.io/docs/#/walkzzz/re-mbt/)** —— `walkzzz/re-mbt@0.2.0`（0.2.1 待发布）
 
+## 在线演示（浏览器内实时匹配）
+
+**<https://walkzzz.github.io/re-mbt/>** —— 输入模式与文本，实时查看匹配结果与匹配长度；「ReDoS 压力」预置演示 20 万字符的**线性时间单次匹配**（无回溯重试）。页面调用编译到 JavaScript 的同一份 MoonBit 实现（`playground/` 导出层，`docs/` 页面，`pages.yml` 自动构建部署）。
+
+- 本地预览：`node scripts/serve_pages.mjs` → <http://127.0.0.1:8080/>
+- 启用 GitHub Pages（维护者一次性）：Settings → Pages → Source = *GitHub Actions*，然后运行 `gh workflow run pages.yml -R walkzzz/re-mbt`；或 Source = *Deploy from a branch* → `main` / `/docs`（`docs/playground.js` 已入库，零构建）。
+- 测试报告与已知边界：[docs/TEST_REPORT.md](docs/TEST_REPORT.md)、[docs/known-gaps.md](docs/known-gaps.md)。
+
 ## 构建与测试
 
 ```bash

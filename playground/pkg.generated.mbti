@@ -1,0 +1,15 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "walkzzz/re-mbt/playground"
+
+// Values
+pub fn re_find_len(String, String) -> Int32
+
+pub fn re_match(String, String) -> Bool
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

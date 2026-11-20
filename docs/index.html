@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>re-mbt · 纯 MoonBit 正则表达式（浏览器内实时匹配）</title>
+  <meta name="description" content="ocaml-re 的纯 MoonBit 移植：线性时间惰性 DFA、6 种前端语法、四后端。页面内的匹配由编译到 JavaScript/WebAssembly 的同一份 MoonBit 实现完成。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">MoonBit · 线性时间惰性 DFA · 零 C FFI</p>
+    <h1>re-mbt</h1>
+    <p class="tagline">ocaml-re 的纯 MoonBit 移植</p>
+    <p class="sub">
+      6 种前端语法（Perl / PCRE / POSIX / Emacs / Glob / Str），Brzozowski / Antimirov 导数驱动的惰性 DFA，
+      <strong>无回溯爆炸</strong>。下面的匹配由编译到 JavaScript 的同一份 MoonBit 实现实时完成。
+    </p>
+    <div class="badges">
+      <span>777 测试 × 4 后端</span>
+      <span>覆盖率 95.7%</span>
+      <span>变异 10/10 KILLED</span>
+      <span>0.2.1</span>
+    </div>
+    <div class="links">
+      <a href="https://github.com/walkzzz/re-mbt">GitHub</a>
+      <a href="https://mooncakes.io/docs/#/walkzzz/re-mbt/">mooncakes</a>
+      <a href="https://github.com/walkzzz/re-mbt/blob/main/docs/TEST_REPORT.md">测试报告</a>
+      <a href="https://github.com/walkzzz/re-mbt/blob/main/docs/known-gaps.md">已知边界</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>在线匹配 <span class="tag">Perl 前端</span></h2>
+      <div class="field">
+        <label>模式（MoonBit Perl 语法）</label>
+        <input id="pattern" value="(\d{4})-(\d{2})-(\d{2})" spellcheck="false" />
+      </div>
+      <div class="field">
+        <label>输入文本</label>
+        <input id="input" value="order-2024-12-25" spellcheck="false" />
+      </div>
+      <div class="row">
+        <button data-run>匹配</button>
+        <button data-preset="date">日期</button>
+        <button data-preset="word">单词</button>
+        <button data-preset="email">邮箱风格</button>
+        <button data-preset="redos">ReDoS 压力（不回溯）</button>
+      </div>
+      <output id="out">等待匹配…</output>
+    </section>
+
+    <section class="card">
+      <h2>为什么不会回溯爆炸？</h2>
+      <p class="hint">
+        回溯引擎在 <code>(a+)+$</code> 这类模式上会指数级重试；re-mbt 用 Brzozowski/Antimirov 导数构造惰性 DFA，
+        每个输入字节只推进一次状态。点击「ReDoS 压力」按钮，观察 20 万个 <code>a</code> 后的单次匹配耗时。
+      </p>
+      <output id="perf">等待压测…</output>
+    </section>
+
+    <section class="card how">
+      <h2>这是怎么在浏览器里跑的？</h2>
+      <ol>
+        <li><code>playground/</code> 是 <code>pkgtype(kind: "foreign_library")</code> 的 MoonBit 包，用 <code>#export_name</code> 导出 <code>re_match</code> / <code>re_find_len</code>。</li>
+        <li><code>moon build --target js --release playground</code> 生成 <code>playground.js</code>（同一份源码也可构建为 <code>wasm-gc</code> / <code>native</code>）。</li>
+        <li>页面直接 <code>import</code> 该模块调用匹配函数；正则编译、导数、DFA 推进全部在本地完成，无服务器、无 CDN。</li>
+        <li>CI 重新构建并部署到 GitHub Pages，保证页面与源码同步。</li>
+      </ol>
+      <p class="hint">说明：页面使用 JS 目标（字符串 ABI 最直接）；仓库同时保留 <code>wasm-gc</code> 构建产物，四后端语义一致由 777 项测试守护。</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>re-mbt · LGPL-2.1-or-later（WITH OCaml-LGPL-linking-exception）· 上游 ocaml-re</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
