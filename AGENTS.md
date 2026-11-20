@@ -8,8 +8,9 @@ MoonBit 正则表达式库（ocaml-re 的纯 MoonBit 移植，线性时间惰性
 - `moon test --target all` — 777 测试 × 4 后端全绿（native / wasm / wasm-gc / js）
 - `moon fmt --check` — 格式门禁
 - `node scripts/check_coverage.mjs` — 覆盖率门槛（core ≥ 95%，排除 bench）
-- `node scripts/mutation_test.mjs` — 10 变异点全 KILLED
+- `moon run scripts/mutation_test.mbtx` — 10 变异点全 KILLED（MoonBit 脚本，学 agentskills/gbz185）
 - `node scripts/check_docs.mjs` — 文档数字断言（版本/测试数/旧数字/死链/覆盖率）
+- `bash scripts/local_ci.sh --quick` — 与 CI 对齐的本地门禁
 - `moon run bench/main --target native --release` — 基准 smoke
 - `moon info && git diff --exit-code -- '*.mbti'` — 契约漂移
 
@@ -24,7 +25,8 @@ re_exec/          # Core/Search/View/Replace 运行时
 re_frontend/      # Perl / PCRE / POSIX / Emacs / Glob / Str 前端 + cache
 bench/main/       # 基准可执行包
 examples/demo/    # 可运行示例（6 前端 + witness + Search）
-docs/             # api/architecture/design/examples/roadmap/bench-baseline/assessment
+docs/             # api/architecture/design/examples/roadmap/bench-baseline/assessment/TEST_REPORT/known-gaps
+scripts/          # check_coverage / check_docs（Node 工具）+ mutation_test.mbtx / local_ci.sh（MoonBit/bash 自动化）
 ```
 
 ## 工程纪律

@@ -86,6 +86,27 @@ const ASSERTIONS = [
       return { tests };
     },
   },
+  {
+    id: 'A7',
+    desc: '治理文档齐备（TEST_REPORT/known-gaps/CONTRIBUTING/SECURITY/CoC）且 AGENTS 引用 mbtx 变异',
+    async run() {
+      const required = [
+        'docs/TEST_REPORT.md',
+        'docs/known-gaps.md',
+        'CONTRIBUTING.md',
+        'SECURITY.md',
+        'CODE_OF_CONDUCT.md',
+        'scripts/local_ci.sh',
+        'scripts/mutation_test.mbtx',
+      ];
+      for (const f of required) {
+        if (!existsSync(path.join(ROOT, f))) throw new Error(`missing ${f}`);
+      }
+      const agents = await read('AGENTS.md');
+      if (!agents.includes('mutation_test.mbtx')) throw new Error('AGENTS 未引用 mutation_test.mbtx');
+      return { checked: required.length };
+    },
+  },
 ];
 
 const results = [];

@@ -34,7 +34,8 @@ moon check --deny-warn  # 类型检查（0 警告 0 错误，deny-warn 严格模
 moon test               # 运行全部 777 个测试（四后端：native/wasm/wasm-gc/js）
 moon run examples/demo --target native   # 可运行示例（Perl/Glob/错误路径）
 node scripts/check_coverage.mjs          # 覆盖率门槛（core ≥ 95%）
-node scripts/mutation_test.mjs           # 变异测试（10 点）
+moon run scripts/mutation_test.mbtx      # 变异测试（10 点，MoonBit 脚本）
+bash scripts/local_ci.sh --quick         # 本地 CI（跳过慢项）
 moon build              # 构建
 moon fmt                # 格式化代码
 moon info               # 重新生成 pkg.generated.mbti
