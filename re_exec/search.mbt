@@ -23,6 +23,7 @@ fn bytes_sub(s : Bytes, start : Int32, len : Int32) -> Bytes {
 // --- Search::all ---
 
 ///|
+#warnings("-deprecated")
 pub fn Search::all(
   re : @compile.Re,
   s : Bytes,
